@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Работаем с GitHub'ом
 
-## Available Scripts
+( Если что, можете почитать эту инфу с [официального сайта git]( https://git-scm.com/book/ru/v2/%D0%92%D0%B5%D1%82%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2-Git-%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B-%D0%B2%D0%B5%D1%82%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D1%81%D0%BB%D0%B8%D1%8F%D0%BD%D0%B8%D1%8F ))
 
-In the project directory, you can run:
+Допустим, у нас есть каркас приложения ( главное меню и куча пустых кнопок ). На данном этапе мы начнем разработку основного функционала приложения.
+Предположим, вы решили создать профиль участника ( это может быть видеозвонок, карта и другое. Главное, чтобы это было что-то одно ), начали писать код и в какой-то момент поняли, что вы зашли в тупик и хотите переключиться на что-то попроще, например, расписание, но код уже написан и вы не уверены, может ли он пригодиться в будущем или придется начать все сначала. В таком случае поможет **ветвление**.
 
-### `npm start`
+Каждый раз, когда вы начинаете разрабатывать новую функцию, вам нужно делать следующее:
+1. Создать новую ветку и перейти на нее, командой:
+`git checkout -b branch_name`
+2. Написать код. По мере необходимости вы можете сохранять изменения в вашу ветку командами:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    `git add --all` -> `git commit -m 'fix bugs'` -> `git push`
+    
+3. Если функция доделана и все отлично работает, просто сливаем *branch_name* с мастером командой ( если не работает см. пункт 4 ):
+   
+    `git checkout master` -> `git merge branch_name`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    Может вылезти ошибка слияния из-за конфликтов. Чтобы увидеть, в каких файлах конфликт напишите:
+    `git status`. Редактируем эти файлы и пишем `git commit`.
+ 
 
-### `npm test`
+    Далее просто удаляем созданную нами ранее ветку:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    `git branch -d branch_name`
 
-### `npm run build`
+4. Представим, на каком то этапе написания кода вы осознали, что у вас не получается доделать функцию или просто хотите заняться чем-то более важным, 
+тогда вы переходите в ветку мастер
+`git checkout master`, после выполнения этой команды ваша локальная папка с проектом изменится, все изменения файлов ( в т.ч. создание и удаление ), 
+которые вы делали в созданной вами ветке откатятся ( вы в любой момент сможете к ним вернуться командой `git checkout branch_name` ).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+     На гитхабе во вкладке Issues создаете проблему, описываете что вы сделали и что осталось сделать, сохраняете.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+     Теперь вы можете создать новую ветку ( см. пункт 1) или, если кто-то создал проблему, заходите в Issues, читаете ее и после этого переходите в его ветку 
+     `git checkout  issue_branch_name`.
+# Тестирование
+Тестируем
