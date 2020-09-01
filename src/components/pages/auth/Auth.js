@@ -4,6 +4,7 @@ import Button from '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
 import is from 'is_js'
 import axios from 'axios'
+import { signin, signup, signInWithGoogle, signInWithGitHub } from "../../../helpers/auth";
 
 export default class Auth extends Component {
 
@@ -37,6 +38,27 @@ export default class Auth extends Component {
     }
   }
 
+  async handleSignUp(event) {
+    event.preventDefault();
+    
+    try {
+      await signup(this.state.formControls.email.value, this.state.formControls.password.value);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    this.setState({ error: "" });
+    try {
+      await signin(this.state.formControls.email.value, this.state.formControls.password.value);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   loginHandler = async () => {
     const authData = {
       email: this.state.formControls.email.value,
@@ -44,10 +66,12 @@ export default class Auth extends Component {
       returnSecureToken: true
     }
     try {
-      const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
+      //const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
+      await signin(this.state.formControls.email.value, this.state.formControls.password.value);
+      
 
-      console.log(response.data)
-      console.log('Получилось!!')
+      //console.log(response.data)
+      
     } catch (e) {
       console.log(e)
     }
@@ -60,9 +84,10 @@ export default class Auth extends Component {
       returnSecureToken: true
     }
     try {
-      const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
+      //const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
+      await signup(this.state.formControls.email.value, this.state.formControls.password.value);
 
-      console.log(response.data)
+      //console.log(response.data)
       
     } catch (e) {
       console.log(e)
