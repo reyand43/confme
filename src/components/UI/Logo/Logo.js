@@ -1,5 +1,8 @@
-import React from 'react'
+import React from "react";
+import classes from "./Logo.module.css";
 
 export const Logo = () => (
-    <h1>Conf.Me</h1> 
-)
+  <div className={classes.Logo}>
+    <h1>Conf.Me</h1>
+  </div>
+);
