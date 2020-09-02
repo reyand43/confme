@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import classes from './Auth.module.css'
 import Button from '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
 import is from 'is_js'
-import axios from 'axios'
-import { signin, signup, signInWithGoogle, signInWithGitHub } from "../../../helpers/auth";
+import { auth } from '../../../store/actions/auth'
+import {Redirect} from 'react-router-dom'
 
-export default class Auth extends Component {
+class Auth extends Component {
 
   state = {
     isFormValid: false,
@@ -38,61 +39,24 @@ export default class Auth extends Component {
     }
   }
 
-  async handleSignUp(event) {
-    event.preventDefault();
-    
-    try {
-      await signup(this.state.formControls.email.value, this.state.formControls.password.value);
-    } catch (error) {
-      console.log(error)
-    }
+
+  loginHandler = () => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value,
+      true
+    )
   }
 
-
-  async handleSubmit(event) {
-    event.preventDefault();
-    this.setState({ error: "" });
-    try {
-      await signin(this.state.formControls.email.value, this.state.formControls.password.value);
-    } catch (error) {
-      console.log(error)
-    }
+  registerHandler = () => {
+    this.props.auth(
+      this.state.formControls.email.value,
+      this.state.formControls.password.value,
+      false
+    );
   }
 
-  loginHandler = async () => {
-    const authData = {
-      email: this.state.formControls.email.value,
-      password: this.state.formControls.password.value,
-      returnSecureToken: true
-    }
-    try {
-      //const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
-      await signin(this.state.formControls.email.value, this.state.formControls.password.value);
-      
-
-      //console.log(response.data)
-      
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  registerHandler = async () => {
-    const authData = {
-      email: this.state.formControls.email.value,
-      password: this.state.formControls.password.value,
-      returnSecureToken: true
-    }
-    try {
-      //const response = await axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA', authData)
-      await signup(this.state.formControls.email.value, this.state.formControls.password.value);
-
-      //console.log(response.data)
-      
-    } catch (e) {
-      console.log(e)
-    }
-  }
+ 
 
   submitHandler = event => {
     event.preventDefault()
@@ -160,8 +124,18 @@ export default class Auth extends Component {
     })
   }
 
+  
+
   render() {
+    
+    if(this.props.isAuthenticated){
+     
+      return(
+        <Redirect push to='/editProfile'/>)
+      }
+
     return (
+      
       <div className={classes.Auth}>
         <div>
           <h1>Авторизация</h1>
@@ -185,9 +159,32 @@ export default class Auth extends Component {
             >
               Зарегистрироваться
             </Button>
+            <Button
+              type="primary"
+              onClick={this.redirectHanler}
+              disabled={!this.state.isFormValid}
+            >
+              redirect
+            </Button>
           </form>
         </div>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.token,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    auth: (email, password, isLogin) => {
+      dispatch(auth(email, password, isLogin))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)

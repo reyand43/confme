@@ -1,11 +1,11 @@
-import React, { component, Component } from "react";
-import classes from "./Sidebar.css";
+import React from "react";
+import classes from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
 import {Logo} from '../../UI/Logo/Logo'
 
 
 export const Sidebar = () => (
-    <nav className='Sidebar'>
+    <nav className = {classes.Sidebar}>
        <Logo/>
         <ul className=''>
         <li className=''>
