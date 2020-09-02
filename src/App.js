@@ -9,6 +9,7 @@ import { autoLogin } from "./store/actions/auth";
 
 import Split from "./hoc/Split/Split";
 import Auth from "./containers/pages/auth/Auth";
+import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 
 class App extends Component {
@@ -24,14 +25,13 @@ class App extends Component {
           right={
             <React.Fragment>
               <Layout>
-                <div>
-                  <Switch>
-                    <Route path="/" exact component={Auth} />
-                    <Route path="/feed" component={Feed} />
-                    <Route path="/messages" component={Messages} />
-                    <Route path="/materials" component={Materials} />
-                  </Switch>
-                </div>
+                <Switch>
+                  <Route path="/" exact component={Auth} />
+                  <Route path="/feed" component={Feed} />
+                  <Route path="/messages" component={Messages} />
+                  <Route path="/materials" component={Materials} />
+                  <Route path="/timetable" component={Timetable} />
+                </Switch>
               </Layout>
             </React.Fragment>
           }
