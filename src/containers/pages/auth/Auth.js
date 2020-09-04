@@ -5,6 +5,7 @@ import Button from '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
 import is from 'is_js'
 import { auth } from '../../../store/actions/auth'
+import {Redirect} from 'react-router-dom'
 
 class Auth extends Component {
 
@@ -38,11 +39,13 @@ class Auth extends Component {
     }
   }
 
+
   loginHandler = () => {
     this.props.auth(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      true
+      true,
+      
     )
   }
 
@@ -50,9 +53,12 @@ class Auth extends Component {
     this.props.auth(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      false
+      false,
+      
     );
   }
+
+ 
 
   submitHandler = event => {
     event.preventDefault()
@@ -120,8 +126,18 @@ class Auth extends Component {
     })
   }
 
+  
+
   render() {
+    
+    // if(this.props.isAuthenticated){
+     
+    //   return(
+    //     <Redirect to='/editProfile'/>)
+    //   }
+
     return (
+      
       <div className={classes.Auth}>
         <div>
           <h1>Авторизация</h1>
@@ -145,11 +161,29 @@ class Auth extends Component {
             >
               Зарегистрироваться
             </Button>
+
+
+            <Button
+              type="primary"
+              onClick={this.redirectHanler}
+              disabled={!this.state.isFormValid}
+            >
+              redirect
+            </Button>
           </form>
+          {
+            this.props.isAuthenticated ? <Redirect to='/editProfile' /> : null
+          }
         </div>
       </div>
     )
   }
+}
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.token,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -160,4 +194,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)

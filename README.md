@@ -35,3 +35,4 @@
      `git checkout  issue_branch_name`.
 # Тестирование
 Тестируем
+>>>>>>> f648b21069a6f5b82b334a342780793b321a6b85

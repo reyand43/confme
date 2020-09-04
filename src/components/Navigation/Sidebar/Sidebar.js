@@ -23,6 +23,12 @@ export const Sidebar = () => (
             <li className=''>
                 <NavLink to='timetable' className='nav-link'>Расписание</NavLink>
             </li>
+<<<<<<< HEAD
+=======
+            <li className=''>
+                <NavLink to='editProfile' className='nav-link'>Edit Profile</NavLink>
+            </li>
+>>>>>>> 9fec2aab24f965529666f95f46bb95aff1c04fee
         </ul>
     </nav>
 )

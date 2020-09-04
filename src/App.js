@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Messages } from "./containers/pages/messages/Messages";
-import { Feed } from "./containers/pages/feed/Feed";
+import  Feed  from "./containers/pages/feed/Feed";
 import { Materials } from "./containers/pages/materials/Materials";
 import { Sidebar } from "./components/Navigation/Sidebar/Sidebar";
+import EditProfile from "./containers/pages/editProfile/EditProfile";
 import { autoLogin } from "./store/actions/auth";
 
 import Split from "./hoc/Split/Split";
 import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
+import { Navbar } from "./components/Navigation/Navbar/Navbar";
 
 class App extends Component {
   componentDidMount() {
@@ -20,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+     <Navbar/>
         <Split
           left={<Sidebar />}
           right={
@@ -28,9 +31,11 @@ class App extends Component {
                 <Switch>
                   <Route path="/" exact component={Auth} />
                   <Route path="/feed" component={Feed} />
+                  <Route path="/editProfile" component={EditProfile}/>
                   <Route path="/messages" component={Messages} />
                   <Route path="/materials" component={Materials} />
                   <Route path="/timetable" component={Timetable} />
+                  
                 </Switch>
               </Layout>
             </React.Fragment>

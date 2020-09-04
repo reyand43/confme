@@ -1,5 +1,8 @@
+import React from 'react'
 import Axios from "axios";
 import { AUTH_SUCCESS, AUTH_LOGOUT } from "./actionTypes";
+import {Redirect} from 'react-router-dom'
+import {createBrowserHistory} from 'history'
 
 export function auth(email, password, isLogin) {
   return async (dispatch) => {
@@ -28,6 +31,11 @@ export function auth(email, password, isLogin) {
     localStorage.setItem("userId", data.userId);
     localStorage.setItem("expirationDate", expirationDate);
 
+    console.log('isLogin', isLogin)
+
+    
+
+
     dispatch(authSuccess(data.idToken));
     dispatch(autoLogout(data.expiresIn));
   };
@@ -51,8 +59,12 @@ export function logout() {
 }
 
 export function autoLogin() {
+  console.log('autoLogin')
+  
   return dispatch => {
     const token = localStorage.getItem('token')
+    console.log('storage=', localStorage)
+    
     if(!token) {
       dispatch(logout())
     }else {
@@ -61,7 +73,9 @@ export function autoLogin() {
         dispatch(logout())
       } else {
         dispatch(authSuccess(token));
+
         dispatch(autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000));
+       
       }
     }
   }

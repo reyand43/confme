@@ -17,4 +17,8 @@
     height: 100%;
     width: 100%;
     overflow-y: scroll;
+<<<<<<< HEAD
+=======
+    z-index: 0;
+>>>>>>> 9fec2aab24f965529666f95f46bb95aff1c04fee
 }

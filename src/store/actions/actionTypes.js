@@ -4,4 +4,11 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
 
 //TIMETABLE
+<<<<<<< HEAD
 export const TIMETABLE_DATE = 'TIMETABLE_DATE'
+=======
+export const TIMETABLE_DATE = 'TIMETABLE_DATE'
+
+//EDITPROFILE
+export const  SEND_NEW_PROFILE_DATA = 'SEND_NEW_PROFILE_DATA'
+>>>>>>> 9fec2aab24f965529666f95f46bb95aff1c04fee
