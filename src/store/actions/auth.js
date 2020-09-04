@@ -2,6 +2,7 @@ import React from 'react'
 import Axios from "axios";
 import { AUTH_SUCCESS, AUTH_LOGOUT } from "./actionTypes";
 import {Redirect} from 'react-router-dom'
+import {createBrowserHistory} from 'history'
 
 export function auth(email, password, isLogin) {
   return async (dispatch) => {
@@ -32,10 +33,7 @@ export function auth(email, password, isLogin) {
 
     console.log('isLogin', isLogin)
 
-    if(isLogin){
-      console.log('щас будет редирект')
-      return <Redirect push to='/feed' />
-    }
+    
 
 
     dispatch(authSuccess(data.idToken));
@@ -65,6 +63,7 @@ export function autoLogin() {
   
   return dispatch => {
     const token = localStorage.getItem('token')
+    console.log('storage=', localStorage)
     
     if(!token) {
       dispatch(logout())

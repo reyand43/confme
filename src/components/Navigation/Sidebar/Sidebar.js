@@ -20,6 +20,12 @@ export const Sidebar = () => (
             <li className=''>
                 <NavLink to='materials' className='nav-link'>Материалы</NavLink>
             </li>
+            <li className=''>
+                <NavLink to='timetable' className='nav-link'>Расписание</NavLink>
+            </li>
+            <li className=''>
+                <NavLink to='editProfile' className='nav-link'>Edit Profile</NavLink>
+            </li>
         </ul>
     </nav>
 )

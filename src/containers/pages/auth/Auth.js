@@ -44,7 +44,8 @@ class Auth extends Component {
     this.props.auth(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      true
+      true,
+      
     )
   }
 
@@ -52,7 +53,8 @@ class Auth extends Component {
     this.props.auth(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      false
+      false,
+      
     );
   }
 
@@ -128,11 +130,11 @@ class Auth extends Component {
 
   render() {
     
-    if(this.props.isAuthenticated){
+    // if(this.props.isAuthenticated){
      
-      return(
-        <Redirect push to='/editProfile'/>)
-      }
+    //   return(
+    //     <Redirect to='/editProfile'/>)
+    //   }
 
     return (
       
@@ -159,6 +161,8 @@ class Auth extends Component {
             >
               Зарегистрироваться
             </Button>
+
+
             <Button
               type="primary"
               onClick={this.redirectHanler}
@@ -167,6 +171,9 @@ class Auth extends Component {
               redirect
             </Button>
           </form>
+          {
+            this.props.isAuthenticated ? <Redirect to='/editProfile' /> : null
+          }
         </div>
       </div>
     )

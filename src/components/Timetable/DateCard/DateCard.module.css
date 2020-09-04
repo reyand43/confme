@@ -1,0 +1,19 @@
+.DateBox {
+    background: rgb(68, 68, 73);
+    flex-grow: 1;
+    text-align: center;
+    transition: transform 500ms;
+    cursor: pointer;
+}
+
+
+.DateBox p {
+    color:white;
+    cursor: pointer;
+}
+
+
+.active {
+    transform: translateY(-20px);
+    z-index: 0;
+}
