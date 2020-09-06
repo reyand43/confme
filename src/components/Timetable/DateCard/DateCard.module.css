@@ -12,17 +12,8 @@
     cursor: pointer;
 }
 
-<<<<<<< HEAD
-.DateBox:hover {
-   opacity: 0.95;
-}
-
-.active {
-    transform: translateY(-20px);
-=======
 
 .active {
     transform: translateY(-20px);
     z-index: 0;
->>>>>>> 9fec2aab24f965529666f95f46bb95aff1c04fee
 }
