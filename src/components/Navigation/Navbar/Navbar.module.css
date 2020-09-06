@@ -1,13 +1,63 @@
 .Navbar{
-    height:40px;
+    height:44px;
     width: 100%;
-    padding: 10px;
+    
     z-index: 0;
 
-    position: fixed;
+    
     top: 0;
     left: 0;
     right: 0;
-    background: red
+    background: rgb(68, 68, 73);
 
+}
+
+.userInfo{
+   width: 210px;
+  margin-left: auto;
+  margin-right: 30px;
+  display: flex;
+
+}
+
+.userInfoBlock{
+    display: flex;
+    
+}
+
+.userInfo:hover{
+    background: rgb(59, 59, 63)
+}
+
+.userInfoBlock p{
+    float: right;
+   
+    margin: 9px 5px 9px 5px;
+    
+}
+
+.userInfo a{
+    margin: 0;
+    color: white;
+    text-decoration: none;
+
+}
+
+.userInfoBlock i{
+    padding: 15px 0px 15px 0px;
+    font-size: 12px;
+    float: right;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+
+
+.round{
+    height:30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid white;
+    
+    margin: 6px 5px 6px 5px;
 }
