@@ -40,7 +40,6 @@ class Timetable extends Component {
       </div>
     );
     //-----------------------------------
-
     const plans = [eventCard1, eventCard2, eventCard3];
 
     return (

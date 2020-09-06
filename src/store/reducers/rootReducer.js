@@ -2,6 +2,7 @@ import authReducer from './auth'
 import timetableReducer from './timetable'
 import editProfileReducer from './editProfile'
 import navbarReducer from './navbar'
+
 import { combineReducers } from 'redux'
 
 export default combineReducers({
@@ -9,4 +10,5 @@ export default combineReducers({
     timetable: timetableReducer,
     editProfile: editProfileReducer,
     navbar: navbarReducer
+
 })

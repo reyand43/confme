@@ -30,7 +30,6 @@ class Sidebar extends React.Component {
     if (!this.props.isAuthenticated) {
       links.push({ to: "/", label: "Войти", exact: true });}
       links.splice(0, 1, { to: "/feed", label: "Новости", exact: false },)
-
       return (
         <nav className={classes.Sidebar}>
           <Logo />
