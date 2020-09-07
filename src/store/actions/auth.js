@@ -3,6 +3,8 @@ import Axios from "axios";
 import { AUTH_SUCCESS, AUTH_LOGOUT } from "./actionTypes";
 import {Redirect} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
+import firebase from 'firebase'
+
 
 export function auth(email, password, isLogin) {
   return async (dispatch) => {
@@ -23,13 +25,17 @@ export function auth(email, password, isLogin) {
     const response = await Axios.post(url, authData);
     const data = response.data;
 
+    const userId = firebase.auth().currentUser.uid;
+
     const expirationDate = new Date(
       new Date().getTime() + data.expiresIn * 1000
     );
-
+      console.log('setItem')
     localStorage.setItem("token", data.idToken);
-    localStorage.setItem("userId", data.userId);
+    //localStorage.setItem("userId", userId);
     localStorage.setItem("expirationDate", expirationDate);
+    console.log('data',data)
+    console.log('localStorage после setItem', localStorage)
 
     console.log('isLogin', isLogin)
 
@@ -50,9 +56,12 @@ export function autoLogout(time) {
 }
 
 export function logout() {
+  console.log('logout')
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
   localStorage.removeItem("expirationDate");
+  localStorage.removeItem('name');
+  localStorage.removeItem('surname')
   return {
     type: AUTH_LOGOUT,
   };
@@ -63,6 +72,7 @@ export function autoLogin() {
   
   return dispatch => {
     const token = localStorage.getItem('token')
+    
     console.log('storage=', localStorage)
     
     if(!token) {

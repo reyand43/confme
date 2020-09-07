@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import classes from './Auth.module.css'
-import Button from '../../../components/UI/Button/Button'
+import {Button} from '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
 import is from 'is_js'
 import { auth } from '../../../store/actions/auth'
 import {Redirect} from 'react-router-dom'
+import { Card } from '../../../components/UI/Card/Card'
 
 class Auth extends Component {
 
   state = {
+    signUp: true,
     isFormValid: false,
     formControls: {
       email: {
@@ -37,6 +39,14 @@ class Auth extends Component {
         }
       }
     }
+  }
+
+  signUpHandler = (event) => {
+    console.log(!this.state.signUp)
+    const value = this.state.signUp
+    
+    return(
+    this.setState({signUp: !value}))
   }
 
 
@@ -130,52 +140,52 @@ class Auth extends Component {
 
   render() {
     
-    // if(this.props.isAuthenticated){
-     
-    //   return(
-    //     <Redirect to='/editProfile'/>)
-    //   }
+    
 
     return (
       
       <div className={classes.Auth}>
-        <div>
+       
           <h1>Авторизация</h1>
-
+          
           <form onSubmit={this.submitHandler} className={classes.AuthForm}>
-
+          <Card>
             { this.renderInputs() }
 
-            <Button
+            {/* <Button
               type="success"
               onClick={this.loginHandler}
               disabled={!this.state.isFormValid}
             >
               Войти
-            </Button>
-
-            <Button
+            </Button> */}
+            {this.state.signUp ?  (<Button
               type="primary"
               onClick={this.registerHandler}
               disabled={!this.state.isFormValid}
             >
               Зарегистрироваться
-            </Button>
-
-
-            <Button
-              type="primary"
-              onClick={this.redirectHanler}
+            </Button>) : (
+               <Button
+              type="success"
+              onClick={this.loginHandler}
               disabled={!this.state.isFormValid}
             >
-              redirect
-            </Button>
+              Войти
+            </Button> 
+            )} 
+           
+            <p onClick={this.signUpHandler}>Уже зарегистрированы? Войдите</p>
+
+
+            </Card>
           </form>
+          
           {
             this.props.isAuthenticated ? <Redirect to='/editProfile' /> : null
           }
         </div>
-      </div>
+      
     )
   }
 }

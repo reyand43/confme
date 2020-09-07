@@ -7,18 +7,17 @@ import { connect } from "react-redux";
 import { sendNewProfileData } from "../../../store/actions/editProfile";
 import axios from "../../../axios/axios";
 import firebase from "firebase";
+import { Card } from "../../../components/UI/Card/Card";
+import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
+import { Button } from "../../../components/UI/Button/Button";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-   
-        Name: "",
-        Surname: "",
-        Age: "",
-        Company: ""  
-    
-    }
+      Name: "Name",
+      Surname: "Surname",
+    };
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSendHandler = this.onSendHandler.bind(this);
   }
@@ -28,48 +27,46 @@ class EditProfile extends React.Component {
     });
   }
 
-  // backHandler() {
-  //   this.setState({[activeSlide] : activeSlide-1})
-  //   console.log(state.activeSlide)
-  // }
-
-  // nextHandler() {
-  //   this.setState({[state.activeSlide] : state.activeSlide+1})
-  //   console.log(state.activeSlide)
-  // }
   async onSendHandler() {
     var userId = firebase.auth().currentUser.uid;
     console.log("userId=", userId);
     const sendData = {
-      'PersonalData':
-      this.state
-    }
+      PersonalData: this.state,
+    };
     console.log(this.state);
-    await axios.patch(`/users/${userId}.json`, sendData);}
-
-  // state = {
-  //     name,
-  //     surname,
-  //     age
-  // }
-
-  // sendDataHandler = event => {
-  //     event.preventDefault()
-
-  //     this.setState({
-  //       formControls: createFormControls()
-  //     })
-  //     this.props.sendNewProfileData()
-  //   }
-  //sendDataHandler =
+    await axios.patch(`/users/${userId}.json`, sendData);
+  }
 
   render() {
     return (
-      <div>
-        <h3>Controlled Component</h3>
-        <br />
-
-        <form>
+      <div className={classes.EditProfile}>
+        <Card title="Личные данные">
+          <div className={classes.PhotoName}>
+            <UserPhoto />
+            <p>
+              {localStorage.getItem("name")}&nbsp;
+              {localStorage.getItem("surname")}{" "}
+            </p>
+          </div>
+          <div className={classes.Inputs}>
+            <div className={classes.Row}>
+              <Input
+                label="Имя"
+                name="Name"
+                onChange={this.onChangeHandler}
+                placeholder={localStorage.getItem("name")}
+              ></Input>
+              <Input
+                label="Фамилия"
+                name="Surname"
+                onChange={this.onChangeHandler}
+                placeholder={localStorage.getItem("surname")}
+              ></Input>
+            </div>
+          </div>
+          <button onClick={this.onSendHandler}>Сохранить</button>
+        </Card>
+        {/* <form>
           <label>Name: </label>
 
           <input type="text" name="Name" onChange={this.onChangeHandler} />
@@ -82,16 +79,12 @@ class EditProfile extends React.Component {
           <br />
           <label>Company: </label>
           <input type="text" name="Company" onChange={this.onChangeHandler} />
-        </form>
-        <br />
-        
-        
+        </form> */}
+
+        {/*         
         <button onClick={this.onSendHandler}>Send</button>
-         
-        <button >Back</button> 
-        <button>Next</button>
+          */}
       </div>
-     
     );
   }
 }

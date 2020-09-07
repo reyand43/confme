@@ -1,8 +1,8 @@
 import React from "react";
 import classes from "./Logo.module.css";
 
-export const Logo = () => (
+export const Logo = (props) => (
   <div className={classes.Logo}>
-    <h1>Conf.Me</h1>
+    {props.isOpen === true ? <h1>Conf.Me</h1> : <h1>C</h1>}
   </div>
 );

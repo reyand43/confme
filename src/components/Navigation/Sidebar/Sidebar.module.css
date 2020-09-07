@@ -1,15 +1,18 @@
 .Sidebar{
-    position: sticky;
     top: 0;
     left: 0;
-    
     height: 100%;
-    width: 100%;
+    width: 5%;
     height: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
     background: rgb(68, 68, 73);
-    z-index: 100
+    z-index: 200;
+    transition: width 500ms;
+}
+
+.Sidebar:hover {
+    width: 15%;
 }
 
 .Sidebar ul{

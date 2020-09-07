@@ -1,11 +1,12 @@
 import React from 'react'
+import classes from './UserPhoto.module.css'
 
 export const UserPhoto = () => {
     return(
-        <div className="UserPhoto">
-            rr
-            <div className="Round"/>
-        </div>
+        
+          
+            <div className={classes.UserPhoto}/>
+        
 
 
     )
