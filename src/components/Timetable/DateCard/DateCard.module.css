@@ -1,19 +1,23 @@
 .DateBox {
-    background: rgb(68, 68, 73);
+    background: #fff;
     flex-grow: 1;
     text-align: center;
-    transition: transform 500ms;
     cursor: pointer;
+    box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
 }
 
 
 .DateBox p {
-    color:white;
+    color:rgb(68, 68, 73);
     cursor: pointer;
 }
 
 
 .active {
-    background: black;
+    background: rgb(68, 68, 73);
     z-index: 0;
+}
+
+.active p{
+    color: #fff;
 }

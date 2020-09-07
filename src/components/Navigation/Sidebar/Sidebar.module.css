@@ -2,7 +2,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 5%;
+    width: 7%;
     height: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
@@ -22,17 +22,18 @@
 }
 
 .Sidebar ul li{
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 
 .Sidebar ul li a{
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     text-decoration: none;
     position: relative;
     padding: 0px 20px 10px 20px;
     transition: opacity .3s;
 }
+
 
 .Sidebar ul li a:hover, .active{
     opacity: .7;
