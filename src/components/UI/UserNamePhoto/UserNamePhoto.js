@@ -1,7 +1,7 @@
 import React from 'react'
 import { UserPhoto } from '../UserPhoto/UserPhoto'
 import { UserName } from '../UserName/UserName'
-import classes from './UserNamePhoto.module.css'
+import classes from './UserNamePhoto.module.scss'
 
 
 export const UserNamePhoto = () => {

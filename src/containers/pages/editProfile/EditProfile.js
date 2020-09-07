@@ -1,15 +1,13 @@
 import React from "react";
-import Name from "./editProfilePages/Name";
-import Company from "./editProfilePages/Company";
 import Input from "../../../components/UI/Input/Input";
-import classes from "./EditProfile.module.css";
+import classes from "./EditProfile.module.scss";
 import { connect } from "react-redux";
 import { sendNewProfileData } from "../../../store/actions/editProfile";
 import axios from "../../../axios/axios";
 import firebase from "firebase";
 import { Card } from "../../../components/UI/Card/Card";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
-import { Button } from "../../../components/UI/Button/Button";
+
 
 class EditProfile extends React.Component {
   constructor(props) {

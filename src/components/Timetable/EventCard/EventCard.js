@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './EventCard.module.css';
+import classes from './EventCard.module.scss';
 
 const EventCard = (props) => {
 

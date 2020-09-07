@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import classes from "./Navbar.module.css";
+import classes from "./Navbar.module.scss";
 import { connect } from "react-redux";
 import {fetchData} from '../../../store/actions/navbar'
 import firebase from 'firebase'

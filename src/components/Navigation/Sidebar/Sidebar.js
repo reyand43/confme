@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Sidebar.module.css";
+import classes from "./Sidebar.module.scss";
 import { NavLink} from "react-router-dom";
 import { Logo } from "../../UI/Logo/Logo";
 

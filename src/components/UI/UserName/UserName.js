@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './UserName.module.css'
+import classes from './UserName.module.scss'
 
 export const UserName = (props) => {
     return(

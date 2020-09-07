@@ -1,5 +1,5 @@
 import React from 'react'
-import './Split.css'
+import './Split.scss'
 
 function Split(props) {
     return (
