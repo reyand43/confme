@@ -4,9 +4,9 @@ import classes from './Auth.module.scss'
 import {Button} from '../../../components/UI/Button/Button'
 import Input from '../../../components/UI/Input/Input'
 import is from 'is_js'
-import { auth } from '../../../store/actions/auth'
 import {Redirect} from 'react-router-dom'
 import { Card } from '../../../components/UI/Card/Card'
+import {signIn, signUp} from '../../../store/actions/auth'
 
 class Auth extends Component {
 
@@ -51,7 +51,7 @@ class Auth extends Component {
 
 
   loginHandler = () => {
-    this.props.auth(
+    this.props.signIn(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
       true,
@@ -60,11 +60,10 @@ class Auth extends Component {
   }
 
   registerHandler = () => {
-    this.props.auth(
+    this.props.signUp(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      false,
-      
+        
     );
   }
 
@@ -198,8 +197,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    auth: (email, password, isLogin) => {
-      dispatch(auth(email, password, isLogin))
+    signIn: (email, password, isLogin) => {
+      dispatch(signIn(email, password, isLogin))
+    },
+    signUp: (email, password) => {
+      dispatch(signUp(email, password))
     }
   }
 }

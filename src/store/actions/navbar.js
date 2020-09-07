@@ -1,5 +1,4 @@
 import axios from "../../axios/axios";
-import firebase from 'firebase'
 import {FETCH_DATA_ERROR, FETCH_DATA_SUCCESS, FETCH_DATA_START} from './actionTypes'
 
 export function fetchData(){

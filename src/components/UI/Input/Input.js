@@ -25,6 +25,7 @@ if(isInvalid(props)) {
         id={htmlFor}
         value={props.value}
         onChange={props.onChange}
+        name={props.name}
       />
 
       {

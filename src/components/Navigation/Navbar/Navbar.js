@@ -1,23 +1,34 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import classes from "./Navbar.module.scss";
 import { connect } from "react-redux";
 import {fetchData} from '../../../store/actions/navbar'
-import firebase from 'firebase'
+
 import { NavLink } from "react-router-dom";
 import { UserPhoto } from "../../UI/UserPhoto/UserPhoto";
+import Input from "../../UI/Input/Input";
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      surname: "",
+    };
+    
+  }
   
     renderData(){
+      
         return(
             <div className={classes.userInfo}>
             <NavLink exact to='/editProfile'>
                 
                     <div className={classes.userInfoBlock}>
+                     
                     <p>
                         
-                        {localStorage.getItem('name')}&nbsp; {localStorage.getItem('surname')}
-
+                        {localStorage.getItem('userName')}&nbsp; {localStorage.getItem('userSurname')}
+  
                     </p>
                    <UserPhoto/>
                     <i className="fa fa-chevron-down" aria-hidden="true"></i>
@@ -30,9 +41,7 @@ class Navbar extends React.Component {
   
 
   componentDidMount() {
-      console.log('componentDidMount')
-      console.log('props', this.props)
-      
+    console.log('NAAAV',localStorage)
     this.props.fetchData();
     
   }
@@ -40,21 +49,16 @@ class Navbar extends React.Component {
   render() {
     return( 
     <div className={classes.Navbar}>
-      {this.props.isAuthenticated ? this.renderData() : null}
+
+     
+      {(localStorage.getItem('userId')!== 'null') ? this.renderData() : null}
         
-          
+         
       
         </div>
     )}
 }
 
-function mapStateToProps(state) {
-  return {
-    name: state.name,
-    surname: state.surname,
-    loading: state.loading,
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -62,4 +66,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Navbar);

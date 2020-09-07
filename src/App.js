@@ -47,7 +47,7 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <Split
+        {/* <Split
           left={<Sidebar isAuthenticated={this.props.isAuthenticated} />}
           right={
             <React.Fragment>
@@ -55,7 +55,14 @@ class App extends Component {
               <Layout>{routes}</Layout>
             </React.Fragment>
           }
-        />
+        /> */}
+        <React.Fragment>
+          <Navbar isAuthenticated={this.props.isAuthenticated} />
+          <Split>
+            <Sidebar isAuthenticated={this.props.isAuthenticated}/>
+            <Layout>{routes}</Layout>
+          </Split>
+        </React.Fragment>
       </BrowserRouter>
     );
   }

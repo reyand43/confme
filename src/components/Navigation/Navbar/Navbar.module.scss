@@ -9,19 +9,23 @@
     left: 0;
     right: 0;
     background: rgb(68, 68, 73);
+    display: flex;
+    align-content: flex-end;
+    
 
 }
 
 .userInfo{
-   width: 210px;
+width: fit-content;
   margin-left: auto;
   margin-right: 30px;
-  display: flex;
+  
 
 }
 
 .userInfoBlock{
     display: flex;
+    justify-content: flex-end;
     
 }
 
@@ -30,7 +34,7 @@
 }
 
 .userInfoBlock p{
-    float: right;
+    
    
     margin: 9px 5px 9px 5px;
     
@@ -46,8 +50,7 @@
 .userInfoBlock i{
     padding: 15px 0px 15px 0px;
     font-size: 12px;
-    float: right;
-    margin-left: auto;
+    
     margin-right: 5px;
 }
 
