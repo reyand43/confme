@@ -3,6 +3,7 @@ import {fetchUserById} from '../../../store/actions/users'
 import { connect } from 'react-redux';
 import { Card } from '../../../components/UI/Card/Card';
 import classes from './User.module.scss'
+import { NavLink } from 'react-router-dom';
 
 class User extends React.Component{
 
@@ -21,6 +22,8 @@ class User extends React.Component{
                     <h1> {this.props.user.Name}&nbsp;{this.props.user.Surname}</h1>
                     </div>
                     </div>
+                    <NavLink to={"/dialogs/" + this.props.match.params.id}><button>Send message</button></NavLink>
+                    
                     </Card>
                     
                     

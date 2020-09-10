@@ -15,6 +15,7 @@ import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import User from "./containers/pages/user/User";
+import Dialog from "./containers/pages/dialog/Dialog";
 
 class App extends Component {
   componentDidMount() {
@@ -45,6 +46,7 @@ class App extends Component {
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
           <Route path="/users/:id" component={User} />
+          <Route path="/dialogs/:id" component={Dialog} />
           <Route path="/users" component={Users} />
           
           <Redirect to="/feed" />
