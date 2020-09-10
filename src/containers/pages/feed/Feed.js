@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { logout } from "../../../store/actions/auth";
+import { clearUserName } from "../../../store/actions/editProfile";
 
 class Feed extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class Feed extends React.Component {
         <button
           onClick={() => {
             console.log(this.props);
+            this.props.clearUserName();
             this.props.logout();
           }}
         >
@@ -25,6 +27,7 @@ function mapDispatchToProps(dispatch) {
     logout: () => {
       dispatch(logout());
     },
+    clearUserName: () => dispatch(clearUserName()),
   };
 }
 

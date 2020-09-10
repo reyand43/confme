@@ -1,9 +1,9 @@
 import React from 'react'
-import './Split.scss'
+import classes from './Split.module.scss'
 
 function Split(props) {
     return (
-      <div className="Split">
+      <div className={classes.Split}>
         {props.children}
       </div>
     );

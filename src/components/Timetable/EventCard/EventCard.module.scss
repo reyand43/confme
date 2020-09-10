@@ -1,15 +1,16 @@
 .EventCard {
     display: flex;
     flex-direction: column;
-    background: #F5F5DC;
+    background: #fff;
     margin: 15px;
     padding-left: 15px;
     color: rgb(68, 68, 73);
-    border: 2px solid rgb(68, 68, 73);
-    border-radius: 10px;
+    box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
+    border-radius: 8px;
 }
 
 .EventCard h1 {
     text-align: left;
     color: rgb(68, 68, 73);
 }
+

@@ -1,7 +1,7 @@
-import { HOVER_SIDEBAR } from "../actions/actionTypes";
+import { HOVER_SIDEBAR} from "../actions/actionTypes";
 
 const initialState = {
-    hover: false
+    hover: false,
 }
 
 export default function sidebarReducer(state = initialState, action) {

@@ -14,6 +14,8 @@ import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
+import { updateUserName } from "./store/actions/editProfile";
+import MainView from "./hoc/MainView/MainView";
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 
@@ -23,6 +25,7 @@ class App extends Component {
   }
 
   render() {
+
     let routes = (
       <Switch>
         <Route path="/" exact component={Auth} />
@@ -56,13 +59,13 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <React.Fragment>
-          <Navbar isAuthenticated={this.props.isAuthenticated} />
-          <Split>
-            <Sidebar isAuthenticated={this.props.isAuthenticated}/>
-            <Layout>{routes}</Layout>
-          </Split>
-        </React.Fragment>
+          <MainView>
+            <Navbar isAuthenticated={this.props.isAuthenticated} />
+            <Split>
+              <Sidebar isAuthenticated={this.props.isAuthenticated} />
+              <Layout>{routes}</Layout>
+            </Split>
+          </MainView>
       </BrowserRouter>
     );
   }
@@ -71,12 +74,15 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     isAuthenticated: !!state.auth.token,
+    userName: state.editProfile.name,
+    userSurname: state.editProfile.surname,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     autoLogin: () => dispatch(autoLogin()),
+    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
   };
 }
 

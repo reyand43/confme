@@ -2,41 +2,40 @@ import React from "react";
 import Input from "../../../components/UI/Input/Input";
 import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
-import firebase from "firebase";
 import { Card } from "../../../components/UI/Card/Card";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
-
+import { connect } from "react-redux";
+import { updateUserName } from "../../../store/actions/editProfile";
 
 class EditProfile extends React.Component {
-  constructor(props) {  
+  constructor(props) {
     super(props);
-    this.state = {
-      Name: "",
-      Surname: "",
-    };
+    this.name = this.props.name
+    this.surname = this.props.surname
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSendHandler = this.onSendHandler.bind(this);
   }
   onChangeHandler(e) {
-    console.log(e.target.name, "====", e.target.value)
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    if(e.target.name === "Name") {
+      this.name = e.target.value
+    }
+    else if(e.target.name === "Surname"){
+      this.surname = e.target.value
+    }
+
   }
 
   async onSendHandler() {
-    const userId = localStorage.getItem('userId')
-    const requestData = this.state
+    const name = this.name
+    const surname = this.surname
+    const userId = localStorage.getItem("userId");
+    const requestData = {Name: name, Surname: surname};
     try {
+      this.props.updateUserName(this.name, this.surname);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
-      localStorage.setItem('userName', this.state.Name)
-      localStorage.setItem('userSurname', this.state.Surname)
-      console.log('onsend', localStorage)
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-    
   }
 
   render() {
@@ -46,8 +45,8 @@ class EditProfile extends React.Component {
           <div className={classes.PhotoName}>
             <UserPhoto />
             <p>
-              {localStorage.getItem("name")}&nbsp;
-              {localStorage.getItem("surname")}{" "}
+              {this.props.name}&nbsp;
+              {this.props.surname}{" "}
             </p>
           </div>
           <div className={classes.Inputs}>
@@ -56,40 +55,35 @@ class EditProfile extends React.Component {
                 label="Имя"
                 name="Name"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("userName")}
+                placeholder={this.props.name}
               ></Input>
               <Input
                 label="Фамилия"
                 name="Surname"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("userSurname")}
+                placeholder={this.props.surname}
               ></Input>
             </div>
           </div>
           <button onClick={this.onSendHandler}>Сохранить</button>
         </Card>
-        {/* <form>
-          <label>Name: </label>
-
-          <input type="text" name="Name" onChange={this.onChangeHandler} />
-          <br />
-          <label>Surname: </label>
-          <input type="text" name="Surname" onChange={this.onChangeHandler} />
-          <br />
-          <label>Age: </label>
-          <input type="text" name="Age" onChange={this.onChangeHandler} />
-          <br />
-          <label>Company: </label>
-          <input type="text" name="Company" onChange={this.onChangeHandler} />
-        </form> */}
-
-        {/*         
-        <button onClick={this.onSendHandler}>Send</button>
-          */}
+        
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    name: state.editProfile.name,
+    surname: state.editProfile.surname
+  }
+}
 
-export default EditProfile;
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
