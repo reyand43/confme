@@ -6,7 +6,6 @@ import { Card } from "../../../components/UI/Card/Card";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import { connect } from "react-redux";
 import { updateUserName } from "../../../store/actions/editProfile";
-import { fetchData } from "../../../store/actions/navbar";
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -29,14 +28,11 @@ class EditProfile extends React.Component {
   async onSendHandler() {
     const name = this.name
     const surname = this.surname
-    console.log(name + " " + surname)
     const userId = localStorage.getItem("userId");
     const requestData = {Name: name, Surname: surname};
     try {
-      await axios.patch(`/users/${userId}/personalData.json`, requestData);
-      localStorage.setItem("userName", this.name);
-      localStorage.setItem("userSurname", this.surname);
       this.props.updateUserName(this.name, this.surname);
+      await axios.patch(`/users/${userId}/personalData.json`, requestData);
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +45,8 @@ class EditProfile extends React.Component {
           <div className={classes.PhotoName}>
             <UserPhoto />
             <p>
-              {this.name}&nbsp;
-              {this.surname}{" "}
+              {this.props.name}&nbsp;
+              {this.props.surname}{" "}
             </p>
           </div>
           <div className={classes.Inputs}>
@@ -59,13 +55,13 @@ class EditProfile extends React.Component {
                 label="Имя"
                 name="Name"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("userName")}
+                placeholder={this.props.name}
               ></Input>
               <Input
                 label="Фамилия"
                 name="Surname"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("userSurname")}
+                placeholder={this.props.surname}
               ></Input>
             </div>
           </div>
@@ -87,7 +83,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
-    fetchData: () => dispatch(fetchData()),
   }
 }
 

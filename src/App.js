@@ -3,6 +3,7 @@ import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Messages } from "./containers/pages/messages/Messages";
 import Feed from "./containers/pages/feed/Feed";
+import Users from "./containers/pages/users/Users"
 import { Materials } from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
 import EditProfile from "./containers/pages/editProfile/EditProfile";
@@ -15,6 +16,7 @@ import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
 import MainView from "./hoc/MainView/MainView";
+import User from "./containers/pages/user/User";
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +24,7 @@ class App extends Component {
   }
 
   render() {
+
     let routes = (
       <Switch>
         <Route path="/" exact component={Auth} />
@@ -30,6 +33,8 @@ class App extends Component {
         <Route path="/messages" component={Messages} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
+        <Route path="/users/:id" component={User} />
+        <Route path="/users" component={Users} />
         <Redirect to="/" />
       </Switch>
     );
@@ -42,6 +47,9 @@ class App extends Component {
           <Route path="/messages" component={Messages} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
+          <Route path="/users/:id" component={User} />
+          <Route path="/users" component={Users} />
+          
           <Redirect to="/feed" />
         </Switch>
       );

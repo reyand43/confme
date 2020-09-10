@@ -1,11 +1,12 @@
 import React from "react";
 import classes from "./Navbar.module.scss";
 import { connect } from "react-redux";
-import { fetchData } from "../../../store/actions/navbar";
 
 import { NavLink } from "react-router-dom";
 import { UserPhoto } from "../../UI/UserPhoto/UserPhoto";
-import { updateUserName } from "../../../store/actions/editProfile";
+import { updateUserName, loadUserNameFromServer } from "../../../store/actions/editProfile";
+import axios from "../../../axios/axios";
+
 
 class Navbar extends React.Component {
   renderData() {
@@ -24,14 +25,14 @@ class Navbar extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.props.updateUserName(localStorage.getItem("userName"), localStorage.getItem("userSurname"))
+  async componentDidMount() {
+    this.props.loadUserNameFromServer();
   }
 
   render() {
     return (
         <div className={classes.Navbar}>
-          {localStorage.getItem("userId") !== "null" ? this.renderData() : this.renderData()}
+          {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
         </div>
     );
   }
@@ -40,14 +41,16 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     name: state.editProfile.name,
-    surname: state.editProfile.surname
+    surname: state.editProfile.surname,
   }
 }
 
+
+
 function mapDispatchToProps(dispatch) {
   return {
-    fetchData: () => dispatch(fetchData()),
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    loadUserNameFromServer: () => dispatch(loadUserNameFromServer())
   };
 }
 
