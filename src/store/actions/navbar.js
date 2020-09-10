@@ -13,7 +13,7 @@ export function fetchData(){
             const surname = response.data.Surname
             localStorage.setItem('name', name)
             localStorage.setItem('surname', surname)
-            console.log('name', name, 'surname', surname)
+           
            
             dispatch(fetchDataSuccess(name, surname))
         }

@@ -3,6 +3,7 @@ import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Messages } from "./containers/pages/messages/Messages";
 import Feed from "./containers/pages/feed/Feed";
+import Users from "./containers/pages/users/Users"
 import { Materials } from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
 import EditProfile from "./containers/pages/editProfile/EditProfile";
@@ -13,6 +14,7 @@ import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
+import User from "./containers/pages/user/User";
 
 class App extends Component {
   componentDidMount() {
@@ -28,6 +30,8 @@ class App extends Component {
         <Route path="/messages" component={Messages} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
+        <Route path="/users/:id" component={User} />
+        <Route path="/users" component={Users} />
         <Redirect to="/" />
       </Switch>
     );
@@ -40,6 +44,9 @@ class App extends Component {
           <Route path="/messages" component={Messages} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
+          <Route path="/users/:id" component={User} />
+          <Route path="/users" component={Users} />
+          
           <Redirect to="/feed" />
         </Switch>
       );
@@ -47,15 +54,6 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        {/* <Split
-          left={<Sidebar isAuthenticated={this.props.isAuthenticated} />}
-          right={
-            <React.Fragment>
-              <Navbar isAuthenticated={this.props.isAuthenticated} />
-              <Layout>{routes}</Layout>
-            </React.Fragment>
-          }
-        /> */}
         <React.Fragment>
           <Navbar isAuthenticated={this.props.isAuthenticated} />
           <Split>

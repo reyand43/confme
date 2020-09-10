@@ -41,7 +41,6 @@ class Navbar extends React.Component {
   
 
   componentDidMount() {
-    console.log('NAAAV',localStorage)
     this.props.fetchData();
     
   }
@@ -58,6 +57,8 @@ class Navbar extends React.Component {
         </div>
     )}
 }
+
+
 
 
 function mapDispatchToProps(dispatch) {

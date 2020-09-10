@@ -114,7 +114,7 @@ export function fetchNameSurname(userId) {
     catch(e){
 
     }
-    console.log('после фетча', localStorage)
+      
 
   }
   
