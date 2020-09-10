@@ -1,0 +1,42 @@
+.Dialog{
+    width:  600px;
+    height: 90vh;
+    
+    margin: 20px 0 20px 0px;
+    
+}
+.chatHeader{
+    background: #fff;
+    margin-bottom: 1px;
+    h1{
+        margin: 0
+    }
+}
+
+.chatBody{
+    
+    background: #fff;
+    height: 500px;
+    ul {
+    margin: 0;
+    padding: 0;}
+    li{
+list-style: none;
+    }
+    .right{
+        width: 100%;
+        float: right;
+    }
+    .left{
+        width: 100%;
+        float: left;
+    }
+}
+
+.chatFooter{
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    margin-top: 1px;
+}

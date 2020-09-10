@@ -1,0 +1,62 @@
+.Sidebar{
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 7%;
+    height: 100%;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    background: rgb(68, 68, 73);
+    z-index: 200;
+    transition: width 500ms;
+}
+
+.Sidebar:hover {
+    width: 15%;
+   ul li a p{
+        
+    opacity: 1;
+    transition: opacity 500ms;
+}
+}
+
+.Sidebar ul{
+    list-style: none;
+    margin: 0 ;
+    padding: 0;
+}
+
+.Sidebar ul li{
+
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-start;
+   
+}
+
+.Sidebar ul li a{
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    position: relative;
+    padding: 0px 20px 10px 20px;
+    transition: opacity .3s;
+    display: flex;
+    justify-content: flex-start;
+
+        p{
+            margin: 0;
+            
+           opacity: 0;
+            
+        }
+    i{
+        padding-top: 5px;
+        padding-right: 5px;
+    }}
+
+
+.Sidebar ul li a:hover, .active{
+    opacity: .7;
+}
+

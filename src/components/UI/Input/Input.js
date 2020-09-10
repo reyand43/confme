@@ -1,5 +1,5 @@
 import React from "react";
-import classes from './Input.module.css'
+import classes from './Input.module.scss'
 
 
 function isInvalid({valid, touched, shouldValidate}) {
@@ -20,10 +20,12 @@ if(isInvalid(props)) {
       <div className={cls.join(" ")}>
       <label htmlFor={htmlFor}>{props.label}</label>
       <input
+        placeholder={props.placeholder}
         type={inputType}
         id={htmlFor}
         value={props.value}
         onChange={props.onChange}
+        name={props.name}
       />
 
       {

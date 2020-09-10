@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from "./Timetable.module.css";
+import classes from "./Timetable.module.scss";
 import { connect } from "react-redux";
 import DateCard from "../../../components/Timetable/DateCard/DateCard";
 import { changeDate } from "../../../store/actions/timetable";
@@ -13,7 +13,7 @@ class Timetable extends Component {
 
   render() {
     let current = this.props.activeDate;
-    
+    //Массив расписаний, где каждый элемент JSX объект который надо отобразить
 
     //-----------------------------------
     const eventCard1 = (
@@ -40,7 +40,6 @@ class Timetable extends Component {
       </div>
     );
     //-----------------------------------
-    //Массив расписаний, где каждый элемент JSX объект с событиями определенного дня
     const plans = [eventCard1, eventCard2, eventCard3];
 
     return (

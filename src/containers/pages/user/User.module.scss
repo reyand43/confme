@@ -1,0 +1,25 @@
+.User{
+    display: flex;
+    justify-content: center;
+}
+
+.userInfo{
+    
+    .userInfo_wrap{
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+        h1{
+            font-size: 19px;
+            font-weight: 400;
+            
+        }
+}
+}
+
+.userPhoto{
+    width: 200px;
+    height: 200px;
+    background: lightcyan;
+    display: flexbox;
+}

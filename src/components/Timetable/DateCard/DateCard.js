@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./DateCard.module.css";
+import classes from "./DateCard.module.scss";
 
 const DateCard = (props) => {
   const cls = [
