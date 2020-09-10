@@ -13,6 +13,8 @@ import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
+import { updateUserName } from "./store/actions/editProfile";
+import MainView from "./hoc/MainView/MainView";
 
 class App extends Component {
   componentDidMount() {
@@ -47,22 +49,13 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        {/* <Split
-          left={<Sidebar isAuthenticated={this.props.isAuthenticated} />}
-          right={
-            <React.Fragment>
-              <Navbar isAuthenticated={this.props.isAuthenticated} />
+          <MainView>
+            <Navbar isAuthenticated={this.props.isAuthenticated} />
+            <Split>
+              <Sidebar isAuthenticated={this.props.isAuthenticated} />
               <Layout>{routes}</Layout>
-            </React.Fragment>
-          }
-        /> */}
-        <React.Fragment>
-          <Navbar isAuthenticated={this.props.isAuthenticated} />
-          <Split>
-            <Sidebar isAuthenticated={this.props.isAuthenticated}/>
-            <Layout>{routes}</Layout>
-          </Split>
-        </React.Fragment>
+            </Split>
+          </MainView>
       </BrowserRouter>
     );
   }
@@ -71,12 +64,15 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     isAuthenticated: !!state.auth.token,
+    userName: state.editProfile.name,
+    userSurname: state.editProfile.surname,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     autoLogin: () => dispatch(autoLogin()),
+    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
   };
 }
 

@@ -1,18 +1,18 @@
-import {SEND_NEW_PROFILE_DATA} from '../actions/actionTypes'
+import { CHANGE_USER_NAME } from "../actions/actionTypes";
 
 const initialState = {
-    data: []
-  };
+    name: "",
+    surname: ""
+}
 
-export default function editProfileReducer(state=initialState, action) {
-    switch (action.type) {
-        case SEND_NEW_PROFILE_DATA:
-            return{
-            ...state,
-            data: [...state.data, action.item]
+export default function editProfileReducer(state = initialState, action) {
+    switch(action.type) {
+        case CHANGE_USER_NAME:
+            return {
+                ...state,
+                name: action.name,
+                surname: action.surname,
             }
-        default:
-            return state
+        default: return state
     }
-    
 }

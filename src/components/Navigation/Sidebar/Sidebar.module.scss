@@ -13,16 +13,25 @@
 
 .Sidebar:hover {
     width: 15%;
+   ul li a p{
+        
+    opacity: 1;
+    transition: opacity 500ms;
+}
 }
 
 .Sidebar ul{
     list-style: none;
-    margin: 0;
+    margin: 0 ;
     padding: 0;
 }
 
 .Sidebar ul li{
-    margin-bottom: 35px;
+
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-start;
+   
 }
 
 .Sidebar ul li a{
@@ -32,9 +41,22 @@
     position: relative;
     padding: 0px 20px 10px 20px;
     transition: opacity .3s;
-}
+    display: flex;
+    justify-content: flex-start;
+
+        p{
+            margin: 0;
+            
+           opacity: 0;
+            
+        }
+    i{
+        padding-top: 5px;
+        padding-right: 5px;
+    }}
 
 
 .Sidebar ul li a:hover, .active{
     opacity: .7;
 }
+

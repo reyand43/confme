@@ -1,40 +1,45 @@
 import React from "react";
-import Name from "./editProfilePages/Name";
-import Company from "./editProfilePages/Company";
 import Input from "../../../components/UI/Input/Input";
-import classes from "./EditProfile.module.css";
-import { connect } from "react-redux";
-import { sendNewProfileData } from "../../../store/actions/editProfile";
+import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
-import firebase from "firebase";
 import { Card } from "../../../components/UI/Card/Card";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
-import { Button } from "../../../components/UI/Button/Button";
+import { connect } from "react-redux";
+import { updateUserName } from "../../../store/actions/editProfile";
+import { fetchData } from "../../../store/actions/navbar";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      Name: "Name",
-      Surname: "Surname",
-    };
+    this.name = this.props.name
+    this.surname = this.props.surname
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSendHandler = this.onSendHandler.bind(this);
   }
   onChangeHandler(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    if(e.target.name === "Name") {
+      this.name = e.target.value
+    }
+    else if(e.target.name === "Surname"){
+      this.surname = e.target.value
+    }
+
   }
 
   async onSendHandler() {
-    var userId = firebase.auth().currentUser.uid;
-    console.log("userId=", userId);
-    const sendData = {
-      PersonalData: this.state,
-    };
-    console.log(this.state);
-    await axios.patch(`/users/${userId}.json`, sendData);
+    const name = this.name
+    const surname = this.surname
+    console.log(name + " " + surname)
+    const userId = localStorage.getItem("userId");
+    const requestData = {Name: name, Surname: surname};
+    try {
+      await axios.patch(`/users/${userId}/personalData.json`, requestData);
+      localStorage.setItem("userName", this.name);
+      localStorage.setItem("userSurname", this.surname);
+      this.props.updateUserName(this.name, this.surname);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -44,8 +49,8 @@ class EditProfile extends React.Component {
           <div className={classes.PhotoName}>
             <UserPhoto />
             <p>
-              {localStorage.getItem("name")}&nbsp;
-              {localStorage.getItem("surname")}{" "}
+              {this.name}&nbsp;
+              {this.surname}{" "}
             </p>
           </div>
           <div className={classes.Inputs}>
@@ -54,52 +59,36 @@ class EditProfile extends React.Component {
                 label="Имя"
                 name="Name"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("name")}
+                placeholder={localStorage.getItem("userName")}
               ></Input>
               <Input
                 label="Фамилия"
                 name="Surname"
                 onChange={this.onChangeHandler}
-                placeholder={localStorage.getItem("surname")}
+                placeholder={localStorage.getItem("userSurname")}
               ></Input>
             </div>
           </div>
           <button onClick={this.onSendHandler}>Сохранить</button>
         </Card>
-        {/* <form>
-          <label>Name: </label>
-
-          <input type="text" name="Name" onChange={this.onChangeHandler} />
-          <br />
-          <label>Surname: </label>
-          <input type="text" name="Surname" onChange={this.onChangeHandler} />
-          <br />
-          <label>Age: </label>
-          <input type="text" name="Age" onChange={this.onChangeHandler} />
-          <br />
-          <label>Company: </label>
-          <input type="text" name="Company" onChange={this.onChangeHandler} />
-        </form> */}
-
-        {/*         
-        <button onClick={this.onSendHandler}>Send</button>
-          */}
+        
       </div>
     );
   }
 }
+
 function mapStateToProps(state) {
   return {
-    //data: state.create.data
-  };
+    name: state.editProfile.name,
+    surname: state.editProfile.surname
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    sendNewProfileData: (name, surname, age) => {
-      dispatch(sendNewProfileData(name, surname, age));
-    },
-  };
+    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    fetchData: () => dispatch(fetchData()),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

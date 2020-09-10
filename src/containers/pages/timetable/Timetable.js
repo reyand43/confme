@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from "./Timetable.module.css";
+import classes from "./Timetable.module.scss";
 import { connect } from "react-redux";
 import DateCard from "../../../components/Timetable/DateCard/DateCard";
 import { changeDate } from "../../../store/actions/timetable";

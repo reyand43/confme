@@ -1,4 +1,4 @@
-import { HOVER_SIDEBAR, SIDEBAR_UPDATE_LABELS } from "../actions/actionTypes";
+import { HOVER_SIDEBAR} from "../actions/actionTypes";
 
 const initialState = {
     hover: false,

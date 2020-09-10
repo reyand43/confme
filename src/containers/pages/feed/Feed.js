@@ -1,7 +1,4 @@
 import React from "react";
-import { auth } from "../../../services/firebase";
-import { render } from "@testing-library/react";
-
 import { connect } from "react-redux";
 import { logout } from "../../../store/actions/auth";
 

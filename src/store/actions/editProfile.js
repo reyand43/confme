@@ -1,10 +1,10 @@
-import {SEND_NEW_PROFILE_DATA} from './actionTypes'
-import axios from '../../axios/axios';
+import { CHANGE_USER_NAME } from "./actionTypes"
 
-
-export function sendNewProfileData(name, surname, age) {
-    return async (getState) => {
-        await axios.post("/profileData.json", getState().create.data);
-        
+export function updateUserName(name, surname) {
+    return dispatch => {
+        dispatch({
+            type: CHANGE_USER_NAME,
+            name, surname
+        })
     }
 }
