@@ -1,4 +1,5 @@
 import Axios from "axios";
+import axios from "../../axios/axios";
 import { AUTH_SUCCESS, AUTH_LOGOUT } from "./actionTypes";
 
 
@@ -13,7 +14,8 @@ export function signUp(email, password) {
     let url =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA";
 
-    await Axios.post(url, authData);
+    const request = await Axios.post(url, authData);
+    await axios.post(`/users/${request.data.localId}/personalData.json`, {Name: "", Surname: ""});
     const isLogin = true;
     dispatch(signIn(email, password, isLogin));
   };
@@ -41,7 +43,6 @@ export function signIn(email, password, isLogin) {
     localStorage.setItem("userId", data.localId);
     localStorage.setItem("token", data.idToken);
     localStorage.setItem("expirationDate", expirationDate);
-
     dispatch(authSuccess(data.idToken));
     dispatch(autoLogout(data.expiresIn));
   };

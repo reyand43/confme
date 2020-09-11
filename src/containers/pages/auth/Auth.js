@@ -7,7 +7,11 @@ import is from "is_js";
 import { Redirect } from "react-router-dom";
 import { Card } from "../../../components/UI/Card/Card";
 import { signIn, signUp } from "../../../store/actions/auth";
-import { loadUserNameFromServer, clearUserName, updateUserName } from "../../../store/actions/editProfile";
+import {
+  loadUserNameFromServer,
+  clearUserName,
+  updateUserName,
+} from "../../../store/actions/editProfile";
 
 class Auth extends Component {
   state = {
@@ -54,9 +58,6 @@ class Auth extends Component {
     );
   };
 
-  componentWillUnmount() {
-    this.props.loadUserNameFromServer();
-  }
 
   registerHandler = () => {
     this.props.signUp(
@@ -185,7 +186,7 @@ function mapDispatchToProps(dispatch) {
     },
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     clearUserName: () => dispatch(clearUserName()),
-    updateUserName: () => dispatch(updateUserName())
+    updateUserName: () => dispatch(updateUserName()),
   };
 }
 

@@ -1,9 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { logout } from "../../../store/actions/auth";
-import { clearUserName } from "../../../store/actions/editProfile";
+import { clearUserName, loadUserNameFromServer } from "../../../store/actions/editProfile";
 
 class Feed extends React.Component {
+
+
+  // User name appears only when you go to the feed after log in.
+  componentDidMount() {
+    if(this.props.isAuthenticated)
+      this.props.loadUserNameFromServer();
+  }
+
   render() {
     return (
       <div className="jumbotron jumbotron-fluid">
@@ -22,13 +30,20 @@ class Feed extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.token,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     logout: () => {
       dispatch(logout());
     },
     clearUserName: () => dispatch(clearUserName()),
+    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Feed);
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

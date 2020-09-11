@@ -25,8 +25,11 @@ class Navbar extends React.Component {
     );
   }
 
-  async componentDidMount() {
-    this.props.loadUserNameFromServer();
+  componentDidMount() {
+    let isToken = !!localStorage.getItem("token")
+    if(isToken) {
+      this.props.loadUserNameFromServer();
+    }
   }
 
   render() {
@@ -42,6 +45,7 @@ function mapStateToProps(state) {
   return {
     name: state.editProfile.name,
     surname: state.editProfile.surname,
+    isAuthenticated: !!state.auth.token,
   }
 }
 
