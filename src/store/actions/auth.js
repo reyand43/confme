@@ -15,9 +15,12 @@ export function signUp(email, password) {
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA";
 
     const request = await Axios.post(url, authData);
-    await axios.post(`/users/${request.data.localId}/personalData.json`, {Name: "", Surname: ""});
+    try{await axios.patch(`/users/${request.data.localId}/personalData.json`, {Name: "", Surname: ""});
     const isLogin = true;
-    dispatch(signIn(email, password, isLogin));
+    dispatch(signIn(email, password, isLogin));}
+    catch(e){
+      console.log(e)
+    }
   };
 }
 

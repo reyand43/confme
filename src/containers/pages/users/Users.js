@@ -9,7 +9,6 @@ class Users extends React.Component{
 
     renderUsers() {
         return this.props.users.map((user) => {
-            console.log('users', this.props.users)
           return (
             <li key={user.id}>
               <NavLink to={"/users/" + user.id}><UserItem name={user.name} surname={user.surname}/></NavLink>
@@ -20,7 +19,6 @@ class Users extends React.Component{
     
       componentDidMount() {
     this.props.fetchUsers()
-        
       }
 
 
@@ -43,7 +41,7 @@ class Users extends React.Component{
 function mapStateToProps(state) {
     return{
       users: state.users.users,
-      loading: state.loading
+      loading: state.users.loading
     }
     }
     

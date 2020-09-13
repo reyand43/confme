@@ -3,6 +3,17 @@
     justify-content: start;
     margin-top: 15px;
     p{
+        text-align: start;
         margin: 0;
+    }
+    span{
+        color: grey;
+        font-size: 12px;
+        font-weight: 400;
+        padding: 0 10px 0 10px;
+        text-decoration: none;
+    }
+    a{
+        text-decoration: none;
     }
 }

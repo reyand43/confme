@@ -16,6 +16,7 @@ export function loadUserNameFromServer() {
         
         const userId = localStorage.getItem("userId")
         console.log("USERID", userId)
+        try {
         const response = await axios.get(`/users/${userId}/personalData.json`);
         console.log(response.data)
         const name = response.data.Name;
@@ -25,7 +26,11 @@ export function loadUserNameFromServer() {
             type: LOAD_USERNAME_FROM_SERVER,
             name,
             surname
-        })
+        })}
+        catch(e){
+            console.log(e)
+        }
+        
       };
 }
 

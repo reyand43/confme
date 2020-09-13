@@ -10,7 +10,8 @@ const FriendMessage = (props) => {
       <div className={classes.FriendMessage}>
           <UserPhoto/>
           <div>
-          <NavLink to={"/"}>{props.name}&nbsp;{props.surname}</NavLink>
+          <NavLink to={"/"}>{props.name}&nbsp;{props.surname}<span>{props.time}</span></NavLink>
+
           <p>{props.text}</p>
           </div>
           

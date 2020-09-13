@@ -10,7 +10,7 @@ const MyMessage = (props) => {
       <div className={classes.MyMessage}>
           
           <div>
-          <NavLink to={"/"}>{props.name}&nbsp;{props.surname}</NavLink>
+          <NavLink to={"/"}><span>{props.time}</span>{props.name}&nbsp;{props.surname}</NavLink>
           <p>{props.text}</p>
           </div>
           <UserPhoto/>

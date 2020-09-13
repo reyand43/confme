@@ -6,11 +6,7 @@ import { clearUserName, loadUserNameFromServer } from "../../../store/actions/ed
 class Feed extends React.Component {
 
 
-  // User name appears only when you go to the feed after log in.
-  componentDidMount() {
-    if(this.props.isAuthenticated)
-      this.props.loadUserNameFromServer();
-  }
+  // User name appears only when you go to the feed after log in
 
   render() {
     return (
