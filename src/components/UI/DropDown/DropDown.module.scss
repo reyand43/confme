@@ -1,0 +1,30 @@
+.DropDown {
+    position: relative;
+    display: inline-block;
+    ul li{
+        list-style: none;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+}
+
+
+.DropDownContent {
+    display: none;
+    position: absolute;
+    z-index: 600;
+    width: 210px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    border: 1px solid rgba(0,0,0,.2);
+}
+
+.DropDownButton {
+    cursor: pointer;
+}
+
+.active {
+    display: block;
+}

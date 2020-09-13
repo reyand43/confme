@@ -13,7 +13,6 @@ class Timetable extends Component {
 
   render() {
     let current = this.props.activeDate;
-    //Массив расписаний, где каждый элемент JSX объект который надо отобразить
 
     //-----------------------------------
     const eventCard1 = (
@@ -40,6 +39,7 @@ class Timetable extends Component {
       </div>
     );
     //-----------------------------------
+    //Массив расписаний, где каждый элемент JSX объект который надо отобразить
     const plans = [eventCard1, eventCard2, eventCard3];
 
     return (

@@ -12,7 +12,7 @@ class Feed extends React.Component {
     return (
       <div className="jumbotron jumbotron-fluid">
         Feed
-        <button
+        {/* <button
           onClick={() => {
             console.log(this.props);
             this.props.clearUserName();
@@ -20,7 +20,7 @@ class Feed extends React.Component {
           }}
         >
           log out
-        </button>
+        </button> */}
       </div>
     );
   }

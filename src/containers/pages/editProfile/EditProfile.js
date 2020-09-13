@@ -6,30 +6,33 @@ import { Card } from "../../../components/UI/Card/Card";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import { connect } from "react-redux";
 import { updateUserName } from "../../../store/actions/editProfile";
+import { changeProfileClicked } from "../../../store/actions/navbar";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.name = this.props.name
-    this.surname = this.props.surname
+    this.name = this.props.name;
+    this.surname = this.props.surname;
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSendHandler = this.onSendHandler.bind(this);
   }
   onChangeHandler(e) {
-    if(e.target.name === "Name") {
-      this.name = e.target.value
+    if (e.target.name === "Name") {
+      this.name = e.target.value;
+    } else if (e.target.name === "Surname") {
+      this.surname = e.target.value;
     }
-    else if(e.target.name === "Surname"){
-      this.surname = e.target.value
-    }
+  }
 
+  componentWillUnmount() {
+    this.props.changeProfileClicked(false);
   }
 
   async onSendHandler() {
-    const name = this.name
-    const surname = this.surname
+    const name = this.name;
+    const surname = this.surname;
     const userId = localStorage.getItem("userId");
-    const requestData = {Name: name, Surname: surname};
+    const requestData = { Name: name, Surname: surname };
     try {
       this.props.updateUserName(this.name, this.surname);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
@@ -67,7 +70,6 @@ class EditProfile extends React.Component {
           </div>
           <button onClick={this.onSendHandler}>Сохранить</button>
         </Card>
-        
       </div>
     );
   }
@@ -76,14 +78,16 @@ class EditProfile extends React.Component {
 function mapStateToProps(state) {
   return {
     name: state.editProfile.name,
-    surname: state.editProfile.surname
-  }
+    surname: state.editProfile.surname,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
-  }
+    changeProfileClicked: (isProfile) =>
+      dispatch(changeProfileClicked(isProfile)),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

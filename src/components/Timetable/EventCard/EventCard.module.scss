@@ -1,12 +1,17 @@
 .EventCard {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     background: #fff;
-    margin: 15px;
+    margin: 25px 0;
     padding-left: 15px;
-    color: rgb(68, 68, 73);
     box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
     border-radius: 8px;
+}
+
+.EventCardLabels {
+    display: flex;
+    flex-direction: column;
+    color: rgb(68, 68, 73);
 }
 
 .EventCard h1 {
@@ -14,3 +19,9 @@
     color: rgb(68, 68, 73);
 }
 
+.EventCard i {
+    color: crimson;
+    padding-top: 80px;
+    padding-right: 40px;
+    font-size: 40px;
+}

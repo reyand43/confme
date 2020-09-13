@@ -1,8 +1,8 @@
 import { CHANGE_USER_NAME, LOAD_USERNAME_FROM_SERVER, CLEAR_USER_NAME } from "../actions/actionTypes";
 
 const initialState = {
-    name: "",
-    surname: ""
+    name: "Неопознанный",
+    surname: "Объект"
 }
 
 export default function editProfileReducer(state = initialState, action) {
@@ -22,8 +22,8 @@ export default function editProfileReducer(state = initialState, action) {
         case CLEAR_USER_NAME:
             return {
                 ...state,
-                name: "",
-                surname: "",
+                name: "Неопознанный",
+                surname: "Объект",
             }
         default: return state
     }
