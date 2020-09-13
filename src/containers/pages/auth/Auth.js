@@ -7,11 +7,6 @@ import is from "is_js";
 import { Redirect } from "react-router-dom";
 import { Card } from "../../../components/UI/Card/Card";
 import { signIn, signUp } from "../../../store/actions/auth";
-import {
-  loadUserNameFromServer,
-  clearUserName,
-  updateUserName,
-} from "../../../store/actions/editProfile";
 
 class Auth extends Component {
   state = {
@@ -184,9 +179,6 @@ function mapDispatchToProps(dispatch) {
     signUp: (email, password) => {
       dispatch(signUp(email, password));
     },
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    clearUserName: () => dispatch(clearUserName()),
-    updateUserName: () => dispatch(updateUserName()),
   };
 }
 

@@ -1,6 +1,5 @@
 import { CHANGE_USER_NAME, LOAD_USERNAME_FROM_SERVER, CLEAR_USER_NAME } from "./actionTypes"
 import axios from "../../axios/axios";
-import { useCallback } from "react";
 
 export function updateUserName(name, surname) {
     return dispatch => {

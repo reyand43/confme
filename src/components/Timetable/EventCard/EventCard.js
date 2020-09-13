@@ -5,9 +5,12 @@ const EventCard = (props) => {
 
     return(
         <div className = {classes.EventCard}>
-            <h1>{props.title}</h1>
-            <p>{props.description}</p>
-            <p>{props.time}</p>
+            <div className = {classes.EventCardLabels}>
+                <h1>{props.title}</h1>
+                <p>{props.description}</p>
+                <p>{props.time}</p>
+            </div>
+            <i className="fa fa-star-o" aria-hidden="true"></i>
         </div>
     )
 }

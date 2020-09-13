@@ -5,19 +5,19 @@
     flex-grow: 1;
     width: 100%;
     height: 100%;
+    padding: 0 100px;
 }
 
 .DateRow {
     display: flex;
     flex-direction: row;
-    padding: 13px;
+    padding: 10px 100px;
 }
 
 .EventColumn {
     display: flex;
     flex-direction: column;
     width: 100%;
-    
 }
 
 .Timetable h1 {
