@@ -6,9 +6,6 @@ import classes from "./User.module.scss";
 import { NavLink } from "react-router-dom";
 
 class User extends React.Component {
-  componentDidMount() {
-    this.props.fetchUserById(this.props.match.params.id);
-  }
 
   componentDidMount() {
     this.props.fetchUserById(this.props.match.params.id);

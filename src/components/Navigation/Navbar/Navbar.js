@@ -18,6 +18,15 @@ import {
 
 
 class Navbar extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+
   dropDownHandler = () => {
     this.props.changeVisibility();
   };
@@ -28,6 +37,7 @@ class Navbar extends React.Component {
       {
         text: "Профиль",
         onClick: () => {
+          this.props.hideDropDown()
           if(this.props.profileClicked === false)
             this.props.changeProfileClicked(true);
         },
@@ -35,6 +45,7 @@ class Navbar extends React.Component {
       {
         text: "Выход",
         onClick: () => {
+          this.props.hideDropDown()
           this.props.clearUserName();
           this.props.logout();
         },
@@ -42,7 +53,7 @@ class Navbar extends React.Component {
     ];
     //----------------------
     return (
-      <div className={classes.userInfo}>
+      <div className={classes.userInfo} ref={this.setWrapperRef}>
         <DropDown
           onClick={this.dropDownHandler}
           styles={this.props.visible ? "active" : ""}
@@ -62,6 +73,7 @@ class Navbar extends React.Component {
   }
 
   componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
       this.props.loadUserNameFromServer();
@@ -70,21 +82,20 @@ class Navbar extends React.Component {
     }
   }
   // Закрытие дропдауна, супер костыльное, куда ни тыкни, везде закроет, кроме кнопки включения
-  componentWillMount() {
-    document.addEventListener('click', this.onClickOuterModal, false);
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.onClickOuterModal, false);
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  onClickOuterModal = (event) => {
-    const modal = document.getElementsByClassName(classes.Navbar);
-    console.log(modal)
-    if (modal !== event.target) {
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.props.hideDropDown();
     }
-  };
+  }
   //------------------------------------------------
   render() {
     return (
