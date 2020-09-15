@@ -2,11 +2,9 @@ import React from "react";
 
 import { connect } from "react-redux";
 import classes from "./Dialog.module.scss";
-import Input from "../../../components/UI/Input/Input";
 import MyMessage from "../../../components/UI/Messages/MyMessage/MyMessage";
 import FriendMessage from "../../../components/UI/Messages/FriendMessage/FriendMessage";
-import axios from "../../../axios/axios";
-import { fetchMessages, fetchUsersData, sendMessages } from "../../../store/actions/dialog";
+import {sendMessages } from "../../../store/actions/dialog";
 import { db } from "../../../services/firebase";
 
 class Dialog extends React.Component {

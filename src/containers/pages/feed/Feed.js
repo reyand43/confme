@@ -1,5 +1,7 @@
+import classes from "./Feed.module.scss";
 import React from "react";
 import { connect } from "react-redux";
+import { Card } from "../../../components/UI/Card/Card";
 import { logout } from "../../../store/actions/auth";
 import { clearUserName, loadUserNameFromServer } from "../../../store/actions/editProfile";
 
@@ -12,21 +14,15 @@ class Feed extends React.Component {
     if(this.props.isAuthenticated) {
       this.props.loadUserNameFromServer()
     }
+    
   }
 
   render() {
     return (
-      <div className="jumbotron jumbotron-fluid">
-        Feed
-        {/* <button
-          onClick={() => {
-            console.log(this.props);
-            this.props.clearUserName();
-            this.props.logout();
-          }}
-        >
-          log out
-        </button> */}
+      <div className={classes.Feed}>
+        <Card type = 'FeedCard' title = 'BLACK LIVES MATTER'> 
+          
+        </Card>
       </div>
     );
   }

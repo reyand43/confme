@@ -1,0 +1,25 @@
+.FeedCard {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
+  padding: 10px;
+  min-height: 100px;
+}
+
+.FeedCardHead {
+  display: flex;
+}
+
+.FeedCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.FeedCard p {
+  margin: 5px 5px 15px 5px;
+  font-size: 30px;
+}

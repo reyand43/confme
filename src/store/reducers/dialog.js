@@ -26,7 +26,6 @@ export default function dialogReducer(state = initialState, action) {
         ...state,
         loadingChats: true,
         readError: null,
-        loadingChats: true
       };
     case FETCH_MESSAGES_SUCCESS:
       return {

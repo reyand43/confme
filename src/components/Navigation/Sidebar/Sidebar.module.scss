@@ -2,7 +2,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 7%;
+    width: 70px;
     height: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
@@ -12,7 +12,7 @@
 }
 
 .Sidebar:hover {
-    width: 15%;
+    width: 200px;
    ul li a p{
         
     opacity: 1;
@@ -59,4 +59,6 @@
 .Sidebar ul li a:hover, .active{
     opacity: .7;
 }
+
+
 

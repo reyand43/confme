@@ -19,19 +19,9 @@ class Users extends React.Component {
     });
   }
 
-    renderUsers() {
-        return this.props.users.map((user) => {
-          return (
-            <li key={user.id}>
-              <NavLink to={"/users/" + user.id}><UserItem name={user.name} surname={user.surname}/></NavLink>
-            </li>
-          );
-        });
-      }
-    
-      componentDidMount() {
-    this.props.fetchUsers()
-      }
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
 
   render() {
     return (
@@ -51,16 +41,16 @@ class Users extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return{
-      users: state.users.users,
-      loading: state.users.loading
-    }
-    }
-    
-function mapDispatchToProps(dispatch){
-      return{
-        fetchUsers: () => dispatch(fetchUsers())
-      }
-    }
+  return {
+    users: state.users.users,
+    loading: state.users.loading,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchUsers: () => dispatch(fetchUsers()),
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
