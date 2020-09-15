@@ -1,11 +1,16 @@
+$color:  #E9EDF8;
 .Timetable {
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
-    flex-grow: 1;
-    width: 100%;
+    
+    width: 70%;
     height: 100%;
     padding: 0 100px;
+     background:$color;
+    
+    margin: 30px;
+    border-radius: 10px;
 }
 
 .DateRow {

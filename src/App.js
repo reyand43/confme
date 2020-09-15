@@ -18,6 +18,7 @@ import { updateUserName } from "./store/actions/editProfile";
 import MainView from "./hoc/MainView/MainView";
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
+import DialogList from "./containers/pages/dialogList/DialogList";
 
 class App extends Component {
   componentDidMount() {
@@ -31,7 +32,6 @@ class App extends Component {
         <Route path="/" exact component={Auth} />
         <Route path="/feed" component={Feed} />
         <Route path="/editProfile" component={EditProfile} />
-        <Route path="/messages" component={Messages} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
         <Route path="/users/:id" component={User} />
@@ -45,11 +45,11 @@ class App extends Component {
         <Switch>
           <Route path="/feed" exact component={Feed} />
           <Route path="/editProfile" component={EditProfile} />
-          <Route path="/messages" component={Messages} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
           <Route path="/users/:id" component={User} />
           <Route path="/dialogs/:id" component={Dialog} />
+          <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
           
           <Redirect to="/feed" />
@@ -59,11 +59,17 @@ class App extends Component {
 
     return (
       <BrowserRouter>
+      
           <MainView>
-            <Navbar isAuthenticated={this.props.isAuthenticated} />
+          
             <Split>
+
               <Sidebar isAuthenticated={this.props.isAuthenticated} />
-              <Layout>{routes}</Layout>
+              
+              
+              <Layout navbar={<Navbar isAuthenticated={this.props.isAuthenticated} />}>
+              {routes}</Layout>
+            
             </Split>
           </MainView>
       </BrowserRouter>

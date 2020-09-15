@@ -32,7 +32,7 @@ class Sidebar extends React.Component {
     }
     const links = [
       { to: "/feed", label: labels[0], icon: <i className="fa fa-newspaper-o fa-lg" aria-hidden="true"></i>, exact: true },
-      { to: "/messages", label: labels[1], icon: <i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i>, exact: false },
+      { to: "/dialogs", label: labels[1], icon: <i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i>, exact: false },
       { to: "/materials", label: labels[2], icon: <i className="fa fa-paperclip fa-lg" aria-hidden="true"></i>, exact: false },
       { to: "/timetable", label: labels[3], icon: <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>, exact: false },
       { to: "/users", label: labels[5], icon: <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>, exact: false },
@@ -49,9 +49,10 @@ class Sidebar extends React.Component {
           className={classes.Sidebar}
           onMouseEnter={this.props.changeHover}
           onMouseLeave={this.props.changeHover}
-        >
+        ><div>
           <Logo isOpen={this.props.hover} />
           <ul className="">{this.renderLinks(links)}</ul>
+          </div>
         </nav>
     );
   }

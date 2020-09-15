@@ -1,3 +1,7 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+$colorText: #656B83;
+
 .Sidebar{
     top: 0;
     left: 0;
@@ -6,9 +10,12 @@
     height: 100%;
     padding: 20px 10px;
     box-sizing: border-box;
-    background: rgb(68, 68, 73);
+    background: $color;
     z-index: 200;
     transition: width 500ms;
+    display: flex;
+    justify-content: center;
+    
 }
 
 .Sidebar:hover {
@@ -16,7 +23,7 @@
    ul li a p{
         
     opacity: 1;
-    transition: opacity 500ms;
+    transition: opacity 1000ms;
 }
 }
 
@@ -28,14 +35,18 @@
 
 .Sidebar ul li{
 
-    margin-bottom: 15px;
+    margin: 6px 5px 6px 5px;
+
     display: flex;
     justify-content: flex-start;
    
+    
 }
 
+
+
 .Sidebar ul li a{
-    color: white;
+    color: #656B83;
     font-size: 15px;
     text-decoration: none;
     position: relative;
@@ -43,20 +54,44 @@
     transition: opacity .3s;
     display: flex;
     justify-content: flex-start;
+    padding-top: 10px;
+    width: 100%;
+    border-radius: 8px;
+    border: $color 1px solid;
+    
 
-        p{
+    p{
             margin: 0;
-            
+            pointer-events: none;
            opacity: 0;
+           padding-top: 1px;
             
         }
     i{
-        padding-top: 5px;
+        pointer-events: none;
+        padding-top: 3px;
         padding-right: 5px;
-    }}
-
-
-.Sidebar ul li a:hover, .active{
-    opacity: .7;
+    }
+    
 }
 
+.Sidebar ul li a:hover{
+    
+        border: 1px darkgrey solid;
+
+}
+
+.Sidebar ul li .active{
+    
+    background: $colorAccent;
+    color: #fff;
+    :hover{
+        border: none;
+    }
+ }
+
+ .Sidebar ul li a.active:hover{
+    border: $color 1px solid;
+ }
+
+ 

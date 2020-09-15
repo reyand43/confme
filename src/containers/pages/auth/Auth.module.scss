@@ -1,3 +1,7 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+$colorText: #666D7D;
+
 .Auth{
     display: flex;
     
@@ -19,7 +23,8 @@
 }
 
 .AuthForm{
-    
+    background: $color;
+    border-radius: 10px;
 }
 
 .AuthForm p{

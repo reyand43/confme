@@ -65,18 +65,17 @@ export function fetchUsersDataStart() {
 //     };
 //   }
 
-  export function sendMessages(userId, text, friendId){
+  export function sendMessages(userId, text, friendId, name, surname, withName, withSurname){
       return async (dispatch) =>{
         dispatch(sendMessagesStart());
-        const responseUser = await axios.get(`/users/${userId}/personalData.json`);
-        const userName = responseUser.data.Name
-        const userSurname = responseUser.data.Surname
+        
         const postData = {
           userid: userId,
           lastMessage: text,
-          name: userName,
-          surname: userSurname,
-          timestamp: Date.now()
+          timestamp: Date.now(),
+          withName: withName,
+          withSurname: withSurname
+
         }
 
         try {
@@ -84,17 +83,20 @@ export function fetchUsersDataStart() {
             content: text,
             timestamp: Date.now(),
             uid: userId,
-            name: userName,
-            surname: userSurname
+            name,
+            surname
           });
           await db.ref("chats/" + friendId+ '/'+ userId + "/" ).push({
             content: text,
             timestamp: Date.now(),
             uid: userId,
-            name: userName,
-            surname: userSurname
+            name,
+            surname
           });
           await axios.patch(`/chatList/${userId}/${friendId}.json`, postData);
+          postData.withName = name;
+          postData.withSurname = surname;
+         
           await axios.patch(`/chatList/${friendId}/${userId}.json`, postData);
           
           

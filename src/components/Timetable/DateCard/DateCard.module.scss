@@ -1,3 +1,6 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+
 .DateBox {
     background: #fff;
     flex-grow: 1;
@@ -14,7 +17,7 @@
 
 
 .active {
-    background: crimson;
+    background: $colorAccent;
     z-index: 0;
 }
 
