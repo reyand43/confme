@@ -13,6 +13,12 @@ class Feed extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if(this.props.isAuthenticated) {
+      this.props.loadUserNameFromServer()
+    }
+  }
+
   render() {
     return (
       <div className="jumbotron jumbotron-fluid">
