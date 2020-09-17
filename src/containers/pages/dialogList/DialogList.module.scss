@@ -1,10 +1,105 @@
+@import './../../../components/UI/vars.scss';
+
 .DialogList{
     width: 600px;
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+
+
     ul{
         margin: 0;
         padding: 0;
         li{
             list-style: none;
+            border-bottom: 1px solid lightgray;
+            
+            :hover{
+                background: $color;
+            }
         }
     }
+}
+
+.nostyle{
+    text-decoration: none;
+}
+
+.SearchBlock{
+    width: 100%;
+    display: flex;
+    align-content: space-between;
+
+}
+
+.SearchBlock input{
+    padding: 15px 30px 15px 10px; 
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid lightgray;
+    outline: none;
+}
+
+.SearchButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 47px;
+    width: 50px;
+    border-bottom: 1px solid lightgray;
+    span {
+        cursor: pointer;
+    } 
+    i{
+        font-weight: 400;
+        color: $colorText
+        
+    }
+}
+
+
+
+
+.wrapper{
+    background: $color;
+    padding: 20px 20px 20px 230px;
+    
+    display: flex;
+    justify-content: center;
+}
+
+
+.DialogTypeChoose{
+
+}
+
+.DialogTypeChooseWrapper{
+    padding: 5px 0 5px 0;
+    background: white;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 205px;
+    ul{
+        margin: 0;
+        padding: 0;
+        li{
+            list-style: none;
+            padding: 0 5px 0 20px;
+            cursor: pointer;
+            span{
+                color:$colorText;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 30px;
+            }
+            
+        }
+    }
+}
+
+.DialogTypeChooseWrapper ul li:hover{
+    
+        background: rgb(240, 242, 245)
+    
 }

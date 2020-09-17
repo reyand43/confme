@@ -1,0 +1,9 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+$colorText: #656B83;
+@mixin text {
+    font-weight: 400px;
+    font-size: 13px;
+    color: $colorText;
+}
+

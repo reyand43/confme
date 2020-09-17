@@ -20,7 +20,7 @@ class User extends React.Component {
               <div className={classes.userInfo_wrap}>
                 <div className={classes.userPhoto} />
                 <h1>
-                  {" "}
+                  
                   {this.props.user.Name}&nbsp;{this.props.user.Surname}
                 </h1>
               </div>

@@ -1,5 +1,5 @@
-import { FETCH_MESSAGES_SUCCESS, FETCH_MESSAGES_ERROR, FETCH_MESSAGES_START, SEND_MESSAGES_ERROR, SEND_MESSAGES_START, SEND_MESSAGES_SUCCESS,
-  FETCH_USERS_DATA_SUCCESS, FETCH_USERS_DATA_START } from "./actionTypes";
+import {SEND_MESSAGES_ERROR, SEND_MESSAGES_START, SEND_MESSAGES_SUCCESS,
+  FETCH_USERS_DATA_SUCCESS, FETCH_USERS_DATA_START, CLEAR_STATE } from "./actionTypes";
 import { db } from "../../services/firebase";
 import axios from "../../axios/axios";
 
@@ -65,16 +65,17 @@ export function fetchUsersDataStart() {
 //     };
 //   }
 
-  export function sendMessages(userId, text, friendId, name, surname, withName, withSurname){
+  export function sendMessages(userId, text, friendId, name, surname, withName, withSurname, withId){
       return async (dispatch) =>{
         dispatch(sendMessagesStart());
         
         const postData = {
           userid: userId,
           lastMessage: text,
-          timestamp: Date.now(),
+          timestamp: formatTime(Date.now()),
           withName: withName,
-          withSurname: withSurname
+          withSurname: withSurname,
+          withId: withId,
 
         }
 
@@ -88,7 +89,7 @@ export function fetchUsersDataStart() {
           });
           await db.ref("chats/" + friendId+ '/'+ userId + "/" ).push({
             content: text,
-            timestamp: Date.now(),
+            timestamp: (Date.now()),
             uid: userId,
             name,
             surname
@@ -96,7 +97,7 @@ export function fetchUsersDataStart() {
           await axios.patch(`/chatList/${userId}/${friendId}.json`, postData);
           postData.withName = name;
           postData.withSurname = surname;
-         
+         postData.withId = userId
           await axios.patch(`/chatList/${friendId}/${userId}.json`, postData);
           
           
@@ -108,6 +109,12 @@ export function fetchUsersDataStart() {
            dispatch(sendMessagesError())
         }
       }
+  }
+
+  function formatTime(timestamp) {
+    const d = new Date(timestamp);
+    const time = `${d.getHours()}:${d.getMinutes()}`;
+    return time;
   }
 
   export function sendMessagesSuccess(content) {
@@ -126,4 +133,10 @@ export function fetchUsersDataStart() {
       type: SEND_MESSAGES_ERROR,
       error: e,
     };
+  }
+
+  export function clearState(){
+    return{
+      type: CLEAR_STATE
+    }
   }

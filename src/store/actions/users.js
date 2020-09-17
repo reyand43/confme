@@ -5,6 +5,7 @@ import {
   FETCH_USERS_ERROR,
   FETCH_USER_SUCCESS,
   FETCH_USER_START,
+  CLEAR_STATE
 } from "./actionTypes";
 
 export function fetchUsers() {
@@ -37,6 +38,7 @@ export function fetchUsers() {
 
 export function fetchUserById(userId) {
   return async (dispatch) => {
+    console.log('fetch started')
     dispatch(fetchUserStart());
     try {
       const response = await axios.get(`/users/${userId}/personalData.json`);
@@ -79,5 +81,11 @@ export function fetchUsersError(e) {
   return {
     type: FETCH_USERS_ERROR,
     error: e,
+  };
+}
+export function clearState(e) {
+  return {
+    type: CLEAR_STATE,
+    
   };
 }

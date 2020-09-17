@@ -19,15 +19,7 @@ class Users extends React.Component {
     });
   }
 
-    renderUsers() {
-        return this.props.users.map((user) => {
-          return (
-            <li key={user.id}>
-              <NavLink to={"/users/" + user.id}><UserItem name={user.name} surname={user.surname}/></NavLink>
-            </li>
-          );
-        });
-      }
+    
     
       componentDidMount() {
     this.props.fetchUsers()

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Messages } from "./containers/pages/messages/Messages";
 import Feed from "./containers/pages/feed/Feed";
 import Users from "./containers/pages/users/Users"
 import { Materials } from "./containers/pages/materials/Materials";
