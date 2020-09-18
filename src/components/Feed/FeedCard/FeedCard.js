@@ -10,6 +10,11 @@ const FeedCard = props => {
             <div className = {classes.FeedCardHead}>
                 <UserItem/>
             </div>
+            <div className = {classes.FeedCardContent}>
+
+            </div>
+            <hr/>
+            <div className = {classes.FeedCardLowMenu}></div>
         </div>
     )
 }

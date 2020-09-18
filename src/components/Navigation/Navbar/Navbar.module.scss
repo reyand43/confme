@@ -1,11 +1,16 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+$colorText: #656B83;
+
+
 .Navbar {
   height: 44px;
   width: 100%;
-  z-index: 102;
-  
-  background: rgb(68, 68, 73);
+  z-index: 100;
+  background: white;
   display: flex;
   align-content: flex-end;
+  border-bottom: 1px solid #F3F4F6;
 }
 
 .userInfo {
@@ -16,12 +21,12 @@
 .userInfoBlock {
   display: flex;
   justify-content: flex-end;
-  color: white;
+  color: $colorText;
   font-size: 16px;
 }
 
 .userInfo:hover {
-  background: rgb(59, 59, 63);
+  background: $color;
 }
 
 .userInfoBlock p {

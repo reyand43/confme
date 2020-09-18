@@ -20,9 +20,7 @@ class Feed extends React.Component {
   render() {
     return (
       <div className={classes.Feed}>
-        <Card type = 'FeedCard' title = 'BLACK LIVES MATTER'> 
-          
-        </Card>
+        
       </div>
     );
   }

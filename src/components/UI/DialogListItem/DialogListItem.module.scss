@@ -1,0 +1,27 @@
+.DialogListItem{
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+}
+.MessageInfo{
+    
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+    width: 100%;
+     span{
+        justify-self: end;
+    }
+    }
+
+.MessageName{ 
+    float: left;
+    width: 100%;
+}
+
+
+
+.MessageText{
+    }

@@ -7,6 +7,7 @@ import sidebarReducer from './sidebar'
 import editProfileReducer from './editProfile'
 import dialogReducer from './dialog'
 import navbarReducer from './navbar'
+import dialogListReducer from './dialogList'
 
 export default combineReducers({
     auth: authReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
     editProfile: editProfileReducer,
     users: usersReducer,
     dialog: dialogReducer,
-    navbar: navbarReducer
+    navbar: navbarReducer,
+    dialogList: dialogListReducer,
 })

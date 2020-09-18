@@ -22,8 +22,6 @@ class Dialog extends React.Component {
   }
 
   renderMessages() {
-    console.log('uid',this.state.userId)
-    
     return this.state.chats.map((chat) => {
       return (
         chat.uid === this.state.userId ? 
@@ -35,7 +33,7 @@ class Dialog extends React.Component {
         </li>)
         : (<li key={chat.timestamp}>
           <div className={classes.left}>
-            <FriendMessage name={chat.name} surname={chat.surname} time={this.formatTime(chat.timestamp)}text={chat.content} />
+            <FriendMessage name={this.props.user.Name} surname={this.props.user.Surname} time={this.formatTime(chat.timestamp)}text={chat.content} />
             
           </div>
         </li>) 
@@ -47,7 +45,6 @@ class Dialog extends React.Component {
   //загрузить сообщения
   async componentDidMount() {    
     try {
-      console.log(localStorage)
       db.ref("chats/" + this.state.userId + "/" + this.state.friendId + "/").on(
         "value",
         (snapshot) => {
@@ -59,21 +56,11 @@ class Dialog extends React.Component {
             return a.timestamp - b.timestamp;
           });
           this.setState({ chats });
-          
-          
         }
       );
     } catch (error) {
       console.log(error);
     }
-   
-    // console.log('chats len', this.state.chats.length)
-    // console.log('START MOUNT')
-    //  await this.props.fetchMessages(this.state.friendId, this.state.userId)
-    //  console.log('MOUNT PROPS', this.props)
-    //  this.setState({chats: this.props.chats})
-    //  console.log('END MOUNT')
-    //  console.log('chats len', this.state.chats.length)
   }
 
   changeHandler(event) {
@@ -86,7 +73,13 @@ class Dialog extends React.Component {
     this.props.sendMessages(
       this.state.userId,
       this.state.content,
-      this.state.friendId
+      this.state.friendId,
+      this.props.name,
+      this.props.surname,
+      this.props.user.Name,
+      this.props.user.Surname
+
+      
     );
     this.setState({
       content: "",
@@ -109,7 +102,7 @@ class Dialog extends React.Component {
     return (
       <div className={classes.Dialog}>
         <div className={classes.chatHeader}>
-          <h1>Andrey Babushkin</h1>
+          <h1>{this.props.user.Name}&nbsp;{this.props.user.Surname}</h1>
         </div>
         <div className={classes.chatBody}>
           <ul>
@@ -143,7 +136,9 @@ class Dialog extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    
+    user: state.users.user,
+    name: state.editProfile.name,
+    surname: state.editProfile.surname
     // content: state.dialog.content,
     // chats: state.dialog.chats,
     // loadingChats: state.dialog.loadingChats,
@@ -154,8 +149,8 @@ function mapDispatchToProps(dispatch) {
   return {
     // fetchMessages: (friendId, userId) =>
     //   dispatch(fetchMessages(friendId, userId)),
-    sendMessages: (userId, content, friendId) =>
-      dispatch(sendMessages(userId, content, friendId)),
+    sendMessages: (userId, content, friendId, name, surname, withName, withSurname) =>
+      dispatch(sendMessages(userId, content, friendId, name, surname, withName, withSurname)),
     
 
   };
