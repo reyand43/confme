@@ -1,4 +1,4 @@
-import { FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR, FETCH_USER_SUCCESS, FETCH_USER_START } from "../actions/actionTypes";
+import { FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR, FETCH_USER_SUCCESS, FETCH_USER_START, CLEAR_STATE } from "../actions/actionTypes";
 
 const initialState = {
     users: [],
@@ -38,6 +38,7 @@ export default function usersReducer(state = initialState, action) {
           loading: false,
           error: action.error,
         };
+
         
       default:
         return state;

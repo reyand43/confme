@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Messages } from "./containers/pages/messages/Messages";
 import Feed from "./containers/pages/feed/Feed";
 import Users from "./containers/pages/users/Users"
 import { Materials } from "./containers/pages/materials/Materials";
@@ -30,7 +29,6 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route path="/" exact component={Auth} />
-        <Route path="/feed" component={Feed} />
         <Route path="/editProfile" component={EditProfile} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
@@ -43,7 +41,6 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/feed" exact component={Feed} />
           <Route path="/editProfile" component={EditProfile} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
@@ -52,7 +49,7 @@ class App extends Component {
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
           
-          <Redirect to="/feed" />
+          <Redirect to="/editProfile" />
         </Switch>
       );
     }

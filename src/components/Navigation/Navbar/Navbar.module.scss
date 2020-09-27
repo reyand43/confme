@@ -1,7 +1,4 @@
-$color:  #E9EDF8;
-$colorAccent: #65469B;
-$colorText: #656B83;
-
+ @import './../../UI/vars.scss';
 
 .Navbar {
   height: 44px;
@@ -10,12 +7,16 @@ $colorText: #656B83;
   background: white;
   display: flex;
   align-content: flex-end;
-  border-bottom: 1px solid #F3F4F6;
+  border-bottom: 1px solid lightgray;
 }
 
 .userInfo {
   width: fit-content;
   margin-left: auto;
+}
+
+.userInfo:hover {
+  background: $color;
 }
 
 .userInfoBlock {
@@ -25,12 +26,10 @@ $colorText: #656B83;
   font-size: 16px;
 }
 
-.userInfo:hover {
-  background: $color;
-}
+
 
 .userInfoBlock p {
-  margin: 9px 5px 9px 5px;
+  margin: 11px 5px 9px 5px;
 }
 
 .userInfo a {

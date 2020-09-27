@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Sidebar.module.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Logo } from "../../UI/Logo/Logo";
 import { connect } from "react-redux";
 import { changeHover } from "../../../store/actions/sidebar";
@@ -25,46 +25,21 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    let labels = ["", "", "", "", ""];
+    let labels = ["", "", "", ""];
 
     if (this.props.hover) {
-      labels = [
-        "Новости",
-        "Сообщения",
-        "Материалы",
-        "Расписание",
-        "Войти",
-        "Участники",
-      ];
+      labels = ["Сообщения", "Материалы", "Расписание", "Войти", "Участники"];
     }
     const links = [
       {
-        to: "/feed",
-        label: labels[0],
-        icon: <i className="fa fa-newspaper-o fa-lg" aria-hidden="true"></i>,
-        exact: true,
-      },
-      {
-        to: "/dialogs",
-        label: labels[1],
-        icon: <i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i>,
-        exact: false,
-      },
-      {
-        to: "/materials",
-        label: labels[2],
-        icon: <i className="fa fa-paperclip fa-lg" aria-hidden="true"></i>,
-        exact: false,
-      },
-      {
         to: "/timetable",
-        label: labels[3],
+        label: labels[2],
         icon: <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>,
         exact: false,
       },
       {
         to: "/users",
-        label: labels[5],
+        label: labels[4],
         icon: <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>,
         exact: false,
       },
@@ -72,17 +47,27 @@ class Sidebar extends React.Component {
     if (!this.props.isAuthenticated) {
       links.push({
         to: "/",
-        label: labels[4],
+        label: labels[3],
         icon: <i className="fa fa-sign-in fa-lg" aria-hidden="true"></i>,
         exact: true,
       });
     }
-    links.splice(0, 1, {
-      to: "/feed",
-      label: labels[0],
-      icon: <i className="fa fa-newspaper-o fa-lg " aria-hidden="true"></i>,
-      exact: false,
-    });
+    else {
+      links.push(
+        {
+          to: "/dialogs",
+          label: labels[0],
+          icon: <i className="fa fa-envelope-o fa-lg" aria-hidden="true"></i>,
+          exact: false,
+        },
+        {
+          to: "/materials",
+          label: labels[1],
+          icon: <i className="fa fa-paperclip fa-lg" aria-hidden="true"></i>,
+          exact: false,
+        },
+      )
+    }
 
     return (
       <nav
@@ -90,6 +75,7 @@ class Sidebar extends React.Component {
         onMouseEnter={this.props.changeHover}
         onMouseLeave={this.props.changeHover}
       >
+        {!this.props.isAuthenticated ? <Redirect to="/" /> : null}
         <div>
           <Logo isOpen={this.props.hover} />
           <ul className="">{this.renderLinks(links)}</ul>

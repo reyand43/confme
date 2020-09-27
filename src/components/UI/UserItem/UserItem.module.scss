@@ -1,4 +1,17 @@
 .UserItem{
     display: flex;
     justify-content: flex-start;
+    p{
+        margin: 0;
+    }
+}
+
+.UserItem__Texts {
+    display: flex;
+    margin-top: 4px;
+    flex-direction: column;
+}
+
+.UserItem__Texts__Under {
+    font-size: 12px;
 }

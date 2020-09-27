@@ -1,9 +1,9 @@
 import classes from "./Feed.module.scss";
 import React from "react";
 import { connect } from "react-redux";
-import { Card } from "../../../components/UI/Card/Card";
 import { logout } from "../../../store/actions/auth";
 import { clearUserName, loadUserNameFromServer } from "../../../store/actions/editProfile";
+import FeedCard from "../../../components/Feed/FeedCard/FeedCard";
 
 class Feed extends React.Component {
 
@@ -20,7 +20,11 @@ class Feed extends React.Component {
   render() {
     return (
       <div className={classes.Feed}>
-        
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
+        <FeedCard />
       </div>
     );
   }

@@ -38,11 +38,26 @@ class Auth extends Component {
         },
       },
     },
+    select: {
+      value: "Ваша роль",
+      type: "select",
+      valid: false,
+    },
   };
 
   signUpHandler = (event) => {
+    const formControls = { ...this.state.formControls };
+    let isFormValid = true;
+    Object.keys(formControls).forEach((name) => {
+      isFormValid = formControls[name].valid && isFormValid;
+    });
+    if (!this.state.signUp) {
+      isFormValid = this.state.select.valid && isFormValid;
+    }
+    //-------------------------------------
     const value = this.state.signUp;
-    return this.setState({ signUp: !value });
+    this.setState({ signUp: !value, isFormValid});
+    //-------------------------------------
   };
 
   loginHandler = () => {
@@ -53,11 +68,11 @@ class Auth extends Component {
     );
   };
 
-
   registerHandler = () => {
     this.props.signUp(
       this.state.formControls.email.value,
-      this.state.formControls.password.value
+      this.state.formControls.password.value,
+      this.state.select.value
     );
   };
 
@@ -88,24 +103,35 @@ class Auth extends Component {
   }
 
   onChangeHandler = (event, controlName) => {
-    const formControls = { ...this.state.formControls };
-    const control = { ...formControls[controlName] };
-
-    control.value = event.target.value;
-    control.touched = true;
-    control.valid = this.validateControl(control.value, control.validation);
-
-    formControls[controlName] = control;
-
     let isFormValid = true;
+    let select = { ...this.state.select };
+    const formControls = { ...this.state.formControls };
+    if (controlName !== "select") {
+      const control = { ...formControls[controlName] };
+      control.value = event.target.value;
+      control.touched = true;
+      control.valid = this.validateControl(control.value, control.validation);
 
+      formControls[controlName] = control;
+    }
     Object.keys(formControls).forEach((name) => {
       isFormValid = formControls[name].valid && isFormValid;
     });
 
+    if (controlName === "select") {
+      select = {
+        ...this.state.select,
+        value: event.target.value,
+        valid: true,
+      };
+    }
+    if (this.state.signUp) {
+      isFormValid = select.valid && isFormValid;
+    }
     this.setState({
       formControls,
       isFormValid,
+      select,
     });
   };
 
@@ -138,13 +164,24 @@ class Auth extends Component {
             {this.renderInputs()}
 
             {this.state.signUp ? (
-              <Button
-                type="primary"
-                onClick={this.registerHandler}
-                disabled={!this.state.isFormValid}
-              >
-                Зарегистрироваться
-              </Button>
+              <div>
+                <select
+                  onChange={(event) => this.onChangeHandler(event, "select")}
+                >
+                  <option hidden value = {this.state.select.value}>{this.state.select.value}</option>
+                  <option value="Участник">Участник</option>
+                  <option value="Спонсор">Спонсор</option>
+                  <option value="Спикер">Спикер</option>
+                </select>
+
+                <Button
+                  type="primary"
+                  onClick={this.registerHandler}
+                  disabled={!this.state.isFormValid}
+                >
+                  Зарегистрироваться
+                </Button>
+              </div>
             ) : (
               <Button
                 type="success"
@@ -155,7 +192,7 @@ class Auth extends Component {
               </Button>
             )}
 
-            <p onClick={this.signUpHandler}>Уже зарегистрированы? Войдите</p>
+            <p onClick={this.signUpHandler} type = "changer">Уже зарегистрированы? Войдите</p>
           </Card>
         </form>
 
@@ -176,8 +213,8 @@ function mapDispatchToProps(dispatch) {
     signIn: (email, password, isLogin) => {
       dispatch(signIn(email, password, isLogin));
     },
-    signUp: (email, password) => {
-      dispatch(signUp(email, password));
+    signUp: (email, password, accountType) => {
+      dispatch(signUp(email, password, accountType));
     },
   };
 }

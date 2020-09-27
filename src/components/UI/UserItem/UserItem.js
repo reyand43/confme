@@ -6,9 +6,14 @@ export const UserItem = (props) => {
   return (
     <div className={classes.UserItem}>
       <UserPhoto />
-      <p>
-        {props.name}&nbsp;{props.surname}
-      </p>
+      <div className = {classes.UserItem__Texts}>
+        <p>
+          {props.name}&nbsp;{props.surname}
+        </p>
+        <p className = {classes.UserItem__Texts__Under}>
+          {props.accountType}
+        </p>
+      </div>
     </div>
   );
 };

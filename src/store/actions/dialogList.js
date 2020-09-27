@@ -17,8 +17,9 @@ export function fetchDialogs(userId) {
             name: response.data[key].withName,
             surname: response.data[key].withSurname,
             text:  response.data[key].lastMessage,
-            time: response.data[key].time,
-            userId: response.data[key].userid
+            time: response.data[key].timestamp,
+            userId: response.data[key].userid,
+            withId: response.data[key].withId
 
           });
         });
@@ -31,6 +32,8 @@ export function fetchDialogs(userId) {
     }
   };
 }
+
+
 
 export function fetchDialogsSuccess(dialogs) {
   return {

@@ -3,10 +3,10 @@ import Input from "../../../components/UI/Input/Input";
 import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
 import { Card } from "../../../components/UI/Card/Card";
-import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import { connect } from "react-redux";
-import { updateUserName } from "../../../store/actions/editProfile";
+import { loadUserNameFromServer, updateUserName } from "../../../store/actions/editProfile";
 import { changeProfileClicked } from "../../../store/actions/navbar";
+import { UserItem } from "../../../components/UI/UserItem/UserItem";
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -21,6 +21,12 @@ class EditProfile extends React.Component {
       this.name = e.target.value;
     } else if (e.target.name === "Surname") {
       this.surname = e.target.value;
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.isAuthenticated) {
+      this.props.loadUserNameFromServer()
     }
   }
 
@@ -45,13 +51,7 @@ class EditProfile extends React.Component {
     return (
       <div className={classes.EditProfile}>
         <Card title="Личные данные">
-          <div className={classes.PhotoName}>
-            <UserPhoto />
-            <p>
-              {this.props.name}&nbsp;
-              {this.props.surname}{" "}
-            </p>
-          </div>
+          <UserItem name = {this.props.name} surname = {this.props.surname} accountType = {this.props.accountType}/>
           <div className={classes.Inputs}>
             <div className={classes.Row}>
               <Input
@@ -79,6 +79,8 @@ function mapStateToProps(state) {
   return {
     name: state.editProfile.name,
     surname: state.editProfile.surname,
+    accountType: state.editProfile.accountType,
+    isAuthenticated: !!state.auth.token,
   };
 }
 
@@ -87,6 +89,7 @@ function mapDispatchToProps(dispatch) {
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     changeProfileClicked: (isProfile) =>
       dispatch(changeProfileClicked(isProfile)),
+    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
   };
 }
 

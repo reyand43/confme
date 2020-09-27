@@ -1,4 +1,5 @@
 import {
+  CLEAR_STATE,
   FETCH_MESSAGES_ERROR,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_SUCCESS,
@@ -65,6 +66,15 @@ export default function dialogReducer(state = initialState, action) {
         ...state,
         data: action.data,
       };
+      case CLEAR_STATE:
+        return{
+          chats: [],
+  content: "",
+  readError: null,
+  writeError: null,
+  loadingChats: false,
+  data: null
+        }
     default:
       return state;
   }
