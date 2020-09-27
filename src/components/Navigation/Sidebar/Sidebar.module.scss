@@ -1,27 +1,38 @@
-$color:  #E9EDF8;
-$colorAccent: #65469B;
-$colorText: #656B83;
+@import '../../UI/vars.scss';
+
 
 .Sidebar{
     top: 0;
     left: 0;
     height: 100%;
-    width: 7%;
+    width: 5%;
     height: 100%;
-    padding: 20px 10px;
-    box-sizing: border-box;
-    background: $color;
+    background: $colorBG1;
     z-index: 200;
     transition: width 500ms;
     display: flex;
-    justify-content: center;
     
+    flex-direction: column;
+    
+}
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
 }
 
 .Sidebar:hover {
     width: 15%;
-   ul li a p{
-        
+   ul li {
+    justify-content: flex-start;
+   }
+   a{
+    padding-left: 20px;  
+    justify-content: flex-start; 
+    
+} p{
+    display: block;
     opacity: 1;
     transition: opacity 1000ms;
 }
@@ -31,67 +42,74 @@ $colorText: #656B83;
     list-style: none;
     margin: 0 ;
     padding: 0;
+    width: 100%;
 }
 
 .Sidebar ul li{
-
-    margin: 6px 5px 6px 5px;
-
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-center;
+    align-items: center;
+    height: 50px;
+    display: flex;
+    justify-content: center;
    
+    
+}
+
+.Sidebar ul li:hover{
+    background: rgba($color: $colorAccent, $alpha: 0.3);
+    width: 100%;
+
     
 }
 
 
 
 .Sidebar ul li a{
-    color: #656B83;
+    
     font-size: 15px;
     text-decoration: none;
     position: relative;
-    padding: 0px 20px 10px 20px;
+    width: 100%;
+    height: 100%;
     transition: opacity .3s;
     display: flex;
-    justify-content: flex-start;
-    padding-top: 10px;
-    width: 100%;
-    border-radius: 8px;
-    border: $color 1px solid;
-    
+    justify-content: center;
+    align-items: center;
 
     p{
             margin: 0;
             pointer-events: none;
            opacity: 0;
-           padding-top: 1px;
+          color: $colorTextM;
+          font-size: 14px;
+          padding-left: 12px;
+          display: none;
             
         }
     i{
         pointer-events: none;
-        padding-top: 3px;
-        padding-right: 5px;
+        margin: 0px;
+        color: $colorTextS;
+        font-size: 18px;
+        
     }
     
 }
 
-.Sidebar ul li a:hover{
-    
-        border: 1px darkgrey solid;
 
-}
+
 
 .Sidebar ul li .active{
-    
     background: $colorAccent;
-    color: #fff;
+    p, i{
+        color: #fff;
+        font-weight: 500;
+    }
     :hover{
         border: none;
     }
  }
 
- .Sidebar ul li a.active:hover{
-    border: $color 1px solid;
- }
 
  

@@ -45,15 +45,16 @@ class Sidebar extends React.Component {
     
    
     return (
-        <nav
+        <div
           className={classes.Sidebar}
           onMouseEnter={this.props.changeHover}
           onMouseLeave={this.props.changeHover}
-        ><div>
+        ><nav className={classes.wrapper}>
           <Logo isOpen={this.props.hover} />
-          <ul className="">{this.renderLinks(links)}</ul>
-          </div>
-        </nav>
+          <ul>{this.renderLinks(links)}</ul>
+          </nav>
+         
+        </div>
     );
   }
 }

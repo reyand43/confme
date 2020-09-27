@@ -1,0 +1,37 @@
+@import '../UI/vars.scss';
+
+.ModalUser{
+    background: rgba(0, 0, 0, 0.57);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserCard{
+ border-radius: 5px;
+ background: white;
+ position: relative;
+ width: 420px;
+ padding: 20px;
+ i{
+     cursor: pointer;
+     position: absolute;
+     top: 5px;
+     right: 5px;
+ }
+ &__UserPhoto{
+    background: url('../../images/userPhoto.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 120px;
+ }
+
+}

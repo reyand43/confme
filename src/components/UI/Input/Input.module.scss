@@ -1,3 +1,4 @@
+@import '../vars.scss';
 .Input{
     
     width: 100%;
@@ -16,14 +17,17 @@ font-size: 14px;
 .Input input{
 display: block;
 box-sizing: border-box;
-border: 1px solid #bebebe;
+border: none;
 padding: 7px;
 margin: 0 25px 5px 0px;
 width: 100%;
 outline: none;
 transition: all 300ms ease-in-out;
-border-radius: 6px;
 
+
+background: #FFFFFF;
+box-shadow: $shadow;
+border-radius: 5px;
 
 }
 
@@ -38,7 +42,9 @@ color: #f01f30
 }
 
 .Input input::placeholder{
-   margin-left: 10px;
+  margin-left: 16px;
     padding: 10px 0px;
+    font-family: 'Montserrat', sans-serif;
+    color: $colorTextS;
     
 }

@@ -134,7 +134,7 @@ class Auth extends Component {
         <h1>Авторизация</h1>
 
         <form onSubmit={this.submitHandler} className={classes.AuthForm}>
-          <Card>
+          
             {this.renderInputs()}
 
             {this.state.signUp ? (
@@ -156,7 +156,7 @@ class Auth extends Component {
             )}
 
             <p onClick={this.signUpHandler}>Уже зарегистрированы? Войдите</p>
-          </Card>
+          
         </form>
 
         {this.props.isAuthenticated ? <Redirect to="/editProfile" /> : null}

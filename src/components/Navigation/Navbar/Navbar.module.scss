@@ -1,35 +1,103 @@
  @import './../../UI/vars.scss';
 
 .Navbar {
-  height: 44px;
+  height: 65px;
   width: 100%;
   z-index: 100;
-  background: white;
   display: flex;
-  align-content: flex-end;
-  border-bottom: 1px solid lightgray;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+
+.SearchBlock{
+  margin-left: 25px;
+  display: flex;
+  padding: 10px;
+  box-shadow: $shadow;
+  background: #fff;
+  border-radius: $borderRadius;
+  
+  input{
+
+    margin-left: 10px;
+    border: none;
+    color: $colorTextM;
+  }
+  input:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+  }
+ 
+  i{
+    
+    color: rgba($color: $colorTextS, $alpha: 0.7)
+  }
+  input::placeholder{
+    color: $colorTextS;
+    
+  }
+}
+.userBlock{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  i{
+    font-size: 20px;
+    color: rgba($color: $colorTextS, $alpha: 0.7);
+    cursor: pointer;
+  }
+  i:hover{
+    color: $colorTextS;
+  }
+}
+
+.bellBlock{
+  
+  padding: 5px;
+  position: relative; 
+  span{
+    background: $colorAccent;
+    border-radius: 50%;
+    height: 12px;
+    min-width: 12px;
+    position: absolute;
+    border: 2px solid $colorBG2;
+    font-size: 9px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    right: 0;
+    top: 0;
+
+  }
 }
 
 .userInfo {
   width: fit-content;
-  margin-left: auto;
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: $colorTextL
+
 }
 
-.userInfo:hover {
-  background: $color;
-}
 
 .userInfoBlock {
   display: flex;
-  justify-content: flex-end;
-  color: $colorText;
+  align-items: center;
   font-size: 16px;
+  padding: 0 14px 0 14px;
 }
 
 
 
 .userInfoBlock p {
   margin: 9px 5px 9px 5px;
+  white-space: pre;
 }
 
 .userInfo a {
@@ -45,11 +113,3 @@
   margin-right: 5px;
 }
 
-.round {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  border: 1px solid white;
-
-  margin: 6px 5px 6px 5px;
-}

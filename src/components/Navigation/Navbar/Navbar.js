@@ -15,6 +15,7 @@ import {
   changeVisibility,
   hideDropDown,
 } from "../../../store/actions/navbar";
+import Input from "../../UI/Input/Input";
 
 
 class Navbar extends React.Component {
@@ -53,6 +54,11 @@ class Navbar extends React.Component {
     ];
     //----------------------
     return (
+      <div className={classes.userBlock}>
+        <div className={classes.bellBlock}>
+          <span>3</span>
+          <i class="fa fa-bell" aria-hidden="true"></i>
+          </div>
       <div className={classes.userInfo} ref={this.setWrapperRef}>
         <DropDown
           onClick={this.dropDownHandler}
@@ -60,6 +66,7 @@ class Navbar extends React.Component {
           items={items}
           state={this.props.profileClicked}
         >
+          
           <div className={classes.userInfoBlock}>
             <p>
               {this.props.name} &nbsp; {this.props.surname}
@@ -67,7 +74,9 @@ class Navbar extends React.Component {
             <UserPhoto />
             <i className="fa fa-chevron-down" aria-hidden="true"></i>
           </div>
+          
         </DropDown>
+      </div>
       </div>
     );
   }
@@ -96,10 +105,18 @@ class Navbar extends React.Component {
       this.props.hideDropDown();
     }
   }
+
+ 
   //------------------------------------------------
-  render() {
+  render()
+   {
     return (
       <div className={classes.Navbar}>
+        <div className={classes.SearchBlock}>
+        <i className="fa fa-search" aria-hidden="true"></i>
+        <input placeholder='Поиск' />
+        </div>
+        
         {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
       </div>
     );

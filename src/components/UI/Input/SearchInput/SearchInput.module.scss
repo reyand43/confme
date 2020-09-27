@@ -1,0 +1,62 @@
+@import '../../vars.scss';
+.SearchInput{
+    
+    width: 100%;
+   
+}
+
+
+
+.SearchBlock input{
+display: block;
+box-sizing: border-box;
+border: none;
+padding: 7px;
+margin: 0 25px 5px 0px;
+width: 100%;
+outline: none;
+transition: all 300ms ease-in-out;
+
+
+background: #FFFFFF;
+box-shadow: $shadow;
+border-radius: 5px;
+
+}
+
+.SearchInput span{
+    color: #f01f30;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+.SearchBlock input::placeholder{
+    margin-left: 22px;
+    padding: 10px 0px;
+    font-family: 'Montserrat', sans-serif;
+    color: $colorTextS;
+    
+}
+
+.SearchBlock{
+    padding-left: 25px;
+    display: flex;
+  }
+  
+  .SearchBlock label{
+  position: relative;
+  }
+  .SearchBlock label i{
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    color: $colorTextS;
+    font-weight: 300;
+  }
+  
+  .SearchBlock label input{
+    padding-left: 20px;
+  }
+  

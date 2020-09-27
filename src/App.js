@@ -3,7 +3,7 @@ import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Feed from "./containers/pages/feed/Feed";
 import Users from "./containers/pages/users/Users"
-import { Materials } from "./containers/pages/materials/Materials";
+import Materials from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
 import EditProfile from "./containers/pages/editProfile/EditProfile";
 import { autoLogin } from "./store/actions/auth";
@@ -14,12 +14,19 @@ import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
+import {openModal} from "./store/actions/modal"
 import MainView from "./hoc/MainView/MainView";
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
+import ModalUser from "./components/Modals/ModalUser";
+
 
 class App extends Component {
+  
+  
+
+
   componentDidMount() {
     this.props.autoLogin();
   }
@@ -67,7 +74,9 @@ class App extends Component {
               
               
               <Layout navbar={<Navbar isAuthenticated={this.props.isAuthenticated} />}>
-              {routes}</Layout>
+              {routes}
+              
+              </Layout>
             
             </Split>
           </MainView>
@@ -81,6 +90,7 @@ function mapStateToProps(state) {
     isAuthenticated: !!state.auth.token,
     userName: state.editProfile.name,
     userSurname: state.editProfile.surname,
+    modalOpenState: state.modal.modalOpenState
   };
 }
 
@@ -88,6 +98,7 @@ function mapDispatchToProps(dispatch) {
   return {
     autoLogin: () => dispatch(autoLogin()),
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    openModal: () => dispatch(openModal())
   };
 }
 

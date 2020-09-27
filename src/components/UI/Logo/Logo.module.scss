@@ -2,8 +2,10 @@
 $color:  #E9EDF8;
 $colorAccent: #65469B;
 .Logo {
-    padding-left: 20px;
+    width: 100%;
     color:$colorAccent;
     font-size: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
 }

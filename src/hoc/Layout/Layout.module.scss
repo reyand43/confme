@@ -1,5 +1,7 @@
+@import '../../components/UI/vars.scss';
+
 .Layout {
-    background: #fff;
+    background:$colorBG2;
     display: flex;
     
     flex-direction: column;

@@ -8,6 +8,7 @@ import editProfileReducer from './editProfile'
 import dialogReducer from './dialog'
 import navbarReducer from './navbar'
 import dialogListReducer from './dialogList'
+import modalReducer from './modal'
 
 export default combineReducers({
     auth: authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
     dialog: dialogReducer,
     navbar: navbarReducer,
     dialogList: dialogListReducer,
+    modal: modalReducer,
 })
