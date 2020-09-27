@@ -57,12 +57,12 @@ class Navbar extends React.Component {
       <div className={classes.userBlock}>
         <div className={classes.bellBlock}>
           <span>3</span>
-          <i class="fa fa-bell" aria-hidden="true"></i>
+          <i className="fa fa-bell" aria-hidden="true"></i>
           </div>
       <div className={classes.userInfo} ref={this.setWrapperRef}>
         <DropDown
           onClick={this.dropDownHandler}
-          styles={this.props.visible ? "active" : ""}
+          styles={this.props.visible && this.props.isAuthenticated ? "active" : ""}
           items={items}
           state={this.props.profileClicked}
         >
@@ -129,6 +129,7 @@ function mapStateToProps(state) {
     surname: state.editProfile.surname,
     visible: state.navbar.visibleDropDown,
     profileClicked: state.navbar.profileClicked,
+    isAuthenticated: !!state.auth.token,
   };
 }
 

@@ -1,6 +1,7 @@
 $color:  #E9EDF8;
 $colorAccent: #BFABF0;
 $colorText: #1F2041;
+$colorHover: #ebe9e9;
 @mixin text {
     font-weight: 400px;
     font-size: 13px;
@@ -26,4 +27,14 @@ $shadow:-2px 2px 4px rgba(231, 231, 231, 0.2), 2px -2px 4px rgba(231, 231, 231, 
 @mixin image {
     width: 530px;
     height: 260px;
+}
+
+@mixin unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                    not supported by any browser */
 }

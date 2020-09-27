@@ -1,10 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { Button } from "../Button/Button";
 import classes from "./DropDown.module.scss";
+import "../vars.scss";
 
 const DropDown = (props) => {
-  const cls = [classes.DropDownContent, classes[props.styles]]
+  const cls = [classes.DropDownContent, classes[props.styles], classes.unselectable]
 
   return (
     <div className={classes.DropDown}>
@@ -13,7 +13,7 @@ const DropDown = (props) => {
         <ul>
           {props.items.map((item, index) => {
             return <li key={index}>
-                <Button type = "dropDownButton" onClick = {item.onClick}>{item.text}</Button>
+                <p onClick = {item.onClick}>{item.text}</p>
             </li>;
           })}
         </ul>

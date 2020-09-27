@@ -1,116 +1,101 @@
-@import '../../UI/vars.scss';
+@import "../../UI/vars.scss";
 
+.Sidebar {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 5%;
+  height: 100%;
+  background: $colorBG1;
+  z-index: 200;
+  transition: width 500ms;
+  display: flex;
 
-.Sidebar{
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 5%;
-    height: 100%;
-    background: $colorBG1;
-    z-index: 200;
-    transition: width 500ms;
-    display: flex;
-    
-    flex-direction: column;
-    
+  flex-direction: column;
 }
-.wrapper{
-    width: 100%;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
 }
 
 .Sidebar:hover {
-    width: 15%;
-   ul li {
+  width: 15%;
+  ul li {
     justify-content: flex-start;
-   }
-   a{
-    padding-left: 20px;  
-    justify-content: flex-start; 
-    
-} p{
+  }
+  a {
+    padding-left: 20px;
+    justify-content: flex-start;
+  }
+  p {
     display: block;
     opacity: 1;
     transition: opacity 1000ms;
   }
 }
 
-.Sidebar ul{
-    list-style: none;
-    margin: 0 ;
-    padding: 0;
-    width: 100%;
+.Sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-.Sidebar ul li{
-    display: flex;
-    justify-content: flex-center;
-    align-items: center;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-   
-    
+.Sidebar ul li {
+  display: flex;
+  justify-content: flex-center;
+  align-items: center;
+  height: 50px;
+  display: flex;
+  justify-content: center;
 }
 
-.Sidebar ul li:hover{
-    background: rgba($color: $colorAccent, $alpha: 0.3);
-    width: 100%;
-
-    
+.Sidebar ul li:hover {
+  background: rgba($color: $colorAccent, $alpha: 0.3);
+  width: 100%;
 }
 
+.Sidebar ul li a {
+  font-size: 15px;
+  text-decoration: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-
-.Sidebar ul li a{
-    
-    font-size: 15px;
-    text-decoration: none;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: opacity .3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    p{
-            margin: 0;
-            pointer-events: none;
-           opacity: 0;
-          color: $colorTextM;
-          font-size: 14px;
-          padding-left: 12px;
-          display: none;
-            
-        }
-    i{
-        pointer-events: none;
-        margin: 0px;
-        color: $colorTextS;
-        font-size: 18px;
-        
-    }
-    
+  p {
+    margin: 0;
+    pointer-events: none;
+    opacity: 0;
+    color: $colorTextM;
+    font-size: 14px;
+    padding-left: 12px;
+    display: none;
+  }
+  i {
+    pointer-events: none;
+    margin: 0px;
+    color: $colorTextS;
+    font-size: 18px;
+  }
 }
 
-
-
-
-.Sidebar ul li .active{
-    background: $colorAccent;
-    p, i{
-        color: #fff;
-        font-weight: 500;
-    }
-    :hover{
-        border: none;
-    }
- }
-
+.Sidebar ul li .active {
+  background: $colorAccent;
+  p,
+  i {
+    color: #fff;
+    font-weight: 500;
+  }
+  :hover {
+    border: none;
+  }
+}
 
 .Sidebar ul li a.active:hover {
   border: $color 1px solid;

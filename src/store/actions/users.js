@@ -18,7 +18,8 @@ export function fetchUsers() {
           users.push({
             id: key,
             name: response.data[key].personalData.Name,
-            surname: response.data[key].personalData.Surname
+            surname: response.data[key].personalData.Surname,
+            accountType: response.data[key].personalData.AccountType
           });
         });
         dispatch(fetchUsersSuccess(users));
