@@ -15,11 +15,6 @@ export function fetchUsers() {
         const response = await axios.get("/users.json");
         const users = [];
         Object.keys(response.data).forEach((key) => {
-            try {
-                
-            } catch (error) {
-                console.log('error',error)
-            }
           users.push({
             id: key,
             name: response.data[key].personalData.Name,

@@ -30,11 +30,9 @@ class Users extends React.Component {
     });
   }
 
-    
-    
-      componentDidMount() {
-    this.props.fetchUsers()
-      }
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
 
   render() {
     return (

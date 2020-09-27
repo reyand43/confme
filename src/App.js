@@ -32,11 +32,10 @@ class App extends Component {
   }
 
   render() {
-
+    
     let routes = (
       <Switch>
         <Route path="/" exact component={Auth} />
-        <Route path="/feed" component={Feed} />
         <Route path="/editProfile" component={EditProfile} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
@@ -49,7 +48,6 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/feed" exact component={Feed} />
           <Route path="/editProfile" component={EditProfile} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
@@ -58,7 +56,7 @@ class App extends Component {
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
           
-          <Redirect to="/feed" />
+          <Redirect to="/editProfile" />
         </Switch>
       );
     }

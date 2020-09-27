@@ -1,7 +1,6 @@
-import React from 'react'
-import classes from './UserItem.module.scss'
-import { UserPhoto } from '../UserPhoto/UserPhoto'
-
+import React from "react";
+import classes from "./UserItem.module.scss";
+import { UserPhoto } from "../UserPhoto/UserPhoto";
 
 export const UserItem = (props) => {
     return(
@@ -11,8 +10,10 @@ export const UserItem = (props) => {
             <p >{props.name}&nbsp;{props.surname}</p>
             <p>26 лет</p>
             <p>СТО в компании EPAM</p>
+            {props.accountType}
              </div>
              </div>
     )
 
 }
+

@@ -126,7 +126,7 @@ class Dialog extends React.Component {
           <div className={classes.Dialog__chatHeader}>
           <NavLink  to={"/dialogs/"} className={classes.nostyle}>
             <div className={classes.Dialog__chatHeader__backButton}>
-              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
               <span>Назад</span>
             </div>
            </NavLink>
@@ -151,7 +151,7 @@ class Dialog extends React.Component {
           </div>
           <div className={classes.Dialog__chatFooter}>
             <form onSubmit={this.submitHandler}>
-              <i class="fa fa-plus" aria-hidden="true"></i>
+              <i className="fa fa-plus" aria-hidden="true"></i>
               <input
                 name="content"
                 value={this.state.content}
@@ -162,7 +162,7 @@ class Dialog extends React.Component {
               <i
                 onClick={this.sendHandler}
                 type="submit"
-                class="fa fa-paper-plane-o"
+                className="fa fa-paper-plane-o"
                 aria-hidden="true"
               ></i>
             </form>

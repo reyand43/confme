@@ -2,8 +2,7 @@ import Axios from "axios";
 import axios from "../../axios/axios";
 import { AUTH_SUCCESS, AUTH_LOGOUT } from "./actionTypes";
 
-
-export function signUp(email, password) {
+export function signUp(email, password, accountType) {
   return async (dispatch) => {
     const authData = {
       email,
@@ -15,11 +14,16 @@ export function signUp(email, password) {
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA";
 
     const request = await Axios.post(url, authData);
-    try{await axios.patch(`/users/${request.data.localId}/personalData.json`, {Name: "", Surname: ""});
-    const isLogin = true;
-    dispatch(signIn(email, password, isLogin));}
-    catch(e){
-      console.log(e)
+    try {
+      await axios.patch(`/users/${request.data.localId}/personalData.json`, {
+        Name: "Неопознанный",
+        Surname: "Объект",
+        AccountType: accountType,
+      });
+      const isLogin = true;
+      dispatch(signIn(email, password, isLogin));
+    } catch (e) {
+      console.log(e);
     }
   };
 }

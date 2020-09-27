@@ -1,19 +1,17 @@
-import React from 'react'
-import { UserPhoto } from '../UserPhoto/UserPhoto'
-import { UserName } from '../UserName/UserName'
-import classes from './UserNamePhoto.module.scss'
-
+import React from "react";
+import { UserPhoto } from "../UserPhoto/UserPhoto";
+import { UserName } from "../UserName/UserName";
+import classes from "./UserNamePhoto.module.scss";
 
 export const UserNamePhoto = () => {
-return(
+  return (
     <div className={classes.UserNamePhoto}>
-        <div className={classes.child}>
-    <UserName/>
+      <div className={classes.child}>
+        <UserName />
+      </div>
+      <div className={classes.child}>
+        <UserPhoto />
+      </div>
     </div>
-    <div className={classes.child}>
-    <UserPhoto/>
-    </div>
-    </div>
-)
-
-}
+  );
+};

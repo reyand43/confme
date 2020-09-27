@@ -35,7 +35,7 @@
     display: block;
     opacity: 1;
     transition: opacity 1000ms;
-}
+  }
 }
 
 .Sidebar ul{
@@ -112,4 +112,6 @@
  }
 
 
- 
+.Sidebar ul li a.active:hover {
+  border: $color 1px solid;
+}

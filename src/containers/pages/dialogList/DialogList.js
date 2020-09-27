@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { fetchDialogs } from "../../../store/actions/dialogList";
 import { fetchUserById } from "../../../store/actions/users";
 import { NavLink } from "react-router-dom";
-import { Card } from "../../../components/UI/Card/Card";
 
 class DialogList extends React.Component {
   componentDidMount() {
@@ -41,13 +40,13 @@ class DialogList extends React.Component {
         <div className={classes.DialogList}>
           <div className={classes.SearchBlock}>
             <div className={classes.SearchButton}>
-              <i class="fa fa-search" aria-hidden="true"></i>
+              <i className="fa fa-search" aria-hidden="true"></i>
             </div>
             <input placeholder="Поиск"></input>
 
             <div className={classes.SearchButton}>
               <span>
-                <i class="fa fa-times" aria-hidden="true"></i>
+                <i className="fa fa-times" aria-hidden="true"></i>
               </span>
             </div>
           </div>
