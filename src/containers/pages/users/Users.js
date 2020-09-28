@@ -39,11 +39,11 @@ class Users extends React.Component {
       <div className={classes.Users}>
         <div className={classes.ListOfUsers}>
           <div className={classes.ListOfUsers__SearchBlock}>
-          <i className="fa fa-search" aria-hidden="true"></i>
-          <input placeholder='Введите имя, компанию, сферу деятельности или интересы...' />
+            <i className="fa fa-search" aria-hidden="true"></i>
+            <input placeholder="Введите имя, компанию, сферу деятельности или интересы..." />
           </div>
           <div className={classes.ListOfUsers__ListBlock}>
-          <h1>Список пользователей</h1>
+            <h1>Список пользователей</h1>
 
           {this.props.loading ? (
             <p>Loading</p>
@@ -51,11 +51,12 @@ class Users extends React.Component {
             <ul>{this.renderUsers()}</ul>
           )}
           {this.props.modalOpenState && 
-              <ModalUser onClose={this.toggleModal} user={this.props.user}/>
+              <ModalUser onClose={this.toggleModal} user={this.props.user} accountType={this.props.user.accountType}/>
                }
         </div>
       </div>
       <div className={classes.Settings}>
+
         <div className={classes.Settings__ChooseUsers}>
           <p>Все участники</p>
           <hr/>
@@ -63,29 +64,28 @@ class Users extends React.Component {
           <p>Представители компании</p>
           <p>Спикеры</p>
         </div>
-        <div className={classes.Settings__ChooseTags}>
-          <div className={classes.Settings__ChooseTags__Title}>
-            Выберете теги
-            </div>
-            <div className={classes.Settings__ChooseTags__SearchBlock}>
-            
-          <i className="fa fa-search" aria-hidden="true"></i>
-          <input placeholder='Введите тег' />
-          <i className="fa fa-chevron-down" aria-hidden="true"></i>
-          </div>
-            
-            <div className={classes.Settings__ChooseTags__TagBlock}>
-              <Tag text='Java' deleted='true'/>
-              <Tag text='C++' deleted='true'/>
-              </div>
+        <div className={classes.Settings}>
+         
+          <div className={classes.Settings__ChooseTags}>
+            <div className={classes.Settings__ChooseTags__Title}>
+              Выберете теги
             </div>
             <div className={classes.Settings__SearchSettings}>
               Расширенный поиск
               <i className="fa fa-sliders" aria-hidden="true"></i>
             </div>
-        
 
+            <div className={classes.Settings__ChooseTags__TagBlock}>
+              <Tag text="Java" deleted="true" />
+              <Tag text="C++" deleted="true" />
+            </div>
+          </div>
+          <div className={classes.Settings__SearchSettings}>
+            Расширенный поиск
+            <i className="fa fa-sliders" aria-hidden="true"></i>
+          </div>
         </div>
+      </div>
       </div>
     );
   }

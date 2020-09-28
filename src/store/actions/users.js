@@ -26,6 +26,7 @@ export function fetchUsers() {
             purpose: response.data[key].personalData.Purpose,
             phone: response.data[key].personalData.Phone,
             age: response.data[key].personalData.Age,
+            accountType: response.data[key].personalData.AccountType
           });
         });
         dispatch(fetchUsersSuccess(users));

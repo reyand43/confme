@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Layout from "./hoc/Layout/Layout";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import Feed from "./containers/pages/feed/Feed";
 import Users from "./containers/pages/users/Users"
 import Materials from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
@@ -19,6 +18,8 @@ import MainView from "./hoc/MainView/MainView";
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
+import ModalUser from "./components/Modals/ModalUser";
+import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 
 
 class App extends Component {
@@ -54,7 +55,8 @@ class App extends Component {
           <Route path="/dialogs/:id" component={Dialog} />
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
-          
+          <Route path="/welcomePage" component={WelcomePage} />
+
           <Redirect to="/editProfile" />
         </Switch>
       );

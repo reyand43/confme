@@ -1,0 +1,54 @@
+@import "../../../components/UI/vars.scss";
+
+.WelcomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    &__UpperTexts {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include text;
+    }
+    &__Video {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        //Если убрать падинги, картинка чудесным образом исчезнет
+        padding-top: 125px;
+        padding-bottom: 125px;
+        //------------------------------------------------------
+        margin-bottom: 25px;
+        border-radius: $borderRadius;
+        @include image;
+        background: center url("https://images11.esquire.ru/upload/img_cache/5b4/5b4af02dd69348edf7d55733165bcc1d_ce_1280x798x0x55_cropped_960x600.jpg");
+    
+    }
+    &__Spickers {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        height: 40%;
+        &__Texts {
+            display: flex;
+            justify-content: space-between;
+            @include text;  
+            h1 {
+                font-size: 15px;
+              }
+            p {
+                cursor: pointer;
+                opacity: 0.7;
+            }
+        }
+        &__Row {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

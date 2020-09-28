@@ -1,4 +1,4 @@
- @import './../../UI/vars.scss';
+@import "./../../UI/vars.scss";
 
 .Navbar {
   height: 65px;
@@ -10,54 +10,51 @@
   margin-bottom: 30px;
 }
 
-
-.SearchBlock{
+.SearchBlock {
   margin-left: 25px;
   display: flex;
   padding: 10px;
   box-shadow: $shadow;
   background: #fff;
   border-radius: $borderRadius;
-  
-  input{
 
+  input {
     margin-left: 10px;
     border: none;
     color: $colorTextM;
   }
-  input:active, :hover, :focus {
+  input:active,
+  :hover,
+  :focus {
     outline: 0;
     outline-offset: 0;
   }
- 
-  i{
-    
-    color: rgba($color: $colorTextS, $alpha: 0.7)
+
+  i {
+    color: rgba($color: $colorTextS, $alpha: 0.7);
   }
-  input::placeholder{
+  input::placeholder {
     color: $colorTextS;
-    
   }
 }
-.userBlock{
+.userBlock {
   width: fit-content;
   display: flex;
   align-items: center;
-  i{
+  i {
     font-size: 20px;
     color: rgba($color: $colorTextS, $alpha: 0.7);
     cursor: pointer;
   }
-  i:hover{
+  i:hover {
     color: $colorTextS;
   }
 }
 
-.bellBlock{
-  
+.bellBlock {
   padding: 5px;
-  position: relative; 
-  span{
+  position: relative;
+  span {
     background: $colorAccent;
     border-radius: 50%;
     height: 12px;
@@ -70,30 +67,24 @@
     text-align: center;
     right: 0;
     top: 0;
-
   }
 }
 
 .userInfo {
   width: fit-content;
   display: flex;
-  
+
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: $colorTextL
-
+  color: $colorTextL;
 }
-
 
 .userInfoBlock {
   display: flex;
   align-items: center;
   font-size: 16px;
-  padding: 0 14px 0 14px;
 }
-
-
 
 .userInfoBlock p {
   margin: 9px 5px 9px 5px;
@@ -112,4 +103,3 @@
 
   margin-right: 5px;
 }
-

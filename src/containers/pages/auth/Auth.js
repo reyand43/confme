@@ -7,7 +7,7 @@ import is from "is_js";
 import { Redirect } from "react-router-dom";
 import { Card } from "../../../components/UI/Card/Card";
 import { signIn, signUp } from "../../../store/actions/auth";
-
+import {clearUserName} from "../../../store/actions/editProfile";
 class Auth extends Component {
   state = {
     signUp: true,
@@ -216,6 +216,7 @@ function mapDispatchToProps(dispatch) {
     signUp: (email, password, accountType) => {
       dispatch(signUp(email, password, accountType));
     },
+    clearUserName: () => dispatch(clearUserName()),
   };
 }
 

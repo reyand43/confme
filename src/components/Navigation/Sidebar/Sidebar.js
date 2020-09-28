@@ -40,7 +40,7 @@ class Sidebar extends React.Component {
       {
         to: "/users",
         label: labels[4],
-        icon: <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>,
+        icon: <i className="fa fa-users" aria-hidden="true"></i>,
         exact: false,
       },
     ];
@@ -77,8 +77,15 @@ class Sidebar extends React.Component {
           onMouseLeave={this.props.changeHover}
         >{!this.props.isAuthenticated ? <Redirect to="/" /> : null}
         <nav className={classes.wrapper}>
-          <Logo isOpen={this.props.hover} />
-          <ul>{this.renderLinks(links)}</ul>
+
+            <NavLink 
+              to = "/welcomePage"
+              exact = {false}
+              className = {classes.LogoLink}
+              >
+            <Logo isOpen={this.props.hover}/>
+             </NavLink>
+            <ul>{this.renderLinks(links)}</ul>
           </nav>
          
         </div>

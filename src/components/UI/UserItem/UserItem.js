@@ -7,10 +7,9 @@ export const UserItem = (props) => {
         <div className={classes.UserItem}>
             <UserPhoto size={'md'}/>
             <div className={classes.UserItem__UserInfo}>
-            <p >{props.name}&nbsp;{props.surname}</p>
+            <p >{props.name}&nbsp;{props.surname} (&nbsp;{props.accountType}&nbsp;)</p>
             <p>26 лет</p>
             <p>СТО в компании EPAM</p>
-            {props.accountType}
              </div>
              </div>
     )

@@ -1,6 +1,12 @@
+@import '../vars.scss';
+
 .DropDown {
+    @include unselectable;
     position: relative;
     display: inline-block;
+    margin-right: 20px;
+    border-radius: $borderRadius;
+    padding: 0;
     ul li{
         list-style: none;
     }
@@ -10,20 +16,38 @@
         width: 100%;
     }
     z-index: 500;
+    &:hover {
+        background: $colorHover;
+    }
 }
-
 
 .DropDownContent {
     display: none;
     position: absolute;
+    right: 0;
     z-index: 600;
-    width: 210px;
+    margin-top: 5px;
+    width: 250px;
     box-shadow: 0 2px 10px rgba(0,0,0,.2);
     border: 1px solid rgba(0,0,0,.2);
+    border-radius: $borderRadius;
+    background: $colorHover;
+    ul li p{
+        display: flex;
+        cursor: pointer;
+        margin: auto;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+       &:hover {
+            background: $colorAccent;
+       } 
+    }
 }
 
 .DropDownButton {
     cursor: pointer;
+    right: 0;
 }
 
 .active {
