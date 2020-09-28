@@ -5,23 +5,23 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUsers } from "../../../store/actions/users";
 import {Tag} from '../../../components/UI/Tag/Tag'
-import { openModal } from "../../../store/actions/modal";
+import { toggleModal } from "../../../store/actions/modal";
 import ModalUser from "../../../components/Modals/ModalUser";
 
 class Users extends React.Component {
 
- toggleModal = () => {
-    console.log('pressed')
-    this.props.openModal()
+ toggleModal = (user) => {
+    this.props.toggleModal(user)
   }
 
 
   renderUsers() {
+   
     return this.props.users.map((user) => {
-      console.log('user', this.props.users);
-      
+     
+      console.log(user)
       return (
-        <li onClick={this.toggleModal} key={user.id}>
+        <li onClick={this.toggleModal.bind(this, user)} key={user.id}>
           
             <UserItem name={user.name} surname={user.surname} />
             
@@ -51,7 +51,7 @@ class Users extends React.Component {
             <ul>{this.renderUsers()}</ul>
           )}
           {this.props.modalOpenState && 
-              <ModalUser onClose={this.toggleModal}/>
+              <ModalUser onClose={this.toggleModal} user={this.props.user}/>
                }
         </div>
       </div>
@@ -81,7 +81,7 @@ class Users extends React.Component {
             </div>
             <div className={classes.Settings__SearchSettings}>
               Расширенный поиск
-              <i class="fa fa-sliders" aria-hidden="true"></i>
+              <i className="fa fa-sliders" aria-hidden="true"></i>
             </div>
         
 
@@ -95,14 +95,15 @@ function mapStateToProps(state) {
     return{
       users: state.users.users,
       loading: state.users.loading,
-      modalOpenState: state.modal.modalOpenState
+      modalOpenState: state.modal.modalOpenState,
+      user: state.modal.user
     }
     }
     
 function mapDispatchToProps(dispatch){
       return{
         fetchUsers: () => dispatch(fetchUsers()),
-        openModal: () => dispatch(openModal())
+        toggleModal: (user) => dispatch(toggleModal(user))
       }
     }
 

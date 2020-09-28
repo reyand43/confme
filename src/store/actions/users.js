@@ -18,7 +18,14 @@ export function fetchUsers() {
           users.push({
             id: key,
             name: response.data[key].personalData.Name,
-            surname: response.data[key].personalData.Surname
+            surname: response.data[key].personalData.Surname,
+            country: response.data[key].personalData.Country,
+            city: response.data[key].personalData.City,
+            company: response.data[key].personalData.Company,
+            profession: response.data[key].personalData.Profession,
+            purpose: response.data[key].personalData.Purpose,
+            phone: response.data[key].personalData.Phone,
+            age: response.data[key].personalData.Age,
           });
         });
         dispatch(fetchUsersSuccess(users));

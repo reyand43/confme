@@ -57,7 +57,7 @@ class Navbar extends React.Component {
       <div className={classes.userBlock}>
         <div className={classes.bellBlock}>
           <span>3</span>
-          <i class="fa fa-bell" aria-hidden="true"></i>
+          <i className="fa fa-bell" aria-hidden="true"></i>
           </div>
       <div className={classes.userInfo} ref={this.setWrapperRef}>
         <DropDown
@@ -125,8 +125,8 @@ class Navbar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.name,
-    surname: state.editProfile.surname,
+    name: state.editProfile.nameValue,
+    surname: state.editProfile.surnameValue,
     visible: state.navbar.visibleDropDown,
     profileClicked: state.navbar.profileClicked,
   };

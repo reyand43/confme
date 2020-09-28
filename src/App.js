@@ -19,7 +19,6 @@ import MainView from "./hoc/MainView/MainView";
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
-import ModalUser from "./components/Modals/ModalUser";
 
 
 class App extends Component {
@@ -88,7 +87,7 @@ function mapStateToProps(state) {
     isAuthenticated: !!state.auth.token,
     userName: state.editProfile.name,
     userSurname: state.editProfile.surname,
-    modalOpenState: state.modal.modalOpenState
+    
   };
 }
 
@@ -96,7 +95,7 @@ function mapDispatchToProps(dispatch) {
   return {
     autoLogin: () => dispatch(autoLogin()),
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
-    openModal: () => dispatch(openModal())
+
   };
 }
 
