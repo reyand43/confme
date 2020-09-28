@@ -17,16 +17,13 @@ import {
 } from "../../../store/actions/navbar";
 import Input from "../../UI/Input/Input";
 
-
 class Navbar extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
-
 
   dropDownHandler = () => {
     this.props.changeVisibility();
@@ -38,15 +35,15 @@ class Navbar extends React.Component {
       {
         text: "Профиль",
         onClick: () => {
-          this.props.hideDropDown()
-          if(this.props.profileClicked === false)
+          this.props.hideDropDown();
+          if (this.props.profileClicked === false)
             this.props.changeProfileClicked(true);
         },
       },
       {
         text: "Выход",
         onClick: () => {
-          this.props.hideDropDown()
+          this.props.hideDropDown();
           this.props.clearUserName();
           this.props.logout();
         },
@@ -54,35 +51,35 @@ class Navbar extends React.Component {
     ];
     //----------------------
     return (
-      <div className={classes.userBlock}>
+      <div className={classes.userBlock} style = {this.props.isAuthenticated ? null : {display: "none"}}>
         <div className={classes.bellBlock}>
           <span>3</span>
           <i className="fa fa-bell" aria-hidden="true"></i>
-          </div>
-      <div className={classes.userInfo} ref={this.setWrapperRef}>
-        <DropDown
-          onClick={this.dropDownHandler}
-          styles={this.props.visible && this.props.isAuthenticated ? "active" : ""}
-          items={items}
-          state={this.props.profileClicked}
-        >
-          
-          <div className={classes.userInfoBlock}>
-            <p>
-              {this.props.name} &nbsp; {this.props.surname}
-            </p>
-            <UserPhoto />
-            <i className="fa fa-chevron-down" aria-hidden="true"></i>
-          </div>
-          
-        </DropDown>
-      </div>
+        </div>
+        <div className={classes.userInfo} ref={this.setWrapperRef}>
+          <DropDown
+            onClick={this.dropDownHandler}
+            styles={
+              this.props.visible ? "active" : ""
+            }
+            items={items}
+            state={this.props.profileClicked}
+          >
+            <div className={classes.userInfoBlock}>
+              <p>
+                {this.props.name} &nbsp; {this.props.surname}
+              </p>
+              <UserPhoto />
+              <i className="fa fa-chevron-down" aria-hidden="true"></i>
+            </div>
+          </DropDown>
+        </div>
       </div>
     );
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener("mousedown", this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
       this.props.loadUserNameFromServer();
@@ -97,7 +94,7 @@ class Navbar extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   handleClickOutside(event) {
@@ -106,17 +103,15 @@ class Navbar extends React.Component {
     }
   }
 
- 
   //------------------------------------------------
-  render()
-   {
+  render() {
     return (
       <div className={classes.Navbar}>
         <div className={classes.SearchBlock}>
-        <i className="fa fa-search" aria-hidden="true"></i>
-        <input placeholder='Поиск' />
+          <i className="fa fa-search" aria-hidden="true"></i>
+          <input placeholder="Поиск" />
         </div>
-        
+
         {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
       </div>
     );
@@ -143,7 +138,7 @@ function mapDispatchToProps(dispatch) {
     },
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     clearUserName: () => dispatch(clearUserName()),
-    hideDropDown: () => dispatch(hideDropDown())
+    hideDropDown: () => dispatch(hideDropDown()),
   };
 }
 
