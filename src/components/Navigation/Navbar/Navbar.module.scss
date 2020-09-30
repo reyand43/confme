@@ -23,6 +23,7 @@
     border: none;
     color: $colorTextM;
   }
+
   input:active,
   :hover,
   :focus {
@@ -33,27 +34,33 @@
   i {
     color: rgba($color: $colorTextS, $alpha: 0.7);
   }
+
   input::placeholder {
     color: $colorTextS;
   }
 }
+
 .userBlock {
   width: fit-content;
   display: flex;
   align-items: center;
+
   i {
     font-size: 20px;
     color: rgba($color: $colorTextS, $alpha: 0.7);
     cursor: pointer;
   }
+
   i:hover {
     color: $colorTextS;
   }
+
 }
 
 .bellBlock {
   padding: 5px;
   position: relative;
+
   span {
     background: $colorAccent;
     border-radius: 50%;
@@ -76,8 +83,12 @@
 
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 65px;
   color: $colorTextL;
+
+  &:hover {
+    background: $colorHover;
+  }
 }
 
 .userInfoBlock {

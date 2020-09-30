@@ -1,6 +1,6 @@
 @import '../UI/vars.scss';
 
-.ModalUser{
+.ModalUser {
     background: rgba(0, 0, 0, 0.57);
     position: absolute;
     top: 0;
@@ -11,28 +11,106 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.UserCard{
- border-radius: 5px;
- background: white;
- position: relative;
- width: 420px;
- padding: 20px;
- z-index: 1001
- i{
-     cursor: pointer;
-     position: absolute;
-     top: 5px;
-     right: 5px;
- }
- &__UserPhoto{
-    background: url('../../images/userPhoto.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 120px;
-    height: 120px;
- }
 
 }
+
+.UserCard {
+    border-radius: 5px;
+    background: white;
+    position: relative;
+    width: 420px;
+    padding: 20px;
+    z-index: 1001;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .closeButton {
+        cursor: pointer;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+
+    &__Top {
+        display: flex;
+
+        &__UserPhoto {
+            background: url('../../images/userPhoto.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 120px;
+            margin: 0 20px 20px 0;
+        }
+
+        &__Name {
+            color: $colorTextL;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-right: 15px;
+        }
+
+        &__Age {
+            color: $colorTextM;
+            font-size: 15px;
+            font-weight: 500;
+            margin-top: 0;
+        }
+    }
+
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.row {
+    display: flex;
+    margin-bottom: 12px;
+    .Title{
+        color: $colorTextL;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 0;
+            
+            min-width: 140px;
+    }
+
+}
+
+.actionButtons {
+    display: flex;
+    margin-left: -5px;
+    i {
+        font-size: 20px;
+        color: $colorAccent;
+    }
+
+    a {
+        display: flex;
+        margin-right: 18px;
+        padding: 5px;
+        border-radius: 5px;
+       
+    }
+
+    a:hover {
+        background: $colorAccent;
+        
+        i{
+        color: white;
+        }
+    }
+}
+

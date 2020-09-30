@@ -4,21 +4,24 @@
     @include unselectable;
     position: relative;
     display: inline-block;
+
     margin-right: 20px;
     border-radius: $borderRadius;
     padding: 0;
-    ul li{
+
+
+    ul li {
         list-style: none;
     }
+
     ul {
         margin: 0;
         padding: 0;
         width: 100%;
     }
+
     z-index: 500;
-    &:hover {
-        background: $colorHover;
-    }
+
 }
 
 .DropDownContent {
@@ -28,20 +31,22 @@
     z-index: 600;
     margin-top: 5px;
     width: 250px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
-    border: 1px solid rgba(0,0,0,.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: $borderRadius;
     background: $colorHover;
-    ul li p{
+
+    ul li p {
         display: flex;
         cursor: pointer;
         margin: auto;
         height: 40px;
         align-items: center;
         justify-content: center;
-       &:hover {
+
+        &:hover {
             background: $colorAccent;
-       } 
+        }
     }
 }
 

@@ -91,6 +91,7 @@
 
     &__ChooseTags {
       margin-bottom: 40px;
+
       &__Title {
         font-weight: 700;
         color: $colorTextM;
@@ -131,6 +132,7 @@
           font-size: 14px;
         }
       }
+
       &__TagBlock {
         @include shadowBox;
 
@@ -138,6 +140,7 @@
         align-content: space-between;
       }
     }
+
     &__SearchSettings {
       @include shadowBox;
       display: flex;

@@ -4,27 +4,22 @@ import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUsers } from "../../../store/actions/users";
-import {Tag} from '../../../components/UI/Tag/Tag'
+import { Tag } from "../../../components/UI/Tag/Tag";
 import { toggleModal } from "../../../store/actions/modal";
 import ModalUser from "../../../components/Modals/ModalUser";
 
 class Users extends React.Component {
-
- toggleModal = (user) => {
-    this.props.toggleModal(user)
-  }
-
+  toggleModal = (user) => {
+    this.props.toggleModal(user);
+  };
 
   renderUsers() {
-   
+    console.log("USERS", this.props.users);
     return this.props.users.map((user) => {
-     
-      console.log(user)
+      console.log("теперь тут", user);
       return (
         <li onClick={this.toggleModal.bind(this, user)} key={user.id}>
-          
-            <UserItem name={user.name} surname={user.surname} />
-            
+          <UserItem name={user.name} surname={user.surname} />
         </li>
       );
     });
@@ -45,27 +40,29 @@ class Users extends React.Component {
           <div className={classes.ListOfUsers__ListBlock}>
             <h1>Список пользователей</h1>
 
-          {this.props.loading ? (
-            <p>Loading</p>
-          ) : (
-            <ul>{this.renderUsers()}</ul>
-          )}
-          {this.props.modalOpenState && 
-              <ModalUser onClose={this.toggleModal} user={this.props.user} accountType={this.props.user.accountType}/>
-               }
-        </div>
-      </div>
-      <div className={classes.Settings}>
-
-        <div className={classes.Settings__ChooseUsers}>
-          <p>Все участники</p>
-          <hr/>
-          <p>Гости</p>
-          <p>Представители компании</p>
-          <p>Спикеры</p>
+            {this.props.loading ? (
+              <p>Loading</p>
+            ) : (
+              <ul>{this.renderUsers()}</ul>
+            )}
+            {this.props.modalOpenState && (
+              <ModalUser
+                onClose={this.toggleModal}
+                user={this.props.user}
+                accountType={this.props.user.accountType}
+              />
+            )}
+          </div>
         </div>
         <div className={classes.Settings}>
-         
+          <div className={classes.Settings__ChooseUsers}>
+            <p>Все участники</p>
+            <hr />
+            <p>Гости</p>
+            <p>Представители компании</p>
+            <p>Спикеры</p>
+          </div>
+
           <div className={classes.Settings__ChooseTags}>
             <div className={classes.Settings__ChooseTags__Title}>
               Выберете теги
@@ -86,25 +83,24 @@ class Users extends React.Component {
           </div>
         </div>
       </div>
-      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-    return{
-      users: state.users.users,
-      loading: state.users.loading,
-      modalOpenState: state.modal.modalOpenState,
-      user: state.modal.user
-    }
-    }
-    
-function mapDispatchToProps(dispatch){
-      return{
-        fetchUsers: () => dispatch(fetchUsers()),
-        toggleModal: (user) => dispatch(toggleModal(user))
-      }
-    }
+  return {
+    users: state.users.users,
+    loading: state.users.loading,
+    modalOpenState: state.modal.modalOpenState,
+    user: state.modal.user,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchUsers: () => dispatch(fetchUsers()),
+    toggleModal: (user) => dispatch(toggleModal(user)),
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
