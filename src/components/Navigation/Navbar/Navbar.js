@@ -20,7 +20,7 @@ import Input from "../../UI/Input/Input";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-
+    //xd
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
