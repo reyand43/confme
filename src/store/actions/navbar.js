@@ -1,6 +1,5 @@
 import {
   NAVBAR_CHANGE_DD_VISIBILITY,
-  NAVBAR_DD_REDIRECT,
   NAVBAR_HIDE_DD,
 } from "./actionTypes";
 
@@ -20,11 +19,3 @@ export function hideDropDown() {
   };
 }
 
-export function changeProfileClicked(isProfile) {
-  return (dispatch) => {
-    dispatch({
-      type: NAVBAR_DD_REDIRECT,
-      profileRedirect: isProfile,
-    });
-  };
-}

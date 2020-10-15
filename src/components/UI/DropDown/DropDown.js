@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import classes from "./DropDown.module.scss";
 import "../vars.scss";
 
@@ -18,7 +17,6 @@ const DropDown = (props) => {
           })}
         </ul>
       </div>
-      {props.state ? <Redirect to="/editProfile"/> : null}
     </div>
   );
 };

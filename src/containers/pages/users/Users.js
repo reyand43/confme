@@ -19,7 +19,7 @@ class Users extends React.Component {
       console.log("теперь тут", user);
       return (
         <li onClick={this.toggleModal.bind(this, user)} key={user.id}>
-          <UserItem name={user.name} surname={user.surname} />
+          <UserItem name={user.name} surname={user.surname} accountType = {user.accountType}/>
         </li>
       );
     });

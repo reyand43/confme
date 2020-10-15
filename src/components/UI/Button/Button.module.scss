@@ -42,17 +42,3 @@
   color: #fff;
 }
 
-.dropDownButton {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: $colorBG2;
-  color: rgb(68, 68, 73);
-  border-radius: 0px;
-  margin: 0;
-  border: none;
-}
-
-.dropDownButton:hover {
-  background: #ccc;
-}

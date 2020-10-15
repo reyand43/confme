@@ -20,6 +20,7 @@ import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import ModalUser from "./components/Modals/ModalUser";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
+import Broadcast from "./containers/pages/broadcast/Broadcast";
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
         <Route path="/timetable" component={Timetable} />
         <Route path="/users/:id" component={User} />
         <Route path="/users" component={Users} />
+        <Route path="/welcomePage" component={WelcomePage} />
         <Redirect to="/" />
       </Switch>
     );
@@ -49,6 +51,7 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path="/editProfile" component={EditProfile} />
+          <Route path="/broadcast" component={Broadcast} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
           <Route path="/users/:id" component={User} />
@@ -57,7 +60,7 @@ class App extends Component {
           <Route path="/users" component={Users} />
           <Route path="/welcomePage" component={WelcomePage} />
 
-          <Redirect to="/editProfile" />
+          <Redirect to="/welcomePage" />
         </Switch>
       );
     }

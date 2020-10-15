@@ -1,0 +1,24 @@
+.Broadcast {
+    width: 100%;
+    &__Stream {
+        display: flex;
+        justify-content: center;
+        margin-top: 60px;
+        &__Video {
+            width: 320px;
+            height: 240px;
+            border: 2px solid black;
+        }
+        &__GetVideo {
+            width: 320px;
+            height: 240px;
+            border: 2px solid black;
+        }
+    }
+
+    &__Canvas {
+        width: 640px;
+        height: 480px;
+        border: 1px solid #d3d3d3;
+    }
+}

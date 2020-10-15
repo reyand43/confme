@@ -16,6 +16,7 @@ import {
   hideDropDown,
 } from "../../../store/actions/navbar";
 import Input from "../../UI/Input/Input";
+import { withRouter } from "react-router-dom";
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -36,9 +37,15 @@ class Navbar extends React.Component {
         text: "Профиль",
         onClick: () => {
           this.props.hideDropDown();
-          if (this.props.profileClicked === false)
-            this.props.changeProfileClicked(true);
+          this.props.history.push("/editProfile");
         },
+      },
+      {
+        text: "Трансляция",
+        onClick: () => {
+          this.props.hideDropDown();
+          this.props.history.push("/broadcast")
+        }
       },
       {
         text: "Выход",
@@ -63,7 +70,7 @@ class Navbar extends React.Component {
               this.props.visible ? "active" : ""
             }
             items={items}
-            state={this.props.profileClicked}
+            
           >
             <div className={classes.userInfoBlock}>
               <p>
@@ -131,8 +138,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     changeVisibility: () => dispatch(changeVisibility()),
-    changeProfileClicked: (isProfile) =>
-      dispatch(changeProfileClicked(isProfile)),
     logout: () => {
       dispatch(logout());
     },
@@ -142,4 +147,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navbar));

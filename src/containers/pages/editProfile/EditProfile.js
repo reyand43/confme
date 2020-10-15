@@ -7,16 +7,15 @@ import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
   updateUserName,
-  changeValue
+  changeValue,
 } from "../../../store/actions/editProfile";
-import { changeProfileClicked } from "../../../store/actions/navbar";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.name = this.props.name;
     this.surname = this.props.surname;
 
@@ -55,15 +54,6 @@ class EditProfile extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.isAuthenticated) {
-      this.props.loadUserNameFromServer();
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.changeProfileClicked(false);
-  }
 
   async onSendHandler() {
     const name = this.name;
@@ -74,7 +64,7 @@ class EditProfile extends React.Component {
     const profession = this.profession;
     const company = this.company;
     const purpose = this.purpose;
-    const phone = this.phone
+    const phone = this.phone;
 
     const userId = localStorage.getItem("userId");
     const requestData = {
@@ -100,11 +90,9 @@ class EditProfile extends React.Component {
     return (
       <div className={classes.EditProfile}>
         <Card title="Личные данные">
-          
           <div className={classes.Info}>
             <UserPhoto size="lg" />
             <div className={classes.column}>
-
               <div className={classes.Row}>
                 <div className={classes.input}>
                   <label htmlFor="Name">Имя</label>
@@ -128,7 +116,7 @@ class EditProfile extends React.Component {
               </div>
 
               <div className={classes.Row}>
-              <div className={classes.input}>
+                <div className={classes.input}>
                   <label htmlFor="Age">Возраст</label>
                   <input
                     name="Age"
@@ -144,12 +132,9 @@ class EditProfile extends React.Component {
                     onChange={this.onChangeHandler}
                     value={this.props.phoneValue}
                     placeholder={"Введите ваш телефон"}
-
                   ></input>
                 </div>
               </div>
-
-              
 
               <div className={classes.Row}>
                 <div className={classes.input}>
@@ -193,19 +178,18 @@ class EditProfile extends React.Component {
                 </div>
               </div>
 
-<div className={classes.input}>
-            <label htmlFor="Purpose">Цель посещения</label>
-             <textarea
-             name="Purpose"
-             onChange={this.onChangeHandler}
-             placeholder={"Введите цель посещения нашего мероприятия"}
-             value = {this.props.purposeValue}
-             ></textarea>
-</div>
+              <div className={classes.input}>
+                <label htmlFor="Purpose">Цель посещения</label>
+                <textarea
+                  name="Purpose"
+                  onChange={this.onChangeHandler}
+                  placeholder={"Введите цель посещения нашего мероприятия"}
+                  value={this.props.purposeValue}
+                ></textarea>
+              </div>
 
               <button onClick={this.onSendHandler}>Сохранить</button>
             </div>
-            
           </div>
         </Card>
       </div>
@@ -229,17 +213,15 @@ function mapStateToProps(state) {
     countryValue: state.editProfile.countryValue,
     cityValue: state.editProfile.cityValue,
     phoneValue: state.editProfile.phoneValue,
-    purposeValue: state.editProfile.purposeValue
+    purposeValue: state.editProfile.purposeValue,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
-    changeProfileClicked: (isProfile) =>
-      dispatch(changeProfileClicked(isProfile)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    changeValue: (value) => dispatch(changeValue(value))
+    changeValue: (value) => dispatch(changeValue(value)),
   };
 }
 
