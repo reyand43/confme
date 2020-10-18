@@ -16,7 +16,7 @@ import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 class EditProfile extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.name = this.props.name;
     this.surname = this.props.surname;
 
@@ -100,7 +100,7 @@ class EditProfile extends React.Component {
     return (
       <div className={classes.EditProfile}>
         <Card title="Личные данные">
-          
+
           <div className={classes.Info}>
             <UserPhoto size="lg" />
             <div className={classes.column}>
@@ -149,7 +149,7 @@ class EditProfile extends React.Component {
                 </div>
               </div>
 
-              
+
 
               <div className={classes.Row}>
                 <div className={classes.input}>
@@ -205,7 +205,7 @@ class EditProfile extends React.Component {
 
               <button onClick={this.onSendHandler}>Сохранить</button>
             </div>
-            
+
           </div>
         </Card>
       </div>

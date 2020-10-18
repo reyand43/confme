@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 class DialogList extends React.Component {
   componentDidMount() {
     this.props.fetchDialogs(localStorage.getItem("userId"));
-    console.log("mounted");
+    console.log(localStorage);
   }
 
   renderDialogs() {

@@ -132,7 +132,7 @@ class Dialog extends React.Component {
            </NavLink>
             <NavLink  to={"/users/" + this.props.match.params.id} className={classes.nostyle}>
               <span className={classes.Dialog__chatHeader__userName}>
-                
+
                 {this.props.user.Name}&nbsp;{this.props.user.Surname}
               </span>
             </NavLink>
