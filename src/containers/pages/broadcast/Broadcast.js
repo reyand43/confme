@@ -3,8 +3,8 @@ import React from "react";
 import { Button } from "../../../components/UI/Button/Button";
 
 
-const VIEWER_SERVER = "ws://ec2-18-215-155-52.compute-1.amazonaws.com:8079";
-const STREAMER_SERVER ="ws://ec2-18-215-155-52.compute-1.amazonaws.com:8080";
+const VIEWER_SERVER = "ws://ec2-54-144-255-19.compute-1.amazonaws.com:8079";
+const STREAMER_SERVER ="ws://ec2-54-144-255-19.compute-1.amazonaws.com:8080";
 
 class Broadcast extends React.Component {
   constructor() {
@@ -63,7 +63,8 @@ class Broadcast extends React.Component {
 
   getVideo() {
 
-    this.viewer_socket = new WebSocket(VIEWER_SERVER);   
+    this.viewer_socket = new WebSocket(VIEWER_SERVER);
+
     let mediaSource = new MediaSource();
     let arrayOfBlobs = [];
     let sourceBuffer = null;
@@ -81,7 +82,7 @@ class Broadcast extends React.Component {
       arrayOfBlobs.push(event.data);
       appendToSourceBuffer();
     });
-  
+
     const appendToSourceBuffer = async () => {
       if (
         mediaSource.readyState === "open" &&
@@ -91,7 +92,7 @@ class Broadcast extends React.Component {
         //console.log(arrayOfBlobs[0]);
         if(arrayOfBlobs.length > 0) {
           let buffer = await arrayOfBlobs.shift().arrayBuffer();
-          sourceBuffer.appendBuffer(buffer);
+          await sourceBuffer.appendBuffer(buffer);
         }
       }
 
