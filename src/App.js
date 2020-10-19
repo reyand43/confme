@@ -15,7 +15,6 @@ import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
-import ModalUser from "./components/Modals/ModalUser";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
 
@@ -66,11 +65,11 @@ class App extends Component {
           
           
             <Split>
-
-              <Sidebar isAuthenticated={this.props.isAuthenticated} />
+            <Navbar isAuthenticated={this.props.isAuthenticated} />
               
               
-              <Layout navbar={<Navbar isAuthenticated={this.props.isAuthenticated} />}>
+              
+              <Layout sidebar={<Sidebar isAuthenticated={this.props.isAuthenticated} />}>
               {routes}
               
               </Layout>

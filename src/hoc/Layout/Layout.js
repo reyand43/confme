@@ -6,11 +6,12 @@ class Layout extends Component {
     return (
       
       <div className={classes.Layout}>
-        {this.props.navbar}
-        <div className={classes.vertical}>
+        <div className={classes.Layout__Sidebar}>
+        {this.props.sidebar}
+        </div>
         {this.props.children}
         </div>
-      </div>
+      
       
     );
   }

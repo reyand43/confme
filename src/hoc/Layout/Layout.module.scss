@@ -1,21 +1,14 @@
-@import '../../components/UI/vars.scss';
+@import "../../components/UI/vars.scss";
 
 .Layout {
-    background:#fff;
-    display: flex;
-    
-    flex-direction: column;
-    
-    height: 100%;
-    width: 100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    z-index: 0;
-}
+  background: #fff;
+  display: flex;
 
-.vertical{
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    overflow-y: scroll;
+  height: 80%;
+  width: 100%;
+
+  z-index: 0;
+  &__Sidebar {
+    width: 220px;
+  }
 }

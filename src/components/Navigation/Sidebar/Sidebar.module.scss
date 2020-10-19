@@ -1,101 +1,55 @@
-@import "../../UI/vars.scss";
-
-.Sidebar {
-  top: 0;
-  left: 0;
+.Sidebar{
+  width: 220px;
   height: 100%;
-  width: 5%;
-  height: 100%;
-  z-index: 200;
-  transition: width 500ms;
-  display: flex;
+  font-size: 16px;
+  
+  &__Menu{
+    background: #4952A6;
+    border-radius: 20px;
+    padding: 10px 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   justify-content: space-between;
+    
+    ul{
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      hr{
+        width: 70%;
+        border: 1px solid white;
+        background: white;
 
-  flex-direction: column;
-}
-.wrapper {
-  width: 100%;
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-}
+      }
+      li{
+        
+        a{
+          display: flex;
+          color: white;
+          text-decoration: none;
+          width: 100%;
+          height: 100%;
+          padding: 10px 20px;
+          align-items: center;
+          
+          i{
+            font-size: 18px;
+            margin-right: 10px;
 
-.Sidebar:hover {
-  width: 15%;
-  ul li {
-    justify-content: flex-start;
-  }
-  a {
-    padding-left: 20px;
-    justify-content: flex-start;
-  }
-  p {
-    display: block;
-    opacity: 1;
-    transition: opacity 1000ms;
-  }
-}
+          }
 
-.Sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.Sidebar ul li {
-  display: flex;
-  justify-content: flex-center;
-  align-items: center;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-}
-
-.Sidebar ul li:hover {
-  background: rgba($color: $colorAccent, $alpha: 0.3);
-  width: 100%;
-}
-
-.Sidebar ul li a {
-  font-size: 15px;
-  text-decoration: none;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    margin: 0;
-    pointer-events: none;
-    opacity: 0;
-    font-size: 14px;
-    padding-left: 12px;
-    display: none;
-  }
-  i {
-    pointer-events: none;
-    margin: 0px;
-    font-size: 18px;
+          
+        }
+        
+      }
+    }
+    
   }
 }
 
-.Sidebar ul li .active {
-  p,
-  i {
-    color: #fff;
-    font-weight: 500;
-  }
-  :hover {
-    border: none;
-  }
-}
-
-.Sidebar ul li a.active:hover {
-}
-
-.LogoLink {
-  text-decoration: none;
+.active{
+  border-left: 3px solid white;
+  font-weight: 600;
 }
