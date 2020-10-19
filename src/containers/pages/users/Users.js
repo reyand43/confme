@@ -14,9 +14,7 @@ class Users extends React.Component {
   };
 
   renderUsers() {
-    console.log("USERS", this.props.users);
     return this.props.users.map((user) => {
-      console.log("теперь тут", user);
       return (
         <li onClick={this.toggleModal.bind(this, user)} key={user.id}>
           <UserItem name={user.name} surname={user.surname} accountType = {user.accountType}/>

@@ -21,7 +21,7 @@ import { withRouter } from "react-router-dom";
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-
+    //xd
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
