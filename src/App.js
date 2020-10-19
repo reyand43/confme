@@ -13,12 +13,10 @@ import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
-import {openModal} from "./store/actions/modal"
-import MainView from "./hoc/MainView/MainView";
+
 import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
-import ModalUser from "./components/Modals/ModalUser";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
 
@@ -68,20 +66,20 @@ class App extends Component {
     return (
       <BrowserRouter>
       
-          <MainView>
+          
           
             <Split>
-
-              <Sidebar isAuthenticated={this.props.isAuthenticated} />
+            <Navbar isAuthenticated={this.props.isAuthenticated} />
               
               
-              <Layout navbar={<Navbar isAuthenticated={this.props.isAuthenticated} />}>
+              
+              <Layout sidebar={<Sidebar isAuthenticated={this.props.isAuthenticated} />}>
               {routes}
               
               </Layout>
             
             </Split>
-          </MainView>
+         
       </BrowserRouter>
     );
   }
