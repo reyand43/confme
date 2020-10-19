@@ -3,8 +3,8 @@ import React from "react";
 import { Button } from "../../../components/UI/Button/Button";
 
 
-const VIEWER_SERVER = "ws://ec2-18-215-155-52.compute-1.amazonaws.com:8079";
-const STREAMER_SERVER ="ws://ec2-18-215-155-52.compute-1.amazonaws.com:8080";
+const VIEWER_SERVER = "ws://ec2-54-144-255-19.compute-1.amazonaws.com:8079";
+const STREAMER_SERVER ="ws://ec2-54-144-255-19.compute-1.amazonaws.com:8080";
 
 class Broadcast extends React.Component {
   constructor() {
@@ -91,7 +91,7 @@ class Broadcast extends React.Component {
         //console.log(arrayOfBlobs[0]);
         if(arrayOfBlobs.length > 0) {
           let buffer = await arrayOfBlobs.shift().arrayBuffer();
-          sourceBuffer.appendBuffer(buffer);
+          await sourceBuffer.appendBuffer(buffer);
         }
       }
 
