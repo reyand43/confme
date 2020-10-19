@@ -63,7 +63,8 @@ class Broadcast extends React.Component {
 
   getVideo() {
 
-    this.viewer_socket = new WebSocket(VIEWER_SERVER);   
+    this.viewer_socket = new WebSocket(VIEWER_SERVER);
+
     let mediaSource = new MediaSource();
     let arrayOfBlobs = [];
     let sourceBuffer = null;
@@ -81,7 +82,7 @@ class Broadcast extends React.Component {
       arrayOfBlobs.push(event.data);
       appendToSourceBuffer();
     });
-  
+
     const appendToSourceBuffer = async () => {
       if (
         mediaSource.readyState === "open" &&
