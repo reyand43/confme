@@ -1,17 +1,13 @@
 @import '../../components/UI/vars.scss';
 
 .Layout {
-   
     display: flex;
-    
-    
-    
-    height: 80%;
+    height: 85%;
     width: 100%;
-   
     z-index: 0;
     &__Sidebar{
         width: 220px;
+        margin-right: 20px;
     }
 }
 

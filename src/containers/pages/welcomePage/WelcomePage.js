@@ -3,6 +3,7 @@ import React from "react";
 import { ItemCard } from "../../../components/UI/ItemCard/ItemCard";
 import { loadUserNameFromServer } from "../../../store/actions/editProfile";
 import { connect } from "react-redux";
+import { BGMain } from "../../../components/UI/BGMain/BGMain";
 
 class WelcomePage extends React.Component {
   componentDidMount() {
@@ -14,7 +15,8 @@ class WelcomePage extends React.Component {
   render() {
     return (
       <div className={classes.WelcomePage}>
-        <div className={classes.WelcomePage__UpperTexts}>
+        <BGMain/>
+        {/* <div className={classes.WelcomePage__UpperTexts}>
           <h1>Добро пожаловать на онлайн-выставку Conf.Me 2020</h1>
         </div>
         <div className={classes.WelcomePage__Video}></div>
@@ -46,7 +48,7 @@ class WelcomePage extends React.Component {
             <ItemCard />
           </div>
         </div>
-        <div style={{ height: "150px", padding: "20px" }}></div>
+        <div style={{ height: "150px", padding: "20px" }}></div> */}
       </div>
     );
   }
