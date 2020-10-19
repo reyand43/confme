@@ -18,6 +18,7 @@ import {
 import Input from "../../UI/Input/Input";
 import { withRouter } from "react-router-dom";
 import Time from "../../Time/Time";
+import { Logo } from "../../UI/Logo/Logo";
 
 class Navbar extends React.Component {
   constructor() {
@@ -115,13 +116,19 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className={classes.Navbar}>
-        <div className = {classes.Navbar__EventTime}>
-          <div className = {classes.Navbar__EventTime_UpperText}>Время мероприятия:</div>
-          <div className = {classes.Navbar__EventTime__LowerText}>
-              <Time utc = {3} city = 'Москва'/>
-            </div>
+        <div className = {classes.Navbar__Logo}>
+          <Logo />
         </div>
+        
+        <div className = {classes.Navbar__TimeAndProfile}>
+          <div className = {classes.Navbar__EventTime}>
+            <div className = {classes.Navbar__EventTime_UpperText}>Время мероприятия:</div>
+            <div className = {classes.Navbar__EventTime__LowerText}>
+                <Time utc = {3} city = 'Москва'/>
+              </div>
+          </div>
         {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
+        </div>
       </div>
     );
   }
