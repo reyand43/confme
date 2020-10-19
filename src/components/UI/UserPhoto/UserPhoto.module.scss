@@ -1,29 +1,25 @@
+.UserPhoto {
+  height: 41px;
+  width: 41px;
+  border-radius: 50px;
 
-
-.UserPhoto{
-    
-        height:41px;
-        width: 41px;
-        border-radius: 5px;
-        
-        background: url('../../../images/userPhoto.jpg');
-        background-size: cover;
-        background-position: center;
-        margin: 0 12px;
+  background: url("../../../images/userPhoto.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 0 12px;
 }
 
 .sm {
-        height:30px;
-        width: 30px;   
+  height: 30px;
+  width: 30px;
 }
 
-.md{
-        height:54px;
-        width: 54px;
+.md {
+  height: 54px;
+  width: 54px;
 }
 
-.lg{
-        height:60px;
-        width: 60px;
-        
+.lg {
+  height: 60px;
+  width: 60px;
 }
