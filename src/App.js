@@ -13,9 +13,6 @@ import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
-import {openModal} from "./store/actions/modal"
-import MainView from "./hoc/MainView/MainView";
-import User from "./containers/pages/user/User";
 import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import ModalUser from "./components/Modals/ModalUser";
@@ -40,7 +37,6 @@ class App extends Component {
         <Route path="/editProfile" component={EditProfile} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
-        <Route path="/users/:id" component={User} />
         <Route path="/users" component={Users} />
         <Route path="/welcomePage" component={WelcomePage} />
         <Redirect to="/" />
@@ -54,7 +50,6 @@ class App extends Component {
           <Route path="/broadcast" component={Broadcast} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
-          <Route path="/users/:id" component={User} />
           <Route path="/dialogs/:id" component={Dialog} />
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
@@ -68,7 +63,7 @@ class App extends Component {
     return (
       <BrowserRouter>
       
-          <MainView>
+          
           
             <Split>
 
@@ -81,7 +76,7 @@ class App extends Component {
               </Layout>
             
             </Split>
-          </MainView>
+          
       </BrowserRouter>
     );
   }

@@ -1,128 +1,117 @@
 @import "../../../components/UI/vars.scss";
 
-.wrapper{
-    background: $color;
-    padding: 20px 20px 0 20px;
-    display: flex;
-    justify-content: center;
-    
+.wrapper {
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: center;
 }
 
-
-.Dialog{
-    width:  600px;
-    
-  
-    
+.Dialog {
+  width: 600px;
 }
 
-
-.Dialog__chatHeader{
-    background: #fff;
-    margin-bottom: 1px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    padding: 0;
+.Dialog__chatHeader {
+  background: #fff;
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 0;
 }
 
-.Dialog__chatHeader__backButton{
-    width: 150px;
-    display: flex;
-    align-items: center;
+.Dialog__chatHeader__backButton {
+  width: 150px;
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
-  color: $colorText;
- height: 44px;
-  
-  i{
-      margin-left: 20px;
-      margin-right: 5px;
-      font-size:30px;
-  } 
+  height: 44px;
+
+  i {
+    margin-left: 20px;
+    margin-right: 5px;
+    font-size: 30px;
+  }
 }
 
-.Dialog__chatHeader__backButton:hover{
-    background: linear-gradient(to right, rgb(245, 245, 245) 10%, #fff);
-    cursor: pointer;
+.Dialog__chatHeader__backButton:hover {
+  background: linear-gradient(to right, rgb(245, 245, 245) 10%, #fff);
+  cursor: pointer;
 }
 
-.Dialog__chatHeader__userName{
-    font-size: 15px;
-    font-weight: 500;
-    color: black;
+.Dialog__chatHeader__userName {
+  font-size: 15px;
+  font-weight: 500;
+  color: black;
 }
 
-.nostyle{
-    text-decoration: none;
-    
+.nostyle {
+  text-decoration: none;
 }
 
-.Dialog__chatHeader__userPhoto{
-    width: 150px;
-    display: flex;
-    align-items: center;
+.Dialog__chatHeader__userPhoto {
+  width: 150px;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
   padding-right: 15px;
 }
 
-.Dialog__chatBody{
-    
-    background: #fff;
-    height: 500px;
-    overflow-y: scroll;
-    
-    ::-webkit-scrollbar{
-        scrollbar-width: none;
-    }
-    
-    ul {
-    margin: 0;
-    padding: 0;}
-    li{
-list-style: none;
-    }
-    .right{
-        width: 100%;
-        float: right;
-    }
-    .left{
-        width: 100%;
-        float: left;
-    }
+.Dialog__chatBody {
+  background: #fff;
+  height: 500px;
+  overflow-y: scroll;
 
+  ::-webkit-scrollbar {
+    scrollbar-width: none;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+  .right {
+    width: 100%;
+    float: right;
+  }
+  .left {
+    width: 100%;
+    float: left;
+  }
 }
 
-.Dialog__chatFooter{
-    bottom: 0;
-    height: 62px;
+.Dialog__chatFooter {
+  bottom: 0;
+  height: 62px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+
+  margin-top: 1px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  form {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
-    
-    margin-top: 1px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    form{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        input{
-            width: 100%;
-            padding: 10px 70px 10px 13px;
-            border-radius: 6px;
-            outline: none;
-            border: 1px solid rgb(147, 147, 147);
-        }
-        i{
-            padding: 25px;
-            font-size: 20px;
-            color: rgb(147, 147, 147);
-            cursor: pointer;
-        }
+    input {
+      width: 100%;
+      padding: 10px 70px 10px 13px;
+      border-radius: 6px;
+      outline: none;
+      border: 1px solid rgb(147, 147, 147);
     }
-    
+    i {
+      padding: 25px;
+      font-size: 20px;
+      color: rgb(147, 147, 147);
+      cursor: pointer;
+    }
+  }
 }

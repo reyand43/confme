@@ -6,7 +6,6 @@
   height: 100%;
   width: 5%;
   height: 100%;
-  background: $colorBG1;
   z-index: 200;
   transition: width 500ms;
   display: flex;
@@ -72,7 +71,6 @@
     margin: 0;
     pointer-events: none;
     opacity: 0;
-    color: $colorTextM;
     font-size: 14px;
     padding-left: 12px;
     display: none;
@@ -80,13 +78,11 @@
   i {
     pointer-events: none;
     margin: 0px;
-    color: $colorTextS;
     font-size: 18px;
   }
 }
 
 .Sidebar ul li .active {
-  background: $colorAccent;
   p,
   i {
     color: #fff;
@@ -98,7 +94,6 @@
 }
 
 .Sidebar ul li a.active:hover {
-  border: $color 1px solid;
 }
 
 .LogoLink {
