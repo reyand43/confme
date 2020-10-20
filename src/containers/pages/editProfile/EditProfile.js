@@ -11,6 +11,11 @@ import {
 } from "../../../store/actions/editProfile";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
+import  MainInfo  from "./MainInfo/MainInfo"
+import  Contacts  from "./Contacts/Contacts"
+import  Career  from "./Career/Career"
+import  Interests  from "./Interests/Interests"
+
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -51,6 +56,9 @@ class EditProfile extends React.Component {
     } else if (e.target.name === "Purpose") {
       this.props.changeValue(e.target.name, e.target.value);
       this.purpose = e.target.value;
+    } else if (e.target.name === "Sex") {
+      this.props.changeValue(e.target.name, e.target.value);
+      this.sex = e.target.value;
     }
   }
 
@@ -61,6 +69,9 @@ class EditProfile extends React.Component {
     const age = this.age;
     const country = this.country;
     const city = this.city;
+
+    const sex = this.sex;
+
     const profession = this.profession;
     const company = this.company;
     const purpose = this.purpose;
@@ -71,6 +82,7 @@ class EditProfile extends React.Component {
       Name: name,
       Surname: surname,
       Age: age,
+      Sex: sex,
       Country: country,
       City: city,
       Profession: profession,
@@ -87,114 +99,16 @@ class EditProfile extends React.Component {
   }
 
   render() {
+
     return (
+
       <div className={classes.EditProfile}>
-        <Card title="Личные данные">
-          <div className={classes.Info}>
-            <UserPhoto size="lg" />
-            <div className={classes.column}>
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label htmlFor="Name">Имя</label>
-                  <input
-                    name="Name"
-                    value={this.props.nameValue}
-                    onChange={this.onChangeHandler}
-                    placholder="Введите ваше имя"
-                  ></input>
-                </div>
-                <div className={classes.input}>
-                  <label htmlFor="Surname">Фамилия</label>
-                  <input
-                    label="Фамилия"
-                    name="Surname"
-                    value={this.props.surnameValue}
-                    onChange={this.onChangeHandler}
-                    placholder="Введите вашу фамилию"
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label htmlFor="Age">Возраст</label>
-                  <input
-                    name="Age"
-                    onChange={this.onChangeHandler}
-                    placeholder={"Введите ваш возраст"}
-                    value={this.props.ageValue}
-                  ></input>
-                </div>
-                <div className={classes.input}>
-                  <label htmlFor="Phone">Телефон</label>
-                  <input
-                    name="Phone"
-                    onChange={this.onChangeHandler}
-                    value={this.props.phoneValue}
-                    placeholder={"Введите ваш телефон"}
-                  ></input>
-                </div>
-              </div>
-
-
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label htmlFor="Country">Страна</label>
-                  <input
-                    name="Country"
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите вашу страну"
-                    value={this.props.countryValue}
-                  ></input>
-                </div>
-                <div className={classes.input}>
-                  <label htmlFor="City">Город</label>
-                  <input
-                    name="City"
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите ваш город"
-                    value={this.props.cityValue}
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label htmlFor="Profession">Профессия</label>
-                  <input
-                    name="Profession"
-                    onChange={this.onChangeHandler}
-                    value={this.props.professionValue}
-                    placeholder="Введите паш род деятельности"
-                  ></input>
-                </div>
-                <div className={classes.input}>
-                  <label htmlFor="Company">Компания</label>
-                  <input
-                    name="Company"
-                    onChange={this.onChangeHandler}
-                    placeholder={"Введите вашу компанию"}
-                    value={this.props.companyValue}
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.input}>
-                <label htmlFor="Purpose">Цель посещения</label>
-                <textarea
-                  name="Purpose"
-                  onChange={this.onChangeHandler}
-                  placeholder={"Введите цель посещения нашего мероприятия"}
-                  value={this.props.purposeValue}
-                ></textarea>
-              </div>
-
-              <button onClick={this.onSendHandler}>Сохранить</button>
-            </div>
-          </div>
-        </Card>
+        <MainInfo/>
+        <Contacts/>
+        <Career/>
+        <Interests/>
       </div>
+      
     );
   }
 }
@@ -210,6 +124,7 @@ function mapStateToProps(state) {
     nameValue: state.editProfile.nameValue,
     surnameValue: state.editProfile.surnameValue,
     ageValue: state.editProfile.ageValue,
+    sexValue: state.editProfile.sexValue,
     companyValue: state.editProfile.companyValue,
     professionValue: state.editProfile.professionValue,
     countryValue: state.editProfile.countryValue,

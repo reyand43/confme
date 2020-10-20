@@ -70,7 +70,7 @@ class Navbar extends React.Component {
               this.props.visible ? "active" : ""
             }
             items={items}
-            
+
           >
             <div className={classes.userInfoBlock}>
               <p>
