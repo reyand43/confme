@@ -6,8 +6,8 @@ body {
   font-family: 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
   
+
 }
 
 html, body, #root {
@@ -19,4 +19,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
