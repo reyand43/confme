@@ -17,11 +17,12 @@ import {
 } from "../../../store/actions/navbar";
 import Input from "../../UI/Input/Input";
 import { withRouter } from "react-router-dom";
+import Time from "../../Time/Time";
+import { Logo } from "../../UI/Logo/Logo";
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-    //xd
+  constructor() {
+    super();
     this.setWrapperRef = this.setWrapperRef.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
@@ -44,8 +45,8 @@ class Navbar extends React.Component {
         text: "Трансляция",
         onClick: () => {
           this.props.hideDropDown();
-          this.props.history.push("/broadcast")
-        }
+          this.props.history.push("/broadcast");
+        },
       },
       {
         text: "Выход",
@@ -58,17 +59,18 @@ class Navbar extends React.Component {
     ];
     //----------------------
     return (
-      <div className={classes.userBlock} style = {this.props.isAuthenticated ? null : {display: "none"}}>
-        <div className={classes.bellBlock}>
+      <div
+        className={classes.userBlock}
+        style={this.props.isAuthenticated ? null : { display: "none" }}
+      >
+        {/* <div className={classes.bellBlock}>
           <span>3</span>
           <i className="fa fa-bell" aria-hidden="true"></i>
-        </div>
+        </div> */}
         <div className={classes.userInfo} ref={this.setWrapperRef}>
           <DropDown
             onClick={this.dropDownHandler}
-            styles={
-              this.props.visible ? "active" : ""
-            }
+            styles={this.props.visible ? "active" : ""}
             items={items}
 
           >
@@ -86,6 +88,7 @@ class Navbar extends React.Component {
   }
 
   componentDidMount() {
+
     document.addEventListener("mousedown", this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
@@ -114,12 +117,19 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className={classes.Navbar}>
-        <div className={classes.SearchBlock}>
-          <i className="fa fa-search" aria-hidden="true"></i>
-          <input placeholder="Поиск" />
+        <div className = {classes.Navbar__Logo}>
+          <Logo />
         </div>
 
-        {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
+        <div className = {classes.Navbar__TimeAndProfile}>
+          <div className = {classes.Navbar__EventTime}>
+            <div className = {classes.Navbar__EventTime__UpperText}>Время мероприятия:</div>
+            <div className = {classes.Navbar__EventTime__LowerText}>
+                <Time utc = {3} city = 'Москва'/>
+              </div>
+          </div>
+          {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
+        </div>
       </div>
     );
   }

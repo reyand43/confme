@@ -1,0 +1,15 @@
+@import '../vars.scss';
+
+.BGSide{
+    background: $colorGreyThird;
+    border-radius: 10px;
+    width: 295px;
+    height: 100%;
+    margin-left: 20px;
+    
+    &__Content{
+height: 100%;
+width: 100%;
+padding: 15px;
+    }
+}

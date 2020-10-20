@@ -7,6 +7,7 @@ import { fetchUsers } from "../../../store/actions/users";
 import { Tag } from "../../../components/UI/Tag/Tag";
 import { toggleModal } from "../../../store/actions/modal";
 import ModalUser from "../../../components/Modals/ModalUser";
+import { BGMain } from "../../../components/UI/BGMain/BGMain";
 
 class Users extends React.Component {
   toggleModal = (user) => {
@@ -29,6 +30,7 @@ class Users extends React.Component {
 
   render() {
     return (
+      <BGMain>
       <div className={classes.Users}>
         <div className={classes.ListOfUsers}>
           <div className={classes.ListOfUsers__SearchBlock}>
@@ -81,6 +83,7 @@ class Users extends React.Component {
           </div>
         </div>
       </div>
+      </BGMain>
     );
   }
 }

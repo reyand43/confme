@@ -16,7 +16,7 @@
             border-bottom: 1px solid lightgray;
             
             :hover{
-                background: $color;
+                background: black;
             }
         }
     }
@@ -53,7 +53,6 @@
     } 
     i{
         font-weight: 400;
-        color: $colorText
         
     }
 }
@@ -62,7 +61,6 @@
 
 
 .wrapper{
-    background: $color;
     padding: 20px 20px 20px 230px;
     
     display: flex;
@@ -70,9 +68,6 @@
 }
 
 
-.DialogTypeChoose{
-
-}
 
 .DialogTypeChooseWrapper{
     padding: 5px 0 5px 0;
@@ -88,7 +83,6 @@
             padding: 0 5px 0 20px;
             cursor: pointer;
             span{
-                color:$colorText;
                 font-size: 14px;
                 font-weight: 500;
                 line-height: 30px;
