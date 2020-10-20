@@ -63,10 +63,10 @@ class Navbar extends React.Component {
         className={classes.userBlock}
         style={this.props.isAuthenticated ? null : { display: "none" }}
       >
-        <div className={classes.bellBlock}>
+        {/* <div className={classes.bellBlock}>
           <span>3</span>
           <i className="fa fa-bell" aria-hidden="true"></i>
-        </div>
+        </div> */}
         <div className={classes.userInfo} ref={this.setWrapperRef}>
           <DropDown
             onClick={this.dropDownHandler}
@@ -122,12 +122,12 @@ class Navbar extends React.Component {
         
         <div className = {classes.Navbar__TimeAndProfile}>
           <div className = {classes.Navbar__EventTime}>
-            <div className = {classes.Navbar__EventTime_UpperText}>Время мероприятия:</div>
+            <div className = {classes.Navbar__EventTime__UpperText}>Время мероприятия:</div>
             <div className = {classes.Navbar__EventTime__LowerText}>
                 <Time utc = {3} city = 'Москва'/>
               </div>
           </div>
-        {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
+          {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
         </div>
       </div>
     );

@@ -2,23 +2,20 @@ import classes from "./Time.module.scss";
 import React from "react";
 
 class Time extends React.Component {
-
-    state = {
-        time: null
-    } 
+  state = {
+    time: null,
+  };
 
   componentDidMount() {
-    
     this.intervalTime = setInterval(() => {
       let currentTime = new Date();
       let h = currentTime.getUTCHours() + this.props.utc;
       let m = currentTime.getUTCMinutes();
       let s = currentTime.getUTCSeconds();
-      if(h < 10) h = '0' + h;
-      if(m < 10) m = '0' + m;
-      if(s < 10) s = '0' + s;
-      let UTCTime =
-        h + ":" + m + ":" + s;
+      if (h < 10) h = "0" + h;
+      if (m < 10) m = "0" + m;
+      if (s < 10) s = "0" + s;
+      let UTCTime = h + ":" + m + ":" + s;
       this.setState({
         time: UTCTime,
       });
@@ -30,9 +27,12 @@ class Time extends React.Component {
   }
 
   render() {
-    return <div className={classes.Time}>
-        {this.state.time} | {this.props.city}
-    </div>;
+    return (
+      <div className={classes.Time}>
+        <div className={classes.Time__Number}>{this.state.time}</div>|{" "}
+        {this.props.city}
+      </div>
+    );
   }
 }
 
