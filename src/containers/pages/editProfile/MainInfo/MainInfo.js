@@ -77,7 +77,6 @@ class MainInfo extends React.Component {
       <div className={classes.EditProfile}>
         <Card title="Основное">
           <div className={classes.Info}>
-            <UserPhoto size="lg" />
             <div className={classes.column}>
 
               <div className={classes.Row}>
@@ -95,13 +94,13 @@ class MainInfo extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 100}} htmlFor="Surname">Фамилия:</label>
+                  <label style={{paddingLeft: 90}} htmlFor="Surname">Фамилия:</label>
                   <input
                     label="Фамилия"
                     name="Surname"
                     value={this.props.surnameValue}
+                    placeholder="Введите вашу фамилию"
                     onChange={this.onChangeHandler}
-                    placholder="Введите вашу фамилию"
                   ></input>
                 </div>
               </div>
@@ -123,13 +122,23 @@ class MainInfo extends React.Component {
                 <div className={classes.column}>
                     <div className={classes.input}>
                       <label style={{paddingLeft: 1}} htmlFor="Sex">Пол:</label>
-                      <input
+                      <select
+                        style={{width: "160px"}}
+                        name="Sex"
+                        onChange={this.onChangeHandler}
+                        value={this.props.sexValue}
+                      >
+                        <option outline= "none" value="" disabled selected>Выберите пол</option>
+                        <option value="Man">Мужчина</option>
+                        <option value="Woman">Женщина</option>
+                      </select>
+                      {/*<input
                         style={{width: "136px"}}
                         name="Sex"
                         onChange={this.onChangeHandler}
                         placeholder={"Введите ваш пол"}
                         value={this.props.sexValue}
-                      ></input>
+                      ></input>*/}
                     </div>
                 </div>
               </div>

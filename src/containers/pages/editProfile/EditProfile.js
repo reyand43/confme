@@ -15,7 +15,8 @@ import  MainInfo  from "./MainInfo/MainInfo"
 import  Contacts  from "./Contacts/Contacts"
 import  Career  from "./Career/Career"
 import  Interests  from "./Interests/Interests"
-
+import { BGMain } from "../../../components/UI/BGMain/BGMain";
+import { BGSide } from "../../../components/UI/BGSide/BGSide";
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -63,6 +64,10 @@ class EditProfile extends React.Component {
   }
 
 
+
+
+  //const plans = [main, contacts, career, hobby];
+
   async onSendHandler() {
     const name = this.name;
     const surname = this.surname;
@@ -98,17 +103,51 @@ class EditProfile extends React.Component {
     }
   }
 
+  async onChangeSetHandler() {
+    const state = {
+
+    }
+
+    try {
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   render() {
 
     return (
-
       <div className={classes.EditProfile}>
-        <MainInfo/>
-        <Contacts/>
-        <Career/>
-        <Interests/>
+        <div className={classes.Row}>
+            <div className={classes.column}>
+                <BGMain>
+                    <MainInfo/>
+                </BGMain>
+            </div>
+            <div className={classes.column}>
+            <BGSide>
+              <div className={classes.Row}>
+                <div style={{paddingLeft: "1px", paddingTop: "7px"}} className={classes.column}>
+                    <UserPhoto size="gt"/>
+                </div>
+                <div className={classes.column}>
+                    Ваше имя
+                </div>
+              </div>
+              <div className={classes.WhiteBlank}>
+                <div className={classes.column}>
+                  <div style={{paddingTop:"13px", paddingLeft: "15px"}} onClick={this.onChangeSetHandler}> Основное </div>
+                  <div style={{paddingTop:"13px", paddingLeft: "5px"}}> Контакты </div>
+                  <div style={{paddingTop:"13px", paddingLeft: "15px"}}> Карьера </div>
+                  <div style={{paddingTop:"13px", paddingLeft: "15px"}}> Интересы </div>
+                </div>
+              </div>
+            </BGSide>
+          </div>
+        </div>
       </div>
-      
     );
   }
 }

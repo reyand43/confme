@@ -66,26 +66,26 @@ class Career extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 120}} htmlFor="WorkPlace">Место работы:</label>
+                  <label style={{paddingLeft: "40px", width: "170px"}} htmlFor="WorkPlace">Ваше место работы:</label>
                   <input
-                    style={{paddingLeft: 10, width: 320}}
+                    style={{width: '354px'}}
                     name="WorkPlace"
                     value={this.props.workplaceValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите ваше место работы"
+                    placeholder="Введите ваше место работы"
                   ></input>
                 </div>
               </div>
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 100}} htmlFor="CompanyName">Ссылка на компанию:</label>
+                  <label style={{paddingLeft: "18px", width: "183px"}} htmlFor="CompanyName">Ссылка на компанию:</label>
                   <input
-                    style={{paddingLeft: 10, width: 320}}
+                    style={{marginLeft: "0px", width: "354px"}}
                     name="CompanyName"
                     value={this.props.companyValue}
                     onChange={this.onChangeHandler}
-                    placholder="Вставьте ссылку на сайт вашей компании"
+                    placeholder="Вставьте ссылку на сайт вашей компании"
                   ></input>
                 </div>
               </div>
@@ -95,7 +95,7 @@ class Career extends React.Component {
                 <div className={classes.input}>
                   <label style={{paddingLeft: 117}} htmlFor="Position">Должность:</label>
                   <input
-                    style={{paddingLeft: 10, width: 320}}
+                    style={{marginLeft: "0px", width: "352px"}}
                     name="Position"
                     onChange={this.onChangeHandler}
                     placeholder="Введите название вашей должности"

@@ -67,25 +67,25 @@ class Interests extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 143}} htmlFor="Look">Я ищу:</label>
+                  <label style={{paddingLeft: 160}} htmlFor="Look">Я ищу:</label>
                   <input
 
                     name="Look"
                     value={this.props.nameValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите тег"
+                    placeholder="Введите тег"
                   ></input>
                 </div>
               </div>
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 100}} htmlFor="Suggest">Я предлагаю:</label>
+                  <label style={{paddingLeft: 93, width: "112px"}} htmlFor="Suggest">Я предлагаю:</label>
                   <input
                     name="Suggest"
                     value={this.props.surnameValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите тег"
+                    placeholder="Введите тег"
                   ></input>
                 </div>
               </div>
@@ -93,9 +93,9 @@ class Interests extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 117}} htmlFor="Hobby">Мои интересы:</label>
+                  <label style={{paddingLeft: 89, width: "126px"}} htmlFor="Hobby">Мои интересы:</label>
                   <input
-                    style={{width: "356px"}}
+                    style={{width: "354px"}}
                     name="Hobby"
                     onChange={this.onChangeHandler}
                     placeholder="Напишите пару слов о себе и своих интересах"

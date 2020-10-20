@@ -83,22 +83,22 @@ class Contacts extends React.Component {
                   <input
 
                     name="Phone"
-                    value={this.props.phoneValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите ваш телефон"
+                    placeholder="Введите ваш телефон"
+                    value={this.props.phoneValue}
                   ></input>
                 </div>
               </div>
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 109}} htmlFor="Vkontakte">Вконтакте:</label>
+                  <label style={{paddingLeft: 100}} htmlFor="Vkontakte">Вконтакте:</label>
                   <input
 
                     name="Vkontakte"
                     value={this.props.vkontakteValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите ваш вк"
+                    placeholder="Введите ваш вк"
                   ></input>
                 </div>
               </div>
@@ -106,12 +106,12 @@ class Contacts extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 116}} htmlFor="Facebook">Facebook:</label>
+                  <label style={{paddingLeft: 115}} htmlFor="Facebook">Facebook:</label>
                   <input
                     name="Facebook"
                     value={this.props.facebookValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите ваш fb"
+                    placeholder="Введите ваш fb"
                   ></input>
                 </div>
               </div>
@@ -119,7 +119,7 @@ class Contacts extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 124}} htmlFor="Linkedin">Linkedin:</label>
+                  <label style={{paddingLeft: 122}} htmlFor="Linkedin">Linkedin:</label>
                   <input
                     style={{width: "356px"}}
                     name="Linkedin"
