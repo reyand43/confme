@@ -7,15 +7,12 @@
     &__SearchBlock {
       display: flex;
       padding: 10px;
-      box-shadow: $shadow;
       background: #fff;
-      border-radius: $borderRadius;
 
       input {
         width: 500px;
         margin-left: 10px;
         border: none;
-        color: $colorTextM;
       }
 
       input:active,
@@ -26,11 +23,10 @@
       }
 
       i {
-        color: rgba($color: $colorTextS, $alpha: 0.7);
+      
       }
 
       input::placeholder {
-        color: $colorTextS;
         font-size: 14px;
       }
     }
@@ -62,8 +58,6 @@
 
     &__ChooseUsers {
       background: #fff;
-      border-radius: $borderRadius;
-      box-shadow: $shadow;
       padding: 20px 30px;
       margin-bottom: 40px;
       width: 255px;
@@ -75,9 +69,7 @@
       }
 
       p {
-        color: $colorTextL;
         padding: 6px 6px;
-        border-radius: $borderRadius;
         margin: 0;
       }
 
@@ -85,7 +77,6 @@
         height: 1px;
         border: 0;
 
-        background: $colorTextS;
       }
     }
 
@@ -94,7 +85,6 @@
 
       &__Title {
         font-weight: 700;
-        color: $colorTextM;
         font-size: 15px;
         margin-left: 22px;
       }
@@ -103,16 +93,13 @@
         display: flex;
         align-items: center;
         padding: 10px;
-        box-shadow: $shadow;
         background: #fff;
-        border-radius: $borderRadius;
         margin: 8px 0;
 
         input {
           width: 100%;
           margin-left: 10px;
           border: none;
-          color: $colorTextM;
         }
 
         input:active,
@@ -123,18 +110,15 @@
         }
 
         i {
-          color: rgba($color: $colorTextS, $alpha: 0.7);
           font-size: 13px;
         }
 
         input::placeholder {
-          color: $colorTextS;
           font-size: 14px;
         }
       }
 
       &__TagBlock {
-        @include shadowBox;
 
         display: flex;
         align-content: space-between;
@@ -142,7 +126,6 @@
     }
 
     &__SearchSettings {
-      @include shadowBox;
       display: flex;
       align-items: center;
       justify-content: space-between;

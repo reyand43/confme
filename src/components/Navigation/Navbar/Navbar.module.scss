@@ -5,56 +5,38 @@
   width: 100%;
   z-index: 100;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.SearchBlock {
-  margin-left: 25px;
-  display: flex;
-  padding: 10px;
-  box-shadow: $shadow;
-  background: #fff;
-  border-radius: $borderRadius;
-
-  input {
-    margin-left: 10px;
-    border: none;
-    color: $colorTextM;
+  &__Logo {
+    width: 280px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
-
-  input:active,
-  :hover,
-  :focus {
-    outline: 0;
-    outline-offset: 0;
+  &__TimeAndProfile {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-left: 25px;
   }
-
-  i {
-    color: rgba($color: $colorTextS, $alpha: 0.7);
-  }
-
-  input::placeholder {
-    color: $colorTextS;
+  &__EventTime {
+    display: flex;
+    flex-direction: column;
+    &__UpperText {
+      font-size: medium;
+    }
+    &__LowerText {
+      font-size: small;
+    }
   }
 }
 
 .userBlock {
-  width: fit-content;
   display: flex;
   align-items: center;
-
   i {
     font-size: 20px;
-    color: rgba($color: $colorTextS, $alpha: 0.7);
     cursor: pointer;
   }
-
-  i:hover {
-    color: $colorTextS;
-  }
-
 }
 
 .bellBlock {
@@ -62,12 +44,10 @@
   position: relative;
 
   span {
-    background: $colorAccent;
     border-radius: 50%;
     height: 12px;
     min-width: 12px;
     position: absolute;
-    border: 2px solid $colorBG2;
     font-size: 9px;
     font-weight: 600;
     color: #fff;
@@ -84,17 +64,15 @@
   justify-content: center;
   align-items: center;
   height: 65px;
-  color: $colorTextL;
-
-  &:hover {
-    background: $colorHover;
-  }
 }
 
 .userInfoBlock {
   display: flex;
   align-items: center;
   font-size: 16px;
+  &:hover {
+    border-radius: 10px;
+  }
 }
 
 .userInfoBlock p {

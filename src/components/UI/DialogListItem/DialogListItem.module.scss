@@ -36,12 +36,10 @@
     padding-right: 15px;
     span{
         font-size: 12px;
-        color: $colorText;
     }
     i{
         padding-left: 5px;
         font-size: 14px;
-        color: $colorText;
         opacity: 0;
         
     }
@@ -50,7 +48,6 @@
 
 
 .MessageInfo__Text{
-color: $colorText;
 @include text;
 margin-bottom: 10px;
 }

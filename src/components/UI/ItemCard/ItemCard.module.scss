@@ -5,8 +5,6 @@
     flex-direction: column;
     width: 150px;
     border-radius: 5px;
-    background-color: $colorBG1;
-    box-shadow: $shadow;
     cursor: pointer;
     &:hover {
         transform: scale(1.06);
@@ -17,7 +15,6 @@
         background: url('../../../images/userPhoto.jpg');
         background-size: cover;
         background-position: center;
-        border-radius: $borderRadius $borderRadius 0px 0px;
     }
     &__Texts {
         padding: 5px;

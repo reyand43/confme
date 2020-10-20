@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Sidebar.module.scss";
 import { NavLink, Redirect } from "react-router-dom";
 import { Logo } from "../../UI/Logo/Logo";
+import IosRefresh from 'react-ionicons/lib/IosRefresh'
 
 class Sidebar extends React.Component {
 
@@ -77,6 +78,7 @@ class Sidebar extends React.Component {
                       </NavLink>
                     </li>
                   </ul>
+                  
             </div>
           </div>
          

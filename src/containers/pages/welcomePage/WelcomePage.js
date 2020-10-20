@@ -4,6 +4,7 @@ import { ItemCard } from "../../../components/UI/ItemCard/ItemCard";
 import { loadUserNameFromServer } from "../../../store/actions/editProfile";
 import { connect } from "react-redux";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
+import { BGSide } from "../../../components/UI/BGSide/BGSide";
 
 class WelcomePage extends React.Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class WelcomePage extends React.Component {
     return (
       <div className={classes.WelcomePage}>
         <BGMain/>
+        <BGSide/>
         {/* <div className={classes.WelcomePage__UpperTexts}>
           <h1>Добро пожаловать на онлайн-выставку Conf.Me 2020</h1>
         </div>

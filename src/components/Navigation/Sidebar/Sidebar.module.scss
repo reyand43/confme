@@ -1,3 +1,5 @@
+@import '../../UI/vars.scss';
+
 .Sidebar{
   width: 220px;
   height: 100%;
@@ -30,11 +32,12 @@
           display: flex;
           color: white;
           text-decoration: none;
-          width: 100%;
+          width: 180px;
           height: 100%;
           padding: 10px 20px;
           align-items: center;
           display: inline-block;
+          border-left: 4px solid $colorAccent;
           
           i{
             font-size: 18px;
@@ -44,6 +47,10 @@
 
           
         }
+        a.active{
+          border-left: 4px solid white;
+          font-weight: 600;
+        }
         
       }
     }
@@ -51,7 +58,3 @@
   }
 }
 
-.active{
-  border-left: 3px solid white;
-  font-weight: 600;
-}

@@ -26,7 +26,6 @@ transition: all 300ms ease-in-out;
 
 
 background: #FFFFFF;
-box-shadow: $shadow;
 border-radius: 5px;
 
 }
@@ -44,7 +43,5 @@ color: #f01f30
 .Input input::placeholder{
   margin-left: 16px;
     padding: 10px 0px;
-    font-family: 'Montserrat', sans-serif;
-    color: $colorTextS;
-    
+    font-family: 'Montserrat', sans-serif;    
 }

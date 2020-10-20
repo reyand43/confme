@@ -1,11 +1,13 @@
+@import '../vars.scss';
 
-$color:  #E9EDF8;
-$colorAccent: #65469B;
 .Logo {
     width: 100%;
-    color:$colorAccent;
-    font-size: 20px;
+    color: $colorAccent;
+    font-size: 30px;
     cursor: pointer;
+    margin-left: 20px;
+    flex-grow: 1;
+    font-weight: 600;
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
