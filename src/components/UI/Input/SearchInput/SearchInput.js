@@ -2,17 +2,17 @@ import React from "react";
 import classes from './SearchInput.module.scss'
 
 
-function isInvalid({valid, touched, shouldValidate}) {
-  return !valid && shouldValidate && touched 
-  }
 
-const Input = (props) => {
+const SearchInput = (props) => {
     return(
-      <div className={classes.ListOfUsers__SearchBlock}>
+      <div className={classes.SearchInput}>
+        <div className={classes.SearchInput__Icon}>
           <i className="fa fa-search" aria-hidden="true"></i>
+          </div>
           <input placeholder={props.placeholder}/>
+          
           </div>
     )
 }
 
-export default Input
+export default SearchInput

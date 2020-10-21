@@ -8,16 +8,30 @@ import { Tag } from "../../../components/UI/Tag/Tag";
 import { toggleModal } from "../../../store/actions/modal";
 import ModalUser from "../../../components/Modals/ModalUser";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
+import { BGSide } from "../../../components/UI/BGSide/BGSide";
+import SearchInput from "../../../components/UI/Input/SearchInput/SearchInput";
+import { UserCard } from "../../../components/UI/UserCard/UserCard";
+import { openUserCard, closeUserCard } from "../../../store/actions/openUserCard";
+
 
 class Users extends React.Component {
-  toggleModal = (user) => {
-    this.props.toggleModal(user);
+
+
+
+  openSideCard = (user) => {
+    this.props.openUserCard(user)
   };
+
+
+//     return(
+// <UserCard name="Арина Грозных" city="Санкт-Петербург" country="Россия" role="Участник"/>
+//     )
+// }
 
   renderUsers() {
     return this.props.users.map((user) => {
       return (
-        <li onClick={this.toggleModal.bind(this, user)} key={user.id}>
+        <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
           <UserItem name={user.name} surname={user.surname} accountType = {user.accountType}/>
         </li>
       );
@@ -30,8 +44,66 @@ class Users extends React.Component {
 
   render() {
     return (
+      <>
       <BGMain>
-      <div className={classes.Users}>
+        <div className={classes.UserList}>
+        <SearchInput placeholder="Введите имя, компанию, сферу деятельности или интересы..."/>
+        <div className={classes.UserList__FindLabel}>
+          <span>Найдено 1763 человека</span>
+        </div>
+        <div className={classes.UserList__List}>
+        {this.props.loading ? (
+              <p>Loading</p>
+            ) : (
+              <ul>{this.renderUsers()}</ul>
+            )}
+        </div>
+        </div>
+      </BGMain>
+      <BGSide>
+      <div className={classes.Aside}>
+              {this.props.user != null && 
+              <>
+                
+            <i onClick={this.props.closeUserCard} className="fa fa-times"></i>
+            
+              <UserCard 
+              name={this.props.user.name} 
+              surname={this.props.user.surname} 
+              city={this.props.user.city} 
+              country={this.props.user.country} 
+              role={this.props.user.accountType}
+              id={this.props.user.id}/>
+              </>
+              }
+              </div>
+      </BGSide>
+      </>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    users: state.users.users,
+    loading: state.users.loading,
+    modalOpenState: state.modal.modalOpenState,
+    user: state.openUserCard.user,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    openUserCard: (user)=> dispatch(openUserCard(user)),
+    closeUserCard: ()=>dispatch(closeUserCard()),
+    fetchUsers: () => dispatch(fetchUsers()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
+
+
+{/* <div className={classes.Users}>
         <div className={classes.ListOfUsers}>
           <div className={classes.ListOfUsers__SearchBlock}>
             <i className="fa fa-search" aria-hidden="true"></i>
@@ -82,26 +154,4 @@ class Users extends React.Component {
             <i className="fa fa-sliders" aria-hidden="true"></i>
           </div>
         </div>
-      </div>
-      </BGMain>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    users: state.users.users,
-    loading: state.users.loading,
-    modalOpenState: state.modal.modalOpenState,
-    user: state.modal.user,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-    toggleModal: (user) => dispatch(toggleModal(user)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+      </div> */}

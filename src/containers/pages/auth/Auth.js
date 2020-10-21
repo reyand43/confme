@@ -122,7 +122,6 @@ class Auth extends Component {
   }
 
   onChangeHandler = (event, controlName) => {
-    console.log(event.target.value);
     let isFormValid = true;
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[controlName] };
@@ -154,7 +153,6 @@ class Auth extends Component {
       nameControls,
       isFormValid,
     });
-    console.log(this.state.nameControls)
   };
 
 
