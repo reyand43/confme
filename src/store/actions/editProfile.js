@@ -11,15 +11,25 @@ import {
   CHANGECITY,
   CHANGEPHONE,
   CHANGEPURPOSE,
+  CHANGE_EDITOR
 } from "./actionTypes";
 import axios from "../../axios/axios";
+
+export function changeEditor(activeEdit) {
+  return (dispatch) => {
+    dispatch({
+      type: CHANGE_EDITOR,
+      activeEdit
+    });
+  };
+}
 
 export function updateUserName(name, surname) {
   return (dispatch) => {
     dispatch({
       type: CHANGE_USER_NAME,
       name,
-      surname,
+      surname
     });
   };
 }
@@ -68,7 +78,7 @@ export function changeValue(name, value) {
           type: CHANGESURNAME,
           value,
         });
-  
+
       case "Age":
         dispatch({
           type: CHANGEAGE,

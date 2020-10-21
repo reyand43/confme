@@ -1,0 +1,29 @@
+$color:  #E9EDF8;
+$colorAccent: #65469B;
+
+.EditBox {
+    background: #fff;
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
+}
+
+
+.EditBox p {
+    color:rgb(68, 68, 73);
+    cursor: pointer;
+}
+
+
+.active {
+    padding-bottom: 16px;
+    height: 14px;
+    width: 240px;
+    background: $colorAccent;
+    z-index: 0;
+}
+
+.active p{
+    color: #fff;
+}

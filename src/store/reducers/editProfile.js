@@ -10,8 +10,8 @@ import {
   CHANGECOUNTRY,
   CHANGECITY,
   CHANGEPHONE,
-  CHANGEPURPOSE
-
+  CHANGEPURPOSE,
+  CHANGE_EDITOR
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,10 +28,16 @@ const initialState = {
   companyValue: "",
   phoneValue: "",
   purposeValue: "",
+  activeEdit: 0
 };
 
 export default function editProfileReducer(state = initialState, action) {
   switch (action.type) {
+    case CHANGE_EDITOR:
+      return {
+        ...state,
+        activeEdit: action.activeEdit,
+      }
     case CHANGE_USER_NAME:
       return {
         ...state,

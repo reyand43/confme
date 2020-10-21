@@ -8,6 +8,7 @@ import {
   loadUserNameFromServer,
   updateUserName,
   changeValue,
+  changeEditor
 } from "../../../store/actions/editProfile";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
@@ -17,6 +18,8 @@ import  Career  from "./Career/Career"
 import  Interests  from "./Interests/Interests"
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
+import EditCard from "../../../components/UI/EditCard/EditCard";
+
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -64,10 +67,6 @@ class EditProfile extends React.Component {
   }
 
 
-
-
-  //const plans = [main, contacts, career, hobby];
-
   async onSendHandler() {
     const name = this.name;
     const surname = this.surname;
@@ -103,27 +102,40 @@ class EditProfile extends React.Component {
     }
   }
 
-  async onChangeSetHandler() {
-    const state = {
-
-    }
-
-    try {
-
-    } catch (error) {
-      console.log(error);
-    }
+  onClick(id) {
+    this.props.changeEditor(id);
   }
 
-
   render() {
+    let current = this.props.activeEdit
+    console.log(this.props.activeEdit, "<-ur activeEdit")
+
+    const main = (
+      <MainInfo />
+    )
+    //-----------------------------------
+    const contacts = (
+      <Contacts />
+    )
+    //-----------------------------------
+    const career  = (
+      <Career />
+    )
+    //-----------------------------------
+    const interests = (
+      <Interests />
+    )
+    //-----------------------------------
+
+
+    const plans = [main, contacts, career, interests];
 
     return (
       <div className={classes.EditProfile}>
         <div className={classes.Row}>
             <div className={classes.column}>
                 <BGMain>
-                    <MainInfo/>
+                    {plans[current]}
                 </BGMain>
             </div>
             <div className={classes.column}>
@@ -138,13 +150,34 @@ class EditProfile extends React.Component {
               </div>
               <div className={classes.WhiteBlank}>
                 <div className={classes.column}>
-                  <div style={{paddingTop:"13px", paddingLeft: "15px"}} onClick={this.onChangeSetHandler}> Основное </div>
+                  <EditCard
+                    editor={"Основное"}
+                    isActive={this.props.activeEdit === 0}
+                    onClick={() => {this.onClick(0); console.log(this.props.activeEdit, '<- eto tvoi activeEdit')}}
+                  />
+                  <EditCard
+                    editor={"Контакты"}
+                    isActive={this.props.activeEdit === 1}
+                    onClick={() => {this.onClick(1); console.log(this.props.activeEdit, '<- eto tvoi activeEdit')}}
+                  />
+                  <EditCard
+                    editor={"Карьера"}
+                    isActive={this.props.activeEdit === 2}
+                    onClick={() => this.onClick(2)}
+                  />
+                  <EditCard
+                    editor={"Интересы"}
+                    isActive={this.props.activeEdit === 3}
+                    onClick={() => this.onClick(3)}
+                  />
+                  {/*<div style={{paddingTop:"13px", paddingLeft: "15px"}} onClick={this.onChangeSetHandler}> Основное </div>
                   <div style={{paddingTop:"13px", paddingLeft: "5px"}}> Контакты </div>
                   <div style={{paddingTop:"13px", paddingLeft: "15px"}}> Карьера </div>
-                  <div style={{paddingTop:"13px", paddingLeft: "15px"}}> Интересы </div>
+                  <div style={{paddingTop:"13px", paddingLeft: "15px"}}> Интересы </div>*/}
                 </div>
               </div>
             </BGSide>
+
           </div>
         </div>
       </div>
@@ -160,6 +193,7 @@ function mapStateToProps(state) {
     isAuthenticated: !!state.auth.token,
     userData: state.editProfile.userData,
 
+
     nameValue: state.editProfile.nameValue,
     surnameValue: state.editProfile.surnameValue,
     ageValue: state.editProfile.ageValue,
@@ -170,6 +204,8 @@ function mapStateToProps(state) {
     cityValue: state.editProfile.cityValue,
     phoneValue: state.editProfile.phoneValue,
     purposeValue: state.editProfile.purposeValue,
+
+    activeEdit: state.editProfile.activeEdit
   };
 }
 
@@ -178,6 +214,8 @@ function mapDispatchToProps(dispatch) {
     updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
+
+    changeEditor: (activeEdit) => dispatch(changeEditor(activeEdit))
   };
 }
 
