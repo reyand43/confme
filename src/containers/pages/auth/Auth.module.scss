@@ -1,38 +1,145 @@
-$color:  #E9EDF8;
-$colorAccent: #65469B;
-$colorText: #666D7D;
+@import '../../../components/UI/vars.scss';
 
 .Auth{
+    
+    width: 100%;  
+    height: 100%;
+    
     display: flex;
+
+    &__LeftSide{
+        width: 50%;
+        height: 100%;
+        background: $colorAccent;  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        &__Logo{
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            span{
+            font-size: 48px;
+            font-weight: 600;
+            color: white}    
+        }
+        &__TextField{
+            width: 100%;
+            color: white;
+            h1{
+                text-align: center;
+                font-size: 36px;
+                font-weight: 600;
+            }
+            h2{
+                margin-top: 40px;
+                text-align: center;
+                font-size: 24px;
+                font-weight: 500;
+            }
+        }
+    }
     
-    width: 100%;
-    flex-direction: column;
+    &__Card{
+        width: 50%;
+        height: 100%;
+        background: white;
+        
+        
+        display: flex;
+        justify-content: center;
+        
+        &__Form{
+            position: absolute;
+            top: 12%;
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            h1{
+                text-align: center;
+            }
+            
+            button{
+                width: 300px;
+                height: 35px;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-bottom: 10px;
+                background: white;
+                cursor: pointer;
+                
+            }
+
+            &__Submit{
+                margin-top: 20px;
+                border: 2px solid $colorAccent;
+                color: $colorAccent;
+                background: opacity($color: #ffffff);
+                transition: 500ms;
+                font-weight: 500;
+                &:hover{
+                    background: $colorAccent;
+                    color: white;
+                    transition: 300ms;
+                }
+                &:focus{
+                    outline-width: 0px;
+                }
+                
+            }
+
+            
+            &__Center{
+                width:100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            &__Error{
+                display: flex;
+                justify-content: center;
+                margin-top: 15px;
+                font-weight: 500;
+                color: orangered;
+            }
+        }
+        &__FormToggle{
+            position: absolute;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            bottom: 5%;
+            margin: 0 auto;
+            cursor: pointer;
+            span{
+                color: $colorAccent;
+                font-weight: 500;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+
+        }
+    }
+}
+
+.or{
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    color: $colorGreySecond;
+    font-size: 12px;
     align-items: center;
-    
-}
+    margin: 10px auto 15px;
+    justify-content: space-between;
+    hr{
+        width: 120px;
+        background: $colorGreySecond;
+        border: none;
+        height: 1px;
+        margin: 0;
 
-.Auth > div {
-    width: 100%;
-    max-width: 600px;
-    padding: 0 20px;
-}
-
-.Auth h1{
-    color: black;
-    text-align: center;
-}
-
-.AuthForm{
-    
-    border-radius: 10px;
-}
-
-.AuthForm p{
-    
-    text-align: center;
-    cursor: pointer;
-}
-
-.AuthForm p:hover{
-    font-weight: 500;
+        
+    }
 }

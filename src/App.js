@@ -54,15 +54,16 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-      
-        <Split>
+        {this.props.isAuthenticated==false ? <Auth/> : 
+          <Split>
           <Navbar isAuthenticated={this.props.isAuthenticated} />
           <Layout
             sidebar={<Sidebar isAuthenticated={this.props.isAuthenticated} />}
           >
             {routes}
           </Layout>
-        </Split>
+        </Split>}
+        
       </BrowserRouter>
     );
   }

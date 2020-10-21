@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../../../components/UI/Input/Input";
 import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
-import { Card } from "../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
@@ -89,7 +88,7 @@ class EditProfile extends React.Component {
   render() {
     return (
       <div className={classes.EditProfile}>
-        <Card title="Личные данные">
+        
           <div className={classes.Info}>
             <UserPhoto size="lg" />
             <div className={classes.column}>
@@ -193,7 +192,6 @@ class EditProfile extends React.Component {
               <button onClick={this.onSendHandler}>Сохранить</button>
             </div>
           </div>
-        </Card>
       </div>
     );
   }
