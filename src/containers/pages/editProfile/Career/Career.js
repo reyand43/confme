@@ -6,9 +6,10 @@ import { Card } from "../../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
+  loadContactsFromServer,
   updateUserName,
   changeValue,
-  updateCareerInfo
+  updateCareerInfo,
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";

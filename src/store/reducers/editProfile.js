@@ -1,6 +1,6 @@
 import {
   CHANGE_USER_NAME,
-  LOAD_USERNAME_FROM_SERVER,
+  LOAD_USERNAME_FROM_SERVER, LOAD_CONTACTS_FROM_SERVER, LOAD_CAREER_FROM_SERVER, LOAD_INTERESTS_FROM_SERVER,
   CLEAR_USER_NAME,
   CHANGENAME,
   CHANGESURNAME,
@@ -90,6 +90,7 @@ export default function editProfileReducer(state = initialState, action) {
         nameValue: action.userData.Name,
         surnameValue: action.userData.Surname,
         ageValue: action.userData.Age,
+        sexValue: action.userData.Sex,
         countryValue: action.userData.Country,
         cityValue: action.userData.City,
         purposeValue: action.userData.Purpose,
@@ -97,6 +98,35 @@ export default function editProfileReducer(state = initialState, action) {
         companyValue: action.userData.Company,
         professionValue: action.userData.Profession,
       };
+    case LOAD_CONTACTS_FROM_SERVER:
+      return {
+        ...state,
+        accountType: action.accType,
+        userData: action.userData,
+        phoneValue: action.userData.Phone,
+        vkontakteValue: action.userData.Vkontakte,
+        facebookValue: action.userData.Facebook,
+        linkedinValue: action.userData.Linkedin,
+        instagramValue: action.userData.Instagram
+        };
+    case LOAD_CAREER_FROM_SERVER:
+      return {
+        ...state,
+        accountType: action.accType,
+        userData: action.userData,
+        workplaceValue: action.userData.WorkPlace,
+        companynameValue: action.userData.CompanyName,
+        positionValue: action.userData.Position
+        };
+    case LOAD_INTERESTS_FROM_SERVER:
+      return {
+        ...state,
+        accountType: action.accType,
+        userData: action.userData,
+        lookValue: action.userData.Look,
+        suggestValue: action.userData.Suggest,
+        hobbyValue: action.userData.Hobby
+        };
     case CLEAR_USER_NAME:
       return {
         ...state,

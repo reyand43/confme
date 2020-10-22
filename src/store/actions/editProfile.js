@@ -1,6 +1,6 @@
 import {
   CHANGE_USER_NAME,
-  LOAD_USERNAME_FROM_SERVER,
+  LOAD_USERNAME_FROM_SERVER, LOAD_CONTACTS_FROM_SERVER, LOAD_CAREER_FROM_SERVER, LOAD_INTERESTS_FROM_SERVER,
   CLEAR_USER_NAME,
   CHANGENAME,
   CHANGESURNAME,
@@ -88,14 +88,66 @@ export function loadUserNameFromServer() {
       const surname = response.data.Surname;
       const accType = response.data.AccountType;
       const userData = response.data;
-      const age = response.data.Age;
       dispatch({
         type: LOAD_USERNAME_FROM_SERVER,
         name,
         surname,
         accType,
-        userData,
-        age
+        userData
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function loadContactsFromServer() {
+  return async (dispatch) => {
+    const userId = localStorage.getItem("userId");
+    try {
+      const response = await axios.get(`/users/${userId}/personalData.json`);
+      const accType = response.data.AccountType;
+      const userData = response.data;
+      dispatch({
+        type: LOAD_CONTACTS_FROM_SERVER,
+        accType,
+        userData
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function loadCareerFromServer() {
+  return async (dispatch) => {
+    const userId = localStorage.getItem("userId");
+    try {
+      const response = await axios.get(`/users/${userId}/personalData.json`);
+      const accType = response.data.AccountType;
+      const userData = response.data;
+      dispatch({
+        type: LOAD_CAREER_FROM_SERVER,
+        accType,
+        userData
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function loadInterestsFromServer() {
+  return async (dispatch) => {
+    const userId = localStorage.getItem("userId");
+    try {
+      const response = await axios.get(`/users/${userId}/personalData.json`);
+      const accType = response.data.AccountType;
+      const userData = response.data;
+      dispatch({
+        type: LOAD_INTERESTS_FROM_SERVER,
+        accType,
+        userData
       });
     } catch (e) {
       console.log(e);

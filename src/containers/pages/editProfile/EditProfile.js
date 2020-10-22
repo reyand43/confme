@@ -106,9 +106,12 @@ class EditProfile extends React.Component {
     this.props.changeEditor(id);
   }
 
+  componentWillUnmount() {
+    this.props.changeEditor(0);
+  }
+
   render() {
     let current = this.props.activeEdit
-    console.log(this.props.activeEdit, "<-ur activeEdit")
 
 
     const main = (

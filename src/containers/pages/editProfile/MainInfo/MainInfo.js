@@ -7,7 +7,10 @@ import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
   updateUserName,
-  changeValue
+  changeValue,
+  loadCareerFromServer,
+  loadInterestsFromServer,
+  loadContactsFromServer
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -73,6 +76,13 @@ class MainInfo extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.loadUserNameFromServer()
+    this.props.loadContactsFromServer()
+    this.props.loadCareerFromServer()
+    this.props.loadInterestsFromServer()
+  }
+
   render() {
     return (
       <div className={classes.EditProfile}>
@@ -129,7 +139,7 @@ class MainInfo extends React.Component {
                         onChange={this.onChangeHandler}
                         value={this.props.sexValue}
                       >
-                        <option outline= "none" value="" disabled selected>Выберите пол</option>
+                        <option outline= "none" value="" disabled defaultValue>Выберите пол</option>
                         <option value="Man">Мужчина</option>
                         <option value="Woman">Женщина</option>
                       </select>
@@ -205,6 +215,9 @@ function mapDispatchToProps(dispatch) {
     updateUserName: (name, surname, ageValue, sexValue, countryValue, cityValue) =>
       dispatch(updateUserName(name, surname, ageValue, sexValue, countryValue, cityValue)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
+    loadContactsFromServer: () => dispatch(loadContactsFromServer()),
+    loadCareerFromServer: () => dispatch(loadCareerFromServer()),
+    loadInterestsFromServer: () => dispatch(loadInterestsFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
 
 
