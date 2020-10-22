@@ -5,11 +5,15 @@ import axios from "../../../../axios/axios";
 import { Card } from "../../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
+  changeValue,
   loadUserNameFromServer,
   loadContactsFromServer,
+  loadCareerFromServer,
+  loadInterestsFromServer,
   updateUserName,
-  changeValue,
+  updateContactInfo,
   updateCareerInfo,
+  updateHobbyInfo
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -74,7 +78,7 @@ class Career extends React.Component {
                     name="WorkPlace"
                     value={this.props.workplaceValue}
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваше место работы"
+                    placeholder="Введите название компании"
                   ></input>
                 </div>
               </div>
@@ -117,12 +121,6 @@ class Career extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.name,
-    surname: state.editProfile.surname,
-    accountType: state.editProfile.accountType,
-    isAuthenticated: !!state.auth.token,
-    userData: state.editProfile.userData,
-
     workplaceValue: state.editProfile.workplaceValue,
     companynameValue: state.editProfile.companynameValue,
     positionValue: state.editProfile.positionValue
@@ -131,10 +129,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
-
     updateCareerInfo: (workplaceValue, companynameValue, positionValue) => dispatch(updateCareerInfo(workplaceValue, companynameValue, positionValue))
   };
 }

@@ -98,7 +98,7 @@ class MainInfo extends React.Component {
                     name="Name"
                     value={this.props.nameValue}
                     onChange={this.onChangeHandler}
-                    placholder="Введите ваше имя"
+                    placeholder="Введите ваше имя"
                   ></input>
                 </div>
               </div>
@@ -139,7 +139,7 @@ class MainInfo extends React.Component {
                         onChange={this.onChangeHandler}
                         value={this.props.sexValue}
                       >
-                        <option outline= "none" value="" disabled defaultValue>Выберите пол</option>
+                        <option outline= "none" value="" disabled defaultValue>Не выбрано</option>
                         <option value="Man">Мужчина</option>
                         <option value="Woman">Женщина</option>
                       </select>
@@ -162,7 +162,7 @@ class MainInfo extends React.Component {
                     style={{width: "356px"}}
                     name="Country"
                     onChange={this.onChangeHandler}
-                    placeholder="Введите вашу страну"
+                    placeholder="Введите страну"
                     value={this.props.countryValue}
                   ></input>
                 </div>
@@ -175,7 +175,7 @@ class MainInfo extends React.Component {
                     style={{width: "356px"}}
                     name="City"
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш город"
+                    placeholder="Введите город"
                     value={this.props.cityValue}
                   ></input>
                 </div>
@@ -194,13 +194,6 @@ class MainInfo extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.name,
-    surname: state.editProfile.surname,
-    accountType: state.editProfile.accountType,
-    isAuthenticated: !!state.auth.token,
-    userData: state.editProfile.userData,
-    age: state.editProfile.age,
-
     nameValue: state.editProfile.nameValue,
     surnameValue: state.editProfile.surnameValue,
     ageValue: state.editProfile.ageValue,
@@ -219,8 +212,6 @@ function mapDispatchToProps(dispatch) {
     loadCareerFromServer: () => dispatch(loadCareerFromServer()),
     loadInterestsFromServer: () => dispatch(loadInterestsFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
-
-
   };
 }
 

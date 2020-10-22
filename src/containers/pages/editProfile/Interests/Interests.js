@@ -96,7 +96,7 @@ class Interests extends React.Component {
                 <div className={classes.input}>
                   <label style={{paddingLeft: 89, width: "126px"}} htmlFor="Hobby">Мои интересы:</label>
                   <input
-                    style={{width: "354px"}}
+                    style={{width: "354px", height: "90px"}}
                     name="Hobby"
                     onChange={this.onChangeHandler}
                     placeholder="Напишите пару слов о себе и своих интересах"
@@ -116,12 +116,6 @@ class Interests extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.name,
-    surname: state.editProfile.surname,
-    accountType: state.editProfile.accountType,
-    isAuthenticated: !!state.auth.token,
-    userData: state.editProfile.userData,
-
     lookValue: state.editProfile.lookValue,
     suggestValue: state.editProfile.suggestValue,
     hobbyValue: state.editProfile.hobbyValue
@@ -130,10 +124,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: value => dispatch(changeValue(value)),
-
     updateHobbyInfo: (lookValue, suggestValue, hobbyValue) => dispatch(updateHobbyInfo(lookValue, suggestValue, hobbyValue))
   };
 }

@@ -86,7 +86,7 @@ class Contacts extends React.Component {
 
                     name="Phone"
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш телефон"
+                    placeholder="+7 (___) ___-__-__"
                     value={this.props.phoneValue}
                   ></input>
                 </div>
@@ -100,7 +100,7 @@ class Contacts extends React.Component {
                     name="Vkontakte"
                     value={this.props.vkontakteValue}
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш вк"
+                    placeholder="Вставьте ссылку на страницу"
                   ></input>
                 </div>
               </div>
@@ -113,7 +113,7 @@ class Contacts extends React.Component {
                     name="Facebook"
                     value={this.props.facebookValue}
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш fb"
+                    placeholder="Вставьте ссылку на страницу"
                   ></input>
                 </div>
               </div>
@@ -126,7 +126,7 @@ class Contacts extends React.Component {
                     style={{width: "356px"}}
                     name="Linkedin"
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш Linkedin"
+                    placeholder="Вставьте ссылку на страницу"
                     value={this.props.linkedinValue}
                   ></input>
                 </div>
@@ -139,7 +139,7 @@ class Contacts extends React.Component {
                     style={{width: "356px"}}
                     name="Instagram"
                     onChange={this.onChangeHandler}
-                    placeholder="Введите ваш Instagram"
+                    placeholder="Вставьте ссылку на страницу"
                     value={this.props.instagramValue}
                   ></input>
                 </div>
@@ -157,12 +157,6 @@ class Contacts extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.name,
-    surname: state.editProfile.surname,
-    accountType: state.editProfile.accountType,
-    isAuthenticated: !!state.auth.token,
-    userData: state.editProfile.userData,
-
     phoneValue: state.editProfile.phoneValue,
     vkontakteValue: state.editProfile.vkontakteValue,
     facebookValue: state.editProfile.facebookValue,
@@ -173,10 +167,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
-
     updateContactInfo: (phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue) =>
       dispatch(updateContactInfo(phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue))
   };
