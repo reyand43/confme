@@ -8,6 +8,7 @@ import {
   loadUserNameFromServer,
   updateUserName,
   changeValue,
+  updateCareerInfo
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -49,7 +50,7 @@ class Career extends React.Component {
       Position: position
     };
     try {
-      this.props.updateUserName(this.name, this.surname);
+      this.props.updateCareerInfo(workplace, companyname, position);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
     } catch (error) {
       console.log(error);
@@ -83,7 +84,7 @@ class Career extends React.Component {
                   <input
                     style={{marginLeft: "0px", width: "354px"}}
                     name="CompanyName"
-                    value={this.props.companyValue}
+                    value={this.props.companynameValue}
                     onChange={this.onChangeHandler}
                     placeholder="Вставьте ссылку на сайт вашей компании"
                   ></input>
@@ -129,9 +130,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
+
+    updateCareerInfo: (workplaceValue, companynameValue, positionValue) => dispatch(updateCareerInfo(workplaceValue, companynameValue, positionValue))
   };
 }
 

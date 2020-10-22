@@ -1,6 +1,7 @@
 @import '../../../../components/UI/vars.scss';
 
 .EditProfile{
+  height: $editorHeight;
    .input{
       box-sizing: border-box;
       display: flex;

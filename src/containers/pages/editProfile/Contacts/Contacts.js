@@ -8,6 +8,7 @@ import {
   loadUserNameFromServer,
   updateUserName,
   changeValue,
+  updateContactInfo
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -62,7 +63,7 @@ class Contacts extends React.Component {
       Instagram: instagram
     };
     try {
-      this.props.updateUserName(this.name, this.surname);
+      this.props.updateContactInfo(phone, vkontakte, facebook, linkedin, instagram);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
     } catch (error) {
       console.log(error);
@@ -70,6 +71,7 @@ class Contacts extends React.Component {
   }
 
   render() {
+    loadUserNameFromServer()
     return (
       <div className={classes.EditProfile}>
         <Card title="Контакты">
@@ -132,7 +134,7 @@ class Contacts extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 110}} htmlFor="Instagram">Instagram:</label>
+                  <label style={{paddingLeft: 108}} htmlFor="Instagram">Instagram:</label>
                   <input
                     style={{width: "356px"}}
                     name="Instagram"
@@ -171,9 +173,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
+
+    updateContactInfo: (phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue) =>
+      dispatch(updateContactInfo(phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue))
   };
 }
 

@@ -8,6 +8,7 @@ import {
   loadUserNameFromServer,
   updateUserName,
   changeValue,
+  updateHobbyInfo
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -50,7 +51,7 @@ class Interests extends React.Component {
       Hobby: hobby
     };
     try {
-      this.props.updateUserName(this.name, this.surname);
+      this.props.updateHobbyInfo(look, suggest, hobby);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
     } catch (error) {
       console.log(error);
@@ -71,7 +72,7 @@ class Interests extends React.Component {
                   <input
 
                     name="Look"
-                    value={this.props.nameValue}
+                    value={this.props.lookValue}
                     onChange={this.onChangeHandler}
                     placeholder="Введите тег"
                   ></input>
@@ -83,7 +84,7 @@ class Interests extends React.Component {
                   <label style={{paddingLeft: 93, width: "112px"}} htmlFor="Suggest">Я предлагаю:</label>
                   <input
                     name="Suggest"
-                    value={this.props.surnameValue}
+                    value={this.props.suggestValue}
                     onChange={this.onChangeHandler}
                     placeholder="Введите тег"
                   ></input>
@@ -99,7 +100,7 @@ class Interests extends React.Component {
                     name="Hobby"
                     onChange={this.onChangeHandler}
                     placeholder="Напишите пару слов о себе и своих интересах"
-                    value={this.props.countryValue}
+                    value={this.props.hobbyValue}
                   ></input>
                 </div>
               </div>
@@ -129,9 +130,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    changeValue: (value) => dispatch(changeValue(value)),
+    changeValue: value => dispatch(changeValue(value)),
+
+    updateHobbyInfo: (lookValue, suggestValue, hobbyValue) => dispatch(updateHobbyInfo(lookValue, suggestValue, hobbyValue))
   };
 }
 

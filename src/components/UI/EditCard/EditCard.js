@@ -10,7 +10,7 @@ const EditCard = (props) => {
   }
   return (
     <div className={cls.join(' ')} onClick={props.onClick}>
-      <div style={{paddingTop:"13px", paddingLeft: "15px"}}> {props.editor} </div>
+      <div style={{paddingTop:"13px", textAlign:"left", paddingLeft: "3px"}}> {props.editor} </div>
     </div>
   );
 };

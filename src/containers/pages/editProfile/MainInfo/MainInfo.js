@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
   updateUserName,
-  changeValue,
+  changeValue
 } from "../../../../store/actions/editProfile";
 import { UserItem } from "../../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
@@ -18,6 +18,7 @@ class MainInfo extends React.Component {
 
     this.name = this.props.name;
     this.surname = this.props.surname;
+    this.age = this.props.age;
 
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSendHandler = this.onSendHandler.bind(this);
@@ -52,8 +53,8 @@ class MainInfo extends React.Component {
     const age = this.age;
     const country = this.country;
     const city = this.city;
-
     const sex = this.sex;
+
 
     const userId = localStorage.getItem("userId");
     const requestData = {
@@ -65,7 +66,7 @@ class MainInfo extends React.Component {
       City: city,
     };
     try {
-      this.props.updateUserName(this.name, this.surname);
+      this.props.updateUserName(name, surname, age, sex, country, city);
       await axios.patch(`/users/${userId}/personalData.json`, requestData);
     } catch (error) {
       console.log(error);
@@ -81,7 +82,7 @@ class MainInfo extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 143}} htmlFor="Name">Имя:</label>
+                  <label style={{paddingLeft: 193}} htmlFor="Name">Имя:</label>
                   <input
 
                     name="Name"
@@ -94,7 +95,7 @@ class MainInfo extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 90}} htmlFor="Surname">Фамилия:</label>
+                  <label style={{paddingLeft: 140}} htmlFor="Surname">Фамилия:</label>
                   <input
                     label="Фамилия"
                     name="Surname"
@@ -109,7 +110,7 @@ class MainInfo extends React.Component {
               <div className={classes.Row}>
                 <div className={classes.column}>
                     <div className={classes.input}>
-                      <label htmlFor="Age">Возраст:</label>
+                      <label style={{paddingLeft: 159}} htmlFor="Age">Возраст:</label>
                       <input
                         style={{width: "136px"}}
                         name="Age"
@@ -121,7 +122,7 @@ class MainInfo extends React.Component {
                   </div>
                 <div className={classes.column}>
                     <div className={classes.input}>
-                      <label style={{paddingLeft: 1}} htmlFor="Sex">Пол:</label>
+                      <label style={{paddingLeft: 3}} htmlFor="Sex">Пол:</label>
                       <select
                         style={{width: "160px"}}
                         name="Sex"
@@ -146,7 +147,7 @@ class MainInfo extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 117}} htmlFor="Country">Страна:</label>
+                  <label style={{paddingLeft: 166}} htmlFor="Country">Страна:</label>
                   <input
                     style={{width: "356px"}}
                     name="Country"
@@ -159,7 +160,7 @@ class MainInfo extends React.Component {
 
               <div className={classes.Row}>
                 <div className={classes.input}>
-                  <label style={{paddingLeft: 128}} htmlFor="City">Город:</label>
+                  <label style={{paddingLeft: 177}} htmlFor="City">Город:</label>
                   <input
                     style={{width: "356px"}}
                     name="City"
@@ -172,7 +173,7 @@ class MainInfo extends React.Component {
 
 
 
-              <button style={{width: '235px', marginLeft: '200px'}} onClick={this.onSendHandler}>Сохранить</button>
+              <button style={{width: '235px', marginLeft: '233px'}} onClick={this.onSendHandler}>Сохранить</button>
             </div>
           </div>
         </Card>
@@ -188,6 +189,7 @@ function mapStateToProps(state) {
     accountType: state.editProfile.accountType,
     isAuthenticated: !!state.auth.token,
     userData: state.editProfile.userData,
+    age: state.editProfile.age,
 
     nameValue: state.editProfile.nameValue,
     surnameValue: state.editProfile.surnameValue,
@@ -200,9 +202,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    updateUserName: (name, surname, ageValue, sexValue, countryValue, cityValue) =>
+      dispatch(updateUserName(name, surname, ageValue, sexValue, countryValue, cityValue)),
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     changeValue: (value) => dispatch(changeValue(value)),
+
+
   };
 }
 

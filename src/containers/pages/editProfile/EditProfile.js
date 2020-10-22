@@ -8,7 +8,7 @@ import {
   loadUserNameFromServer,
   updateUserName,
   changeValue,
-  changeEditor
+  changeEditor,
 } from "../../../store/actions/editProfile";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
@@ -110,6 +110,7 @@ class EditProfile extends React.Component {
     let current = this.props.activeEdit
     console.log(this.props.activeEdit, "<-ur activeEdit")
 
+
     const main = (
       <MainInfo />
     )
@@ -145,7 +146,12 @@ class EditProfile extends React.Component {
                     <UserPhoto size="gt"/>
                 </div>
                 <div className={classes.column}>
-                    Ваше имя
+                    <div className={classes.Row}>
+                      {this.name}
+                    </div>
+                    <div className={classes.Row}>
+                      {this.surname}
+                    </div>
                 </div>
               </div>
               <div className={classes.WhiteBlank}>
@@ -153,12 +159,12 @@ class EditProfile extends React.Component {
                   <EditCard
                     editor={"Основное"}
                     isActive={this.props.activeEdit === 0}
-                    onClick={() => {this.onClick(0); console.log(this.props.activeEdit, '<- eto tvoi activeEdit')}}
+                    onClick={() => this.onClick(0)}
                   />
                   <EditCard
                     editor={"Контакты"}
                     isActive={this.props.activeEdit === 1}
-                    onClick={() => {this.onClick(1); console.log(this.props.activeEdit, '<- eto tvoi activeEdit')}}
+                    onClick={() => this.onClick(1)}
                   />
                   <EditCard
                     editor={"Карьера"}
@@ -211,9 +217,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    changeValue: (value) => dispatch(changeValue(value)),
+    //updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    //loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
+    //changeValue: (value) => dispatch(changeValue(value)),
 
     changeEditor: (activeEdit) => dispatch(changeEditor(activeEdit))
   };
