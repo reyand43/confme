@@ -23,6 +23,10 @@ class EditProfile extends React.Component {
     this.onSendHandler = this.onSendHandler.bind(this);
   }
 
+  componentDidMount() {
+    this.props.loadUserNameFromServer();
+  }
+
   onChangeHandler(e) {
     if (e.target.name === "Name") {
       this.props.changeValue(e.target.name, e.target.value);
