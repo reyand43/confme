@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { closeUserCard } from '../../../store/actions/openUserCard'
+import { DownBox } from '../DownBox/DownBox'
 import { UserPhoto } from '../UserPhoto/UserPhoto'
 import classes from './UserCard.module.scss'
 
@@ -26,11 +27,9 @@ export function UserCard(props) {
             </NavLink>
             <button onClick={props.onClickContacts}>В контакты</button></>}
             </div>
-
-                
-
-            </div>
-
-  
+            <DownBox
+            title = "Заголовок"
+            text = "Текст"/>
+        </div>
     )
 }

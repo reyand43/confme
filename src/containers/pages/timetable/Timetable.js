@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import classes from "./Timetable.module.scss";
-
+import { connect } from "react-redux";
+import DateCard from "../../../components/Timetable/DateCard/DateCard";
+import { changeDate } from "../../../store/actions/timetable";
+import EventCard from "../../../components/Timetable/EventCard/EventCard";
+import TimetableCard from "../../../components/UI/TimetableCard/TimetableCard";
+import { BGMain } from "../../../components/UI/BGMain/BGMain";
 
 class Timetable extends Component{
   render(){
     return(
       <div className={classes.Timetable}>
-
+        <BGMain>
+          <div>
+            <TimetableCard
+              time = "10:00-11:00"
+              title = "Тут заголовок"
+              text = "Тут текст"/>
+          </div>
+        </BGMain>
       </div>
     )
   }
