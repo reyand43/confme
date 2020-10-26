@@ -17,6 +17,7 @@ import  Interests  from "./Interests/Interests"
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import EditCard from "../../../components/UI/EditCard/EditCard";
+import { Scrollbars } from 'react-custom-scrollbars'
 
 
 class EditProfile extends React.Component {
@@ -35,7 +36,6 @@ class EditProfile extends React.Component {
   render() {
     let current = this.props.activeEdit
 
-
     const main = (
       <MainInfo />
     )
@@ -51,57 +51,58 @@ class EditProfile extends React.Component {
 
     const plans = [main, contacts, career, interests];
 
+
     return (
-      <div className={classes.EditProfile}>
-        <div className={classes.Row}>
-            <div className={classes.column}>
-                <BGMain>
+        <div className={classes.EditProfile}>
+          <div className={classes.Row}>
+              <div className={classes.column}>
+                  <BGMain>
                     {plans[current]}
-                </BGMain>
+                  </BGMain>
+              </div>
+              <div className={classes.column}>
+              <BGSide>
+                <div className={classes.Row}>
+                  <div style={{paddingLeft: "1px", paddingTop: "7px"}} className={classes.column}>
+                      <UserPhoto size="gt"/>
+                  </div>
+                  <div className={classes.column}>
+                      <div className={classes.Row}>
+                        {this.props.name}
+                      </div>
+                      <div className={classes.Row}>
+                        {this.props.surname}
+                      </div>
+                  </div>
+                </div>
+                <div className={classes.WhiteBlank}>
+                  <div className={classes.column}>
+                    <EditCard
+                      editor={"Основное"}
+                      isActive={this.props.activeEdit === 0}
+                      onClick={() => this.onClick(0)}
+                    />
+                    <EditCard
+                      editor={"Контакты"}
+                      isActive={this.props.activeEdit === 1}
+                      onClick={() => this.onClick(1)}
+                    />
+                    <EditCard
+                      editor={"Карьера"}
+                      isActive={this.props.activeEdit === 2}
+                      onClick={() => this.onClick(2)}
+                    />
+                    <EditCard
+                      editor={"Интересы"}
+                      isActive={this.props.activeEdit === 3}
+                      onClick={() => this.onClick(3)}
+                    />
+                  </div>
+                </div>
+              </BGSide>
             </div>
-            <div className={classes.column}>
-            <BGSide>
-              <div className={classes.Row}>
-                <div style={{paddingLeft: "1px", paddingTop: "7px"}} className={classes.column}>
-                    <UserPhoto size="gt"/>
-                </div>
-                <div className={classes.column}>
-                    <div className={classes.Row}>
-                      {this.name}
-                    </div>
-                    <div className={classes.Row}>
-                      {this.surname}
-                    </div>
-                </div>
-              </div>
-              <div className={classes.WhiteBlank}>
-                <div className={classes.column}>
-                  <EditCard
-                    editor={"Основное"}
-                    isActive={this.props.activeEdit === 0}
-                    onClick={() => this.onClick(0)}
-                  />
-                  <EditCard
-                    editor={"Контакты"}
-                    isActive={this.props.activeEdit === 1}
-                    onClick={() => this.onClick(1)}
-                  />
-                  <EditCard
-                    editor={"Карьера"}
-                    isActive={this.props.activeEdit === 2}
-                    onClick={() => this.onClick(2)}
-                  />
-                  <EditCard
-                    editor={"Интересы"}
-                    isActive={this.props.activeEdit === 3}
-                    onClick={() => this.onClick(3)}
-                  />
-                </div>
-              </div>
-            </BGSide>
           </div>
         </div>
-      </div>
     );
   }
 }

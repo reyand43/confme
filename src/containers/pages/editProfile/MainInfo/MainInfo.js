@@ -134,7 +134,7 @@ class MainInfo extends React.Component {
                     <div className={classes.input}>
                       <label style={{paddingLeft: 3}} htmlFor="Sex">Пол:</label>
                       <select
-                        style={{width: "160px"}}
+                        style={{width: "160px", height: "45px"}}
                         name="Sex"
                         onChange={this.onChangeHandler}
                         value={this.props.sexValue}
