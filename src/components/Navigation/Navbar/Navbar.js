@@ -72,6 +72,7 @@ class Navbar extends React.Component {
             onClick={this.dropDownHandler}
             styles={this.props.visible ? "active" : ""}
             items={items}
+
           >
             <div className={classes.userInfoBlock}>
               <p>
@@ -87,7 +88,7 @@ class Navbar extends React.Component {
   }
 
   componentDidMount() {
-    
+
     document.addEventListener("mousedown", this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
@@ -119,7 +120,7 @@ class Navbar extends React.Component {
         <div className = {classes.Navbar__Logo}>
           <Logo />
         </div>
-        
+
         <div className = {classes.Navbar__TimeAndProfile}>
           <div className = {classes.Navbar__EventTime}>
             <div className = {classes.Navbar__EventTime__UpperText}>Время мероприятия:</div>

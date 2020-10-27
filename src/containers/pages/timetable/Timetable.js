@@ -13,28 +13,28 @@ class Timetable extends Component {
 
   render() {
     let current = this.props.activeDate;
-
+    console.log(this.props.activeDate, "<-ur activeDate")
     //-----------------------------------
     const eventCard1 = (
       <div>
-        <EventCard title = 'День 1. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-        <EventCard title = 'День 1. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
+        <EventCard title = 'День 1. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/>
+        <EventCard title = 'День 1. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/>
         <EventCard title = 'День 1. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
       </div>
     );
     //-----------------------------------
     const eventCard2 = (
       <div>
-        <EventCard title = 'День 2. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-        <EventCard title = 'День 2. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
+        <EventCard title = 'День 2. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/>
+        <EventCard title = 'День 2. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/>
         <EventCard title = 'День 2. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
       </div>
     );
     //-----------------------------------
     const eventCard3 = (
       <div>
-        <EventCard title = 'День 3. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-        <EventCard title = 'День 3. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
+        <EventCard title = 'День 3. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/>
+        <EventCard title = 'День 3. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/>
         <EventCard title = 'День 3. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
       </div>
     );

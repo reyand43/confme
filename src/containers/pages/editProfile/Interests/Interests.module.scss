@@ -1,25 +1,44 @@
-@import '../../../components/UI/vars.scss';
+@import '../../../../components/UI/vars.scss';
 
 .EditProfile{
-  height: 100%;
+  height: $editorHeight;
+   .input{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      input{
+         vertical-align: top;
+         border-radius: 5px;
+         border: 1px solid $colorTextS;
+         background: $colorBG2;
+         color: $colorTextL;
+         padding: 12px;
+         width: 354px;
+         font-size: 16px;
+         font-family: 'Montserrat', sans-serif;;
+         margin: 0;
+      }
+      label{
+         padding-left: 110px;
+         font-size: 16px;
+         padding-right: 9px;
+         padding-top: 10px;
+      }
+      .input:active, :hover, :focus{
+         outline: none;
+      }
+
+   input::placeholder{
+      color: $colorTextM;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+   }
 }
 
-.xdxd{
-  background: red;
+
 }
 
-.rcs-inner-handle{
-  background-color: red;
-}
 
-.WhiteBlank{
-  display: flex;
-  color: $colorTextL;
-  width: 240px;
-  height: 146px;
-  border-radius: 12px;
-  background: $colorBG1;
-}
 
 .Info{
    display: flex;
