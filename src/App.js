@@ -17,6 +17,7 @@ import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
+import Agenda from "./containers/pages/agenda/agenda"
 
 class App extends Component {
   componentDidMount() {
@@ -46,6 +47,7 @@ class App extends Component {
           <Route path="/dialogs/:id" component={Dialog} />
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
+          <Route path="/agenda" component={Agenda} />
           <Route path="/welcomePage" component={WelcomePage} />
           <Redirect to="/welcomePage" />
         </Switch>
@@ -54,7 +56,7 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-      
+
         <Split>
           <Navbar isAuthenticated={this.props.isAuthenticated} />
           <Layout

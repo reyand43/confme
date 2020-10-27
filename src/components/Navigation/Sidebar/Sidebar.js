@@ -38,7 +38,7 @@ class Sidebar extends React.Component {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/2">
+                      <NavLink to="/agenda">
                         <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
                         Мое расписание
                       </NavLink>
