@@ -1,11 +1,24 @@
+@import './../vars.scss';
 $color:  #E9EDF8;
 $colorAccent: #65469B;
 
 
+.DateChanger {
+  padding-left: 40%;
+  font-weight: 520;
+  margin-bottom: 1.2%;
+  margin-top: 0.2%;
+  input {
+    background-color: $colorAccentLight;
+    border: 0px;
+    font-weight: 900;
+    font-size: 15pt;
+  }
+}
+
 .Panel {
   margin-left: 1px;
   margin-top: 1px;
-  font-weight: 500;
   //margin-bottom: 30px;
 }
 
@@ -13,8 +26,6 @@ $colorAccent: #65469B;
   background: #fff;
   padding-left: 7%;
   width: 100px;
-  font-weight: 100;
-  color: grey;
   border: 1px solid #fff;
 }
 
@@ -28,8 +39,9 @@ $colorAccent: #65469B;
 }
 
 .column{
-   display: flex;
-   flex-direction: column;
+     padding-left: 1.2%;
+     display: flex;
+     flex-direction: column;
 }
 
 .Row{

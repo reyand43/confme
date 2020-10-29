@@ -13,6 +13,7 @@ import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Scrollbars } from 'react-custom-scrollbars'
 import WholeTimetable from "../../../components/UI/ExactTimePanel/WholeTimetable";
+import DateChanger from "../../../components/UI/DateChanger/DateChanger";
 
 class Agenda extends React.Component {
   constructor(props) {
@@ -24,8 +25,10 @@ class Agenda extends React.Component {
 
     const main = (
       <div>
-        <p style={{textAlign: "center", marginTop: 1}}>Здесь должна быть текущая дата</p>
-        <WholeTimetable />
+        <DateChanger />
+        <WholeTimetable
+          someEvent = "DELA EPT"
+        />
       </div>
     )
 
