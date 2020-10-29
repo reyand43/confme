@@ -69,11 +69,11 @@ export default function dialogReducer(state = initialState, action) {
       case CLEAR_STATE:
         return{
           chats: [],
-  content: "",
-  readError: null,
-  writeError: null,
-  loadingChats: false,
-  data: null
+          content: "",
+          readError: null,
+          writeError: null,
+          loadingChats: false,
+          data: null
         }
     default:
       return state;

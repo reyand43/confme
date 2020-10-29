@@ -4,7 +4,7 @@ import classes from "./Auth.module.scss";
 import is from "is_js";
 import AuthInput from "../../../components/UI/AuthInput/AuthInput";
 import { Redirect } from "react-router-dom";
-import { loginError, signIn, signUp } from "../../../store/actions/auth";
+import {signIn, signUp } from "../../../store/actions/auth";
 import { clearUserName } from "../../../store/actions/editProfile";
 class Auth extends Component {
   state = {
@@ -15,6 +15,7 @@ class Auth extends Component {
         value: "",
         type: "email",
         label: "Email",
+        placeholder: "example@mail.com",
         errorMessage: "Введите корректный email",
         valid: false,
         touched: false,
@@ -28,6 +29,7 @@ class Auth extends Component {
         type: "password",
         label: "Пароль",
         errorMessage: "Пароль должен содержать не менее 6 симоволов",
+        placeholder: "Пароль должен содержать не менее 6 симоволов",
         valid: false,
         touched: false,
         validation: {
@@ -41,6 +43,7 @@ class Auth extends Component {
         value: "",
         type: "text",
         label: "Имя",
+        placeholder: "Иван",
         errorMessage: "Введите имя",
         valid: false,
         touched: false,
@@ -52,6 +55,7 @@ class Auth extends Component {
         value: "",
         type: "text",
         label: "Фамилия",
+        placeholder: "Иванов",
         errorMessage: "Введите фамилию",
         valid: false,
         touched: false,
@@ -173,6 +177,7 @@ class Auth extends Component {
             shouldValidate={!!control.validation}
             errorMessage={control.errorMessage}
             onChange={(event) => this.onChangeHandler(event, controlName)}
+            placeholder={control.placeholder}
           />
         </div>
       );
@@ -196,6 +201,7 @@ class Auth extends Component {
             shouldValidate={!!control.validation}
             errorMessage={control.errorMessage}
             onChange={(event) => this.onChangeNameHandler(event, controlName)}
+            placeholder={control.placeholder}
           />
         </div>
       );
@@ -303,7 +309,6 @@ function mapStateToProps(state) {
   return {
     isAuthenticated: !!state.auth.token,
     loginError: state.auth.loginError,
-    authError: state.auth.authError
   };
 }
 

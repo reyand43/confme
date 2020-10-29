@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./Sidebar.module.scss";
-import { NavLink, Redirect } from "react-router-dom";
-import { Logo } from "../../UI/Logo/Logo";
-import IosRefresh from 'react-ionicons/lib/IosRefresh'
+import { NavLink} from "react-router-dom";
 
 class Sidebar extends React.Component {
 

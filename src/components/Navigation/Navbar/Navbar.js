@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./Navbar.module.scss";
-
 import { connect } from "react-redux";
-
 import { UserPhoto } from "../../UI/UserPhoto/UserPhoto";
 import {
   loadUserNameFromServer,
@@ -11,14 +9,13 @@ import {
 import DropDown from "../../UI/DropDown/DropDown";
 import { logout } from "../../../store/actions/auth";
 import {
-  changeProfileClicked,
   changeVisibility,
   hideDropDown,
 } from "../../../store/actions/navbar";
-import Input from "../../UI/Input/Input";
 import { withRouter } from "react-router-dom";
 import Time from "../../Time/Time";
 import { Logo } from "../../UI/Logo/Logo";
+import { clearState } from "../../../store/actions/dialogList";
 
 class Navbar extends React.Component {
   constructor() {
@@ -54,6 +51,7 @@ class Navbar extends React.Component {
           this.props.hideDropDown();
           this.props.clearUserName();
           this.props.logout();
+          this.props.clearState()
         },
       },
     ];
@@ -153,6 +151,7 @@ function mapDispatchToProps(dispatch) {
     loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
     clearUserName: () => dispatch(clearUserName()),
     hideDropDown: () => dispatch(hideDropDown()),
+    clearState: ()=>dispatch(clearState())
   };
 }
 

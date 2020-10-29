@@ -8,7 +8,8 @@
     box-sizing: border-box;
     height: 100px;
     align-items: center;
-   
+    border: 2px solid white;
+
 
     &__Text {
         margin-left: 12px;
@@ -48,6 +49,6 @@
     }
 }
 
-.UserItem.clicked{
+.clicked{
     border: 2px solid $colorAccent;
 }

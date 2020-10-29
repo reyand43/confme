@@ -1,39 +1,92 @@
 import axios from "../../axios/axios";
+import { db } from "../../services/firebase";
 import {
-  FETCH_DIALOGS_SUCCESS, FETCH_DIALOGS_START, FETCH_DIALOGS_ERROR
+  FETCH_DIALOGS_SUCCESS,
+  FETCH_DIALOGS_START,
+  FETCH_DIALOGS_ERROR,
+  FETCH_MESSAGES_ERROR,
+  FETCH_MESSAGES_START,
+  FETCH_MESSAGES_SUCCESS,
+  SELECT_DIALOG,
+  FETCH_DIALOG_INFO,
+  SEND_MESSAGES_ERROR,
+  SEND_MESSAGES_SUCCESS,
+  SEND_MESSAGES_START,
+  CLEAR_STATE,
 } from "./actionTypes";
 
 export function fetchDialogs(userId) {
-    return async (dispatch) => {
-      dispatch(fetchDialogsStart());
-      try {
-        const response = await axios.get(`/chatList/${userId}.json`);
-        console.log('RESPONSE', response)
-        
-        const dialogs = [];
-        Object.keys(response.data).forEach((key) => {
-         dialogs.push({
-            id: key,
-            name: response.data[key].withName,
-            surname: response.data[key].withSurname,
-            text:  response.data[key].lastMessage,
-            time: response.data[key].timestamp,
-            userId: response.data[key].userid,
-            withId: response.data[key].withId
-
+  return async (dispatch) => {
+    dispatch(fetchDialogsStart());
+    try {
+      
+      db.ref("chatList/" + userId).on("value", function (snapshot) {
+        let dialogs = [];
+        !!snapshot.val() === true &&
+          Object.keys(snapshot.val()).forEach((key) => {
+            dialogs.push(snapshot.val()[key]);
           });
-        });
         dispatch(fetchDialogsSuccess(dialogs));
-
-      }
-
-     catch (e) {
+      });
+    } catch (e) {
       dispatch(fetchDialogsError(e));
     }
   };
 }
 
+export function fetchMessages(userId, dialogId) {
+  return async (dispatch) => {
+    dispatch(fetchMessagesStart());
+    try {
+      
+      db.ref("chats/" + userId + "/" + dialogId + "/").on(
+        "value",
+        (snapshot) => {
+          let messages = [];
+          snapshot.forEach((snap) => {
+            messages.push(snap.val());
+          });
+          dispatch(fetchMessagesSuccess(messages));
+        }
+      );
+    } catch (e) {
+      dispatch(fetchDialogsError(e));
+    }
+  };
+}
 
+export function selectDialog(dialogId) {
+
+  return async (dispatch) => {
+    let dialogInfo;
+    dispatch(setDialog(dialogId))
+    if (dialogId!==null){
+    try {
+      db.ref("users/" + dialogId + "/personalData").on("value", (snapshot) => {
+        dialogInfo = snapshot.val();
+        dispatch(fetchDialogInfo(dialogInfo));
+      });
+    } catch (error) {
+      console.log(error);
+    }}
+    else dispatch(fetchDialogInfo(null))
+    dispatch(fetchMessages(localStorage.getItem("userId"), dialogId));
+  };
+}
+
+export function setDialog(dialogId){
+  return{
+    type: SELECT_DIALOG,
+    dialogId
+  }
+}
+
+export function fetchDialogInfo(dialogInfo) {
+  return {
+    type: FETCH_DIALOG_INFO,
+    dialogInfo,
+  };
+}
 
 export function fetchDialogsSuccess(dialogs) {
   return {
@@ -41,7 +94,6 @@ export function fetchDialogsSuccess(dialogs) {
     dialogs,
   };
 }
-
 
 export function fetchDialogsStart() {
   return {
@@ -55,3 +107,105 @@ export function fetchDialogsError(e) {
     error: e,
   };
 }
+
+export function fetchMessagesSuccess(messages) {
+  return {
+    type: FETCH_MESSAGES_SUCCESS,
+    messages,
+  };
+}
+
+export function fetchMessagesStart() {
+  return {
+    type: FETCH_MESSAGES_START,
+  };
+}
+
+export function fetchMessagesError(e) {
+  return {
+    type: FETCH_MESSAGES_ERROR,
+    error: e,
+  };
+}
+
+export function sendMessages(
+  userId,
+  text,
+  friendId,
+  name,
+  surname,
+  withName,
+  withSurname,
+  withId
+) {
+  return async (dispatch) => {
+    dispatch(sendMessagesStart());
+    const postData = {
+      userid: userId,
+      lastMessage: text,
+      timestamp: formatTime(Date.now()),
+      withName: withName,
+      withSurname: withSurname,
+      withId: withId,
+    };
+
+    try {
+      await db.ref("chats/" + userId + "/" + friendId + "/").push({
+        content: text,
+        timestamp: Date.now(),
+        uid: userId,
+        name,
+        surname,
+      });
+      await db.ref("chats/" + friendId + "/" + userId + "/").push({
+        content: text,
+        timestamp: Date.now(),
+        uid: userId,
+        name,
+        surname,
+      });
+      await axios.patch(`/chatList/${userId}/${friendId}.json`, postData);
+      postData.withName = name;
+      postData.withSurname = surname;
+      postData.withId = userId;
+      await axios.patch(`/chatList/${friendId}/${userId}.json`, postData);
+
+      let content = "";
+      dispatch(sendMessagesSuccess(content));
+    } catch (error) {
+      console.log(error);
+      dispatch(sendMessagesError());
+    }
+  };
+}
+
+function formatTime(timestamp) {
+  const d = new Date(timestamp);
+  const time = `${d.getHours()}:${d.getMinutes()}`;
+  return time;
+}
+
+export function sendMessagesSuccess(content) {
+  return {
+    type: SEND_MESSAGES_SUCCESS,
+    content,
+  };
+}
+export function sendMessagesStart() {
+  return {
+    type: SEND_MESSAGES_START,
+  };
+}
+export function sendMessagesError(e) {
+  return {
+    type: SEND_MESSAGES_ERROR,
+    error: e,
+  };
+}
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
+  };
+}
+

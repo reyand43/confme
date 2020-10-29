@@ -14,17 +14,21 @@ export function UserCard(props) {
             <div className={classes.UserCard__Role}>
                 <span>{props.role}</span>
             </div>
-            {props.city!="" || props.country!=""
+            {props.city!=="" || props.country!==""
             (<div className={classes.UserCard__Location}>
                 <span>{props.city}{", "}{props.country}</span>
             </div>)}
             
             <div className={classes.UserCard__Buttons}>
-            <NavLink onClick={closeUserCard} to={"/dialogs/" + props.id}>
+                {!!props.dialog ? <div className={classes.UserCard__Buttons__ForDialog}> <button onClick={props.onClickContacts}>В контакты</button> </div> :  
+            <><NavLink onClick={closeUserCard} to={"/dialogs/" + props.id}>
                 <button>Написать</button>
             </NavLink>
-                <button onClick={props.onClickContacts}>В контакты</button>
+            <button onClick={props.onClickContacts}>В контакты</button></>}
             </div>
+
+                
+
             </div>
 
   

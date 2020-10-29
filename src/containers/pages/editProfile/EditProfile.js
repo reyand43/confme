@@ -1,5 +1,4 @@
 import React from "react";
-import Input from "../../../components/UI/Input/Input";
 import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
 import { connect } from "react-redux";
@@ -8,7 +7,6 @@ import {
   updateUserName,
   changeValue,
 } from "../../../store/actions/editProfile";
-import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 
 class EditProfile extends React.Component {

@@ -1,53 +1,70 @@
 @import '../vars.scss';
 
 .DialogListItem{
-    display: flex;
-    align-items: flex-start;
     width: 100%;
-    padding-left: 12px;
-    
-}
-
-.DialogListItem:hover .MessageInfo .MessageInfoTime i{
-    opacity: 1;
-}
-.MessageInfo{
-    
+    height: 70px;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: 60px;
-    padding-left: 12px;
-    padding-right: 15px;
+    align-items: center;
+    border-bottom: 1px solid $colorGreySecond;
+    &__Content{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        &__MessageInfo{
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            margin-left: 6px;
+            justify-content: space-between;
+            padding: 3px 0;
+            width: 150px;
+            
+            &__Name{
+                width: 150px;
+                display: inline-block;
+                color: black;
+                font-weight: 600;
+                white-space: nowrap; /* Запрещаем перенос строк */
+                overflow: hidden; /* Обрезаем все, что не помещается в область */
+                text-overflow: ellipsis; 
+            }
+            &__Text{
+                width: 150px;
+                color: #404040;
+                font-weight: 400;
+                white-space: nowrap; /* Запрещаем перенос строк */
+                overflow: hidden; /* Обрезаем все, что не помещается в область */
+                text-overflow: ellipsis; 
+            }
+        }
+        &__MessageData{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4px;
+            width: 35px;
+            &__Time{
+                color: #404040;
+                font-size: 12px;
+                text-align: end;
+            }
+            &__Unread{
+                background: $colorAccent;
+                height: 20px;
+                width: fit-content;
+                min-width: 20px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-weight: 500;
+                font-size: 12px;
+                margin-left:  auto;
+                
+                
+            }
+        }
     }
-.MessageInfo__Top{
-    display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.MessageInfo__Top__Name{
-    color: black;
-    
-}
-
-.MessageInfo__Top__Time{
-    padding-right: 15px;
-    span{
-        font-size: 12px;
-    }
-    i{
-        padding-left: 5px;
-        font-size: 14px;
-        opacity: 0;
-        
-    }
-}
-
-
-
-.MessageInfo__Text{
-@include text;
-margin-bottom: 10px;
 }

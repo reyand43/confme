@@ -14,7 +14,7 @@ export function signUp(email, password, name, surname) {
       password,
       returnSecureToken: true,
     };
-    if (name == "" || surname == "") {
+    if (name === "" || surname ==="") {
       dispatch(authError());
     } else {
       try {
