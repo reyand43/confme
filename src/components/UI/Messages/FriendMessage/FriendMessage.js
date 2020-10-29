@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './FriendMessage.module.scss'
 import { UserPhoto } from "../../UserPhoto/UserPhoto";
-import { NavLink } from "react-router-dom";
+
 
 const FriendMessage = (props) => {
   

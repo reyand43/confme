@@ -5,8 +5,15 @@ import classes from "./DialogListItem.module.scss";
 export const DialogListItem = (props) => {
   
 
+  const cls = [classes.DialogListItem];
+
+  if(props.id === props.selected) {
+      cls.push(classes.selected)
+  }
+  
+  
   return (
-    <div className={classes.DialogListItem}>
+    <div className={cls.join(" ")}>
       <div className={classes.DialogListItem__Content}>
         <UserPhoto size="md" />
         <div className={classes.DialogListItem__Content__MessageInfo}>

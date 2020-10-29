@@ -1,7 +1,6 @@
 import React from "react";
 import classes from './MyMessage.module.scss'
-import { UserPhoto } from "../../UserPhoto/UserPhoto";
-import { NavLink } from "react-router-dom";
+
 
 const MyMessage = (props) => {
   

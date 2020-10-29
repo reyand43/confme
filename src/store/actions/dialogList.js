@@ -15,7 +15,7 @@ import {
   CLEAR_STATE,
 } from "./actionTypes";
 
-export function fetchDialogs(userId) {
+export function fetchDialogs(userId) {  //загрузка диалогов
   return async (dispatch) => {
     dispatch(fetchDialogsStart());
     try {
@@ -33,8 +33,8 @@ export function fetchDialogs(userId) {
     }
   };
 }
-
-export function fetchMessages(userId, dialogId) {
+ 
+export function fetchMessages(userId, dialogId) { //загрузка сообщений
   return async (dispatch) => {
     dispatch(fetchMessagesStart());
     try {
@@ -55,7 +55,7 @@ export function fetchMessages(userId, dialogId) {
   };
 }
 
-export function selectDialog(dialogId) {
+export function selectDialog(dialogId) {  //выбор диалога для загрузки сообщений
 
   return async (dispatch) => {
     let dialogInfo;
@@ -64,7 +64,7 @@ export function selectDialog(dialogId) {
     try {
       db.ref("users/" + dialogId + "/personalData").on("value", (snapshot) => {
         dialogInfo = snapshot.val();
-        dispatch(fetchDialogInfo(dialogInfo));
+        dispatch(fetchDialogInfo(dialogInfo));  //загружаем  инфу для отображаения инфы диалога(пока что в users)
       });
     } catch (error) {
       console.log(error);

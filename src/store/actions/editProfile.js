@@ -81,6 +81,7 @@ export function changeValue(name, value) {
           type: CHANGECOUNTRY,
           value,
         });
+        break;
       case "City":
         dispatch({
           type: CHANGECITY,

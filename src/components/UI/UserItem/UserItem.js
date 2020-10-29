@@ -9,7 +9,7 @@ export const UserItem = (props) => {
     if(props.id === props.clicked) {
         cls.push(classes.clicked)
     }
-    console.log(props)
+    
 
     return(
         <div  className={cls.join(" ")}>

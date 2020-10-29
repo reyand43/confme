@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Timetable.module.scss";
-import { connect } from "react-redux";
-import DateCard from "../../../components/Timetable/DateCard/DateCard";
-import { changeDate } from "../../../store/actions/timetable";
-import EventCard from "../../../components/Timetable/EventCard/EventCard";
+
 
 class Timetable extends Component{
   render(){

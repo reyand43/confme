@@ -13,32 +13,29 @@ import { NavLink } from "react-router-dom";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Loader } from "../../../components/UI/Loader/Loader";
-import {UserCard} from "../../../components/UI/UserCard/UserCard";
+import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 
 class DialogList extends React.Component {
   state = {
-    dialogId: this.props.match.params.id,
-    chats: [],
-    content: "",
-    data: null,
+    dialogId: null, //id диалога
+    chats: [], //список диалогов
+    content: "", //введенное сообщение
   };
 
   componentDidMount() {
-    this.props.fetchDialogs(localStorage.getItem("userId"));
+    this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
     if (document.location.pathname.slice(9).length > 0) {
-      this.props.selectDialog(document.location.pathname.slice(9));
-    } else {
-      this.props.fetchDialogInfo(null);
-      this.props.selectDialog(null)
+      //если ссылка содержит id то
+      this.props.selectDialog(document.location.pathname.slice(9)); //вызываем ф-ию selectDialog с айди из ссылки
     }
-    
   }
 
   renderDialogs() {
     const uid = localStorage.getItem("userId");
 
     if (this.props.dialogsLoading) {
+      //если диалоги загружаются то функция ничего не возвращает
       return null;
     } else {
       return this.props.dialogs.map((dialog) => {
@@ -52,6 +49,7 @@ class DialogList extends React.Component {
           >
             <li>
               <DialogListItem
+                id={dialog.withId}
                 name={dialog.withName}
                 surname={dialog.withSurname}
                 text={
@@ -60,6 +58,7 @@ class DialogList extends React.Component {
                     : dialog.lastMessage
                 }
                 time={dialog.timestamp}
+                selected={this.props.selectedDialog}
               />
             </li>
           </NavLink>
@@ -70,13 +69,11 @@ class DialogList extends React.Component {
 
   changeHandler = (event) => {
     this.setState({
-      content: event.target.value,
+      content: event.target.value, //кладем в стейт значения из инпута
     });
   };
 
-  
-
-  sendHandler = () => {
+  sendHandler = () => { //отсыдаем сообщения
     this.props.sendMessages(
       localStorage.getItem("userId"), //мой id
       this.state.content, //текст сообщения
@@ -91,8 +88,6 @@ class DialogList extends React.Component {
       content: "", //после отправки обнуляем то что в стейте сообщения
     });
   };
-
-  
 
   render() {
     return (
@@ -132,8 +127,17 @@ class DialogList extends React.Component {
                   <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </div>
                 <div className={classes.ChatBox__MessageBox__Messages}>
-                  {this.props.messages.length === 0 ? <div  className={classes.ChatBox__MessageBox__Messages__NoMessages}><span>У вас пока нет сообщений</span></div> :
-                  <Messages messages={this.props.messages} />}
+                  {this.props.messages.length === 0 ? (
+                    <div
+                      className={
+                        classes.ChatBox__MessageBox__Messages__NoMessages
+                      }
+                    >
+                      <span>У вас пока нет сообщений</span>
+                    </div>
+                  ) : (
+                    <Messages messages={this.props.messages} />
+                  )}
                 </div>
                 <div className={classes.ChatBox__MessageBox__BottomBar}>
                   <div
@@ -143,15 +147,15 @@ class DialogList extends React.Component {
                   >
                     <i className="fa fa-paperclip" aria-hidden="true"></i>
                   </div>
-
+                    <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
                   <input
                     placeholder="Напишите сообщение"
                     name="content"
                     value={this.state.content}
                     onChange={this.changeHandler}
                     type="text"
-                    
                   />
+                  </div>
                   <div
                     className={
                       classes.ChatBox__MessageBox__BottomBar__SendButton
@@ -168,20 +172,21 @@ class DialogList extends React.Component {
             )}
           </div>
         </BGMain>
-        {document.location.pathname.slice(9).length > 0 && 
-        <BGSide>
-          {this.props.dialogInfo &&
-            <UserCard
-            dialog = {true}
-            name={this.props.dialogInfo.Name}
-                      surname={this.props.dialogInfo.Surname}
-                      city={this.props.user.City}
-                      country={this.props.user.Country}
-                      role={this.props.user.AccountType}
-                      id={this.props.user.id}/>
-          }
-          
-        </BGSide>}
+        {document.location.pathname.slice(9).length > 0 && (
+          <BGSide>
+            {this.props.dialogInfo && (
+              <UserCard
+                dialog={true}
+                name={this.props.dialogInfo.Name}
+                surname={this.props.dialogInfo.Surname}
+                city={this.props.user.City}
+                country={this.props.user.Country}
+                role={this.props.user.AccountType}
+                id={this.props.user.id}
+              />
+            )}
+          </BGSide>
+        )}
       </>
     );
   }
@@ -233,7 +238,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogList);
-
-
-
-

@@ -8,12 +8,12 @@
         border-radius: 10px;
         width: 300px;
         height: 100%;
-        padding: 15px;
+        padding: 15px 0;
         box-sizing: border-box;
         
 
         &__SearchBar {
-            width: 100%;
+            width: calc(100%-15px);
             height: fit-content;
             border: 1px solid $colorGreySecond;
             border-radius: 20px;
@@ -23,7 +23,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin: 0 15px 10px;
+            
 
             i {
                 color: $colorGreyFirst;
@@ -125,11 +126,11 @@
             height: 45px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            
             border-radius: 10px;
             margin-top: 10px;
             &__SendButton, &__AttachButton{
-                width: 8%;
+                width: 45px;
                 height: 100%;
                 display: flex;
                 align-items: center;
@@ -145,16 +146,21 @@
                 i{
                     transform: rotate(45deg);}
             }
-            input{
-                width: 86%;
+            &__Input{
+                width: calc(100% - 90px);
                 border: none;
                 outline: none;
-                height: 20px;
-                font-size: 16px;
-                &:focus, &:active{
-
+               
+                input{
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    height: 20px;
+                    font-size: 16px;
+                    
                 }
             }
+            
         }
     }
 }
