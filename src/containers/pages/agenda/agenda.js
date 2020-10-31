@@ -14,6 +14,7 @@ import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Scrollbars } from 'react-custom-scrollbars'
 import WholeTimetable from "../../../components/ExactTimePanel/WholeTimetable";
 import DateChanger from "../../../components/DateChanger/DateChanger";
+import AgendaEvent from "../../../components/UI/AgendaEvent/AgendaEvent";
 
 class Agenda extends React.Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class Agenda extends React.Component {
         <div className={classes.Agenda}>
           <BGMain>
             <Scrollbars>
+                <AgendaEvent activity={"WORK EPTA DURAK"} marginTop={"900px"}/>
+                <AgendaEvent activity={"YA NE ZANYTOY"} marginTop={"1200px"}/>
+                <AgendaEvent activity={"DELA S9999"} marginTop={"350x"}/>
                 <DateChanger />
                 <WholeTimetable />
+
             </Scrollbars>
           </BGMain>
         </div>

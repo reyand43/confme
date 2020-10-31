@@ -6,9 +6,6 @@ let newDate = new Date();
 let date = newDate.getDate();
 let month = newDate.getMonth() + 1;
 let year = newDate.getFullYear();
-let tomorrow = new Date();
-let yesterday = new Date();
-
 class DateChanger extends React.Component {
 
   constructor(props) {
@@ -55,27 +52,23 @@ class DateChanger extends React.Component {
   }
 
   getNextDate() {
-    tomorrow.setTime(tomorrow.getTime() + 1000*60*60*24)
-    date = tomorrow.getDate();
-    month = tomorrow.getMonth() + 1;
-    year = tomorrow.getFullYear();
+    newDate.setTime(newDate.getTime() + 1000*60*60*24)
+    date = newDate.getDate();
+    month = newDate.getMonth() + 1;
+    year = newDate.getFullYear();
     this.setState({
-      date,
-      month,
-      year,
+      date, month, year,
       showingDate: `${date}${' '}${this.getMonthName(month)}${' '}${year}`
     });
   }
 
   getPrevDate() {
-    yesterday.setTime(yesterday.getTime() - 1000*60*60*24)
-    date = yesterday.getDate();
-    month = yesterday.getMonth() + 1;
-    year = yesterday.getFullYear();
+    newDate.setTime(newDate.getTime() - 1000*60*60*24)
+    date = newDate.getDate();
+    month = newDate.getMonth() + 1;
+    year = newDate.getFullYear();
     this.setState({
-      date,
-      month,
-      year,
+      date, month, year,
       showingDate: `${date}${' '}${this.getMonthName(month)}${' '}${year}`
     });
   }
