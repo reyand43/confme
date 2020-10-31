@@ -144,5 +144,6 @@ export function sendMessagesError(e) {
 export function clearState() {
   return {
     type: CLEAR_STATE,
+    
   };
 }

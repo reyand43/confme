@@ -1,6 +1,7 @@
 .Time {
     &__Number {
         display: inline-block;
-        width: 55px;
+        width: fit-content;
+        padding-right: 5px;
     }
 }

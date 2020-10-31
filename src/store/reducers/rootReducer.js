@@ -9,6 +9,7 @@ import dialogReducer from './dialog'
 import navbarReducer from './navbar'
 import dialogListReducer from './dialogList'
 import modalReducer from './modal'
+import openUserCardReducer from './openUserCard'
 
 export default combineReducers({
     auth: authReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
     navbar: navbarReducer,
     dialogList: dialogListReducer,
     modal: modalReducer,
+    openUserCard: openUserCardReducer,
 })

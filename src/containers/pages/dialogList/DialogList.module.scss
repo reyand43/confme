@@ -1,46 +1,43 @@
-@import './../../../components/UI/vars.scss';
+@import '../../../components/UI/vars.scss';
 
-.DialogList{
-    width: 600px;
-    background: #fff;
+.ChatBox {
     height: 100%;
-    overflow: hidden;
-    border-radius: 5px;
-
-
-    ul{
-        margin: 0;
-        padding: 0;
-        li{
-            list-style: none;
-            border-bottom: 1px solid lightgray;
-            
-            :hover{
-                background: black;
-            }
-        }
-    }
-}
-
-.nostyle{
-    text-decoration: none;
-}
-
-.SearchBlock{
-    width: 100%;
     display: flex;
-    align-content: space-between;
+    &__DialogList {
+        background: white;
+        border-radius: 10px;
+        width: 300px;
+        height: 100%;
+        padding: 15px 0;
+        box-sizing: border-box;
+        
 
-}
+        &__SearchBar {
+            width: calc(100%-15px);
+            height: fit-content;
+            border: 1px solid $colorGreySecond;
+            border-radius: 20px;
+            height: 35px;
+            padding: 5px 13px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 15px 10px;
+            
 
-.SearchBlock input{
-    padding: 15px 30px 15px 10px; 
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid lightgray;
-    outline: none;
-}
+            i {
+                color: $colorGreyFirst;
+            }
 
+            input {
+                display: block;
+                box-sizing: border-box;
+                border: none;
+
+                width: 155px;
+
+<<<<<<< HEAD
 .SearchButton{
     display: flex;
     justify-content: center;
@@ -55,44 +52,132 @@
         font-weight: 400;
     }
 }
+=======
+                outline: none;
+                background: #FFFFFF;
+                border-radius: 5px;
+                display: flex;
+                font-size: 16px;
+>>>>>>> master
 
 
+                &::placeholder {
+                    font-size: 16px;
+                    color: $colorGreyFirst;
+                    margin-top: 5px;
 
+                }
+            }
+        }
 
-.wrapper{
-    padding: 20px 20px 20px 230px;
-    
-    display: flex;
-    justify-content: center;
-}
+        &__ScrollList {
+            overflow-y: auto;
+            height: 90%;
+            
 
+            ul {
+                list-style: none;
+                padding: 0;
 
+                a {
+                    text-decoration: none;
+                }
+            }
 
-.DialogTypeChooseWrapper{
-    padding: 5px 0 5px 0;
-    background: white;
-    border-radius: 5px;
-    margin-left: 10px;
-    width: 205px;
-    ul{
-        margin: 0;
-        padding: 0;
-        li{
-            list-style: none;
-            padding: 0 5px 0 20px;
-            cursor: pointer;
-            span{
-                font-size: 14px;
-                font-weight: 500;
-                line-height: 30px;
+        } 
+    }
+    &__ChooseDialog{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        margin-left: 15px;
+        align-items: center;
+    }
+    &__MessageBox{
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        margin-left: 15px;
+        position: relative;
+        
+        &__TopBar{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 15px 0;
+            box-sizing: border-box;
+            align-items: center;
+            height: 56px;
+            top: 0;
+            
+            &__DialogName{
+                font-weight: 600
+            }
+            i{
+                color: #404040;
+                cursor: pointer;
+                padding: 5px;
+                &:hover{
+                    color: $colorAccent;
+                }
+            }
+        }
+        &__Messages{
+            width: 100%;
+            height: calc(100% - 111px);
+            &__NoMessages{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        &__BottomBar{
+            background: white;
+            width: 100%;
+            
+            bottom: 0;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            
+            border-radius: 10px;
+            margin-top: 10px;
+            &__SendButton, &__AttachButton{
+                width: 45px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                cursor: pointer;
+                color: $colorGreyFirst;
+                &:hover{
+                    color: $colorAccent
+                }
+            }
+            &__AttachButton{
+                i{
+                    transform: rotate(45deg);}
+            }
+            &__Input{
+                width: calc(100% - 90px);
+                border: none;
+                outline: none;
+               
+                input{
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    height: 20px;
+                    font-size: 16px;
+                    
+                }
             }
             
         }
     }
-}
-
-.DialogTypeChooseWrapper ul li:hover{
-    
-        background: rgb(240, 242, 245)
-    
 }

@@ -1,0 +1,17 @@
+@import '../../../components/UI/vars.scss';
+
+.Messages{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  overflow-y: auto;
+  ul{
+    list-style: none;
+    padding: 0;
+    
+  }
+}
+  
