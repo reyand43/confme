@@ -2,16 +2,8 @@ import React from "react";
 import classes from "./EditProfile.module.scss";
 import axios from "../../../axios/axios";
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import { changeValue, changeEditor } from "../../../store/actions/editProfile";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
-=======
-import {
-  loadUserNameFromServer,
-  updateUserName,
-  changeValue,
-} from "../../../store/actions/editProfile";
->>>>>>> master
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import MainInfo from "./MainInfo/MainInfo";
 import Contacts from "./Contacts/Contacts";
@@ -81,7 +73,6 @@ class EditProfile extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <>
         <BGMain>
           <div className={classes.EditProfile}>
@@ -89,33 +80,6 @@ class EditProfile extends React.Component {
               <div className={classes.EditProfile__Card__Title}>
                 {this.renderCard()}
                 <MainInfo />
-=======
-      <div className={classes.EditProfile}>
-        
-          <div className={classes.Info}>
-            <UserPhoto size="lg" />
-            <div className={classes.column}>
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label htmlFor="Name">Имя</label>
-                  <input
-                    name="Name"
-                    value={this.props.nameValue}
-                    onChange={this.onChangeHandler}
-                    placholder="Введите ваше имя"
-                  ></input>
-                </div>
-                <div className={classes.input}>
-                  <label htmlFor="Surname">Фамилия</label>
-                  <input
-                    label="Фамилия"
-                    name="Surname"
-                    value={this.props.surnameValue}
-                    onChange={this.onChangeHandler}
-                    placholder="Введите вашу фамилию"
-                  ></input>
-                </div>
->>>>>>> master
               </div>
             </div>
           </div>
@@ -138,7 +102,6 @@ class EditProfile extends React.Component {
           <ul>{this.renderSectionMenu()}</ul>
           </div>
           </div>
-<<<<<<< HEAD
         </BGSide>
       </>
 
@@ -192,9 +155,6 @@ class EditProfile extends React.Component {
       //     </div>
       //   </div>
       // </div>
-=======
-      </div>
->>>>>>> master
     );
   }
 }
