@@ -1,4 +1,4 @@
-@import './../vars.scss';
+@import './../UI/vars.scss';
 $color:  #E9EDF8;
 $colorAccent: #65469B;
 
@@ -8,12 +8,20 @@ $colorAccent: #65469B;
   font-weight: 520;
   margin-bottom: 1.2%;
   margin-top: 0.2%;
-  input {
+  button {
     background-color: $colorAccentLight;
     border: 0px;
     font-weight: 900;
     font-size: 15pt;
   }
+}
+
+.img {
+  padding-top: 5%
+}
+
+.date {
+  padding-top: 1.5%;
 }
 
 .Panel {

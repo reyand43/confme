@@ -12,8 +12,8 @@ import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Scrollbars } from 'react-custom-scrollbars'
-import WholeTimetable from "../../../components/UI/ExactTimePanel/WholeTimetable";
-import DateChanger from "../../../components/UI/DateChanger/DateChanger";
+import WholeTimetable from "../../../components/ExactTimePanel/WholeTimetable";
+import DateChanger from "../../../components/DateChanger/DateChanger";
 
 class Agenda extends React.Component {
   constructor(props) {
@@ -23,20 +23,12 @@ class Agenda extends React.Component {
 
   render() {
 
-    const main = (
-      <div>
-        <DateChanger />
-        <WholeTimetable
-          someEvent = "DELA EPT"
-        />
-      </div>
-    )
-
     return (
         <div className={classes.Agenda}>
           <BGMain>
             <Scrollbars>
-              {main}
+                <DateChanger />
+                <WholeTimetable />
             </Scrollbars>
           </BGMain>
         </div>
