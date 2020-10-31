@@ -37,28 +37,11 @@
 
                 width: 155px;
 
-<<<<<<< HEAD
-.SearchButton{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 47px;
-    width: 50px;
-    border-bottom: 1px solid lightgray;
-    span {
-        cursor: pointer;
-    } 
-    i{
-        font-weight: 400;
-    }
-}
-=======
                 outline: none;
                 background: #FFFFFF;
                 border-radius: 5px;
                 display: flex;
                 font-size: 16px;
->>>>>>> master
 
 
                 &::placeholder {
