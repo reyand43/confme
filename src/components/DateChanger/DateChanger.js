@@ -1,21 +1,13 @@
 import React from 'react'
 import classes from './DateChanger.module.scss';
 
-function ChangeNextDate(d, m){
-  if(m === 1 || m === 3 || m === 5 || m === 7 || m === 8 || m === 10 || m === 12){
-    if( d === 31 ) return m + 1
-  }
-  else if( m === 2 )
-    if( d === 29 ) return m + 1
-  if(m === 4 || m === 6 || m === 9 || m === 11){
-    if( d === 30 ) return m + 1
-  }
-}
 
 let newDate = new Date();
 let date = newDate.getDate();
 let month = newDate.getMonth() + 1;
 let year = newDate.getFullYear();
+let tomorrow = new Date();
+let yesterday = new Date();
 
 class DateChanger extends React.Component {
 
@@ -63,8 +55,7 @@ class DateChanger extends React.Component {
   }
 
   getNextDate() {
-    let tomorrow = new Date();
-    tomorrow.setDate(date + 1);
+    tomorrow.setTime(tomorrow.getTime() + 1000*60*60*24)
     date = tomorrow.getDate();
     month = tomorrow.getMonth() + 1;
     year = tomorrow.getFullYear();
@@ -77,8 +68,7 @@ class DateChanger extends React.Component {
   }
 
   getPrevDate() {
-    let yesterday = new Date();
-    yesterday.setDate(date - 1);
+    yesterday.setTime(yesterday.getTime() - 1000*60*60*24)
     date = yesterday.getDate();
     month = yesterday.getMonth() + 1;
     year = yesterday.getFullYear();
