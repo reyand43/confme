@@ -1,23 +1,13 @@
 import React from "react";
 import classes from "./Sidebar.module.scss";
-<<<<<<< HEAD
 import { NavLink, Redirect } from "react-router-dom";
 import { Logo } from "../../UI/Logo/Logo";
-=======
-import { NavLink} from "react-router-dom";
->>>>>>> master
 
 class Sidebar extends React.Component {
 
   render() {
     return (
-      <div>
         <div className={classes.Sidebar}>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> editprofile
                 <div className={classes.Sidebar__Menu}>
                   <ul>
                     <li>
@@ -87,13 +77,7 @@ class Sidebar extends React.Component {
 
             </div>
           </div>
-<<<<<<< HEAD
-        </div>
-=======
 
-
-
->>>>>>> editprofile
     );
   }
 }
