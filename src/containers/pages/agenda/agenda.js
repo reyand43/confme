@@ -28,12 +28,10 @@ class Agenda extends React.Component {
         <div className={classes.Agenda}>
           <BGMain>
             <Scrollbars>
-                <AgendaEvent activity={"WORK EPTA DURAK"} marginTop={"900px"}/>
-                <AgendaEvent activity={"YA NE ZANYTOY"} marginTop={"1200px"}/>
-                <AgendaEvent activity={"DELA S9999"} marginTop={"350x"}/>
                 <DateChanger />
+                <AgendaEvent marginTop={"378px"} time={"15:00-17:00"} duration={"1 час 30 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
+                <AgendaEvent marginTop={"188px"} time={"10:30-12:00"} duration={"1 час 30 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
                 <WholeTimetable />
-
             </Scrollbars>
           </BGMain>
         </div>

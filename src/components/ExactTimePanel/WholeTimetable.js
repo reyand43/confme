@@ -7,19 +7,19 @@ const WholeTimetable = (props) => {
     return(
       <>
         <Panel
-          time = {"0:00"}
+          time = {"8:00"}
           event = {"TIME TO BE TOXIC"}
           timeBorder = {"10px 0 0 0"}
           eventBorder = {"0 10px 0 0"}
         />
-        <Panel time = {"1:00"} event={props.someEvent}/>
+        {/*<Panel time = {"1:00"} event={props.someEvent}/>
         <Panel time = {"2:00"}/>
         <Panel time = {"3:00"}/>
         <Panel time = {"4:00"}/>
         <Panel time = {"5:00"}/>
         <Panel time = {"6:00"}/>
         <Panel time = {"7:00"}/>
-        <Panel time = {"8:00"}/>
+        <Panel time = {"8:00"}/>*/}
         <Panel time = {"9:00"}/>
         <Panel time = {"10:00"}/>
         <Panel time = {"11:00"}/>
