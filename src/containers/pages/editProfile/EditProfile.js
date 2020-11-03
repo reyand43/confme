@@ -14,6 +14,7 @@ import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import EditCard from "../../../components/UI/EditCard/EditCard";
 import { Scrollbars } from "react-custom-scrollbars";
 
+
 class EditProfile extends React.Component {
   state = {
     choosedSection: {
@@ -39,6 +40,10 @@ class EditProfile extends React.Component {
       },
     },
   };
+
+  componentDidMount() {
+    api.isOpen();
+  }
 
   selectSectionMenu(sectionName) {
     const choosedSection = { ...this.state.choosedSection };

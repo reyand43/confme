@@ -15,10 +15,13 @@ import { updateUserName } from "./store/actions/editProfile";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
+import api from './helpers/serverApi';
 
 class App extends Component {
   componentDidMount() {
     this.props.autoLogin();
+    api.connect("ws://localhost:3001");
+    api.isOpen();
   }
 
   render() {
