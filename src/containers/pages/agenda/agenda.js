@@ -29,15 +29,22 @@ class Agenda extends React.Component {
           <BGMain>
             <Scrollbars>
                 <DateChanger />
-                <AgendaEvent marginTop={"378px"} time={"15:00-17:00"} duration={"1 час 30 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
-                <AgendaEvent marginTop={"188px"} time={"10:30-12:00"} duration={"1 час 30 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
-                <WholeTimetable />
+                {/*
+                  Начиная с 8 утра: 42px, за каждый следующий час +54px: 42, 96, 150, 204, ...
+                */}
+                <AgendaEvent top={"420px"} time={"15:00-17:00"} duration={"2 часа 0 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
+                <AgendaEvent top={"663px"} time={"19:30-20:30"} duration={"2 часа 0 минут"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
+                <AgendaEvent top={"231px"} time={"11:30-13:00"} duration={"1 часа 30 минут"} height={"77.75px"} theme={"ТЕМА ВСТРЕЧЕ НЕ ОБЪЯВЛЕН"} speakers={"РАНДОМ КАКОЙ-ТА"}/>
+                <WholeTimetable/>
             </Scrollbars>
           </BGMain>
         </div>
     );
   }
 }
+
+
+
 
 function mapStateToProps(state) {
   return {

@@ -1,5 +1,6 @@
 import React from 'react'
 import Panel from "./ExactTimePanel";
+import AgendaEvent from "./../UI/AgendaEvent/AgendaEvent";
 
 
 const WholeTimetable = (props) => {
@@ -12,7 +13,7 @@ const WholeTimetable = (props) => {
           timeBorder = {"10px 0 0 0"}
           eventBorder = {"0 10px 0 0"}
         />
-        {/*<Panel time = {"1:00"} event={props.someEvent}/>
+        {/*<Panel time = {"1:00"}/>
         <Panel time = {"2:00"}/>
         <Panel time = {"3:00"}/>
         <Panel time = {"4:00"}/>
@@ -39,7 +40,7 @@ const WholeTimetable = (props) => {
           event = {"YEEE I DONT FEEL TO WELL SHITTY"}
           eventBorder = {"0 0 10px 0"}
           timeBorder = {"0 0 0 10px"}
-          panelBottom = {"30px"}
+          panelBottom = {"2%"}
         />
       </>
     )

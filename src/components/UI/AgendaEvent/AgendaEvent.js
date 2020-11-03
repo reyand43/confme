@@ -6,7 +6,7 @@ const AgendaEvent = (props) => {
 
 
   return (
-    <div className={classes.AgendaEvent} style={{marginTop: props.marginTop}}>
+    <div className={classes.AgendaEvent} style={{top: props.top, height: props.height}}>
       <div className={classes.Row}>
         <div className={classes.time}>
           {props.time}
