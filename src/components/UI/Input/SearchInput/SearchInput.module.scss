@@ -1,62 +1,37 @@
 @import '../../vars.scss';
-.SearchInput{
-    
+
+.SearchInput {
+  background: white;
+  width: 100%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  
+
+  input {
+    display: block;
+    box-sizing: border-box;
+    border: none;
+    padding: 7px 7px 4px 7px;
     width: 100%;
-   
-}
-
-
-
-.SearchBlock input{
-display: block;
-box-sizing: border-box;
-border: none;
-padding: 7px;
-margin: 0 25px 5px 0px;
-width: 100%;
-outline: none;
-transition: all 300ms ease-in-out;
-
-
-background: #FFFFFF;
-box-shadow: $shadow;
-border-radius: 5px;
-
-}
-
-.SearchInput span{
-    color: #f01f30;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-
-
-.SearchBlock input::placeholder{
-    margin-left: 22px;
-    padding: 10px 0px;
-    font-family: 'Montserrat', sans-serif;
-    color: $colorTextS;
-    
-}
-
-.SearchBlock{
-    padding-left: 25px;
+    outline: none;
+    background: #FFFFFF;
+    border-radius: 5px;
     display: flex;
+    font-size: 16px;
+    margin: 0 7px;
+
+    &::placeholder {
+      font-size: 16px;
+      color: $colorGreyFirst;
+      margin-top: 5px;
+      
+    }
   }
-  
-  .SearchBlock label{
-  position: relative;
+
+  &__Icon {
+    color: $colorGreySecond;
   }
-  .SearchBlock label i{
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    color: $colorTextS;
-    font-weight: 300;
-  }
-  
-  .SearchBlock label input{
-    padding-left: 20px;
-  }
-  
+}

@@ -19,13 +19,10 @@ class ModalUser extends React.Component {
   }
 
   toggleModal = () => {
-    console.log("pressed");
+  
     this.setState((state) => ({ isModalOpen: !state.isModalOpen }));
   };
 
-  componentDidMount() {
-    console.log("тут", this.props.user);
-  }
 
   render() {
     return ReactDOM.createPortal(

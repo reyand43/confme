@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../../../../components/UI/Input/Input";
 import classes from "./Contacts.module.scss";
 import axios from "../../../../axios/axios";
-import { Card } from "../../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
@@ -74,7 +73,6 @@ class Contacts extends React.Component {
     loadUserNameFromServer()
     return (
       <div className={classes.EditProfile}>
-        <Card title="Контакты">
           <div className={classes.Info}>
             <UserPhoto size="lg" />
             <div className={classes.column}>
@@ -149,7 +147,6 @@ class Contacts extends React.Component {
               <button style={{width: '235px', marginLeft: '200px'}} onClick={this.onSendHandler}>Сохранить</button>
             </div>
           </div>
-        </Card>
       </div>
     );
   }

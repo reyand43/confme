@@ -5,10 +5,21 @@
     border-radius: 10px;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
     margin-left: 1.8%;
     &__Content{
       height: 100%;
       width: 100%;
       padding: 15px;
     }
+=======
+    box-sizing: border-box;
+    margin-right: 20px;
+    &__Content{
+height: 100%;
+width: 100%;
+padding: 15px;
+box-sizing: border-box;
+}
+>>>>>>> 4106a7f51121258be96a5c1630bddb28bdc7313d
 }

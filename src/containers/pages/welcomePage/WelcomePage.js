@@ -1,6 +1,5 @@
 import classes from "./WelcomePage.module.scss";
 import React from "react";
-import { ItemCard } from "../../../components/UI/ItemCard/ItemCard";
 import { loadUserNameFromServer } from "../../../store/actions/editProfile";
 import { connect } from "react-redux";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";

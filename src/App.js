@@ -6,14 +6,12 @@ import Materials from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
 import EditProfile from "./containers/pages/editProfile/EditProfile";
 import { autoLogin } from "./store/actions/auth";
-
 import Split from "./hoc/Split/Split";
 import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
 import { updateUserName } from "./store/actions/editProfile";
-import Dialog from "./containers/pages/dialog/Dialog";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
@@ -44,7 +42,7 @@ class App extends Component {
           <Route path="/broadcast" component={Broadcast} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
-          <Route path="/dialogs/:id" component={Dialog} />
+          <Route path="/dialogs/:id" component={DialogList} />
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />
           <Route path="/agenda" component={Agenda} />
@@ -64,7 +62,8 @@ class App extends Component {
           >
             {routes}
           </Layout>
-        </Split>
+        </Split>}
+
       </BrowserRouter>
     );
   }

@@ -7,10 +7,7 @@ class Sidebar extends React.Component {
 
   render() {
     return (
-
         <div className={classes.Sidebar}>
-
-
                 <div className={classes.Sidebar__Menu}>
                   <ul>
                     <li>
@@ -80,8 +77,6 @@ class Sidebar extends React.Component {
 
             </div>
           </div>
-
-
 
     );
   }

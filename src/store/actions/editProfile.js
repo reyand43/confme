@@ -171,41 +171,49 @@ export function changeValue(name, value) {
           type: CHANGENAME,
           value,
         });
+        break;
       case "Surname":
         dispatch({
           type: CHANGESURNAME,
           value,
         });
+        break;
       case "Age":
         dispatch({
           type: CHANGEAGE,
           value,
         });
+        break;
       case "Country":
         dispatch({
           type: CHANGECOUNTRY,
           value,
         });
+        break;
       case "City":
         dispatch({
           type: CHANGECITY,
           value,
         });
+        break;
       case "Company":
         dispatch({
           type: CHANGECOMPANY,
           value,
         });
+        break;
       case "Profession":
         dispatch({
           type: CHANGEPROFESSION,
           value,
         });
+        break;
       case "Phone":
         dispatch({
           type: CHANGEPHONE,
           value,
         });
+        break;
       case "Purpose":
         dispatch({
           type: CHANGEPURPOSE,

@@ -1,19 +1,29 @@
-.MyMessage{
+.MyMessage {
     display: flex;
     justify-content: flex-end;
     margin-top: 15px;
-    p{
-        text-align: end;
-        margin: 0;
+    align-items: flex-end;
+
+    &__Data {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        max-width: 50%;
+        min-width: 10%;
+        float: right;
+        border-radius: 10px;
+        padding: 5px 10px;
+        margin-right: 10px;
+
+        &__Text {
+            word-break: break-all;
+        }
+        &__Time{
+            text-align: end;
+            font-size: 12px;
+            color:#404040;
+            margin-top: 5px;
+        }
     }
-   span{
-        color: grey;
-        font-size: 12px;
-        font-weight: 400;
-        padding: 0 10px 0 10px;
-        text-decoration: none;
-    }
-    a{
-        text-decoration: none;
-    }
+
 }

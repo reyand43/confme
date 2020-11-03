@@ -3,7 +3,8 @@
 .BGSide{
     background: $colorGreyThird;
     border-radius: 10px;
-    width: 295px;
+    
+    min-width: 250px;
     height: 100%;
     margin-left: 20px;
 
@@ -11,5 +12,6 @@
 height: 100%;
 width: 100%;
 padding: 15px;
+box-sizing: border-box;
     }
 }

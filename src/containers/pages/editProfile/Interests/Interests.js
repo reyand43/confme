@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../../../../components/UI/Input/Input";
 import classes from "./Interests.module.scss";
 import axios from "../../../../axios/axios";
-import { Card } from "../../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
   loadUserNameFromServer,
@@ -61,7 +60,6 @@ class Interests extends React.Component {
   render() {
     return (
       <div className={classes.EditProfile}>
-        <Card title="Интересы">
           <div className={classes.Info}>
             <UserPhoto size="lg" />
             <div className={classes.column}>
@@ -108,7 +106,6 @@ class Interests extends React.Component {
               <button style={{width: '235px', marginLeft: '200px'}} onClick={this.onSendHandler}>Сохранить</button>
             </div>
           </div>
-        </Card>
       </div>
     );
   }
