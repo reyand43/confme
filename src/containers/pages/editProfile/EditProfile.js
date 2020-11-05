@@ -41,10 +41,6 @@ class EditProfile extends React.Component {
     },
   };
 
-  componentDidMount() {
-    api.isOpen();
-  }
-
   selectSectionMenu(sectionName) {
     const choosedSection = { ...this.state.choosedSection };
 

@@ -1,5 +1,4 @@
-import Axios from "axios";
-import axios from "../../axios/axios";
+import api from "../../helpers/serverApi";
 import {
   AUTH_SUCCESS,
   AUTH_LOGOUT,
@@ -10,77 +9,41 @@ import {
 export function signUp(email, password, name, surname) {
   return async (dispatch) => {
     const authData = {
-      email,
-      password,
-      returnSecureToken: true,
+      email, password, name, surname
     };
     if (name === "" || surname ==="") {
       dispatch(authError());
     } else {
-      try {
-        let url =
-          "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA";
-
-        const request = await Axios.post(url, authData);
-        await axios.patch(`/users/${request.data.localId}/personalData.json`, {
-          Name: name,
-          Surname: surname,
-          AccountType: "Участник",
-        });
-        const isLogin = true;
-        dispatch(signIn(email, password, isLogin));
-      } catch (e) {
-        console.log(e);
-        dispatch(authError());
+      const res = await api.signUp(authData);
+      if(res.status === 'error') dispatch(authError());
+      else{
+        dispatch(signIn(email, password));
       }
     }
   };
 }
 
-//signIn
-
-export function signIn(email, password, isLogin) {
+export function signIn(email, password) {
   return async (dispatch) => {
     const authData = {
       email,
       password,
-      returnSecureToken: true,
     };
 
-    let url =
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBz6RaNMraup7lSZBOPuF3aNM5EQJUm_SA";
-    try {
-      const response = await Axios.post(url, authData);
-      const data = response.data;
-
-      const expirationDate = new Date(
-        new Date().getTime() + data.expiresIn * 1000
-      );
-
-      localStorage.setItem("userId", data.localId);
-      localStorage.setItem("token", data.idToken);
-      localStorage.setItem("expirationDate", expirationDate);
-      dispatch(authSuccess(data.idToken));
-      dispatch(autoLogout(data.expiresIn));
-    } catch (e) {
-      console.log(e);
-      dispatch(loginError());
+    const res = await api.signIn(authData);
+    if(res.status === 'error') dispatch(loginError());
+    else {
+      const data = res.message;
+      localStorage.setItem("userId", data.id);
+      localStorage.setItem('token', data.accessToken);
+      dispatch(authSuccess(data.accessToken));
     }
-  };
-}
-
-export function autoLogout(time) {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, time * 1000);
-  };
+  }
 }
 
 export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
-  localStorage.removeItem("expirationDate");
   return {
     type: AUTH_LOGOUT,
   };
@@ -93,17 +56,8 @@ export function autoLogin() {
     if (!token) {
       dispatch(logout());
     } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        dispatch(logout());
-      } else {
         dispatch(authSuccess(token));
-
-        dispatch(
-          autoLogout((expirationDate.getTime() - new Date().getTime()) / 1000)
-        );
       }
-    }
   };
 }
 

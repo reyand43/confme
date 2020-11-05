@@ -19,10 +19,10 @@ import api from './helpers/serverApi';
 
 class App extends Component {
   componentDidMount() {
-    this.props.autoLogin();
     api.connect("ws://localhost:3001");
-    api.isOpen();
+    this.props.autoLogin();
   }
+
 
   render() {
     let routes = (

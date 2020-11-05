@@ -87,8 +87,8 @@ class Auth extends Component {
     this.props.signIn(
       this.state.formControls.email.value,
       this.state.formControls.password.value,
-      true
     );
+
   };
 
   registerHandler = () => {
@@ -322,6 +322,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(signUp(email, password, name, surname));
     },
     clearUserName: () => dispatch(clearUserName()),
+    
   };
 }
 
