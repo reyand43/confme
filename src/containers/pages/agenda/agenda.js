@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./agenda.module.scss";
 import axios from "../../../axios/axios";
-import { Card } from "../../../components/UI/Card/Card";
 import { connect } from "react-redux";
 import {
   changeValue,
