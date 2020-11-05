@@ -3,20 +3,14 @@
 .BGSide{
     background: $colorGreyThird;
     border-radius: 10px;
-    
     min-width: 250px;
     height: 100%;
-<<<<<<< HEAD
     margin-left: 20px;
 
-=======
-    
-    
->>>>>>> master
     &__Content{
-height: 100%;
-width: 100%;
-padding: 15px;
-box-sizing: border-box;
+      height: 100%;
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
     }
 }

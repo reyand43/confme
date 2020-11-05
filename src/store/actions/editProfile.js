@@ -177,10 +177,8 @@ export function changeValue(name, value) {
           type: CHANGESURNAME,
           value,
         });
-<<<<<<< HEAD
-=======
         break;
->>>>>>> master
+
       case "Age":
         dispatch({
           type: CHANGEAGE,
@@ -222,7 +220,6 @@ export function changeValue(name, value) {
           type: CHANGEPURPOSE,
           value,
         });
-<<<<<<< HEAD
       case 'Sex':
         dispatch({
           type: CHANGE_SEX,
@@ -278,9 +275,7 @@ export function changeValue(name, value) {
           type: CHANGE_POSITION,
           value,
         });
-=======
         break;
->>>>>>> master
       default: return null;
     }
   };
