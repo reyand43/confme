@@ -26,7 +26,7 @@ class Agenda extends React.Component {
     return (
         <div className={classes.Agenda}>
           <BGMain>
-            <Scrollbars>
+          <Scrollbars>
                 <DateChanger />
                 {/*
                   Начиная с 8 утра: 42px, за каждый следующий час +54px: 42, 96, 150, 204, ...
