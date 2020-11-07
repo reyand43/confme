@@ -5,7 +5,7 @@ const EventCard = (props) => {
 
     return(
         <div className = {classes.EventCard}>
-            <div className = {classes.EventCardLabels}>
+            <div className = {classes.EventCard__Labels}>
                 <h1>{props.title}</h1>
                 <p>{props.description}</p>
                 <p>{props.time}</p>

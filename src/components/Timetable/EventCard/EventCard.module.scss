@@ -10,22 +10,22 @@ $colorAccent: #65469B;
     padding-left: 15px;
     box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
     border-radius: 8px;
-}
 
-.EventCardLabels {
-    display: flex;
-    flex-direction: column;
-    color: rgb(68, 68, 73);
-}
-
-.EventCard h1 {
-    text-align: left;
-    color: rgb(68, 68, 73);
-}
-
-.EventCard i {
-    color: $colorAccent;
-    padding-top: 80px;
-    padding-right: 40px;
-    font-size: 40px;
+    &__Labels {
+        display: flex;
+        flex-direction: column;
+        color: rgb(68, 68, 73);
+    }
+    
+    h1 {
+        text-align: left;
+        color: rgb(68, 68, 73);
+    }
+    i {
+        color: $colorAccent;
+        padding-top: 80px;
+        padding-right: 40px;
+        font-size: 40px;
+    }
+    
 }

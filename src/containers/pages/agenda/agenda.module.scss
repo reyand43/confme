@@ -1,0 +1,22 @@
+@import '../../../components/UI/vars.scss';
+
+.Agenda{
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+  width: 84%;
+}
+
+.column{
+   display: flex;
+   flex-direction: column;
+}
+
+.Row{
+   display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+  :nth-child(2){
+     margin-left: 10px
+  }
+}

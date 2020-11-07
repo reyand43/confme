@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Career.module.scss";
-
 import { connect } from "react-redux";
 import {
   sendUserData

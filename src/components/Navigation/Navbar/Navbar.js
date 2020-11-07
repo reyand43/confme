@@ -9,40 +9,24 @@ import {
 } from "../../../store/actions/editProfile";
 import DropDown from "../../UI/DropDown/DropDown";
 import { logout } from "../../../store/actions/auth";
-import {
-  changeVisibility,
-  hideDropDown,
-} from "../../../store/actions/navbar";
 import { withRouter } from "react-router-dom";
 import Time from "../../Time/Time";
 import { Logo } from "../../UI/Logo/Logo";
 import { clearState } from "../../../store/actions/dialogList";
 
 class Navbar extends React.Component {
-  constructor() {
-    super();
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
-
-  dropDownHandler = () => {
-    this.props.changeVisibility();
-  };
-
   renderData() {
     //-----------------------
     const items = [
       {
         text: "Профиль",
         onClick: () => {
-          this.props.hideDropDown();
           this.props.history.push("/editProfile");
         },
       },
       {
         text: "Трансляция",
         onClick: () => {
-          this.props.hideDropDown();
           this.props.history.push("/broadcast");
         },
       },
@@ -51,7 +35,7 @@ class Navbar extends React.Component {
         onClick: () => {
           this.props.hideDropDown();
           this.props.logout();
-          this.props.clearState()
+          this.props.clearState();
         },
       },
     ];
@@ -65,13 +49,8 @@ class Navbar extends React.Component {
           <span>3</span>
           <i className="fa fa-bell" aria-hidden="true"></i>
         </div> */}
-        <div className={classes.userInfo} ref={this.setWrapperRef}>
-          <DropDown
-            onClick={this.dropDownHandler}
-            styles={this.props.visible ? "active" : ""}
-            items={items}
-
-          >
+        <div className={classes.userInfo}>
+          <DropDown items={items}>
             <div className={classes.userInfoBlock}>
               <p>
                 {this.props.userData.Name} &nbsp; {this.props.userData.Surname}
@@ -86,8 +65,6 @@ class Navbar extends React.Component {
   }
 
   componentDidMount() {
-
-    document.addEventListener("mousedown", this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
       this.props.fetchUserData();
@@ -95,36 +72,23 @@ class Navbar extends React.Component {
       this.props.clearUserName();
     }
   }
-  // Закрытие дропдауна, супер костыльное, куда ни тыкни, везде закроет, кроме кнопки включения
-
-  setWrapperRef(node) {
-    this.wrapperRef = node;
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.props.hideDropDown();
-    }
-  }
 
   //------------------------------------------------
   render() {
     return (
       <div className={classes.Navbar}>
-        <div className = {classes.Navbar__Logo}>
+        <div className={classes.Navbar__Logo}>
           <Logo />
         </div>
 
-        <div className = {classes.Navbar__TimeAndProfile}>
-          <div className = {classes.Navbar__EventTime}>
-            <div className = {classes.Navbar__EventTime__UpperText}>Время мероприятия:</div>
-            <div className = {classes.Navbar__EventTime__LowerText}>
-                <Time utc = {3} city = 'Москва'/>
-              </div>
+        <div className={classes.Navbar__TimeAndProfile}>
+          <div className={classes.Navbar__EventTime}>
+            <div className={classes.Navbar__EventTime__UpperText}>
+              Время мероприятия:
+            </div>
+            <div className={classes.Navbar__EventTime__LowerText}>
+              <Time utc={3} city="Москва" />
+            </div>
           </div>
           {localStorage.getItem("userId") !== "null" ? this.renderData() : null}
         </div>
@@ -137,20 +101,19 @@ function mapStateToProps(state) {
   return {
     userData: state.editProfile.userData,
     
-    visible: state.navbar.visibleDropDown,
-    profileClicked: state.navbar.profileClicked,
+    //visible: state.navbar.visibleDropDown,
+    //profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeVisibility: () => dispatch(changeVisibility()),
     logout: () => {
       dispatch(logout());
     },
     fetchUserData: () => dispatch(fetchUserData()),
-    hideDropDown: () => dispatch(hideDropDown()),
+    // hideDropDown: () => dispatch(hideDropDown()),
     clearState: ()=>dispatch(clearState())
   };
 }
