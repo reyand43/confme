@@ -16,6 +16,7 @@ import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
 import Agenda from "./containers/pages/agenda/agenda"
+import Sponsors from "./containers/pages/sponsors/Sponsors";
 
 class App extends Component {
   componentDidMount() {
@@ -29,6 +30,8 @@ class App extends Component {
         <Route path="/editProfile" component={EditProfile} />
         <Route path="/materials" component={Materials} />
         <Route path="/timetable" component={Timetable} />
+        <Route path="/sponsors" component={Sponsors} />
+
         <Route path="/users" component={Users} />
         <Route path="/welcomePage" component={WelcomePage} />
         <Redirect to="/" />
@@ -42,6 +45,8 @@ class App extends Component {
           <Route path="/broadcast" component={Broadcast} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
+          <Route path="/sponsors" component={Sponsors} />
+
           <Route path="/dialogs/:id" component={DialogList} />
           <Route path="/dialogs" component={DialogList} />
           <Route path="/users" component={Users} />

@@ -1,0 +1,17 @@
+@import "../../../components/UI/vars.scss";
+
+
+.Sponsors{
+    padding: 10px;
+    &__Title {
+        font-size: 20px;
+        font-weight: 550;
+        margin-bottom: 20px;
+    }   
+    &__Grid {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 1vw;
+    }
+}

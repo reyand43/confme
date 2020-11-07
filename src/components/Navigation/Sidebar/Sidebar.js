@@ -29,7 +29,7 @@ class Sidebar extends React.Component {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/1">
+                      <NavLink to="/sponsors" activeClassName={classes.active}>
                         <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
                         Спонсоры
                       </NavLink>

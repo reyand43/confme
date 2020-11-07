@@ -5,21 +5,29 @@ import DateCard from "../../../components/Timetable/DateCard/DateCard";
 import { changeDate } from "../../../store/actions/timetable";
 import EventCard from "../../../components/Timetable/EventCard/EventCard";
 import TimetableCard from "../../../components/UI/TimetableCard/TimetableCard";
+import SponsorCard from "../../../components/UI/SponsorCard/SponsorCard";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 
 class Timetable extends Component{
   render(){
     return(
-      <div className={classes.Timetable}>
-        <BGMain>
-          <div>
-            <TimetableCard
-              time = "10:00-11:00"
-              title = "Тут заголовок"
-              text = "Тут текст"/>
+      <BGMain>
+        <div className={classes.Timetable}>
+            <div>
+              <TimetableCard
+                time = "10:00-11:00"
+                title = "Диджитал решения в организации мероприятий"
+                text = "Команда компании conf.me расскажет о том, как IT трансформирует event-индустрию"/>
+            </div>
+            <div>
+              <TimetableCard
+                time = "10:00-11:00"
+                title = "Тут заголовок"
+                text = "Тут текст"/>
+            </div> 
           </div>
-        </BGMain>
-      </div>
+      </BGMain>
+
     )
   }
 }
