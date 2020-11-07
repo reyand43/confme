@@ -109,6 +109,8 @@ class Users extends React.Component {
             surname={user.surname}
             accountType={user.accountType}
             clicked={this.state.selectedUser}
+            profession={user.profession}
+            company = {user.company}
           />
         </li>
       );

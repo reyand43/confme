@@ -11,7 +11,6 @@ import Auth from "./containers/pages/auth/Auth";
 import Timetable from "./containers/pages/timetable/Timetable";
 import { connect } from "react-redux";
 import Navbar from "./components/Navigation/Navbar/Navbar";
-import { updateUserName } from "./store/actions/editProfile";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
@@ -78,7 +77,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     autoLogin: () => dispatch(autoLogin()),
-    updateUserName: (name, surname) => dispatch(updateUserName(name, surname)),
+    
   };
 }
 

@@ -19,7 +19,6 @@ import Messages from "../messages/Messages";
 class DialogList extends React.Component {
   state = {
     dialogId: null, //id диалога
-    chats: [], //список диалогов
     content: "", //введенное сообщение
   };
 

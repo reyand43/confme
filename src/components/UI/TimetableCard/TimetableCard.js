@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "./TimetableCard.module.scss";
+import {UserPhoto} from '../UserPhoto/UserPhoto';
 
 
 class TimetableCard extends Component{
@@ -13,8 +14,15 @@ class TimetableCard extends Component{
         return (this.speakers != null) && this.speakers.map((speaker) => {
             return (
               <li key={speaker.id}>
+                <UserPhoto/>
+                <div className={classes.TimetableCard__Speakers__Info}>
+                    <div className={classes.TimetableCard__Speakers__Info__Name}>
                 {speaker.name}{" "}{speaker.surname}
-                {speaker.company}{", "}{speaker.city}
+                </div>
+                <div className={classes.TimetableCard__Speakers__Info__Career}>
+                {speaker.career}
+                </div>
+                </div>
               </li>
             );
           });
@@ -27,7 +35,7 @@ class TimetableCard extends Component{
     return (
         <div className={classes.TimetableCard}>
             <div className={classes.TimetableCard__Top}>
-                <span>{this.props.time}</span>
+                <span>{this.props.startTime} : {this.props.endTime}</span>
                 <button>Добавить в "Мое расписание"
                 <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
                 </button>

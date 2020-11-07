@@ -22,11 +22,13 @@ export function fetchDialogs(userId) {  //загрузка диалогов
       
       db.ref("chatList/" + userId).on("value", function (snapshot) {
         let dialogs = [];
+        
         !!snapshot.val() === true &&
           Object.keys(snapshot.val()).forEach((key) => {
             dialogs.push(snapshot.val()[key]);
           });
         dispatch(fetchDialogsSuccess(dialogs));
+
       });
     } catch (e) {
       dispatch(fetchDialogsError(e));
@@ -191,6 +193,7 @@ export function sendMessagesSuccess(content) {
     content,
   };
 }
+
 export function sendMessagesStart() {
   return {
     type: SEND_MESSAGES_START,

@@ -1,176 +1,206 @@
 import React from "react";
-import Input from "../../../../components/UI/Input/Input";
 import classes from "./Contacts.module.scss";
-import axios from "../../../../axios/axios";
-import { Card } from "../../../../components/UI/Card/Card";
 import { connect } from "react-redux";
-import {
-  loadUserNameFromServer,
-  updateUserName,
-  changeValue,
-  updateContactInfo
-} from "../../../../store/actions/editProfile";
-import { UserItem } from "../../../../components/UI/UserItem/UserItem";
-import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
+import { sendUserData } from "../../../../store/actions/editProfile";
+import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
+import EditCard from "../../../../components/UI/EditCard/EditCard";
+import { Loader } from "../../../../components/UI/Loader/Loader";
 
 class Contacts extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    formChanged: false,
 
-    this.name = this.props.name;
-    this.surname = this.props.surname;
+    formControls: {
+      Vk: {
+        value: this.props.userData.Vk,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Fb: {
+        value: this.props.userData.Fb,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
 
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onSendHandler = this.onSendHandler.bind(this);
+      Inst: {
+        value: this.props.userData.Inst,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Phone: {
+        value: this.props.userData.Phone,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Li: {
+        value: this.props.userData.Li,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+    },
+  };
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevProps.userData.length === 0) {
+      return true;
+    }
+    return null;
   }
 
-  onChangeHandler(e) {
-    if (e.target.name === "Vkontakte") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.vkontakte = e.target.value;
-    } else if (e.target.name === "Phone") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.phone = e.target.value;
-    } else if (e.target.name === "Facebook") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.facebook = e.target.value;
-    } else if (e.target.name === "Linkedin") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.linkedin = e.target.value;
-    } else if (e.target.name === "Instagram") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.instagram = e.target.value;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot === true) {
+      let formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((name) => {
+        formControls[name].value = this.props.userData[name];
+      });
+      this.setState({
+        formControls,
+      });
     }
   }
 
-
-  async onSendHandler() {
-    const name = this.name;
-    const surname = this.surname;
-
-    const phone = this.phone;
-    const vkontakte = this.vkontakte;
-    const facebook = this.facebook;
-    const linkedin = this.linkedin;
-    const instagram = this.instagram;
-
-    const userId = localStorage.getItem("userId");
-    const requestData = {
-      Phone: phone,
-      Vkontakte: vkontakte,
-      Facebook: facebook,
-      Linkedin: linkedin,
-      Instagram: instagram
-    };
-    try {
-      this.props.updateContactInfo(phone, vkontakte, facebook, linkedin, instagram);
-      await axios.patch(`/users/${userId}/personalData.json`, requestData);
-    } catch (error) {
-      console.log(error);
+  requireControl(value, isRequired) {
+    if (isRequired === false) {
+      return true;
+    } else {
+      let isValid = true;
+      isValid = value.trim() !== "";
+      return isValid;
     }
   }
+
+  onChangeHandler = (event) => {
+    let formControls = { ...this.state.formControls };
+    let control = { ...formControls[event.target.name] };
+    control.value = event.target.value;
+    control.touched = true;
+    control.valid = this.requireControl(control.value, control.isRequired);
+
+    formControls[event.target.name] = control;
+    this.setState({
+      formControls,
+      formChanged: true,
+    });
+  };
+
+  checkForm = () => {
+    //если форма не изменена то ок
+    if (!this.state.formChanged) {
+      return true;
+    }
+
+    let check = true;
+    const formControls = { ...this.state.formControls };
+    //проверяем все ли инпуты валидны
+    Object.keys(formControls).forEach((control) => {
+      check =
+        (formControls[control].valid ||
+          formControls[control].value === this.props.userData[control]) &&
+        check;
+    });
+
+    return check;
+  };
+
+  submitHandler = () => {
+    if (this.checkForm()) {
+      const Info = new Object();
+      const formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((control) => {
+        formControls[control].value !== undefined &&
+          (Info[control] = formControls[control].value);
+      });
+      this.props.sendUserData(Info);
+    }
+  };
 
   render() {
-    loadUserNameFromServer()
     return (
-      <div className={classes.EditProfile}>
-        <Card title="Контакты">
-          <div className={classes.Info}>
-            <UserPhoto size="lg" />
-            <div className={classes.column}>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 123}} htmlFor="Phone">Телефон:</label>
-                  <input
-
-                    name="Phone"
-                    onChange={this.onChangeHandler}
-                    placeholder="+7 (___) ___-__-__"
-                    value={this.props.phoneValue}
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 100}} htmlFor="Vkontakte">Вконтакте:</label>
-                  <input
-
-                    name="Vkontakte"
-                    value={this.props.vkontakteValue}
-                    onChange={this.onChangeHandler}
-                    placeholder="Вставьте ссылку на страницу"
-                  ></input>
-                </div>
-              </div>
-
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 115}} htmlFor="Facebook">Facebook:</label>
-                  <input
-                    name="Facebook"
-                    value={this.props.facebookValue}
-                    onChange={this.onChangeHandler}
-                    placeholder="Вставьте ссылку на страницу"
-                  ></input>
-                </div>
-              </div>
-
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 122}} htmlFor="Linkedin">Linkedin:</label>
-                  <input
-                    style={{width: "356px"}}
-                    name="Linkedin"
-                    onChange={this.onChangeHandler}
-                    placeholder="Вставьте ссылку на страницу"
-                    value={this.props.linkedinValue}
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 108}} htmlFor="Instagram">Instagram:</label>
-                  <input
-                    style={{width: "356px"}}
-                    name="Instagram"
-                    onChange={this.onChangeHandler}
-                    placeholder="Вставьте ссылку на страницу"
-                    value={this.props.instagramValue}
-                  ></input>
-                </div>
-              </div>
-
-
-              <button style={{width: '235px', marginLeft: '200px'}} onClick={this.onSendHandler}>Сохранить</button>
+      <>
+        <EditCard title="Контакты">
+          {this.props.sendUserDataLoading && (
+            <div className={classes.Card}>
+              <Loader />
             </div>
+          )}
+          {this.props.userDataSent && (
+            <div className={classes.Card}>
+              <i className="fa fa-check" aria-hidden="true"></i>
+              <span>Данные успешно изменены</span>
+            </div>
+          )}
+          <div className={classes.Inputs}>
+            <HorizontalInput
+              value={this.state.formControls.Phone.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Phone.touched}
+              name="Phone"
+              placeholder="+7 (___) ___-__-__"
+              label="Телефон:"
+            />
+            <HorizontalInput
+              value={this.state.formControls.Vk.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Vk.touched}
+              name="Vk"
+              label="Вконтакте:"
+              placeholder="Вставьте ссылку на страницу"
+            />
+
+            <HorizontalInput
+              value={this.state.formControls.Fb.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Fb.touched}
+              name="Fb"
+              label="Facebook:"
+              placeholder="Вставьте ссылку на страницу"
+            />
+
+            <HorizontalInput
+              value={this.state.formControls.Li.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Li.touched}
+              name="Li"
+              label="LinkedIn:"
+              placeholder="Вставьте ссылку на страницу"
+            />
+
+            <HorizontalInput
+              value={this.state.formControls.Inst.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Inst.touched}
+              label="Instagram:"
+              name="Inst"
+              placeholder="Вставьте ссылку на страницу"
+            />
           </div>
-        </Card>
-      </div>
+          <div className={classes.Inputs__Button}>
+            <button onClick={this.submitHandler}>Сохранить</button>
+          </div>
+        </EditCard>
+      </>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    phoneValue: state.editProfile.phoneValue,
-    vkontakteValue: state.editProfile.vkontakteValue,
-    facebookValue: state.editProfile.facebookValue,
-    linkedinValue: state.editProfile.linkedinValue,
-    instagramValue: state.editProfile.instagramValue
+    userData: state.editProfile.userData,
+    userDataError: state.editProfile.userDataError,
+    sendUserDataLoading: state.editProfile.sendUserDataLoading,
+    sendUserDataError: state.editProfile.sendUserDataError,
+    userDataSent: state.editProfile.userDataSent,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    changeValue: (value) => dispatch(changeValue(value)),
-    updateContactInfo: (phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue) =>
-      dispatch(updateContactInfo(phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue))
+    sendUserData: (Info) => dispatch(sendUserData(Info)),
   };
 }
 

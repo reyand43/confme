@@ -1,107 +1,77 @@
 @import '../../../../components/UI/vars.scss';
 
-.EditProfile{
-  height: $editorHeight;
-   .input{
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
-      input{
-         border-radius: 5px;
-         border: 1px solid $colorTextS;
-         background: $colorBG2;
-         color: $colorTextL;
-         padding: 12px;
-         width: 354px;
-         font-size: 16px;
-         font-family: 'Montserrat', sans-serif;;
-         margin: 0;
-      }
-      label{
-         padding-left: 110px;
-         font-size: 16px;
-         padding-right: 9px;
-         padding-top: 10px;
-      }
-      .input:active, :hover, :focus{
-         outline: none;
-      }
-
-   input::placeholder{
-      color: $colorTextM;
-      font-size: 14px;
-      font-family: 'Montserrat', sans-serif;
-   }
-}
-
-
-}
-
-
-
-.Info{
-   display: flex;
-   padding-right: 90px;
-}
-
-.column{
+.Inputs {
    display: flex;
    flex-direction: column;
-}
+   align-items: flex-end;
+   padding-right: 20%;
 
-.Row{
+   &__Divider {
+      display: flex;
 
-   display: flex;
-  justify-content: start;
-  margin-bottom: 20px;
-
-  :nth-child(2){
-     margin-left: 10px
-  }
-
-  input{
-     margin: 10px;
-  }
-
-
-}
-
-
-
-.EditProfile button{
-   display: inline-block;
-   padding: 10px 20px;
-   border-radius: 4px;
-   border: 1px solid #ccc;
-   color: #000;
-   margin-right: 15px;
-   text-transform: uppercase;
-   font-weight: bold;
-   font-size: 12px;
-   cursor: pointer;
-   margin-top: 7px;
-   width: 100%
-
-
-}
-
-
-
-.EditProfile textarea{
-   border-radius: 5px;
-   border: 1px solid $colorTextS;
-   background: $colorBG2;
-   color: $colorTextL;
-   padding: 12px;
-   width: 535px;
-   font-size: 16px;
-   font-family: 'Montserrat', sans-serif;;
-   margin: 0;
-   resize: none;
-   margin-right: 0px;
-
-   .textarea:active, :hover, :focus{
-      outline: none;
    }
 
+   &__Select {
+      
+      label{
+         margin-right: 10px;
+      }
+      select {
+         width: 130px;
+         height: 30px;
+         outline: none;
+         box-sizing: border-box;
+         border: 1px solid $colorGreySecond;
+         padding: 7px;
+         background: #FFFFFF;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+   }
+   &__Button{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+      
+  button{
+      width: 190px;
+      color:$colorAccent;
+      background: white;
+      border: 2px solid $colorAccent;
+      height: 38px;
+      
+      border-radius: 5px;
+      margin: 0 auto;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      outline: none;
+      &:hover{
+         color:white;
+      background: $colorAccent;
+      transition: 200ms ease-in-out;
+      }
   }
+}
+}
+
+.Card{
+   position: absolute;
+   width: 90%;
+   height: 70%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   background: white;
+   i{
+      font-size: 50px;
+      color: $colorAccent;
+   }
+   span{
+      margin-top: 20px;
+      font-size: 20px;
+   }
+   
+}

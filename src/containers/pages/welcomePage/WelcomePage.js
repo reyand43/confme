@@ -1,6 +1,6 @@
 import classes from "./WelcomePage.module.scss";
 import React from "react";
-import { loadUserNameFromServer } from "../../../store/actions/editProfile";
+import { fetchUserData} from "../../../store/actions/editProfile";
 import { connect } from "react-redux";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
@@ -8,7 +8,7 @@ import { BGSide } from "../../../components/UI/BGSide/BGSide";
 class WelcomePage extends React.Component {
   componentDidMount() {
     if (this.props.isAuthenticated) {
-      this.props.loadUserNameFromServer();
+      this.props.fetchUserData()
     }
   }
 
@@ -63,7 +63,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-      loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
+      fetchUserData: () => dispatch(fetchUserData()),
     };
   }
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);

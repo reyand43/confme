@@ -5,6 +5,7 @@ import { UserPhoto } from "../../UI/UserPhoto/UserPhoto";
 import {
   loadUserNameFromServer,
   clearUserName,
+  fetchUserData,
 } from "../../../store/actions/editProfile";
 import DropDown from "../../UI/DropDown/DropDown";
 import { logout } from "../../../store/actions/auth";
@@ -49,7 +50,6 @@ class Navbar extends React.Component {
         text: "Выход",
         onClick: () => {
           this.props.hideDropDown();
-          this.props.clearUserName();
           this.props.logout();
           this.props.clearState()
         },
@@ -74,7 +74,7 @@ class Navbar extends React.Component {
           >
             <div className={classes.userInfoBlock}>
               <p>
-                {this.props.name} &nbsp; {this.props.surname}
+                {this.props.userData.Name} &nbsp; {this.props.userData.Surname}
               </p>
               <UserPhoto />
               <i className="fa fa-chevron-down" aria-hidden="true"></i>
@@ -90,7 +90,7 @@ class Navbar extends React.Component {
     document.addEventListener("mousedown", this.handleClickOutside);
     let isToken = !!localStorage.getItem("token");
     if (isToken) {
-      this.props.loadUserNameFromServer();
+      this.props.fetchUserData();
     } else {
       this.props.clearUserName();
     }
@@ -135,8 +135,8 @@ class Navbar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.editProfile.nameValue,
-    surname: state.editProfile.surnameValue,
+    userData: state.editProfile.userData,
+    
     visible: state.navbar.visibleDropDown,
     profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,
@@ -149,8 +149,7 @@ function mapDispatchToProps(dispatch) {
     logout: () => {
       dispatch(logout());
     },
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    clearUserName: () => dispatch(clearUserName()),
+    fetchUserData: () => dispatch(fetchUserData()),
     hideDropDown: () => dispatch(hideDropDown()),
     clearState: ()=>dispatch(clearState())
   };
