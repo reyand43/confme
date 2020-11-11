@@ -146,14 +146,15 @@ class DialogList extends React.Component {
                   >
                     <i className="fa fa-paperclip" aria-hidden="true"></i>
                   </div>
-                    <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
-                  <input
-                    placeholder="Напишите сообщение"
-                    name="content"
-                    value={this.state.content}
-                    onChange={this.changeHandler}
-                    type="text"
-                  />
+                  <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
+                    <input
+                      placeholder="Напишите сообщение"
+                      name="content"
+                      value={this.state.content}
+                      onChange={this.changeHandler}
+                      type="text"
+                      ref={input => input && input.focus()}
+                    />
                   </div>
                   <div
                     className={

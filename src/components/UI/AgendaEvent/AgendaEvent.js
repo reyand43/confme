@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./AgendaEvent.module.scss";
 import { UserPhoto } from "./../UserPhoto/UserPhoto";
-import InputAutocomplete from "./../InputAutocomplete/InputAutocomplete"
 
 const AgendaEvent = (props) => {
 
