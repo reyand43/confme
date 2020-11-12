@@ -201,8 +201,8 @@ function mapStateToProps(state) {
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,
     dialogInfo: state.dialogList.dialogInfo,
-    myName: state.editProfile.name,
-    mySurname: state.editProfile.surname,
+    myName: state.editProfile.userData.Name,
+    mySurname: state.editProfile.userData.Surname,
   };
 }
 
