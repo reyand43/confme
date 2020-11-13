@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink, Redirect } from "react-router-dom";
 import classes from "./Sponsors.module.scss";
 import { connect } from "react-redux";
 import DateCard from "../../../components/Timetable/DateCard/DateCard";
@@ -16,34 +17,36 @@ class Sponsors extends Component{
             Спонсоры  
           </div>
           <div className={classes.Sponsors__Grid}>
+            <NavLink to="/sponsorMain" activeClassName={classes.active}>
               <SponsorCard
-                // logo = "Логотип"
-                title = "Google"
-                text = "Классная компания"/>
+              logo = "Логотип"
+              title = "Google"
+              description = "Классная компания"/>
+            </NavLink>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Amazon"
-                text = "Тоже классная компания"/>
+                description = "Тоже классная компания"/>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Apple"
-                text = "Прикольная компания"/>
+                description = "Прикольная компания"/>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Facebook"
-                text = "Дурацкая компания"/>
+                description = "Дурацкая компания"/>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Макшнакнекс"
-                text = "Ресторан"/>
+                description = "Ресторан"/>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Макдокнак"
-                text = "Тоже ресторан"/>
+                description = "Тоже ресторан"/>
               <SponsorCard
                 // logo = "Логотип"
                 title = "Ашан"
-                text = "Продуктовый гипермаркет"/>
+                description = "Продуктовый гипермаркет"/>
           </div>
         </div>
       </BGMain>

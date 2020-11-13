@@ -6,32 +6,24 @@ import { SponsorLogo } from "../SponsorLogo/SponsorLogo";
 
 
 class SponsorCard extends Component{
-    // constructor(props) {
-    //     super(props);
-    //     this.speakers = this.props.speakers;
-    //   }
-
-
     render(){
-
-    return (
-        <div className={classes.SponsorCard}>
-            {/* <div className={classes.SponsorCard__Logo}>
-                {this.props.logo}
-            </div> */}
-            <div className={classes.SponsorCard__Logo}>
-                <SponsorLogo size={'lg'} rounded={'true'}/>
+        return (
+            <div className={classes.SponsorCard}>
+                {/* <div className={classes.SponsorCard__Logo}>
+                    {this.props.logo}
+                </div> */}
+                <div className={classes.SponsorCard__Logo}>
+                    <SponsorLogo size={'md'} rounded={'true'}/>
+                </div>
+                <div className={classes.SponsorCard__Title}>
+                    {this.props.title}
+                </div>
+                <div className={classes.SponsorCard__Description}>
+                    {this.props.description}
+                </div>
             </div>
-            <div className={classes.SponsorCard__Title}>
-                {this.props.title}
-            </div>
-            <div className={classes.SponsorCard__Text}>
-                {this.props.text}
-            </div>
-
-
-        </div>
-    )
-}}
+        )
+    }
+}
 
 export default SponsorCard

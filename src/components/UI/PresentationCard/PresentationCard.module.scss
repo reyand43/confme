@@ -1,0 +1,44 @@
+@import '../vars.scss';
+
+.PresentationCard {
+    width: 100%;
+    border-radius: 10px;
+    background-color: $colorGreyThird;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
+    position: relative;
+    margin-bottom: 12px;
+    
+    &__TextBlock {
+        // Выравнивание текста
+        position: absolute;
+        top: 50%;
+        transform: translate(20px, -50%); // 20px - значение отступа у .SponsorMain_Top
+        // flex-direction: column;
+        padding-right: 60px;
+
+        
+        &__Title {
+            font-size: 16px;
+            font-weight: 600;
+            float: right;
+
+        }
+        &__Download {
+            font-size: 14px;
+            font-weight: 550;
+            float: right;
+        }
+    }
+
+
+
+        a {
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+}

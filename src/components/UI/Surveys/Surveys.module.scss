@@ -1,0 +1,20 @@
+@import '../vars.scss';
+
+.Surveys {
+    width: 60%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
+
+    &__Title {
+        font-weight: 550;
+        font-size: 18px;
+        padding: 8px 10px 20px;
+    }
+    &__List {
+
+    }
+}
