@@ -1,12 +1,12 @@
 @import '../vars.scss';
 
 .SponsorLogo {
-  height: 41px;
-  width: 41px;
+//   height: 100%;
+//   width: 100%;
   border-radius: 50px;
 
-  background: url("../../../images/google_logo.png");
-  background-size: cover;
+  background: url("../../../images/google_logo.png") 100% 100% no-repeat;
+  background-size: contain;
   background-position: center;
   
 }
@@ -16,14 +16,14 @@
 //   width: 30px;
 // }
 
-// .md {
-//   height: 50px;
-//   width: 50px;
-// }
+.md {
+    height: 110px;
+    width: 110px;
+}
 
 .lg {
-  height: 90px;
-  width: 90px;
+  height: $sponsorLogoSizeLarge;
+  width: $sponsorLogoSizeLarge;
 }
 
 // .true{
