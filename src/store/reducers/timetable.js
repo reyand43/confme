@@ -1,4 +1,4 @@
-import { FETCH_TIMETABLE_ERROR, FETCH_TIMETABLE_START, FETCH_TIMETABLE_SUCCESS, TIMETABLE_DATE } from "../actions/actionTypes";
+import { ADD_TO_AGENDA_ERROR, ADD_TO_AGENDA_START, ADD_TO_AGENDA_SUCCESS, FETCH_TIMETABLE_ERROR, FETCH_TIMETABLE_START, FETCH_TIMETABLE_SUCCESS, TIMETABLE_DATE } from "../actions/actionTypes";
 
 const initialState = {
  timetable: [],
@@ -29,7 +29,24 @@ export default function timetableReducer(state = initialState, action) {
           ...state,
           loading: false,
           error: action.error
+        };case ADD_TO_AGENDA_SUCCESS:
+        return {
+          ...state,
+          loadingAdding: false,
         };
+      case ADD_TO_AGENDA_START:
+        return {
+          ...state,
+          loadingAdding: true,
+
+        };
+        case ADD_TO_AGENDA_ERROR:
+        return {
+          ...state,
+          loadingAdding: false,
+          errorAdding: action.error
+        };
+
     default:
       return state;
   }

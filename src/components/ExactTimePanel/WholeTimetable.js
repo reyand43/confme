@@ -1,15 +1,14 @@
 import React from 'react'
 import Panel from "./ExactTimePanel";
-import AgendaEvent from "./../UI/AgendaEvent/AgendaEvent";
+import classes from './WholeTimetable.module.scss'
 
 
 const WholeTimetable = (props) => {
 
     return(
-      <>
+      <div className={classes.WholeTimetable}>
         <Panel
           time = {"8:00"}
-          event = {"TIME TO BE TOXIC"}
           timeBorder = {"10px 0 0 0"}
           eventBorder = {"0 10px 0 0"}
         />
@@ -37,12 +36,11 @@ const WholeTimetable = (props) => {
         <Panel time = {"22:00"}/>
         <Panel
           time = {"23:00"}
-          event = {"YEEE I DONT FEEL TO WELL SHITTY"}
           eventBorder = {"0 0 10px 0"}
           timeBorder = {"0 0 0 10px"}
-          panelBottom = {"2%"}
+          
         />
-      </>
+      </div>
     )
 }
 

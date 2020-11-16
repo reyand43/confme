@@ -36,10 +36,7 @@ class SponsorMain_Representatives extends Component{
                         name = "Вася Пупкин"
                         career = "Другая должность"
                     />                    
-                    <RepresentativeCard
-                        name = "Пупка Васин"
-                        career = "Еще одна должность"
-                    />                    
+                                   
                     <RepresentativeCard
                         name = "Андрей Бабушкин"
                         career = "И еще одна должность"

@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import classes from "./TimetableCard.module.scss";
 import {UserPhoto} from '../UserPhoto/UserPhoto';
-
+import { connect } from "react-redux";
+import {addToAgenda} from "../../../store/actions/timetable"
 
 class TimetableCard extends Component{
     constructor(props) {
         super(props);
-        this.speakers = this.props.speakers;
+        // this.speakers = this.props.speakers;
+        // this.addToAgenda = this.props.addToAgenda.bind(this)
       }
 
 
     renderSpeakers = () => { // надо пофиксить
-        return (this.speakers != null) && this.speakers.map((speaker) => {
+        return (this.props.speakers != null) && this.props.speakers.map((speaker) => {
             return (
               <li key={speaker.id}>
                 <UserPhoto/>
@@ -28,6 +30,9 @@ class TimetableCard extends Component{
           });
     }
 
+    addToAgenda = () => {
+        this.props.addToAgenda(this.props.event)
+    }// СДЕЛАТЬ ФУНКЦИЮ
 
 
     render(){
@@ -36,7 +41,7 @@ class TimetableCard extends Component{
         <div className={classes.TimetableCard}>
             <div className={classes.TimetableCard__Top}>
                 <span>{this.props.startTime} : {this.props.endTime}</span>
-                <button>Добавить в "Мое расписание"
+                <button onClick={this.addToAgenda}>Добавить в "Мое расписание"
                 <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
                 </button>
             </div>
@@ -53,6 +58,7 @@ class TimetableCard extends Component{
                 <ul> {/* ненумерованный список */}
                     {this.renderSpeakers()}
                 </ul>
+                
 
             </div>
             <button className={classes.TimetableCard__ButtonWatch}>
@@ -62,4 +68,11 @@ class TimetableCard extends Component{
     )
 }}
 
-export default TimetableCard
+
+  function mapDispatchToProps(dispatch) {
+    return {
+      addToAgenda: (event) => dispatch(addToAgenda(event)),
+    };
+  }
+
+export default connect(null, mapDispatchToProps)(TimetableCard)

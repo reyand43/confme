@@ -1,4 +1,4 @@
-@import '../vars.scss';
+@import "../vars.scss";
 
 .DownBox {
   width: 100%;
@@ -11,42 +11,18 @@
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-
+  margin-top: 15px;
   &__Title {
     display: flex;
     justify-content: space-between;
     font-weight: 600;
   }
+  &__Content{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    p{
+      margin: 4px 0;
+    }
+  }
 }
-
-// .DownBox{
-
-
-//     font-size: 16px;
-
-//     background: #b9babe;
-//     border-radius: 10px;
-//     // height: 100%;
-//     width: 260px;
-//     color: white;
-
-//     // display: flex;
-//     flex-direction: column;
-//     // justify-content: space-between;
-//     padding: 10px 15px;
-
-//     margin-bottom: 20px;
-//     text-align: center;
-
-//     &__UserPhoto {
-//         margin: 0 auto;
-//         margin-top: 10px;
-//         height: 100px;
-//         width: 100px;
-//         border-radius: 50px;
-      
-//         background: url("../../../images/userPhoto.jpg");
-//         background-size: cover;
-//         background-position: center;
-//       }
-//     }

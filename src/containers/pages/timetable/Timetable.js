@@ -7,6 +7,7 @@ import EventCard from "../../../components/Timetable/EventCard/EventCard";
 import TimetableCard from "../../../components/UI/TimetableCard/TimetableCard";
 import { fetchTimetable } from "../../../store/actions/timetable";
 import { Loader } from "../../../components/UI/Loader/Loader";
+import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 
 class Timetable extends Component {
 
@@ -91,13 +92,14 @@ class Timetable extends Component {
       if (event.stream === stream && this.formatDate(event.startTime)===this.props.days[this.state.selectedDay]){
       return (
         <TimetableCard
-        
+        event = {event}
         key={index}
           startTime={this.formatTime(event.startTime)}
           title={event.title}
           text={event.description}
           endTime = {this.formatTime(event.endTime)}
           speakers = {event.speakers}
+          cardId = {event.id}
         />
       );
     }}
@@ -115,13 +117,14 @@ class Timetable extends Component {
             <div className={classes.Timetable__DayButtons}>
               {this.renderDays()}
             </div>
-
+            <ScrollBar>
             <div className={classes.Timetable__Streams}>
               
               {this.renderStreams()}
-
+              
            
             </div>
+            </ScrollBar>
           </>
         )}
        

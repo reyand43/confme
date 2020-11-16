@@ -1,10 +1,12 @@
-import { FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR, FETCH_USER_SUCCESS, FETCH_USER_START } from "../actions/actionTypes";
+import { FETCH_USERS_START, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR, FETCH_USER_SUCCESS, FETCH_USER_START, SET_SEARCHED_USERS } from "../actions/actionTypes";
 
 const initialState = {
     users: [],
     loading: false,
     error: null,
-    user: []
+    user: [],
+    searchedUsers: [],
+    
 
 }
 
@@ -20,6 +22,7 @@ export default function usersReducer(state = initialState, action) {
           ...state,
           loading: false,
           users: action.users,
+          searchedUsers: action.users
         };
         case FETCH_USER_START:
         return {
@@ -38,7 +41,11 @@ export default function usersReducer(state = initialState, action) {
           loading: false,
           error: action.error,
         };
-
+        case SET_SEARCHED_USERS:
+          return{
+            ...state,
+            searchedUsers: action.users
+          }
         
       default:
         return state;

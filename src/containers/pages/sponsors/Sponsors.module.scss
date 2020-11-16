@@ -3,6 +3,8 @@
 
 .Sponsors{
     padding: 10px;
+    overflow-y: auto;
+    height: 100%;
     &__Title {
         font-size: 20px;
         font-weight: 550;

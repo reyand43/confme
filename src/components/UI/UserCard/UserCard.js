@@ -6,30 +6,58 @@ import { UserPhoto } from '../UserPhoto/UserPhoto'
 import classes from './UserCard.module.scss'
 
 export function UserCard(props) {
+    {if(props){
   return(
+      
         <div className={classes.UserCard}>
             <UserPhoto size={'lg'} rounded={'true'}/>
             <div className={classes.UserCard__Name}>
-                <span>{props.name}{" "}{props.surname}</span>
+                <span>{props.user.Name}{" "}{props.user.Surname}</span>
             </div>
             <div className={classes.UserCard__Role}>
-                <span>{props.role}</span>
+                <span>{props.user.AccountType}</span>
             </div>
-            {props.city!=="" || props.country!==""
+            {(props.user.City || props.user.Country) &&
             (<div className={classes.UserCard__Location}>
-                <span>{props.city}{", "}{props.country}</span>
+                <span>{props.user.City}{", "}{props.user.Country}</span>
             </div>)}
             
             <div className={classes.UserCard__Buttons}>
                 {!!props.dialog ? <div className={classes.UserCard__Buttons__ForDialog}> <button onClick={props.onClickContacts}>В контакты</button> </div> :  
-            <><NavLink onClick={closeUserCard} to={"/dialogs/" + props.id}>
+            <><NavLink onClick={closeUserCard} to={"/dialogs/" + props.user.id}>
                 <button>Написать</button>
             </NavLink>
             <button onClick={props.onClickContacts}>В контакты</button></>}
             </div>
-            <DownBox
-            title = "Заголовок"
-            text = "Текст"/>
+            {props.user.WorkPlace && 
+             <DownBox
+             title = "Карьера"
+            work = {props.user.WorkPlace}
+             prof = {props.user.Position}
+             workLink = {props.user.CompanyName}/>}
+
+             {props.user.tel || props.user.email || props.user.Vk && 
+             <DownBox
+             title = "Контакты"
+             tel = {props.user.Phone}
+             email = {props.user.Email}
+             vk = {props.user.Vk}/>}
+
+             {/* {props.user.WorkPlace && 
+             <DownBox
+             title = "О себе"
+             text1 = {props.user.WorkPlace}
+             text2 = {props.user.Position}
+             link = {props.user.CompanyName}/>} */}
+
+             {props.user.WorkPlace && 
+             <DownBox
+             title = "Интересы"
+             look = {props.user.Look}
+             suggest = {props.user.Suggest}
+             hobby = {props.user.Hobby}/>}
+           
         </div>
+
     )
-}
+}}}

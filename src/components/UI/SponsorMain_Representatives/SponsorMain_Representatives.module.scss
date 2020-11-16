@@ -16,10 +16,11 @@
         padding: 12px 15px 17px;
     }
     &__Grid {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
         // Если объектов больше, то и строк надо указывать больше. Это проблема.
-        grid-template-rows: 1fr 1fr; 
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: 1vw;
+        // grid-template-rows: 1fr 1fr; 
+        // grid-template-columns: 1fr 1fr 1fr 1fr;
+        // grid-gap: 1vw;
     }
 }

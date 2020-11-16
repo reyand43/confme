@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Users.module.scss";
 import { UserItem } from "../../../components/UI/UserItem/UserItem";
 import { connect } from "react-redux";
-import { fetchUsers } from "../../../store/actions/users";
+import { fetchUsers, setSearchedUsers } from "../../../store/actions/users";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import SearchInput from "../../../components/UI/Input/SearchInput/SearchInput";
@@ -13,38 +13,48 @@ import {
 } from "../../../store/actions/openUserCard";
 import { RoleSearchListItem } from "../../../components/UI/RoleSearchListItem/RoleSearchListItem";
 import { Loader } from "../../../components/UI/Loader/Loader";
+import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 
 class Users extends React.Component {
-  state = {
-    selectedUser: "",
-    searchControls: {
-      roleSearch: {
-        all: {
-          label: "Все",
-          selected: true,
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedUser: "",
+      searchControls: {
+        roleSearch: {
+          all: {
+            label: "Все",
+            selected: true,
+            name: "Все"
+          },
+          guests: {
+            label: "Участники",
+            name: "Участник",
+            selected: false,
+          },
+          speakers: {
+            label: "Спикеры",
+            name: "Спикер",
+            selected: false,
+          },
+          reps: {
+            label: "Представители",
+            name: "Представитель",
+            selected: false,
+          },
+          orgs: {
+            label: "Организаторы",
+            name: "Оранизатор",
+            selected: false,
+          },
         },
-        guests: {
-          label: "Участники",
-          selected: false,
-        },
-        speakers: {
-          label: "Спикеры",
-          selected: false,
-        },
-        reps: {
-          label: "Представители",
-          selected: false,
-        },
-        orgs: {
-          label: "Организаторы",
-          selected: false,
+        tagSearch: {
+          tags: [],
         },
       },
-      tagSearch: {
-        tags: [],
-      },
-    },
-  };
+    };
+    
+  }
 
   renderRoleSearch() {
     return Object.keys(this.state.searchControls.roleSearch).map(
@@ -83,58 +93,88 @@ class Users extends React.Component {
     } else {
       role.selected = !role.selected;
       roleSearch["all"].selected = false;
+      
     }
 
     searchControls.roleSearch[controlName] = role;
     this.setState({
       searchControls,
     });
+    const searchControls2 = { ...this.state.searchControls };
+    const roleSearch2 = { ...searchControls2.roleSearch };
+
+    let selected = []
+    for (var name in roleSearch){
+      if (roleSearch2[name].selected === true){
+        selected.push(roleSearch2[name].name)
+      }
+    }
+    console.log('selected', selected)
+    const filter = this.props.users.filter((user) => {
+      if (selected.includes("Все")){
+        return (this.props.users);
+      }
+      else{
+      return (user.AccountType.includes(selected[0] || selected[1] || selected[2] || selected[3] || selected[4]));
+      }
+    });
+    
+    this.props.setSearchedUsers(filter)
   };
 
   openSideCard = (user) => {
     this.setState({
       selectedUser: user.id,
     });
-    console.log(this.state);
+    
     this.props.openUserCard(user);
   };
 
   renderUsers() {
-    return this.props.users.map((user) => {
+    
+    return this.props.searchedUsers.map((user) => {
       return (
         <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
           <UserItem
             id={user.id}
-            name={user.name}
-            surname={user.surname}
-            accountType={user.accountType}
-            clicked={this.state.selectedUser}
-            profession={user.profession}
-            company = {user.company}
+            name={user.Name}
+            surname={user.Surname}
+            accountType={user.AccountType}
+            clicked={this.state.SelectedUser}
+            profession={user.Profession}
+            company={user.Company}
           />
         </li>
       );
     });
   }
 
+  
+
   componentDidMount() {
     this.props.fetchUsers();
   }
+
 
   render() {
     return (
       <>
         <BGMain>
           <div className={classes.UserList}>
-            <SearchInput placeholder="Введите имя, компанию, сферу деятельности или интересы..." />
+            <SearchInput
+            update={this.updateData}
+              placeholder="Введите имя, компанию, сферу деятельности или интересы..."
+            />
             <div className={classes.UserList__FindLabel}>
               <span>Найдено 1763 человека</span>
             </div>
             <div className={classes.UserList__List}>
               {this.props.loading ? (
-                <Loader/>
+                <Loader />
               ) : (
-                <ul>{this.renderUsers()}</ul>
+                <ScrollBar>
+                  <ul>{this.renderUsers()}</ul>
+                </ScrollBar>
               )}
             </div>
           </div>
@@ -143,7 +183,6 @@ class Users extends React.Component {
           <div className={classes.Aside}>
             {this.props.user != null ? (
               <div>
-                
                 <div className={classes.Aside__CloseButton}>
                   <i
                     onClick={this.props.closeUserCard}
@@ -151,14 +190,7 @@ class Users extends React.Component {
                   ></i>
                 </div>
 
-                <UserCard
-                  name={this.props.user.name}
-                  surname={this.props.user.surname}
-                  city={this.props.user.city}
-                  country={this.props.user.country}
-                  role={this.props.user.accountType}
-                  id={this.props.user.id}
-                />
+                <UserCard user={this.props.user} />
               </div>
             ) : (
               <div className={classes.Settings}>
@@ -194,6 +226,7 @@ class Users extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    searchedUsers: state.users.searchedUsers,
     users: state.users.users,
     loading: state.users.loading,
     modalOpenState: state.modal.modalOpenState,
@@ -206,6 +239,7 @@ function mapDispatchToProps(dispatch) {
     openUserCard: (user) => dispatch(openUserCard(user)),
     closeUserCard: () => dispatch(closeUserCard()),
     fetchUsers: () => dispatch(fetchUsers()),
+    setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter))
   };
 }
 

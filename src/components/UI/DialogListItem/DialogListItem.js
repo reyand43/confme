@@ -30,9 +30,9 @@ export const DialogListItem = (props) => {
         </div>
         <div className={classes.DialogListItem__Content__MessageData}>
          <div className={classes.DialogListItem__Content__MessageData__Time}>{props.time}</div>
-         <div className={classes.DialogListItem__Content__MessageData__Unread}>
+         {/* <div className={classes.DialogListItem__Content__MessageData__Unread}>
            <span>3</span>
-         </div>
+         </div> */}
         </div>
       </div>
     </div>

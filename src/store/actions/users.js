@@ -5,7 +5,8 @@ import {
   FETCH_USERS_ERROR,
   FETCH_USER_SUCCESS,
   FETCH_USER_START,
-  CLEAR_STATE
+  CLEAR_STATE,
+  SET_SEARCHED_USERS
 } from "./actionTypes";
 
 export function fetchUsers() {
@@ -14,21 +15,10 @@ export function fetchUsers() {
       try {
         const response = await axios.get("/users.json");
         const users = [];
-        Object.keys(response.data).forEach((key) => {
-          users.push({
-            id: key,
-            name: response.data[key].personalData.Name,
-            surname: response.data[key].personalData.Surname,
-            country: response.data[key].personalData.Country,
-            city: response.data[key].personalData.City,
-            company: response.data[key].personalData.Company,
-            profession: response.data[key].personalData.Profession,
-            purpose: response.data[key].personalData.Purpose,
-            phone: response.data[key].personalData.Phone,
-            age: response.data[key].personalData.Age,
-            accountType: response.data[key].personalData.AccountType
-          });
-        });
+        Object.keys(response.data).forEach((key, index) => {
+          users.push(response.data[key].personalData)
+          users[index].id = key
+        })
         dispatch(fetchUsersSuccess(users));
 
       }
@@ -46,12 +36,19 @@ export function fetchUserById(userId) {
     try {
       const response = await axios.get(`/users/${userId}/personalData.json`);
       const user = response.data;
-
+      console.log('actions', user)
       dispatch(fetchUserSuccess(user));
     } catch (e) {
       dispatch(fetchUsersError(e));
     }
   };
+}
+
+export function setSearchedUsers(users){
+  return{
+    type: SET_SEARCHED_USERS,
+    users
+  }
 }
 
 export function fetchUsersSuccess(users) {
@@ -92,3 +89,4 @@ export function clearState(e) {
     
   };
 }
+
