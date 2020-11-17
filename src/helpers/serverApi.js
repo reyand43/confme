@@ -4,7 +4,6 @@ class serverApi {
   constructor() {
     this.socket = null;
     this.token = null;
-    this.lastMessage = null;
   }
 
   connect = (url) => {
@@ -45,7 +44,7 @@ class serverApi {
   //  }}
   //  {status: 'error', message: "User doesn`t exist"}
   //  {status: 'error', message: "Password isn`t valid"}
-  signIn = async (data) => {
+  signIn = (data) => {
     return new Promise((resolve, reject) => {
       this.socket.emit(
         "authentication",
@@ -53,16 +52,16 @@ class serverApi {
         (res) => {
           console.log("signIn: ", res);
           const response = JSON.parse(res);
-          resolve(response);
           if (response && response.status === "success") {
             this.token = response.message.accessToken;
             this.socket.emit("join", { user_id: response.message.id }, (res) => {
               console.log("SignIn subscribe on messages: ", res);
             });
             this.socket.on("message", (data) => {
-              this.lastMessage = data.message.text; // Как хранить приходящие сообщения???
+               console.log('Took message', data)
             });
           }
+          resolve(response);
         }
       );
     });
@@ -72,8 +71,8 @@ class serverApi {
   //  data = { sender_id, reciever_id, text }
   // return:
   //  {status: 'success', message: 'Message sent'}
-  sendMessage = async (data) => {
-    await this.socket.emit(
+  sendMessage = (data) => {
+    this.socket.emit(
       "message",
       {
         sender_id: data.sender_id,
@@ -85,6 +84,18 @@ class serverApi {
       }
     );
   };
+
+  fetchDialogs = (data) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchDialogs", {user_id: data.user_id}, res => {
+        console.log("Fetch dialogs: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  
 }
 
 const api = new serverApi();
