@@ -95,7 +95,6 @@ class serverApi {
     })
   }
 
-  
 }
 
 const api = new serverApi();
