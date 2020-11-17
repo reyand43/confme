@@ -1,130 +1,185 @@
 import React from "react";
-import Input from "../../../../components/UI/Input/Input";
 import classes from "./Interests.module.scss";
-import axios from "../../../../axios/axios";
 import { connect } from "react-redux";
 import {
-  loadUserNameFromServer,
-  updateUserName,
-  changeValue,
-  updateHobbyInfo
+  
+  sendUserData
 } from "../../../../store/actions/editProfile";
-import { UserItem } from "../../../../components/UI/UserItem/UserItem";
-import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
+import EditCard from "../../../../components/UI/EditCard/EditCard";
+import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
+import {Loader} from "../../../../components/UI/Loader/Loader"
 
 class Interests extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    formChanged: false,
 
-    this.name = this.props.name;
-    this.surname = this.props.surname;
+    formControls: {
+      Look: {
+        value: this.props.userData.Look,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Suggest: {
+        value: this.props.userData.Suggest,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Hobby: {
+        value: this.props.userData.Hobby,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      
+    },
+  };
 
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onSendHandler = this.onSendHandler.bind(this);
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevProps.userData.length === 0) {
+      return true;
+    }
+    return null;
   }
 
-  onChangeHandler(e) {
-    if (e.target.name === "Look") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.look = e.target.value;
-    } else if (e.target.name === "Suggest") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.suggest = e.target.value;
-    } else if (e.target.name === "Hobby") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.hobby = e.target.value;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot === true) {
+      let formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((name) => {
+        formControls[name].value = this.props.userData[name];
+      });
+      this.setState({
+        formControls,
+      });
     }
   }
 
-
-  async onSendHandler() {
-    const look = this.look;
-    const suggest = this.suggest;
-    const hobby = this.hobby;
-
-
-    const userId = localStorage.getItem("userId");
-    const requestData = {
-      Look: look,
-      Suggest: suggest,
-      Hobby: hobby
-    };
-    try {
-      this.props.updateHobbyInfo(look, suggest, hobby);
-      await axios.patch(`/users/${userId}/personalData.json`, requestData);
-    } catch (error) {
-      console.log(error);
+  requireControl(value, isRequired) {
+    if (isRequired === false) {
+      return true;
+    } else {
+      let isValid = true;
+      isValid = value.trim() !== "";
+      return isValid;
     }
   }
+
+  onChangeHandler = (event) => {
+    let formControls = { ...this.state.formControls };
+    let control = { ...formControls[event.target.name] };
+    control.value = event.target.value;
+    control.touched = true;
+    control.valid = this.requireControl(control.value, control.isRequired);
+
+    formControls[event.target.name] = control;
+    this.setState({
+      formControls,
+      formChanged: true,
+    });
+  };
+
+  checkForm = () => {
+    //если форма не изменена то ок
+    if (!this.state.formChanged) {
+      return true;
+    }
+
+    let check = true;
+    const formControls = { ...this.state.formControls };
+    //проверяем все ли инпуты валидны
+    Object.keys(formControls).forEach((control) => {
+      check =
+        (formControls[control].valid ||
+          formControls[control].value === this.props.userData[control]) &&
+        check;
+    });
+
+    return check;
+  };
+
+  submitHandler = () => {
+    if (this.checkForm()) {
+      const Info = new Object();
+      const formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((control) => {
+        formControls[control].value !== undefined &&
+          (Info[control] = formControls[control].value);
+      });
+      this.props.sendUserData(Info);
+    }
+  };
 
   render() {
     return (
-      <div className={classes.EditProfile}>
-          <div className={classes.Info}>
-            <UserPhoto size="lg" />
-            <div className={classes.column}>
+      <>
+        <EditCard title="Интересы">
+          {this.props.sendUserDataLoading && (
+            <div className={classes.Card}>
+              <Loader />
+            </div>
+          )}
+          {this.props.userDataSent && (
+            <div className={classes.Card}>
+              <i className="fa fa-check" aria-hidden="true"></i>
+              <span>Данные успешно изменены</span>
+            </div>
+          )}
+          <div className={classes.Inputs}>
+            <HorizontalInput
+              name="Look"
+              value={this.state.formControls.Look.value}
+              onChange={this.onChangeHandler}
+              placeholder="Введите тег"
+              label="Я ищу:"
+              touched={this.state.formControls.Look.touched}
+            />
+            <HorizontalInput
+              value={this.state.formControls.Suggest.value}
+              onChange={this.onChangeHandler}
+              touched={this.state.formControls.Suggest.touched}
+              label="Я предлагаю:"
+              name="Suggest"
+              onChange={this.onChangeHandler}
+              placeholder="Введите тег"
+            />
 
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 160}} htmlFor="Look">Я ищу:</label>
-                  <input
-
-                    name="Look"
-                    value={this.props.lookValue}
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите тег"
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 93, width: "112px"}} htmlFor="Suggest">Я предлагаю:</label>
-                  <input
-                    name="Suggest"
-                    value={this.props.suggestValue}
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите тег"
-                  ></input>
-                </div>
-              </div>
-
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 89, width: "126px"}} htmlFor="Hobby">Мои интересы:</label>
-                  <input
-                    style={{width: "354px", height: "90px"}}
-                    name="Hobby"
-                    onChange={this.onChangeHandler}
-                    placeholder="Напишите пару слов о себе и своих интересах"
-                    value={this.props.hobbyValue}
-                  ></input>
-                </div>
-              </div>
-
-              <button style={{width: '235px', marginLeft: '200px'}} onClick={this.onSendHandler}>Сохранить</button>
+            <div className={classes.Inputs__Textarea}>
+              <label>Мои интересы:</label>
+              <textarea
+                name="Hobby"
+                onChange={this.onChangeHandler}
+                placeholder="Напишите пару слов о себе и своих интересах"
+                touched={this.state.formControls.Hobby.touched}
+              >
+                {this.state.formControls.Hobby.value}
+              </textarea>
             </div>
           </div>
-      </div>
+          <div className={classes.Inputs__Button}>
+            <button onClick={this.submitHandler}>Сохранить</button>
+          </div>
+        </EditCard>
+      </>
+      
     );
   }
 }
 
+
 function mapStateToProps(state) {
   return {
-    lookValue: state.editProfile.lookValue,
-    suggestValue: state.editProfile.suggestValue,
-    hobbyValue: state.editProfile.hobbyValue
+    userData: state.editProfile.userData,
+    userDataError: state.editProfile.userDataError,
+    sendUserDataLoading: state.editProfile.sendUserDataLoading,
+    sendUserDataError: state.editProfile.sendUserDataError,
+    userDataSent: state.editProfile.userDataSent,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    changeValue: value => dispatch(changeValue(value)),
-    updateHobbyInfo: (lookValue, suggestValue, hobbyValue) => dispatch(updateHobbyInfo(lookValue, suggestValue, hobbyValue))
+    sendUserData: (Info) => dispatch(sendUserData(Info)),
   };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Interests);

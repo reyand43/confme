@@ -1,0 +1,26 @@
+@import '../vars.scss';
+
+.SponsorMain_Representatives {
+    width: 100%;
+    border-radius: 10px;
+    // background-color: white;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
+
+    &__Title {
+        font-weight: 550;
+        font-size: 20px;
+        padding: 12px 15px 17px;
+    }
+    &__Grid {
+        display: flex;
+        flex-wrap: wrap;
+        // Если объектов больше, то и строк надо указывать больше. Это проблема.
+        // grid-template-rows: 1fr 1fr; 
+        // grid-template-columns: 1fr 1fr 1fr 1fr;
+        // grid-gap: 1vw;
+    }
+}

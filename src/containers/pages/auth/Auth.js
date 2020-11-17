@@ -321,8 +321,7 @@ function mapDispatchToProps(dispatch) {
     signUp: (email, password, name, surname) => {
       dispatch(signUp(email, password, name, surname));
     },
-    clearUserName: () => dispatch(clearUserName()),
-    
+   
   };
 }
 

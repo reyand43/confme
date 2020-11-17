@@ -15,11 +15,11 @@ import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Loader } from "../../../components/UI/Loader/Loader";
 import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
+import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 
 class DialogList extends React.Component {
   state = {
     dialogId: null, //id диалога
-    chats: [], //список диалогов
     content: "", //введенное сообщение
   };
 
@@ -28,6 +28,7 @@ class DialogList extends React.Component {
     if (document.location.pathname.slice(9).length > 0) {
       //если ссылка содержит id то
       this.props.selectDialog(document.location.pathname.slice(9)); //вызываем ф-ию selectDialog с айди из ссылки
+      this.props.fetchUserById(document.location.pathname.slice(9))
     }
   }
 
@@ -45,6 +46,7 @@ class DialogList extends React.Component {
             to={"/dialogs/" + dialog.withId}
             onClick={() => {
               this.props.selectDialog(dialog.withId);
+              this.props.fetchUserById(dialog.withId)
             }}
           >
             <li>
@@ -102,7 +104,9 @@ class DialogList extends React.Component {
               </div>
               <div className={classes.ChatBox__DialogList__ScrollList}>
                 {this.props.dialogsLoading && <Loader />}
-                <ul>{this.renderDialogs()}</ul>
+                
+                <ScrollBar><ul>{this.renderDialogs()}</ul></ScrollBar>
+                
               </div>
             </div>
 
@@ -136,7 +140,9 @@ class DialogList extends React.Component {
                       <span>У вас пока нет сообщений</span>
                     </div>
                   ) : (
+                    <ScrollBar>
                     <Messages messages={this.props.messages} />
+                    </ScrollBar>
                   )}
                 </div>
                 <div className={classes.ChatBox__MessageBox__BottomBar}>
@@ -147,14 +153,15 @@ class DialogList extends React.Component {
                   >
                     <i className="fa fa-paperclip" aria-hidden="true"></i>
                   </div>
-                    <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
-                  <input
-                    placeholder="Напишите сообщение"
-                    name="content"
-                    value={this.state.content}
-                    onChange={this.changeHandler}
-                    type="text"
-                  />
+                  <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
+                    <input
+                      placeholder="Напишите сообщение"
+                      name="content"
+                      value={this.state.content}
+                      onChange={this.changeHandler}
+                      type="text"
+                      ref={input => input && input.focus()}
+                    />
                   </div>
                   <div
                     className={
@@ -177,12 +184,7 @@ class DialogList extends React.Component {
             {this.props.dialogInfo && (
               <UserCard
                 dialog={true}
-                name={this.props.dialogInfo.Name}
-                surname={this.props.dialogInfo.Surname}
-                city={this.props.user.City}
-                country={this.props.user.Country}
-                role={this.props.user.AccountType}
-                id={this.props.user.id}
+                user={this.props.user}
               />
             )}
           </BGSide>
@@ -201,8 +203,8 @@ function mapStateToProps(state) {
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,
     dialogInfo: state.dialogList.dialogInfo,
-    myName: state.editProfile.name,
-    mySurname: state.editProfile.surname,
+    myName: state.editProfile.userData.Name,
+    mySurname: state.editProfile.userData.Surname,
   };
 }
 

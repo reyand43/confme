@@ -1,166 +1,161 @@
-@import '../../../components/UI/vars.scss';
+@import "../../../components/UI/vars.scss";
 
 .ChatBox {
+  height: 100%;
+  display: flex;
+  width: 100%;
+
+  &__DialogList {
+    background: white;
+    border-radius: 10px;
+    width: 300px;
     height: 100%;
-    display: flex;
-    &__DialogList {
-        background: white;
-        border-radius: 10px;
-        width: 300px;
-        height: 100%;
-        padding: 15px 0;
+    padding: 15px 0 0;
+    box-sizing: border-box;
+
+    &__SearchBar {
+      width: calc(100%-15px);
+      height: fit-content;
+      border: 1px solid $colorGreySecond;
+      border-radius: 20px;
+      height: 35px;
+      padding: 5px 13px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 15px 10px;
+
+      i {
+        color: $colorGreyFirst;
+      }
+
+      input {
+        display: block;
         box-sizing: border-box;
-        
+        border: none;
 
-        &__SearchBar {
-            width: calc(100%-15px);
-            height: fit-content;
-            border: 1px solid $colorGreySecond;
-            border-radius: 20px;
-            height: 35px;
-            padding: 5px 13px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 15px 10px;
-            
+        width: 155px;
 
-            i {
-                color: $colorGreyFirst;
-            }
+        outline: none;
+        background: #ffffff;
+        border-radius: 5px;
+        display: flex;
+        font-size: 16px;
 
-            input {
-                display: block;
-                box-sizing: border-box;
-                border: none;
-
-                width: 155px;
-
-                outline: none;
-                background: #FFFFFF;
-                border-radius: 5px;
-                display: flex;
-                font-size: 16px;
-
-
-                &::placeholder {
-                    font-size: 16px;
-                    color: $colorGreyFirst;
-                    margin-top: 5px;
-
-                }
-            }
+        &::placeholder {
+          font-size: 16px;
+          color: $colorGreyFirst;
+          margin-top: 5px;
         }
-
-        &__ScrollList {
-            overflow-y: auto;
-            height: 90%;
-            
-
-            ul {
-                list-style: none;
-                padding: 0;
-
-                a {
-                    text-decoration: none;
-                }
-            }
-
-        } 
+      }
     }
-    &__ChooseDialog{
+
+    &__ScrollList {
+      height: 90%;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  &__ChooseDialog {
+    width: calc(100% - 300px);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-left: 15px;
+    align-items: center;
+  }
+  &__MessageBox {
+    width: calc(100% - 300px);
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    margin-left: 15px;
+    position: relative;
+
+    &__TopBar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 0;
+      box-sizing: border-box;
+      align-items: center;
+      height: 56px;
+      top: 0;
+
+      &__DialogName {
+        font-weight: 600;
+      }
+      i {
+        color: #404040;
+        cursor: pointer;
+        padding: 5px;
+        &:hover {
+          color: $colorAccent;
+        }
+      }
+    }
+    &__Messages {
+      width: 100%;
+      height: calc(100% - 111px);
+      &__NoMessages {
         width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
-        box-sizing: border-box;
-        margin-left: 15px;
         align-items: center;
+      }
     }
-    &__MessageBox{
-        width: 100%;
+    &__BottomBar {
+      background: white;
+      width: 100%;
+
+      bottom: 0;
+      height: 45px;
+      display: flex;
+      align-items: center;
+
+      border-radius: 10px;
+      margin-top: 10px;
+      &__SendButton,
+      &__AttachButton {
+        width: 45px;
+        height: 100%;
         display: flex;
-        box-sizing: border-box;
-        flex-direction: column;
-        margin-left: 15px;
-        position: relative;
-        
-        &__TopBar{
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 15px 0;
-            box-sizing: border-box;
-            align-items: center;
-            height: 56px;
-            top: 0;
-            
-            &__DialogName{
-                font-weight: 600
-            }
-            i{
-                color: #404040;
-                cursor: pointer;
-                padding: 5px;
-                &:hover{
-                    color: $colorAccent;
-                }
-            }
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        color: $colorGreyFirst;
+        &:hover {
+          color: $colorAccent;
         }
-        &__Messages{
-            width: 100%;
-            height: calc(100% - 111px);
-            &__NoMessages{
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+      }
+      &__AttachButton {
+        i {
+          transform: rotate(45deg);
         }
-        &__BottomBar{
-            background: white;
-            width: 100%;
-            
-            bottom: 0;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            
-            border-radius: 10px;
-            margin-top: 10px;
-            &__SendButton, &__AttachButton{
-                width: 45px;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 24px;
-                cursor: pointer;
-                color: $colorGreyFirst;
-                &:hover{
-                    color: $colorAccent
-                }
-            }
-            &__AttachButton{
-                i{
-                    transform: rotate(45deg);}
-            }
-            &__Input{
-                width: calc(100% - 90px);
-                border: none;
-                outline: none;
-               
-                input{
-                    width: 100%;
-                    border: none;
-                    outline: none;
-                    height: 20px;
-                    font-size: 16px;
-                    
-                }
-            }
-            
+      }
+      &__Input {
+        width: calc(100% - 90px);
+        border: none;
+        outline: none;
+
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          height: 20px;
+          font-size: 16px;
         }
+      }
     }
+  }
 }

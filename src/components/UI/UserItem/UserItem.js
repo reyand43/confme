@@ -17,7 +17,7 @@ export const UserItem = (props) => {
             <div className={classes.UserItem__Text}>
             <div className={classes.UserItem__Text__Info}>
             <span className={classes.UserItem__Text__Info__Name}>{props.name}&nbsp;{props.surname}</span>
-            <span className={classes.UserItem__Text__Info__Career}>СТО в компании EPAM</span>
+            <span className={classes.UserItem__Text__Info__Career}>{props.profession}</span>
             <span className={classes.UserItem__Text__Info__Career}>{props.accountType}</span>
             </div>
             

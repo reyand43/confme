@@ -1,30 +1,20 @@
-$color:  #E9EDF8;
-$colorAccent: #65469B;
+@import '../vars.scss';
 
-.EditBox {
-    margin-left: 11px;
-    background: #fff;
-    flex-grow: 1;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: rgb(211, 217, 222) 0px 1px 0px 0px;
-}
+.EditCard{
+    
+    width: 650px;
+    background: white;
+    padding: 22px 30px;
+    border-radius: 10px;
+    position: relative;
+    &__Title{
+        font-size: 20px;
+        font-weight: 600;
+        
+    }
+    &__Content{
+        margin-top: 35px;
+    }
+    
 
-
-.EditBox p {
-    color:rgb(68, 68, 73);
-    cursor: pointer;
-}
-
-
-.active {
-    padding-bottom: 16px;
-    height: 14px;
-    width: 240px;
-    background: $colorAccent;
-    z-index: 0;
-}
-
-.active p{
-    color: #fff;
 }

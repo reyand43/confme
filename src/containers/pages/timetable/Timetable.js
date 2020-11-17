@@ -5,104 +5,147 @@ import DateCard from "../../../components/Timetable/DateCard/DateCard";
 import { changeDate } from "../../../store/actions/timetable";
 import EventCard from "../../../components/Timetable/EventCard/EventCard";
 import TimetableCard from "../../../components/UI/TimetableCard/TimetableCard";
-import { BGMain } from "../../../components/UI/BGMain/BGMain";
+import { fetchTimetable } from "../../../store/actions/timetable";
+import { Loader } from "../../../components/UI/Loader/Loader";
+import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 
-class Timetable extends Component{
-  render(){
-    return(
-      <div className={classes.Timetable}>
-        <BGMain>
-          <div>
-            <TimetableCard
-              time = "10:00-11:00"
-              title = "Тут заголовок"
-              text = "Тут текст"/>
+class Timetable extends Component {
+
+  state = {
+    selectedDay: 0
+  };
+  
+
+  formatTime(timestamp) {
+    const d = new Date(timestamp);
+    const time = `${d.getHours()}:${d.getMinutes()}`;
+    return time;
+  }
+
+  formatDate(timestamp) {
+    const d = new Date(timestamp);
+    const date = `${d.getDate()}.${d.getMonth()}.${d.getFullYear()}`;
+    return date;
+  }
+
+  
+
+  componentDidMount() {
+    this.props.fetchTimetable();
+
+  }
+
+  selectDay(index){
+    this.setState({
+      selectedDay: index
+    })
+    
+  }
+
+  renderDays() {
+    return this.props.days.map((day, index) => {
+      
+      if (this.state.selectedDay === index) {
+      return (
+        <button className={classes.Timetable__DayButtons__Selected} onClick={() => this.selectDay(index)} key={index}>
+          <span className={classes.Timetable__DayButtons__Title}>
+            День {index + 1}
+          </span>
+          <span className={classes.Timetable__DayButtons__Day}>
+            {day}
+          </span>
+        </button>
+      )}
+      else{
+        return (
+          <button onClick={() => this.selectDay(index)} key={index}>
+            <span className={classes.Timetable__DayButtons__Title}>
+              День {index + 1}
+            </span>
+            <span className={classes.Timetable__DayButtons__Day}>
+              {day}
+            </span>
+          </button>
+        )
+      }
+    });
+  }
+
+  renderStreams() {
+    return this.props.streams.map((stream, index) => {
+      return (
+        <div key={index} className={classes.Timetable__Streams__Background}>
+          <div className={classes.Timetable__Streams__Background__Title}>
+            <span>Поток {index+1}</span>
           </div>
-        </BGMain>
+          <div className={classes.Timetable__Streams__Background__Events}>
+          {this.renderEvents(stream)}
+          </div>
+        </div>
+      );
+    });
+  }
+
+  renderEvents(stream) {
+    return this.props.timetable.map((event, index) => {
+      
+      if (event.stream === stream && this.formatDate(event.startTime)===this.props.days[this.state.selectedDay]){
+      return (
+        <TimetableCard
+        event = {event}
+        key={index}
+          startTime={this.formatTime(event.startTime)}
+          title={event.title}
+          text={event.description}
+          endTime = {this.formatTime(event.endTime)}
+          speakers = {event.speakers}
+          cardId = {event.id}
+        />
+      );
+    }}
+  )
+  }
+
+
+  render() {
+    return (
+      <div className={classes.Timetable}>
+        {this.props.loading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className={classes.Timetable__DayButtons}>
+              {this.renderDays()}
+            </div>
+            <ScrollBar>
+            <div className={classes.Timetable__Streams}>
+              
+              {this.renderStreams()}
+              
+           
+            </div>
+            </ScrollBar>
+          </>
+        )}
+       
       </div>
-    )
+    );
   }
 }
 
-export default Timetable
-// class Timetable extends Component {
-//   onClick(id) {
-//     this.props.changeDate(id);
-//   }
+function mapStateToProps(state) {
+  return {
+    timetable: state.timetable.timetable,
+    loading: state.timetable.loading,
+    days: state.timetable.days,
+    streams: state.timetable.streams,
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchTimetable: () => dispatch(fetchTimetable()),
+  };
+}
 
-//   render() {
-//     let current = this.props.activeDate;
-
-//     //-----------------------------------
-//     const eventCard1 = (
-//       <div>
-//         <EventCard title = 'День 1. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-//         <EventCard title = 'День 1. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
-//         <EventCard title = 'День 1. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
-//       </div>
-//     );
-//     //-----------------------------------
-//     const eventCard2 = (
-//       <div>
-//         <EventCard title = 'День 2. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-//         <EventCard title = 'День 2. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
-//         <EventCard title = 'День 2. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
-//       </div>
-//     );
-//     //-----------------------------------
-//     const eventCard3 = (
-//       <div>
-//         <EventCard title = 'День 3. Знакомство' description = 'Встречаемся в холе на 2 этаже' time = '11:00 - 12:00'/> 
-//         <EventCard title = 'День 3. Выступление спикера' description = 'Спикер выступает' time = '12:00 - 14:00'/> 
-//         <EventCard title = 'День 3. Обед' description = 'Кушаем еду' time = '14:00 - 15:00'/>
-//       </div>
-//     );
-//     //-----------------------------------
-//     //Массив расписаний, где каждый элемент JSX объект который надо отобразить
-//     const plans = [eventCard1, eventCard2, eventCard3];
-
-//     return (
-//       <div className={classes.Timetable}>
-//         <h1>Расписание</h1>
-//         <div className={classes.DateRow}>
-//           <DateCard
-//             time={"11:00 - 22:00"}
-//             date={"15 сентября"}
-//             isActive={this.props.activeDate === 0}
-//             onClick={() => this.onClick(0)}
-//           />
-//           <DateCard
-//             time={"11:00 - 22:00"}
-//             date={"16 сентября"}
-//             isActive={this.props.activeDate === 1}
-//             onClick={() => this.onClick(1)}
-//           />
-//           <DateCard
-//             time={"11:00 - 22:00"}
-//             date={"17 сентября"}
-//             isActive={this.props.activeDate === 2}
-//             onClick={() => this.onClick(2)}
-//           />
-//         </div>
-//         <div className = {classes.EventColumn}>{plans[current]}</div>
-//       </div>
-//     );
-//   }
-// }
-
-// function mapStateToProps(state) {
-//   return {
-//     activeDate: state.timetable.activeDate,
-//   };
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     changeDate: (activeDate) => {
-//       dispatch(changeDate(activeDate));
-//     },
-//   };
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Timetable);
+export default connect(mapStateToProps, mapDispatchToProps)(Timetable);

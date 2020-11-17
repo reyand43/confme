@@ -1,214 +1,230 @@
 import React from "react";
-import Input from "../../../../components/UI/Input/Input";
 import classes from "./MainInfo.module.scss";
-import axios from "../../../../axios/axios";
 import { connect } from "react-redux";
-import {
-  loadUserNameFromServer,
-  updateUserName,
-  changeValue,
-  loadCareerFromServer,
-  loadInterestsFromServer,
-  loadContactsFromServer
-} from "../../../../store/actions/editProfile";
-import { UserItem } from "../../../../components/UI/UserItem/UserItem";
-import { UserPhoto } from "../../../../components/UI/UserPhoto/UserPhoto";
+import { sendUserData } from "../../../../store/actions/editProfile";
+
+import EditCard from "../../../../components/UI/EditCard/EditCard";
+import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
+import { Loader } from "../../../../components/UI/Loader/Loader";
 
 class MainInfo extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    formChanged: false,
 
-    this.name = this.props.name;
-    this.surname = this.props.surname;
-    this.age = this.props.age;
+    formControls: {
+      Name: {
+        value: this.props.userData.Name,
+        isRequired: true,
+        touched: false,
+        valid: true,
+      },
+      Surname: {
+        value: this.props.userData.Surname,
+        isRequired: true,
+        touched: false,
+        valid: true,
+      },
+      Age: {
+        value: this.props.userData.Age,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Country: {
+        value: this.props.userData.Country,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      City: {
+        value: this.props.userData.City,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+      Sex: {
+        value: this.props.userData.Sex,
+        isRequired: false,
+        touched: false,
+        valid: true,
+      },
+    },
+  };
 
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onSendHandler = this.onSendHandler.bind(this);
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevProps.userData.length === 0) {
+      return true;
+    }
+    return null;
   }
 
-  onChangeHandler(e) {
-    if (e.target.name === "Name") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.name = e.target.value;
-    } else if (e.target.name === "Surname") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.surname = e.target.value;
-    } else if (e.target.name === "Age") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.age = e.target.value;
-    } else if (e.target.name === "Country") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.country = e.target.value;
-    } else if (e.target.name === "City") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.city = e.target.value;
-    } else if (e.target.name === "Sex") {
-      this.props.changeValue(e.target.name, e.target.value);
-      this.sex = e.target.value;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot === true) {
+      let formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((name) => {
+        formControls[name].value = this.props.userData[name];
+      });
+      this.setState({
+        formControls,
+      });
     }
   }
 
-
-  async onSendHandler() {
-    const name = this.name;
-    const surname = this.surname;
-    const age = this.age;
-    const country = this.country;
-    const city = this.city;
-    const sex = this.sex;
-
-
-    const userId = localStorage.getItem("userId");
-    const requestData = {
-      Name: name,
-      Surname: surname,
-      Age: age,
-      Sex: sex,
-      Country: country,
-      City: city,
-    };
-    try {
-      this.props.updateUserName(name, surname, age, sex, country, city);
-      await axios.patch(`/users/${userId}/personalData.json`, requestData);
-    } catch (error) {
-      console.log(error);
+  requireControl(value, isRequired) {
+    if (isRequired === false) {
+      return true;
+    } else {
+      let isValid = true;
+      isValid = value.trim() !== "";
+      return isValid;
     }
   }
 
-  componentDidMount() {
-    this.props.loadUserNameFromServer()
-    this.props.loadContactsFromServer()
-    this.props.loadCareerFromServer()
-    this.props.loadInterestsFromServer()
-  }
+  onChangeHandler = (event) => {
+    let formControls = { ...this.state.formControls };
+    let control = { ...formControls[event.target.name] };
+    control.value = event.target.value;
+    control.touched = true;
+    control.valid = this.requireControl(control.value, control.isRequired);
+
+    formControls[event.target.name] = control;
+    this.setState({
+      formControls,
+      formChanged: true,
+    });
+  };
+
+  checkForm = () => {
+    //если форма не изменена то ок
+    if (!this.state.formChanged) {
+      return true;
+    }
+
+    let check = true;
+    const formControls = { ...this.state.formControls };
+    //проверяем все ли инпуты валидны
+    Object.keys(formControls).forEach((control) => {
+      check =
+        (formControls[control].valid ||
+          formControls[control].value === this.props.userData[control]) &&
+        check;
+    });
+
+    return check;
+  };
+
+  submitHandler = () => {
+    if (this.checkForm()) {
+      const Info = new Object();
+      const formControls = { ...this.state.formControls };
+      Object.keys(formControls).forEach((control) => {
+        formControls[control].value !== undefined &&
+          (Info[control] = formControls[control].value);
+      });
+      this.props.sendUserData(Info);
+    }
+  };
 
   render() {
     return (
-      <div className={classes.EditProfile}>
-          <div className={classes.Info}>
-            <div className={classes.column}>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 193}} htmlFor="Name">Имя:</label>
-                  <input
-
-                    name="Name"
-                    value={this.props.nameValue}
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите ваше имя"
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 140}} htmlFor="Surname">Фамилия:</label>
-                  <input
-                    label="Фамилия"
-                    name="Surname"
-                    value={this.props.surnameValue}
-                    placeholder="Введите вашу фамилию"
-                    onChange={this.onChangeHandler}
-                  ></input>
-                </div>
-              </div>
-
-
-              <div className={classes.Row}>
-                <div className={classes.column}>
-                    <div className={classes.input}>
-                      <label style={{paddingLeft: 159}} htmlFor="Age">Возраст:</label>
-                      <input
-                        style={{width: "136px"}}
-                        name="Age"
-                        onChange={this.onChangeHandler}
-                        placeholder={"Ваш возраст"}
-                        value={this.props.ageValue}
-                      ></input>
-                    </div>
-                  </div>
-                <div className={classes.column}>
-                    <div className={classes.input}>
-                      <label style={{paddingLeft: 3}} htmlFor="Sex">Пол:</label>
-                      <select
-                        style={{width: "160px", height: "45px"}}
-                        name="Sex"
-                        onChange={this.onChangeHandler}
-                        value={this.props.sexValue}
-                      >
-                        <option outline= "none" value="" disabled defaultValue>Не выбрано</option>
-                        <option value="Man">Мужчина</option>
-                        <option value="Woman">Женщина</option>
-                      </select>
-                      {/*<input
-                        style={{width: "136px"}}
-                        name="Sex"
-                        onChange={this.onChangeHandler}
-                        placeholder={"Введите ваш пол"}
-                        value={this.props.sexValue}
-                      ></input>*/}
-                    </div>
-                </div>
-              </div>
-
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 166}} htmlFor="Country">Страна:</label>
-                  <input
-                    style={{width: "356px"}}
-                    name="Country"
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите страну"
-                    value={this.props.countryValue}
-                  ></input>
-                </div>
-              </div>
-
-              <div className={classes.Row}>
-                <div className={classes.input}>
-                  <label style={{paddingLeft: 177}} htmlFor="City">Город:</label>
-                  <input
-                    style={{width: "356px"}}
-                    name="City"
-                    onChange={this.onChangeHandler}
-                    placeholder="Введите город"
-                    value={this.props.cityValue}
-                  ></input>
-                </div>
-              </div>
-
-
-
-              <button style={{width: '235px', marginLeft: '233px'}} onClick={this.onSendHandler}>Сохранить</button>
+      <>
+        <EditCard title="Основное">
+          {this.props.sendUserDataLoading && (
+            <div className={classes.Card}>
+              <Loader />
             </div>
+          )}
+          {this.props.userDataSent && (
+            <div className={classes.Card}>
+              <i className="fa fa-check" aria-hidden="true"></i>
+              <span>Данные успешно изменены</span>
+            </div>
+          )}
+          <div className={classes.Inputs}>
+            <HorizontalInput
+              name="Name"
+              value={this.state.formControls.Name.value}
+              onChange={this.onChangeHandler}
+              label="Имя:"
+              placeholder="Введите ваше имя"
+              valid={this.state.formControls.Name.valid}
+              touched={this.state.formControls.Name.touched}
+              shouldValidate={this.state.formControls.Name.isRequired}
+              errorMessage={"Имя не может быть пустым"}
+            />
+            <HorizontalInput
+              label="Фамилия:"
+              name="Surname"
+              value={this.state.formControls.Surname.value}
+              placeholder="Введите вашу фамилию"
+              onChange={this.onChangeHandler}
+              valid={this.state.formControls.Surname.valid}
+              touched={this.state.formControls.Surname.touched}
+              shouldValidate={this.state.formControls.Surname.isRequired}
+              errorMessage={"Фамилия не может быть пустой"}
+            />
+            <div className={classes.Inputs__Divider}>
+              <HorizontalInput
+                small={true}
+                name="Age"
+                onChange={this.onChangeHandler}
+                placeholder={"Ваш возраст"}
+                value={this.state.formControls.Age.value}
+                label="Возраст:"
+              />
+              <div style={{ width: "22px" }} />
+              <div className={classes.Inputs__Select}>
+                <label>Пол:</label>
+                <select
+                  name="Sex"
+                  onChange={this.onChangeHandler}
+                  value={this.state.formControls.Sex.value}
+                >
+                  <option value="" defaultValue>
+                    Не выбрано
+                  </option>
+                  <option value="Man">Мужчина</option>
+                  <option value="Woman">Женщина</option>
+                </select>
+              </div>
+            </div>
+            <HorizontalInput
+              label="Страна:"
+              name="Country"
+              onChange={this.onChangeHandler}
+              placeholder="Введите страну"
+              value={this.state.formControls.Country.value}
+            />
+            <HorizontalInput
+              label="Город:"
+              name="City"
+              onChange={this.onChangeHandler}
+              placeholder="Введите город"
+              value={this.state.formControls.City.value}
+            />
           </div>
-      </div>
+          <div className={classes.Inputs__Button}>
+            <button onClick={this.submitHandler}>Сохранить</button>
+          </div>
+        </EditCard>
+      </>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    nameValue: state.editProfile.nameValue,
-    surnameValue: state.editProfile.surnameValue,
-    ageValue: state.editProfile.ageValue,
-    sexValue: state.editProfile.sexValue,
-    countryValue: state.editProfile.countryValue,
-    cityValue: state.editProfile.cityValue,
+    userData: state.editProfile.userData,
+    userDataError: state.editProfile.userDataError,
+    sendUserDataLoading: state.editProfile.sendUserDataLoading,
+    sendUserDataError: state.editProfile.sendUserDataError,
+    userDataSent: state.editProfile.userDataSent,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUserName: (name, surname, ageValue, sexValue, countryValue, cityValue) =>
-      dispatch(updateUserName(name, surname, ageValue, sexValue, countryValue, cityValue)),
-    loadUserNameFromServer: () => dispatch(loadUserNameFromServer()),
-    loadContactsFromServer: () => dispatch(loadContactsFromServer()),
-    loadCareerFromServer: () => dispatch(loadCareerFromServer()),
-    loadInterestsFromServer: () => dispatch(loadInterestsFromServer()),
-    changeValue: (value) => dispatch(changeValue(value)),
+    sendUserData: (Info) => dispatch(sendUserData(Info)),
   };
 }
 

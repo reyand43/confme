@@ -1,0 +1,31 @@
+@import '../vars.scss';
+
+.SponsorLogo {
+//   height: 100%;
+//   width: 100%;
+  border-radius: 50px;
+
+  background: url("../../../images/google_logo.png") 100% 100% no-repeat;
+  background-size: contain;
+  background-position: center;
+  
+}
+
+// .sm {
+//   height: 30px;
+//   width: 30px;
+// }
+
+.md {
+    height: 110px;
+    width: 110px;
+}
+
+.lg {
+  height: $sponsorLogoSizeLarge;
+  width: $sponsorLogoSizeLarge;
+}
+
+// .true{
+//    border: 4px solid $colorAccent;
+// }

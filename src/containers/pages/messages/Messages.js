@@ -5,6 +5,7 @@ import FriendMessage from "../../../components/UI/Messages/FriendMessage/FriendM
 
 
 export default function Messages(props){
+  let myRef = React.createRef()
 
   function renderMessages() { //ренедрим список сообщений
     return props.messages.map((chat) => {
@@ -31,8 +32,10 @@ export default function Messages(props){
         </li>
       );
     });
+    
   }
 
+  
   
   function formatTime(timestamp) {  //приводим время в нормальный вид
     const d = new Date(timestamp);

@@ -4,7 +4,7 @@ import { UserPhoto } from "../../UserPhoto/UserPhoto";
 
 
 const FriendMessage = (props) => {
-  
+
 
     return(
       <div className={classes.FriendMessage}>
@@ -20,15 +20,15 @@ const FriendMessage = (props) => {
           <span>{props.time}</span>
           </div>
           </div>
-          
-          
-          </div>
-          
-          
 
-      
-      
-    
+
+          </div>
+
+
+
+
+
+
     )
 }
 

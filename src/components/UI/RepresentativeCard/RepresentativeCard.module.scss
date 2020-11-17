@@ -1,0 +1,47 @@
+@import '../vars.scss';
+
+.RepresentativeCard {
+    width: 30%;
+    border-radius: 10px;
+    background-color: white;
+    padding: 12px 20px;
+    display: flex;
+    margin-bottom: 10px;
+   
+    // flex-direction: column;
+    // align-items: center;
+    box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
+    position: relative;
+    
+    
+    &__TextBlock {
+        // Выравнивание текста
+        position: absolute;
+        top: 50%;
+        transform: translate($userPhotoSizeLarge + 5px, -50%); // 20px - значение отступа у .SponsorMain_Top
+        flex-direction: column;
+        padding-left: 20px;
+        &__Name {
+            font-size: 16px;
+            font-weight: 600;
+            // padding-top: 5%;
+        }
+        &__Career {
+            font-size: 13px;
+            padding-top: 1%;
+            padding-bottom: 5%;
+            color: $colorGreyFirst;
+            font-weight: 500;
+        }
+        &__Massage {
+            font-size: 14px;
+            font-weight: 550;
+        }
+        a {
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}

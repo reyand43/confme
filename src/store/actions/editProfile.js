@@ -1,280 +1,99 @@
 import {
-  CHANGE_USER_NAME,
-  LOAD_USERNAME_FROM_SERVER, LOAD_CONTACTS_FROM_SERVER, LOAD_CAREER_FROM_SERVER, LOAD_INTERESTS_FROM_SERVER,
-  CLEAR_USER_NAME,
-  CHANGENAME,
-  CHANGESURNAME,
-  CHANGEAGE,
-  CHANGECOMPANY,
-  CHANGEPROFESSION,
-  CHANGECOUNTRY,
-  CHANGECITY,
-  CHANGEPHONE,
-  CHANGEPURPOSE,
-  CHANGE_EDITOR,
-  CHANGE_SEX,
-  CHANGE_LOOK, CHANGE_SUGGEST, CHANGE_HOBBY,
-  CHANGE_VKONTAKTE, CHANGE_FACEBOOK, CHANGE_LINKEDIN, CHANGE_INSTAGRAM,
-  CHANGE_WORKPLACE, CHANGE_COMPANYNAME, CHANGE_POSITION,
-  CHANGE_CONTACTS_INFO, CHANGE_CAREER_INFO, CHANGE_HOBBY_INFO
+  FETCH_USER_DATA_START,
+  FETCH_USER_DATA_SUCCESS,
+  FETCH_USER_DATA_ERROR,
+  SEND_USER_DATA_ERROR,
+  SEND_USER_DATA_START,
+  SEND_USER_DATA_SUCCESS_SHOW,
+  SEND_USER_DATA_SUCCESS_HIDE
 } from "./actionTypes";
 import axios from "../../axios/axios";
+import { db } from "../../services/firebase";
 
-export function changeEditor(activeEdit) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_EDITOR,
-      activeEdit
-    });
-  };
-}
 
-export function updateUserName(name, surname, ageValue, sexValue, countryValue, cityValue) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_USER_NAME,
-      name,
-      surname,
-      ageValue,
-      sexValue,
-      countryValue,
-      cityValue
-    });
-  };
-}
-
-export function updateContactInfo(phoneValue, vkontakteValue, facebookValue, linkedinValue, instagramValue) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_CONTACTS_INFO,
-      phoneValue,
-      vkontakteValue,
-      facebookValue,
-      linkedinValue,
-      instagramValue
-    });
-  };
-}
-
-export function updateCareerInfo(workplaceValue, companynameValue, positionValue) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_CAREER_INFO,
-      workplaceValue,
-      companynameValue,
-      positionValue
-    });
-  };
-}
-
-export function updateHobbyInfo(lookValue, suggestValue, hobbyValue) {
-  return (dispatch) => {
-    dispatch({
-      type: CHANGE_HOBBY_INFO,
-      lookValue,
-      suggestValue,
-      hobbyValue
-    });
-  };
-}
-
-export function loadUserNameFromServer() {
+//export function loadUserNameFromServer() {  //Загружаем имя с сервера
+export function fetchUserData(){
   return async (dispatch) => {
+    dispatch(fetchUserDataStart())
     const userId = localStorage.getItem("userId");
     try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-
-      const name = response.data.Name;
-      const surname = response.data.Surname;
-      const accType = response.data.AccountType;
-      const userData = response.data;
-      dispatch({
-        type: LOAD_USERNAME_FROM_SERVER,
-        name,
-        surname,
-        accType,
-        userData
+      db.ref(`/users/${userId}/personalData`).on("value", (snapshot) => {
+        let userData = snapshot.val();
+        dispatch(fetchUserDataSuccess(userData)) //загружаем  инфу для отображаения инфы диалога(пока что в users)
       });
     } catch (e) {
       console.log(e);
+      dispatch(fetchUserDataError(e))
     }
   };
 }
 
-export function loadContactsFromServer() {
+function fetchUserDataSuccess(userData) {
+  return {
+    type: FETCH_USER_DATA_SUCCESS,
+    userData,
+  };
+}
+
+function fetchUserDataStart() {
+  return {
+    type: FETCH_USER_DATA_START,
+  };
+}
+
+function fetchUserDataError(e) {
+  return {
+    type: FETCH_USER_DATA_ERROR,
+    error: e,
+  };
+}
+
+
+export function sendUserData(Info){
   return async (dispatch) => {
+    dispatch(sendUserDataStart())
     const userId = localStorage.getItem("userId");
     try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-      const accType = response.data.AccountType;
-      const userData = response.data;
-      dispatch({
-        type: LOAD_CONTACTS_FROM_SERVER,
-        accType,
-        userData
-      });
-    } catch (e) {
-      console.log(e);
+      await axios.patch(`/users/${userId}/personalData.json`, Info);
+      dispatch(sendUserDataSuccess())
+    } catch (error) {
+      console.log(error)
+      dispatch(sendUserDataError(error))
     }
-  };
+  }
 }
 
-export function loadCareerFromServer() {
-  return async (dispatch) => {
-    const userId = localStorage.getItem("userId");
-    try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-      const accType = response.data.AccountType;
-      const userData = response.data;
-      dispatch({
-        type: LOAD_CAREER_FROM_SERVER,
-        accType,
-        userData
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-}
-
-export function loadInterestsFromServer() {
-  return async (dispatch) => {
-    const userId = localStorage.getItem("userId");
-    try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-      const accType = response.data.AccountType;
-      const userData = response.data;
-      dispatch({
-        type: LOAD_INTERESTS_FROM_SERVER,
-        accType,
-        userData
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-}
-
-export function clearUserName() {
+function sendUserDataSuccess() {
   return (dispatch) => {
-    dispatch({
-      type: CLEAR_USER_NAME,
-    });
+    dispatch(sendUserDataSuccessShow())
+    setTimeout(() => {
+      dispatch(sendUserDataSuccessHide())
+    }, 2000);
+  }
+}
+
+function sendUserDataSuccessShow() {
+  return {
+    type: SEND_USER_DATA_SUCCESS_SHOW,
   };
 }
 
-export function changeValue(name, value) {
-  return (dispatch) => {
-    switch (name) {
-      case "Name":
-        dispatch({
-          type: CHANGENAME,
-          value,
-        });
-        break;
-      case "Surname":
-        dispatch({
-          type: CHANGESURNAME,
-          value,
-        });
-        break;
-      case "Age":
-        dispatch({
-          type: CHANGEAGE,
-          value,
-        });
-        break;
-      case "Country":
-        dispatch({
-          type: CHANGECOUNTRY,
-          value,
-        });
-        break;
-      case "City":
-        dispatch({
-          type: CHANGECITY,
-          value,
-        });
-        break;
-      case "Company":
-        dispatch({
-          type: CHANGECOMPANY,
-          value,
-        });
-        break;
-      case "Profession":
-        dispatch({
-          type: CHANGEPROFESSION,
-          value,
-        });
-        break;
-      case "Phone":
-        dispatch({
-          type: CHANGEPHONE,
-          value,
-        });
-        break;
-      case "Purpose":
-        dispatch({
-          type: CHANGEPURPOSE,
-          value,
-        });
-      case 'Sex':
-        dispatch({
-          type: CHANGE_SEX,
-          value,
-        });
-      case 'Look':
-        dispatch({
-          type: CHANGE_LOOK,
-          value,
-        });
-      case 'Suggest':
-        dispatch({
-          type: CHANGE_SUGGEST,
-            value,
-        });
-      case 'Hobby':
-        dispatch({
-          type: CHANGE_HOBBY,
-          value,
-        });
-      case 'Vkontakte':
-        dispatch({
-          type: CHANGE_VKONTAKTE,
-          value,
-        });
-      case 'Facebook':
-        dispatch({
-          type: CHANGE_FACEBOOK,
-          value,
-        });
-      case 'Linkedin':
-        dispatch({
-          type: CHANGE_LINKEDIN,
-          value,
-        });
-      case 'Instagram':
-        dispatch({
-          type: CHANGE_INSTAGRAM,
-          value,
-        });
-      case 'WorkPlace':
-        dispatch({
-          type: CHANGE_WORKPLACE,
-          value,
-        });
-      case 'CompanyName':
-        dispatch({
-          type: CHANGE_COMPANYNAME,
-          value,
-        });
-      case 'Position':
-        dispatch({
-          type: CHANGE_POSITION,
-          value,
-        });
-      default: return null;
-    }
+function sendUserDataSuccessHide() {
+  return {
+    type: SEND_USER_DATA_SUCCESS_HIDE,
+  };
+}
+
+
+function sendUserDataStart() {
+  return {
+    type: SEND_USER_DATA_START,
+  };
+}
+
+function sendUserDataError(e) {
+  return {
+    type: SEND_USER_DATA_ERROR,
+    error: e,
   };
 }
