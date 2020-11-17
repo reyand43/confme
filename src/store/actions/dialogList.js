@@ -1,4 +1,5 @@
 import axios from "../../axios/axios";
+import api from "../../helpers/serverApi";
 import { db } from "../../services/firebase";
 import {
   FETCH_DIALOGS_SUCCESS,
@@ -15,72 +16,87 @@ import {
   CLEAR_STATE,
 } from "./actionTypes";
 
-export function fetchDialogs(userId) {  //загрузка диалогов
+export function fetchDialogs(userId) {
+  userId = parseInt(userId);
+  //загрузка диалогов
   return async (dispatch) => {
     dispatch(fetchDialogsStart());
     try {
-      
-      db.ref("chatList/" + userId).on("value", function (snapshot) {
-        let dialogs = [];
-        
-        !!snapshot.val() === true &&
-          Object.keys(snapshot.val()).forEach((key) => {
-            dialogs.push(snapshot.val()[key]);
-          });
-        dispatch(fetchDialogsSuccess(dialogs));
-
-      });
+      const dialogs = [];
+      const res = (await api.fetchDialogs(userId)).message;
+      for (const d of res) {
+        const friendId =
+          userId === d.firstUser_id ? d.secondUser_id : d.firstUser_id; 
+        const friend = (await api.fetchPersonal(friendId)).message;
+        const lastMessage = (await api.fetchMessage(d.lastMessage_id)).message;
+        const dialog = {
+          id: d.id,
+          withName: friend.name,
+          withSurname: friend.surname,
+          lastMessage: lastMessage.text,
+          timestamp: d.updatedAt,
+          sender_id: d.sender_id, //Id пользователя, который последним отправил сообщение
+        };
+        dialogs.push(dialog);
+      }
+      dispatch(fetchDialogsSuccess(dialogs));
     } catch (e) {
       dispatch(fetchDialogsError(e));
     }
   };
 }
- 
-export function fetchMessages(userId, dialogId) { //загрузка сообщений
+
+export function fetchMessages(userId, dialogId) {
+  //загрузка сообщений
+  userId = parseInt(userId)
+
   return async (dispatch) => {
     dispatch(fetchMessagesStart());
     try {
-      
-      db.ref("chats/" + userId + "/" + dialogId + "/").on(
-        "value",
-        (snapshot) => {
-          let messages = [];
-          snapshot.forEach((snap) => {
-            messages.push(snap.val());
-          });
-          dispatch(fetchMessagesSuccess(messages));
+      const messages = []
+      const res = (await api.fetchMessages(dialogId)).message;
+      for(const message of res) {
+        const friend = (await api.fetchPersonal(message.sender_id)).message;
+        const m = {
+          id: message.sender_id,
+          text: message.text,
+          name: friend.name,
+          surname: friend.surname,
+          timestamp: message.createdAt
         }
-      );
+        messages.push(m);
+      }
+      dispatch(fetchMessagesSuccess(messages));
     } catch (e) {
       dispatch(fetchDialogsError(e));
     }
   };
 }
 
-export function selectDialog(dialogId) {  //выбор диалога для загрузки сообщений
-
+export function selectDialog(dialogId) {
+  //выбор диалога для загрузки сообщений
+  const userId = parseInt(localStorage.getItem("userId"));
   return async (dispatch) => {
-    let dialogInfo;
-    dispatch(setDialog(dialogId))
-    if (dialogId!==null){
-    try {
-      db.ref("users/" + dialogId + "/personalData").on("value", (snapshot) => {
-        dialogInfo = snapshot.val();
-        dispatch(fetchDialogInfo(dialogInfo));  //загружаем  инфу для отображаения инфы диалога(пока что в users)
-      });
-    } catch (error) {
-      console.log(error);
-    }}
-    else dispatch(fetchDialogInfo(null))
-    dispatch(fetchMessages(localStorage.getItem("userId"), dialogId));
+    dispatch(setDialog(dialogId));
+    if (dialogId !== null) {
+      try {
+        const res = (await api.fetchDialog(dialogId)).message;
+        const friendId = res.firstUser_id === userId ? res.secondUser_id : res.firstUser_id;
+        const dialogInfo = (await api.fetchPersonal(friendId)).message;
+        dispatch(fetchDialogInfo(dialogInfo));
+      } catch (error) {
+        console.log(error);
+      }
+    } else dispatch(fetchDialogInfo(null));
+    dispatch(fetchMessages(userId, dialogId));
   };
 }
 
-export function setDialog(dialogId){
-  return{
+export function setDialog(dialogId) {
+  return {
     type: SELECT_DIALOG,
-    dialogId
-  }
+    dialogId,
+  };
 }
 
 export function fetchDialogInfo(dialogInfo) {
@@ -143,35 +159,12 @@ export function sendMessages(
   return async (dispatch) => {
     dispatch(sendMessagesStart());
     const postData = {
-      userid: userId,
-      lastMessage: text,
-      timestamp: formatTime(Date.now()),
-      withName: withName,
-      withSurname: withSurname,
-      withId: withId,
+      sender_id: userId,
+      reciever_id: friendId,
+      text: text,
     };
-
     try {
-      await db.ref("chats/" + userId + "/" + friendId + "/").push({
-        content: text,
-        timestamp: Date.now(),
-        uid: userId,
-        name,
-        surname,
-      });
-      await db.ref("chats/" + friendId + "/" + userId + "/").push({
-        content: text,
-        timestamp: Date.now(),
-        uid: userId,
-        name,
-        surname,
-      });
-      await axios.patch(`/chatList/${userId}/${friendId}.json`, postData);
-      postData.withName = name;
-      postData.withSurname = surname;
-      postData.withId = userId;
-      await axios.patch(`/chatList/${friendId}/${userId}.json`, postData);
-
+      await api.sendMessage(postData);
       let content = "";
       dispatch(sendMessagesSuccess(content));
     } catch (error) {
@@ -211,4 +204,3 @@ export function clearState() {
     type: CLEAR_STATE,
   };
 }
-

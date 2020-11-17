@@ -9,13 +9,12 @@ export default function Messages(props){
 
   function renderMessages() { //ренедрим список сообщений
     return props.messages.map((chat) => {
-      return chat.uid === localStorage.getItem("userId") ? (
-        <li key={chat.timestamp}>
+      return chat.id === parseInt(localStorage.getItem("userId")) ? (
+        <li key={chat.createdAt}>
           <div className={classes.right}>
             <MyMessage
-              
               time={formatTime(chat.timestamp)}
-              text={chat.content}
+              text={chat.text}
             />
           </div>
         </li>
@@ -24,7 +23,7 @@ export default function Messages(props){
           <div className={classes.left}>
             <FriendMessage
               time={formatTime(chat.timestamp)}
-              text={chat.content}
+              text={chat.text}
               name={chat.name}
               surname={chat.surname}
             />

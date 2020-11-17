@@ -131,30 +131,27 @@ class Users extends React.Component {
   };
 
   renderUsers() {
-    
+    console.log("Users: ", this.props.searchedUsers)
     return this.props.searchedUsers.map((user) => {
       return (
         <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
           <UserItem
             id={user.id}
-            name={user.Name}
-            surname={user.Surname}
-            accountType={user.AccountType}
+            name={user.name}
+            surname={user.surname}
+            accountType={user.role}
             clicked={this.state.SelectedUser}
-            profession={user.Profession}
-            company={user.Company}
+            profession={user.profession}
+            company={user.company}
           />
         </li>
       );
     });
   }
 
-  
-
   componentDidMount() {
     this.props.fetchUsers();
   }
-
 
   render() {
     return (

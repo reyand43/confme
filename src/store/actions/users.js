@@ -1,4 +1,5 @@
 import axios from "../../axios/axios";
+import api from "../../helpers/serverApi"
 import {
   FETCH_USERS_START,
   FETCH_USERS_SUCCESS,
@@ -13,16 +14,10 @@ export function fetchUsers() {
     return async (dispatch) => {
       dispatch(fetchUsersStart());
       try {
-        const response = await axios.get("/users.json");
-        const users = [];
-        Object.keys(response.data).forEach((key, index) => {
-          users.push(response.data[key].personalData)
-          users[index].id = key
-        })
-        dispatch(fetchUsersSuccess(users));
-
+        const res = await api.fetchPersonals();
+        const personals = res.message;
+        dispatch(fetchUsersSuccess(personals));
       }
-
      catch (e) {
       dispatch(fetchUsersError(e));
     }
@@ -31,12 +26,10 @@ export function fetchUsers() {
 
 export function fetchUserById(userId) {
   return async (dispatch) => {
-    console.log('fetch started')
     dispatch(fetchUserStart());
     try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-      const user = response.data;
-      console.log('actions', user)
+      const res = await api.fetchPersonal(userId);
+      const user = res.message;
       dispatch(fetchUserSuccess(user));
     } catch (e) {
       dispatch(fetchUsersError(e));

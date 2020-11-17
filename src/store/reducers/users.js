@@ -6,8 +6,7 @@ const initialState = {
     error: null,
     user: [],
     searchedUsers: [],
-    
-
+  
 }
 
 export default function usersReducer(state = initialState, action) {

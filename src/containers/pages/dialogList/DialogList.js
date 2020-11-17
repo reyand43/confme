@@ -17,6 +17,7 @@ import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 
+
 class DialogList extends React.Component {
   state = {
     dialogId: null, //id диалога
@@ -32,30 +33,33 @@ class DialogList extends React.Component {
     }
   }
 
-  renderDialogs() {
-    const uid = localStorage.getItem("userId");
 
+  renderDialogs() {
+    const uid = parseInt( localStorage.getItem("userId") );
+    
     if (this.props.dialogsLoading) {
       //если диалоги загружаются то функция ничего не возвращает
       return null;
     } else {
+
       return this.props.dialogs.map((dialog) => {
+        
         return (
           <NavLink
-            key={dialog.withId}
-            to={"/dialogs/" + dialog.withId}
+            key={dialog.id}
+            to={"/dialogs/" + dialog.id}
             onClick={() => {
-              this.props.selectDialog(dialog.withId);
-              this.props.fetchUserById(dialog.withId)
+              this.props.selectDialog(dialog.id);
+              this.props.fetchUserById(dialog.id)
             }}
           >
             <li>
               <DialogListItem
-                id={dialog.withId}
+                id={dialog.id}
                 name={dialog.withName}
                 surname={dialog.withSurname}
                 text={
-                  dialog.userid === uid
+                  dialog.sender_id === uid
                     ? `Вы: ${dialog.lastMessage}`
                     : dialog.lastMessage
                 }
@@ -82,8 +86,8 @@ class DialogList extends React.Component {
       this.props.selectedDialog, //С кем чатимся
       this.props.myName, //мое имя
       this.props.mySurname, //моя фамилия
-      this.props.dialogInfo.Name, //имя с кем чатимся
-      this.props.dialogInfo.Surname, //фамилия с кем чатимся
+      this.props.dialogInfo.name, //имя с кем чатимся
+      this.props.dialogInfo.surname, //фамилия с кем чатимся
       this.props.selectedDialog
     );
     this.setState({
@@ -123,8 +127,8 @@ class DialogList extends React.Component {
                         classes.ChatBox__MessageBox__TopBar__DialogName
                       }
                     >
-                      {this.props.dialogInfo.Name}{" "}
-                      {this.props.dialogInfo.Surname}
+                      {this.props.dialogInfo.name}{" "}
+                      {this.props.dialogInfo.surname}
                     </span>
                   )}
 
@@ -203,8 +207,8 @@ function mapStateToProps(state) {
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,
     dialogInfo: state.dialogList.dialogInfo,
-    myName: state.editProfile.userData.Name,
-    mySurname: state.editProfile.userData.Surname,
+    myName: state.editProfile.userData.name,
+    mySurname: state.editProfile.userData.surname,
   };
 }
 

@@ -8,19 +8,18 @@ import {
   SEND_USER_DATA_SUCCESS_HIDE
 } from "./actionTypes";
 import axios from "../../axios/axios";
+import api from "../../helpers/serverApi"
 import { db } from "../../services/firebase";
 
 
-//export function loadUserNameFromServer() {  //Загружаем имя с сервера
 export function fetchUserData(){
   return async (dispatch) => {
     dispatch(fetchUserDataStart())
     const userId = localStorage.getItem("userId");
     try {
-      db.ref(`/users/${userId}/personalData`).on("value", (snapshot) => {
-        let userData = snapshot.val();
+        const res = await api.fetchPersonal(userId);
+        const userData = res.message;
         dispatch(fetchUserDataSuccess(userData)) //загружаем  инфу для отображаения инфы диалога(пока что в users)
-      });
     } catch (e) {
       console.log(e);
       dispatch(fetchUserDataError(e))

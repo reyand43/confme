@@ -85,9 +85,19 @@ class serverApi {
     );
   };
 
-  fetchDialogs = (data) => {
+
+  // Params:
+  //   userId : integer
+  // return:
+  //   {status: 'success', message: {}}
+  // 
+  // 
+  // 
+  // 
+  //   
+  fetchDialogs = (userId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchDialogs", {user_id: data.user_id}, res => {
+      this.socket.emit("fetchDialogs", {user_id: userId}, res => {
         console.log("Fetch dialogs: ", res);
         const response = JSON.parse(res);
         resolve(response);
@@ -95,6 +105,75 @@ class serverApi {
     })
   }
 
+  fetchDialog = (dialogId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchDialogs", {dialog_id: dialogId}, res => {
+        console.log("Fetch dialog: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  } 
+
+  fetchMessages = (dialogId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchMessages", {dialog_id: dialogId}, res => {
+        console.log("Fetch messages: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  fetchMessage = (messageId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchMessage", {message_id: messageId}, res => {
+        console.log("Fetch message: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  fetchUsers = () => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchUsers", {} , res => {
+        console.log("Fetch users: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  fetchUser = (userId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchUser", {user_id: userId}, res => {
+        console.log("Fetch user: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  fetchPersonals = () => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchPersonals", {}, res => {
+        console.log("Fetch personals: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
+
+  fetchPersonal = (userId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("fetchPersonal", {user_id: userId}, res => {
+        console.log("Fetch personal: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
 }
 
 const api = new serverApi();

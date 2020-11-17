@@ -33,7 +33,6 @@ class Navbar extends React.Component {
       {
         text: "Выход",
         onClick: () => {
-          this.props.hideDropDown();
           this.props.logout();
           this.props.clearState();
         },
@@ -53,7 +52,7 @@ class Navbar extends React.Component {
           <DropDown items={items}>
             <div className={classes.userInfoBlock}>
               <p>
-                {this.props.userData.Name} &nbsp; {this.props.userData.Surname}
+                {this.props.userData.name} &nbsp; {this.props.userData.surname}
               </p>
               <UserPhoto />
               <i className="fa fa-chevron-down" aria-hidden="true"></i>
@@ -100,9 +99,6 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     userData: state.editProfile.userData,
-    
-    //visible: state.navbar.visibleDropDown,
-    //profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,
   };
 }
@@ -113,7 +109,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(logout());
     },
     fetchUserData: () => dispatch(fetchUserData()),
-    // hideDropDown: () => dispatch(hideDropDown()),
     clearState: ()=>dispatch(clearState())
   };
 }
