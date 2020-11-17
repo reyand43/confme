@@ -14,7 +14,7 @@ import Navbar from "./components/Navigation/Navbar/Navbar";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
-import Agenda from "./containers/pages/agenda/Agenda";
+import Agenda from "./containers/pages/agenda/agenda";
 import Sponsors from "./containers/pages/sponsors/Sponsors";
 import SponsorMain from "./containers/pages/sponsorMain/SponsorMain";
 
