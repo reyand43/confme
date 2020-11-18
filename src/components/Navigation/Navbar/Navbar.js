@@ -33,7 +33,7 @@ class Navbar extends React.Component {
       {
         text: "Выход",
         onClick: () => {
-          this.props.hideDropDown();
+          //this.props.hideDropDown();
           this.props.logout();
           this.props.clearState();
         },
@@ -100,7 +100,7 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     userData: state.editProfile.userData,
-    
+
     //visible: state.navbar.visibleDropDown,
     //profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,

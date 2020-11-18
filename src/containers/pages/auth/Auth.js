@@ -241,7 +241,7 @@ class Auth extends Component {
                 <h1>Зарегистрироваться</h1>
                 <div className={classes.Auth__Card__Form__Center}>
                   <button>Sign up with Google</button>
-                </div> 
+                </div>
                 <div className={classes.or}>
                   <hr />
                   или
@@ -278,6 +278,11 @@ class Auth extends Component {
                 <form
                   onSubmit={this.submitHandler}
                   className={classes.AuthForm}
+                  onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      this.loginHandler()
+                    }
+                  }} //после нажатия на enter, выполняется вход
                 >
                   {this.renderInputs()}
                 </form>
@@ -293,7 +298,7 @@ class Auth extends Component {
                 {this.props.loginError ? <span className={classes.Auth__Card__Form__Error}>
                   Упс! Не удалось войти...
                 </span> : null}
-                
+
               </div>
             )}
 
@@ -320,7 +325,7 @@ function mapDispatchToProps(dispatch) {
     signUp: (email, password, name, surname) => {
       dispatch(signUp(email, password, name, surname));
     },
-   
+
   };
 }
 

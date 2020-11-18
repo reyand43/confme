@@ -104,9 +104,9 @@ class DialogList extends React.Component {
               </div>
               <div className={classes.ChatBox__DialogList__ScrollList}>
                 {this.props.dialogsLoading && <Loader />}
-                
+
                 <ScrollBar><ul>{this.renderDialogs()}</ul></ScrollBar>
-                
+
               </div>
             </div>
 
@@ -161,6 +161,11 @@ class DialogList extends React.Component {
                       onChange={this.changeHandler}
                       type="text"
                       ref={input => input && input.focus()}
+                      onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                          this.sendHandler()
+                        }
+                      }} //после нажатия на enter, отправляется сообщение
                     />
                   </div>
                   <div
