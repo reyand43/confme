@@ -5,7 +5,6 @@ import is from "is_js";
 import AuthInput from "../../../components/UI/AuthInput/AuthInput";
 import { Redirect } from "react-router-dom";
 import {signIn, signUp } from "../../../store/actions/auth";
-import { clearUserName } from "../../../store/actions/editProfile";
 class Auth extends Component {
   state = {
     signUp: false,

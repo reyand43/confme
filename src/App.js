@@ -14,9 +14,10 @@ import Navbar from "./components/Navigation/Navbar/Navbar";
 import DialogList from "./containers/pages/dialogList/DialogList";
 import WelcomePage from "./containers/pages/welcomePage/WelcomePage";
 import Broadcast from "./containers/pages/broadcast/Broadcast";
-import Agenda from "./containers/pages/agenda/agenda";
+import Agenda from "./containers/pages/agenda/Agenda";
 import Sponsors from "./containers/pages/sponsors/Sponsors";
 import SponsorMain from "./containers/pages/sponsorMain/SponsorMain";
+import Webinar from "./containers/pages/webinar/Webinar"
 import Quizes from "./containers/pages/quizes/quizes"
 import Quiz from './containers/pages/quizes/Quiz/Quiz'
 
@@ -51,7 +52,7 @@ class App extends Component {
           <Route path="/timetable" component={Timetable} />
           <Route path="/sponsors" component={Sponsors} />
           <Route path="/sponsorMain" component={SponsorMain} />
-
+          <Route path="/webinar/:id" component={Webinar}/>
 
           <Route path="/dialogs/:id" component={DialogList} />
           <Route path="/dialogs" component={DialogList} />

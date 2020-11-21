@@ -100,6 +100,7 @@ class Timetable extends Component {
           endTime = {this.formatTime(event.endTime)}
           speakers = {event.speakers}
           cardId = {event.id}
+          
         />
       );
     }}

@@ -179,7 +179,7 @@ class Users extends React.Component {
             </div>
           </div>
         </BGMain>
-        <BGSide>
+        <BGSide padding={true}>
           <div className={classes.Aside}>
             {this.props.user != null ? (
               <div>
