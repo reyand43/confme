@@ -7,7 +7,7 @@ class Sidebar extends React.Component {
 
   render() {
     return (
-      
+
         <div className={classes.Sidebar}>
 
 
@@ -51,8 +51,8 @@ class Sidebar extends React.Component {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/4">
-                        <i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
+                      <NavLink to="/quizes">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
                        Опросы
                       </NavLink>
                     </li>
@@ -80,7 +80,7 @@ class Sidebar extends React.Component {
 
             </div>
           </div>
-      
+
     );
   }
 }

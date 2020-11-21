@@ -17,6 +17,8 @@ import Broadcast from "./containers/pages/broadcast/Broadcast";
 import Agenda from "./containers/pages/agenda/agenda";
 import Sponsors from "./containers/pages/sponsors/Sponsors";
 import SponsorMain from "./containers/pages/sponsorMain/SponsorMain";
+import Quizes from "./containers/pages/quizes/quizes"
+import Quiz from './containers/pages/quizes/Quiz/Quiz'
 
 
 class App extends Component {
@@ -56,6 +58,8 @@ class App extends Component {
           <Route path="/users" component={Users} />
           <Route path="/agenda" component={Agenda} />
           <Route path="/welcomePage" component={WelcomePage} />
+          <Route path="/quizes" component={Quizes} />
+          <Route path="/quiz/:id" component={Quiz} />
           <Redirect to="/welcomePage" />
         </Switch>
       );
