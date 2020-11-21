@@ -17,6 +17,7 @@ import Broadcast from "./containers/pages/broadcast/Broadcast";
 import Agenda from "./containers/pages/agenda/Agenda";
 import Sponsors from "./containers/pages/sponsors/Sponsors";
 import SponsorMain from "./containers/pages/sponsorMain/SponsorMain";
+import Webinar from "./containers/pages/webinar/Webinar"
 
 
 class App extends Component {
@@ -49,7 +50,7 @@ class App extends Component {
           <Route path="/timetable" component={Timetable} />
           <Route path="/sponsors" component={Sponsors} />
           <Route path="/sponsorMain" component={SponsorMain} />
-
+          <Route path="/webinar/:id" component={Webinar}/>
 
           <Route path="/dialogs/:id" component={DialogList} />
           <Route path="/dialogs" component={DialogList} />

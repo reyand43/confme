@@ -25,12 +25,16 @@ class DialogList extends React.Component {
 
   componentDidMount() {
     this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
+    this.props.selectDialog(null);
     if (document.location.pathname.slice(9).length > 0) {
       //если ссылка содержит id то
+
       this.props.selectDialog(document.location.pathname.slice(9)); //вызываем ф-ию selectDialog с айди из ссылки
       this.props.fetchUserById(document.location.pathname.slice(9))
     }
   }
+
+  
 
   renderDialogs() {
     const uid = localStorage.getItem("userId");
@@ -132,6 +136,7 @@ class DialogList extends React.Component {
                 </div>
                 <div className={classes.ChatBox__MessageBox__Messages}>
                   {this.props.messages.length === 0 ? (
+                    this.props.messagesLoading ? <Loader/> :
                     <div
                       className={
                         classes.ChatBox__MessageBox__Messages__NoMessages
@@ -180,11 +185,14 @@ class DialogList extends React.Component {
           </div>
         </BGMain>
         {document.location.pathname.slice(9).length > 0 && (
-          <BGSide>
+          <BGSide padding={true}>
             {this.props.dialogInfo && (
+              
               <UserCard
+                
                 dialog={true}
                 user={this.props.user}
+                loading={this.props.userLoading}
               />
             )}
           </BGSide>
@@ -199,6 +207,7 @@ function mapStateToProps(state) {
     dialogsLoading: state.dialogList.dialogsLoading,
     dialogs: state.dialogList.dialogs,
     user: state.users.user,
+    userLoading: state.users.userLoading,
     messages: state.dialogList.messages,
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,

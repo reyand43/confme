@@ -33,7 +33,6 @@ class Navbar extends React.Component {
       {
         text: "Выход",
         onClick: () => {
-          this.props.hideDropDown();
           this.props.logout();
           this.props.clearState();
         },

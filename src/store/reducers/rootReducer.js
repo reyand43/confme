@@ -10,6 +10,7 @@ import dialogListReducer from './dialogList'
 import modalReducer from './modal'
 import openUserCardReducer from './openUserCard'
 import agendaReducer from './agenda'
+import webinarReducer from './webinar'
 
 export default combineReducers({
     auth: authReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
     dialogList: dialogListReducer,
     modal: modalReducer,
     openUserCard: openUserCardReducer,
-    agenda: agendaReducer
+    agenda: agendaReducer,
+    webinar: webinarReducer,
 })

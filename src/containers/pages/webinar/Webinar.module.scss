@@ -1,0 +1,120 @@
+@import "../../../components/UI/vars.scss";
+
+.Webinar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &__Toolbar {
+    display: flex;
+    height: 10%;
+
+    align-items: center;
+    justify-content: space-between;
+    &__Title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    &__Buttons {
+      display: flex;
+      button {
+        height: 30px;
+        min-width: 30px;
+        font-size: 14px;
+        border-radius: 10px;
+        outline: none;
+        border: 1px solid $colorGreyThird;
+        cursor: pointer;
+        margin: 0 5px;
+        font-family: "Montserrat", sans-serif;
+        box-sizing: border-box;
+        background: white;
+      }
+      &__Exit {
+        font-size: 16px !important;
+        background: $colorAccent !important;
+        color: white;
+        font-weight: 500;
+        padding: 0 20px;
+        border: none !important;
+      }
+    }
+  }
+  &__Video {
+    width: 100%;
+    height: 90%;
+    border-radius: 10px;
+  }
+
+  &__Chat {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    
+    box-sizing: border-box;
+    position: relative;
+    &__Top {
+      margin: 20px 10px 0;
+      height: 56px;
+      span {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+    &__Messages{
+        width: 100%;
+      height: calc(100% - 111px);
+      box-sizing: border-box;
+      
+        ul{
+            padding: 0;
+            list-style: none;
+            overflow-x: hidden;
+            
+            li{
+                
+                height: fit-content;
+            }
+        }
+    }
+
+    &__Input {
+      width: 100%;
+      border: 1px solid $colorGreyThird;
+      padding: 10px;
+      box-sizing: border-box;
+      background: white;
+      border-radius: 0 0 10px 10px;
+      display: flex;
+      align-items: center;
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        padding: 5px;
+        &:active,
+        &:hover,
+        &:focus {
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
+  &__Wrapper{
+    padding: 10px;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: $colorGreyThird;
+    box-sizing: border-box;
+    i{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}

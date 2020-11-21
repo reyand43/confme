@@ -1,0 +1,33 @@
+@import '../vars.scss';
+
+.MyWebinarMessage{
+    display: flex;
+    
+    margin-top: 15px;
+    height: fit-content;
+    justify-content: flex-end;
+    width: 100%;
+
+    &__Time{
+        opacity: 0;
+        align-self: flex-end;
+        font-size: 10px;
+        margin-bottom: 3px;
+        margin-right: 4px;
+        color: $colorGreyFirst;
+    }
+    &:hover &__Time{
+        transition: 300ms;
+        opacity: 1;
+    }
+    &__Text{
+        background: $colorAccentLight;
+        border-radius: 10px;
+        padding: 10px;
+        margin-right: 10px;
+        word-break: break-all;
+        max-width: 70%;
+    }
+   
+    
+}
