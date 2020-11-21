@@ -8,6 +8,8 @@ import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import { fetchAgendaEvents } from "../../../store/actions/agenda";
 import { Loader } from "../../../components/UI/Loader/Loader";
 
+//---
+
 let newDate = new Date();
 let date = newDate.getDate();
 let month = newDate.getMonth() + 1;
