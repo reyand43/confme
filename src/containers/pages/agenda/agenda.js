@@ -36,9 +36,9 @@ class Agenda extends React.Component {
     return this.props.agendaEvents.map((event, index) => {
       const d = new Date(event.startTime);
       const startTime = (d.getHours() - 8) * 60 + d.getMinutes();
-     
+
       if (d.getDate() === newDate.getDate())
-      
+
       return (
         <AgendaEvent
           key={index}
@@ -131,33 +131,32 @@ class Agenda extends React.Component {
   render() {
     let DateChanger = (
       <div className={classes.Agenda__DateChanger}>
-        
-           
+
+
               <i  onClick={this.getPrevDate} className="fa fa-chevron-left" aria-hidden="true" />
             <div className={classes.img}>
               <i className="fa fa-calendar" aria-hidden="true"></i>
             </div>
             <div className={classes.date}>{this.state.showingDate}</div>
-            
+
               <i onClick={this.getNextDate} className="fa fa-chevron-right" aria-hidden="true" />
-            
+
         </div>
-      
+
     );
     return (
-      
+
         <BGMain>
           <div className={classes.Agenda}>
           {DateChanger}
 
           <ScrollBar>
             {this.props.agendaEventsLoading ? <Loader /> : this.renderEvents()}
-
             <WholeTimetable />
           </ScrollBar>
           </div>
         </BGMain>
-      
+
     );
   }
 }

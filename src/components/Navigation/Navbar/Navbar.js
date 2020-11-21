@@ -99,7 +99,7 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     userData: state.editProfile.userData,
-    
+
     //visible: state.navbar.visibleDropDown,
     //profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,
