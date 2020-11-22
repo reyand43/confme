@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import classes from "./Layout.module.scss";
+import {fetchUsers} from '../../store/actions/users'
 
 class Layout extends Component {
   render() {
@@ -17,4 +19,10 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+function mapDispatchToProps(dispatch) {
+  return{
+    fetchUsers: () => dispatch(fetchUsers()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Layout)

@@ -89,18 +89,33 @@
       border-radius: 0 0 10px 10px;
       display: flex;
       align-items: center;
-      input {
+      form{
+        display: flex;
+        align-items: center;
         width: 100%;
-        box-sizing: border-box;
-        border: none;
-        padding: 5px;
-        &:active,
-        &:hover,
-        &:focus {
+        input {
+          width: 100%;
+          box-sizing: border-box;
           border: none;
-          outline: none;
+          padding: 5px;
+          &:active,
+          &:hover,
+          &:focus {
+            border: none;
+            outline: none;
+          }
+          
         }
+        i{
+          color: $colorGreyFirst;
+          cursor: pointer;
+          &:hover{
+            color: $colorAccent
+          }
+        }
+
       }
+      
     }
   }
   &__Wrapper{
@@ -115,6 +130,7 @@
       position: absolute;
       top: 0;
       right: 0;
+
     }
   }
 }

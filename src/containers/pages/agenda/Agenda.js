@@ -35,12 +35,13 @@ class Agenda extends React.Component {
 
   renderEvents() {
     console.log(this.props.agendaEvents);
+
     return this.props.agendaEvents.map((event, index) => {
       const d = new Date(event.startTime);
       const startTime = (d.getHours() - 8) * 60 + d.getMinutes();
-
+      console.log(event, '|||',  Math.floor((event.endTime - event.startTime) / 1000 / 60));
       if (d.getDate() === newDate.getDate())
-
+      
       return (
         <AgendaEvent
           key={index}

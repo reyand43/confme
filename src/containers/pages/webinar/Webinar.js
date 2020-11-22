@@ -17,6 +17,7 @@ import {
 } from "../../../store/actions/openUserCard";
 import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import { Loader } from "../../../components/UI/Loader/Loader";
+import { even } from "is_js";
 
 class Webinar extends React.Component {
   state = {
@@ -30,7 +31,8 @@ class Webinar extends React.Component {
     });
   };
 
-  sendHandler = () => {
+  sendHandler = (event) => {
+    event.preventDefault()
     this.state.content.trim() !== "" &&
       this.props.sendWebinarMessage(
         localStorage.getItem("userId"),
@@ -135,7 +137,7 @@ class Webinar extends React.Component {
             ></iframe>
           </div>
         </BGMain>
-        <BGSide>
+        <BGSide wide={true}>
           <div className={classes.Webinar__Chat}>
             {this.props.openUser && (
               <div className={classes.Webinar__Wrapper}>
@@ -167,6 +169,11 @@ class Webinar extends React.Component {
               </ScrollBar>
             </div>
             <div className={classes.Webinar__Chat__Input}>
+              <form onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      this.sendHandler(event)
+                    }
+                  }} >
               <input
                 onChange={this.changeHandler}
                 value={this.state.content}
@@ -179,6 +186,7 @@ class Webinar extends React.Component {
                   onClick={this.sendHandler}
                 ></i>
               )}
+              </form>
             </div>
           </div>
         </BGSide>

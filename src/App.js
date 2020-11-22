@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Layout from "./hoc/Layout/Layout";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Users from "./containers/pages/users/Users";
 import Materials from "./containers/pages/materials/Materials";
 import Sidebar from "./components/Navigation/Sidebar/Sidebar";
@@ -28,30 +28,19 @@ class App extends Component {
   }
 
   render() {
-    let routes = (
-      <Switch>
-        <Route path="/" exact component={Auth} />
-        <Route path="/editProfile" component={EditProfile} />
-        <Route path="/materials" component={Materials} />
-        <Route path="/timetable" component={Timetable} />
-        <Route path="/sponsors" component={Sponsors} />
-        <Route path="/sponsorMain" component={SponsorMain} />
-
-        <Route path="/users" component={Users} />
-        <Route path="/welcomePage" component={WelcomePage} />
-        <Redirect to="/" />
-      </Switch>
-    );
+    let routes 
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+
           <Route path="/editProfile" component={EditProfile} />
           <Route path="/broadcast" component={Broadcast} />
           <Route path="/materials" component={Materials} />
           <Route path="/timetable" component={Timetable} />
+          <Route path="/sponsors/:id" component={SponsorMain} />
+
           <Route path="/sponsors" component={Sponsors} />
-          <Route path="/sponsorMain" component={SponsorMain} />
           <Route path="/webinar/:id" component={Webinar}/>
 
           <Route path="/dialogs/:id" component={DialogList} />
@@ -65,10 +54,16 @@ class App extends Component {
         </Switch>
       );
     }
+    
 
     return (
       <BrowserRouter>
-        {this.props.isAuthenticated===false ? <Auth/> :
+      {!this.props.isAuthenticated && 
+        <Switch>
+          <Route path="/" exact component={Auth} />
+          <Redirect to="/"/>
+        </Switch>}
+        {this.props.isAuthenticated &&
             <Split>
             <Navbar isAuthenticated={this.props.isAuthenticated} />
             <Layout
@@ -100,4 +95,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

@@ -14,7 +14,7 @@ import {
 import { RoleSearchListItem } from "../../../components/UI/RoleSearchListItem/RoleSearchListItem";
 import { Loader } from "../../../components/UI/Loader/Loader";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
-
+import {ComboBox} from '../../../components/UI/ComboBox/ComboBox'
 class Users extends React.Component {
   constructor(props) {
     super(props);
@@ -131,7 +131,6 @@ class Users extends React.Component {
   };
 
   renderUsers() {
-    
     return this.props.searchedUsers.map((user) => {
       return (
         <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
@@ -140,7 +139,7 @@ class Users extends React.Component {
             name={user.Name}
             surname={user.Surname}
             accountType={user.AccountType}
-            clicked={this.state.SelectedUser}
+            clicked={this.state.selectedUser}
             profession={user.Profession}
             company={user.Company}
           />
@@ -155,6 +154,10 @@ class Users extends React.Component {
     this.props.fetchUsers();
   }
 
+  componentWillUnmount(){
+    this.props.closeUserCard()
+  }
+
 
   render() {
     return (
@@ -166,7 +169,9 @@ class Users extends React.Component {
               placeholder="Введите имя, компанию, сферу деятельности или интересы..."
             />
             <div className={classes.UserList__FindLabel}>
-              <span>Найдено 1763 человека</span>
+              
+              <span>Найдено {this.props.users.length} </span>
+              {this.props.users.length % 10 === ( 2 || 3 || 4) ? <span>человека</span> : <span>человек</span>}
             </div>
             <div className={classes.UserList__List}>
               {this.props.loading ? (
@@ -215,6 +220,8 @@ class Users extends React.Component {
                     <input />
                   </div>
                 </div>
+                ComboBox
+                <ComboBox/>
               </div>
             )}
           </div>

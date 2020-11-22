@@ -11,6 +11,7 @@ import modalReducer from './modal'
 import openUserCardReducer from './openUserCard'
 import agendaReducer from './agenda'
 import webinarReducer from './webinar'
+import sponsorsReducer from './sponsors'
 
 export default combineReducers({
     auth: authReducer,
@@ -24,4 +25,5 @@ export default combineReducers({
     openUserCard: openUserCardReducer,
     agenda: agendaReducer,
     webinar: webinarReducer,
+    sponsors: sponsorsReducer
 })

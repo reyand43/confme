@@ -2,6 +2,7 @@
 
 .RepresentativeCard {
     width: 30%;
+    margin-right: 3%;
     border-radius: 10px;
     background-color: white;
     padding: 12px 20px;
@@ -11,16 +12,16 @@
     // flex-direction: column;
     // align-items: center;
     box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
-    position: relative;
+    
     
     
     &__TextBlock {
         // Выравнивание текста
-        position: absolute;
-        top: 50%;
-        transform: translate($userPhotoSizeLarge + 5px, -50%); // 20px - значение отступа у .SponsorMain_Top
+        
+       
+
         flex-direction: column;
-        padding-left: 20px;
+        padding-left: 10px;
         &__Name {
             font-size: 16px;
             font-weight: 600;
@@ -33,15 +34,17 @@
             color: $colorGreyFirst;
             font-weight: 500;
         }
-        &__Massage {
+        &__Message {
             font-size: 14px;
             font-weight: 550;
-        }
-        a {
-            text-decoration: none;
-            &:hover{
-                text-decoration: underline;
+            a{
+                text-decoration: none;
+                color: $colorGreyFirst;
+                &:hover{
+                    color: $colorAccent
+                }
             }
         }
+        
     }
 }

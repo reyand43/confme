@@ -16,6 +16,7 @@ import { Loader } from "../../../components/UI/Loader/Loader";
 import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
+import SearchInput from "../../../components/UI/Input/SearchInput/SearchInput";
 
 class DialogList extends React.Component {
   state = {
@@ -25,7 +26,9 @@ class DialogList extends React.Component {
 
   componentDidMount() {
     this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
+    
     this.props.selectDialog(null);
+    
     if (document.location.pathname.slice(9).length > 0) {
       //если ссылка содержит id то
 
@@ -35,6 +38,7 @@ class DialogList extends React.Component {
   }
 
   
+
 
   renderDialogs() {
     const uid = localStorage.getItem("userId");
@@ -63,7 +67,7 @@ class DialogList extends React.Component {
                     ? `Вы: ${dialog.lastMessage}`
                     : dialog.lastMessage
                 }
-                time={dialog.timestamp}
+                time={this.formatTime(dialog.timestamp)}
                 selected={this.props.selectedDialog}
               />
             </li>
@@ -71,6 +75,12 @@ class DialogList extends React.Component {
         );
       });
     }
+  }
+
+ formatTime(timestamp) {
+    const d = new Date(timestamp);
+    const time = `${d.getHours()}:${d.getMinutes()}`;
+    return time;
   }
 
   changeHandler = (event) => {
@@ -95,15 +105,25 @@ class DialogList extends React.Component {
     });
   };
 
+  // dataSearch = (e) => {
+  //   const value = e.target.value.toLowerCase();
+  //   const filter = this.props.users.filter((user) => {
+  //     return (user.Name.toLowerCase().includes(value) || user.Surname.toLowerCase().includes(value));
+  //   });
+  //   this.props.setSearchedUsers(filter)
+  // };
+
   render() {
     return (
       <>
+      
         <BGMain>
           <div className={classes.ChatBox}>
             <div className={classes.ChatBox__DialogList}>
               <div className={classes.ChatBox__DialogList__SearchBar}>
                 <i className="fa fa-search"></i>
-                <input placeholder="Поиск..." />
+                <input placeholder="Поиск..." onChange={this.dataSearch}/>
+                
                 <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
               </div>
               <div className={classes.ChatBox__DialogList__ScrollList}>
@@ -226,6 +246,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchDialogs: (userId) => dispatch(fetchDialogs(userId)),
     fetchUserById: (friendId) => dispatch(fetchUserById(friendId)),
+    //setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter)),
     selectDialog: (dialogId) => dispatch(selectDialog(dialogId)),
     fetchDialogInfo: (dialogInfo) => dispatch(fetchDialogInfo(dialogInfo)),
     sendMessages: (

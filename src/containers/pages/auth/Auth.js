@@ -87,6 +87,8 @@ class Auth extends Component {
       this.state.formControls.password.value,
       true
     );
+    this.props.isAuthenticated &&
+    this.props.history.push("/welcomePage")
   };
 
   registerHandler = () => {
@@ -96,6 +98,8 @@ class Auth extends Component {
       this.state.nameControls.name.value,
       this.state.nameControls.surname.value
     );
+    this.props.isAuthenticated &&
+    this.props.history.push("/editProfile")
   };
 
   submitHandler = (event) => {
