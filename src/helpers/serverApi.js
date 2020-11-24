@@ -53,12 +53,16 @@ class serverApi {
           console.log("signIn: ", res);
           const response = JSON.parse(res);
           if (response && response.status === "success") {
-            this.token = response.message.accessToken;
-            this.socket.emit("join", { user_id: response.message.id }, (res) => {
-              console.log("SignIn subscribe on messages: ", res);
-            });
+            this.token = response.data.accessToken;
+            this.socket.emit(
+              "join",
+              { user_id: response.data.id },
+              (res) => {
+                console.log("SignIn subscribe on messages: ", res);
+              }
+            );
             this.socket.on("message", (data) => {
-               console.log('Took message', data)
+              console.log("Took message", data);
             });
           }
           resolve(response);
@@ -66,6 +70,16 @@ class serverApi {
       );
     });
   };
+
+  signOut = () => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("signOut", {data: ""}, (res) => {
+        console.log("signOut: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      })
+    })
+  }
 
   // Params:
   //  data = { sender_id, reciever_id, text }
@@ -85,90 +99,106 @@ class serverApi {
     );
   };
 
-
   // Params:
   //   userId : integer
   // return:
   //   {status: 'success', message: {}}
-  // 
-  // 
-  // 
-  // 
-  //   
+  //
+  //
+  //
+  //
+  //
   fetchDialogs = (userId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchDialogs", {user_id: userId}, res => {
+      this.socket.emit("fetchDialogs", { user_id: userId }, (res) => {
         console.log("Fetch dialogs: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
-  fetchDialog = (dialogId) => {
+  fetchDialog = (userId, friendId, dialogId = "") => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchDialogs", {dialog_id: dialogId}, res => {
-        console.log("Fetch dialog: ", res);
-        const response = JSON.parse(res);
-        resolve(response);
-      })
-    })
-  } 
+      if (dialogId !== "") {
+        this.socket.emit("fetchDialog", { dialog_id: dialogId }, (res) => {
+          console.log("Fetch dialog: ", res);
+          const response = JSON.parse(res);
+          resolve(response);
+        });
+      } else {
+        this.socket.emit("fetchDialog", { user_id: userId, friend_id: friendId }, (res) => {
+          console.log("Fetch dialog: ", res);
+          const response = JSON.parse(res);
+          resolve(response);
+        });
+      }
+    });
+  };
 
   fetchMessages = (dialogId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchMessages", {dialog_id: dialogId}, res => {
+      this.socket.emit("fetchMessages", { dialog_id: dialogId }, (res) => {
         console.log("Fetch messages: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   fetchMessage = (messageId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchMessage", {message_id: messageId}, res => {
+      this.socket.emit("fetchMessage", { message_id: messageId }, (res) => {
         console.log("Fetch message: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   fetchUsers = () => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchUsers", {} , res => {
+      this.socket.emit("fetchUsers", {}, (res) => {
         console.log("Fetch users: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   fetchUser = (userId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchUser", {user_id: userId}, res => {
+      this.socket.emit("fetchUser", { user_id: userId }, (res) => {
         console.log("Fetch user: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   fetchPersonals = () => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchPersonals", {}, res => {
+      this.socket.emit("fetchPersonals", {}, (res) => {
         console.log("Fetch personals: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   fetchPersonal = (userId) => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("fetchPersonal", {user_id: userId}, res => {
+      this.socket.emit("fetchPersonal", { user_id: userId }, (res) => {
         console.log("Fetch personal: ", res);
+        const response = JSON.parse(res);
+        resolve(response);
+      });
+    });
+  };
+
+  countAllDialogs = () => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit("countDialogs", {}, res => {
         const response = JSON.parse(res);
         resolve(response);
       })

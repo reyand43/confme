@@ -11,6 +11,9 @@ import {
   SEND_MESSAGES_SUCCESS,
   SEND_MESSAGES_ERROR,
   CLEAR_STATE,
+  ADD_MESSAGE,
+  ADD_DIALOG,
+  COUNT_ALL_DIALOGS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -23,6 +26,7 @@ const initialState = {
   selectedDialog: null,
   dialogInfo: null,
   content: "",
+  countAllDialogs: null
 };
 
 export default function dialogListReducer(state = initialState, action) {
@@ -99,6 +103,28 @@ export default function dialogListReducer(state = initialState, action) {
         dialogInfo: null,
         content: "",
       };
+    case ADD_MESSAGE:
+      const newDialogs = [...state.dialogs]
+      newDialogs.map(dialog => {
+        if(dialog.id === action.message.dialogId) {
+          dialog.lastMessage = action.message.text;
+        }
+      })
+      return {
+        ...state,
+        dialogs: newDialogs,
+        messages: [...state.messages, action.message]
+      }
+    case ADD_DIALOG:
+      return {
+        ...state,
+        dialogs: [...state.dialogs, action.dialog]
+      }
+    case COUNT_ALL_DIALOGS:
+      return {
+        ...state,
+        countAllDialogs: action.count
+      }
     default:
       return state;
   }

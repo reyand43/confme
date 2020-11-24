@@ -6,7 +6,6 @@ export const DialogListItem = (props) => {
 
 
   const cls = [classes.DialogListItem];
-
   if(props.id === props.selected) {
       cls.push(classes.selected)
   }

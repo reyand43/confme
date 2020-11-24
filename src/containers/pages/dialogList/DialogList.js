@@ -16,6 +16,7 @@ import { Loader } from "../../../components/UI/Loader/Loader";
 import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
+import { fetchUsers } from "../../../store/actions/users";
 
 
 class DialogList extends React.Component {
@@ -24,15 +25,24 @@ class DialogList extends React.Component {
     content: "", //введенное сообщение
   };
 
-  componentDidMount() {
-    this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
-    if (document.location.pathname.slice(9).length > 0) {
-      //если ссылка содержит id то
-      this.props.selectDialog(document.location.pathname.slice(9)); //вызываем ф-ию selectDialog с айди из ссылки
-      this.props.fetchUserById(document.location.pathname.slice(9))
-    }
-  }
+  friendId = null;
 
+  componentDidMount() {
+    this.props.fetchUsers();
+    const idFromPath = document.location.pathname.slice(9);
+    //this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
+    if (idFromPath.length > 0 && this.props.location.state) {
+      //если ссылка содержит id то
+      this.friendId = parseInt(this.props.location.state.friendId);
+      this.props.selectDialog( parseInt(idFromPath), this.props.users[this.friendId - 1]); 
+      //вызываем ф-ию selectDialog с айди из ссылки
+     // this.props.fetchUserById(this.props.dialogs[])
+    }
+    else {
+      this.props.selectDialog(null, null);
+    }
+    
+  }
 
   renderDialogs() {
     const uid = parseInt( localStorage.getItem("userId") );
@@ -43,21 +53,20 @@ class DialogList extends React.Component {
     } else {
 
       return this.props.dialogs.map((dialog) => {
-        
         return (
           <NavLink
             key={dialog.id}
             to={"/dialogs/" + dialog.id}
             onClick={() => {
-              this.props.selectDialog(dialog.id);
-              this.props.fetchUserById(dialog.id)
+              this.friendId = dialog.friendId;
+              this.props.selectDialog(dialog.id, this.props.users[dialog.friendId - 1]);
             }}
           >
             <li>
               <DialogListItem
                 id={dialog.id}
-                name={dialog.withName}
-                surname={dialog.withSurname}
+                name={this.props.users[dialog.friendId - 1].name}
+                surname={this.props.users[dialog.friendId - 1].surname}
                 text={
                   dialog.sender_id === uid
                     ? `Вы: ${dialog.lastMessage}`
@@ -83,11 +92,11 @@ class DialogList extends React.Component {
     this.props.sendMessages(
       localStorage.getItem("userId"), //мой id
       this.state.content, //текст сообщения
-      this.props.selectedDialog, //С кем чатимся
+      this.friendId, //С кем чатимся
       this.props.myName, //мое имя
       this.props.mySurname, //моя фамилия
-      this.props.dialogInfo.name, //имя с кем чатимся
-      this.props.dialogInfo.surname, //фамилия с кем чатимся
+      this.props.users[this.friendId - 1].name,
+      this.props.users[this.friendId - 1].surname ,//фамилия с кем чатимся
       this.props.selectedDialog
     );
     this.setState({
@@ -121,14 +130,14 @@ class DialogList extends React.Component {
             ) : (
               <div className={classes.ChatBox__MessageBox}>
                 <div className={classes.ChatBox__MessageBox__TopBar}>
-                  {this.props.dialogInfo !== null && (
+                  {this.friendId !== null && (
                     <span
                       className={
                         classes.ChatBox__MessageBox__TopBar__DialogName
                       }
                     >
-                      {this.props.dialogInfo.name}{" "}
-                      {this.props.dialogInfo.surname}
+                      {this.props.users[this.friendId-1].name}{" "}
+                      {this.props.users[this.friendId-1].surname}
                     </span>
                   )}
 
@@ -185,10 +194,10 @@ class DialogList extends React.Component {
         </BGMain>
         {document.location.pathname.slice(9).length > 0 && (
           <BGSide>
-            {this.props.dialogInfo && (
+            {this.friendId && (
               <UserCard
                 dialog={true}
-                user={this.props.user}
+                user={this.props.users[this.friendId - 1]}
               />
             )}
           </BGSide>
@@ -203,6 +212,7 @@ function mapStateToProps(state) {
     dialogsLoading: state.dialogList.dialogsLoading,
     dialogs: state.dialogList.dialogs,
     user: state.users.user,
+    users: state.users.users,
     messages: state.dialogList.messages,
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,
@@ -214,9 +224,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchUsers: () => dispatch(fetchUsers()),
     fetchDialogs: (userId) => dispatch(fetchDialogs(userId)),
     fetchUserById: (friendId) => dispatch(fetchUserById(friendId)),
-    selectDialog: (dialogId) => dispatch(selectDialog(dialogId)),
+    selectDialog: (dialogId, friend) => dispatch(selectDialog(dialogId, friend)),
     fetchDialogInfo: (dialogInfo) => dispatch(fetchDialogInfo(dialogInfo)),
     sendMessages: (
       userId,

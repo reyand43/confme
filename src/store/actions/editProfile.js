@@ -18,7 +18,7 @@ export function fetchUserData(){
     const userId = localStorage.getItem("userId");
     try {
         const res = await api.fetchPersonal(userId);
-        const userData = res.message;
+        const userData = res.data;
         dispatch(fetchUserDataSuccess(userData)) //загружаем  инфу для отображаения инфы диалога(пока что в users)
     } catch (e) {
       console.log(e);

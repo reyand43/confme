@@ -15,7 +15,7 @@ export function fetchUsers() {
       dispatch(fetchUsersStart());
       try {
         const res = await api.fetchPersonals();
-        const personals = res.message;
+        const personals = res.data;
         dispatch(fetchUsersSuccess(personals));
       }
      catch (e) {
@@ -29,7 +29,7 @@ export function fetchUserById(userId) {
     dispatch(fetchUserStart());
     try {
       const res = await api.fetchPersonal(userId);
-      const user = res.message;
+      const user = res.data;
       dispatch(fetchUserSuccess(user));
     } catch (e) {
       dispatch(fetchUsersError(e));

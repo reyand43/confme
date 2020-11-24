@@ -18,3 +18,8 @@
 [1117/221056.423:ERROR:process_info.cc(359)] UncheckedAllocate
 [1117/221101.535:ERROR:process_info.cc(359)] UncheckedAllocate
 [1117/221101.776:ERROR:process_info.cc(359)] UncheckedAllocate
+[1122/115105.442:ERROR:directory_reader_win.cc(43)] FindFirstFile: Системе не удается найти указанный путь. (0x3)
+[1122/121350.971:ERROR:process_info.cc(359)] UncheckedAllocate
+[1122/121350.972:ERROR:process_info.cc(359)] UncheckedAllocate
+[1122/121512.004:ERROR:process_info.cc(359)] UncheckedAllocate
+[1122/123905.299:ERROR:filesystem_win.cc(148)] DeleteFile C:\Users\HP\AppData\Local\Google\Chrome\User Data\Crashpad\reports\f3307845-bba2-4990-9743-52150ef6ef9d.dmp: Процесс не может получить доступ к файлу, так как этот файл занят другим процессом. (0x20)

@@ -33,7 +33,7 @@ export function signIn(email, password) {
     const res = await api.signIn(authData);
     if(res.status === 'error') dispatch(loginError());
     else {
-      const data = res.message;
+      const data = res.data;
       localStorage.setItem("userId", data.id);
       localStorage.setItem('token', data.accessToken);
       dispatch(authSuccess(data.accessToken));
@@ -42,11 +42,14 @@ export function signIn(email, password) {
 }
 
 export function logout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("userId");
-  return {
-    type: AUTH_LOGOUT,
-  };
+  return async(dispatch) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    const res = await api.socket.emit("signOut", {})
+    dispatch ({
+      type: AUTH_LOGOUT,
+    });
+  }
 }
 
 export function autoLogin() {

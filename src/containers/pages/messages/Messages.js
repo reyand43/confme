@@ -10,7 +10,7 @@ export default function Messages(props){
   function renderMessages() { //ренедрим список сообщений
     return props.messages.map((chat) => {
       return chat.id === parseInt(localStorage.getItem("userId")) ? (
-        <li key={chat.createdAt}>
+        <li key={chat.timestamp}>
           <div className={classes.right}>
             <MyMessage
               time={formatTime(chat.timestamp)}
@@ -33,9 +33,7 @@ export default function Messages(props){
     });
     
   }
-
-  
-  
+    
   function formatTime(timestamp) {  //приводим время в нормальный вид
     const d = new Date(timestamp);
     const time = `${d.getHours()}:${d.getMinutes()}`;

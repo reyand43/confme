@@ -14,18 +14,22 @@ import {
 import { RoleSearchListItem } from "../../../components/UI/RoleSearchListItem/RoleSearchListItem";
 import { Loader } from "../../../components/UI/Loader/Loader";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
+import api from "../../../helpers/serverApi";
+import { fetchDialogsCount } from "../../../store/actions/dialogList";
+import { fetchUserById } from "../../../store/actions/users";
 
 class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      renderUsers: [],
       selectedUser: "",
       searchControls: {
         roleSearch: {
           all: {
             label: "Все",
             selected: true,
-            name: "Все"
+            name: "Все",
           },
           guests: {
             label: "Участники",
@@ -53,7 +57,6 @@ class Users extends React.Component {
         },
       },
     };
-    
   }
 
   renderRoleSearch() {
@@ -93,7 +96,6 @@ class Users extends React.Component {
     } else {
       role.selected = !role.selected;
       roleSearch["all"].selected = false;
-      
     }
 
     searchControls.roleSearch[controlName] = role;
@@ -103,44 +105,57 @@ class Users extends React.Component {
     const searchControls2 = { ...this.state.searchControls };
     const roleSearch2 = { ...searchControls2.roleSearch };
 
-    let selected = []
-    for (var name in roleSearch){
-      if (roleSearch2[name].selected === true){
-        selected.push(roleSearch2[name].name)
+    let selected = [];
+    for (var name in roleSearch) {
+      if (roleSearch2[name].selected === true) {
+        selected.push(roleSearch2[name].name);
       }
     }
-    console.log('selected', selected)
     const filter = this.props.users.filter((user) => {
-      if (selected.includes("Все")){
-        return (this.props.users);
-      }
-      else{
-      return (user.AccountType.includes(selected[0] || selected[1] || selected[2] || selected[3] || selected[4]));
+      if (selected.includes("Все")) {
+        return this.props.users;
+      } else {
+        return user.AccountType.includes(
+          selected[0] ||
+            selected[1] ||
+            selected[2] ||
+            selected[3] ||
+            selected[4]
+        );
       }
     });
-    
-    this.props.setSearchedUsers(filter)
+
+    this.props.setSearchedUsers(filter);
   };
 
   openSideCard = (user) => {
     this.setState({
       selectedUser: user.id,
     });
-    
+
     this.props.openUserCard(user);
   };
 
   renderUsers() {
-    console.log("Users: ", this.props.searchedUsers)
     return this.props.searchedUsers.map((user) => {
+      let id = null;
+      this.props.dialogs.map(dialog => {
+        if(dialog.friendId === user.id) {
+          id = dialog.id;
+        }
+      })
+      if(!id) {
+        id = this.props.countAllDialogs + 1;
+      }
       return (
         <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
           <UserItem
-            id={user.id}
+            dialogId={id}
+            id = {user.id}
             name={user.name}
             surname={user.surname}
             accountType={user.role}
-            clicked={this.state.SelectedUser}
+            clicked={this.state.selectedUser === user.id}
             profession={user.profession}
             company={user.company}
           />
@@ -150,7 +165,7 @@ class Users extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUsers();
+    this.props.fetchDialogsCount();
   }
 
   render() {
@@ -159,7 +174,7 @@ class Users extends React.Component {
         <BGMain>
           <div className={classes.UserList}>
             <SearchInput
-            update={this.updateData}
+              update={this.updateData}
               placeholder="Введите имя, компанию, сферу деятельности или интересы..."
             />
             <div className={classes.UserList__FindLabel}>
@@ -178,7 +193,7 @@ class Users extends React.Component {
         </BGMain>
         <BGSide>
           <div className={classes.Aside}>
-            {this.props.user != null ? (
+            {this.props.dialogInfo != null ? (
               <div>
                 <div className={classes.Aside__CloseButton}>
                   <i
@@ -187,7 +202,7 @@ class Users extends React.Component {
                   ></i>
                 </div>
 
-                <UserCard user={this.props.user} />
+                <UserCard user={this.props.dialogInfo} />
               </div>
             ) : (
               <div className={classes.Settings}>
@@ -228,6 +243,9 @@ function mapStateToProps(state) {
     loading: state.users.loading,
     modalOpenState: state.modal.modalOpenState,
     user: state.openUserCard.user,
+    dialogInfo: state.dialogList.dialogInfo,
+    dialogs: state.dialogList.dialogs,
+    countAllDialogs: state.dialogList.countAllDialogs
   };
 }
 
@@ -236,7 +254,9 @@ function mapDispatchToProps(dispatch) {
     openUserCard: (user) => dispatch(openUserCard(user)),
     closeUserCard: () => dispatch(closeUserCard()),
     fetchUsers: () => dispatch(fetchUsers()),
-    setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter))
+    setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter)),
+    fetchDialogsCount: () => dispatch(fetchDialogsCount()),
+    fetchUserById: (friendId) => dispatch(fetchUserById(friendId)),
   };
 }
 

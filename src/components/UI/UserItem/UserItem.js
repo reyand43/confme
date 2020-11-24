@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./UserItem.module.scss";
 import { UserPhoto } from "../UserPhoto/UserPhoto";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export const UserItem = (props) => {
     const cls = [classes.UserItem];
 
-    if(props.id === props.clicked) {
+    if(props.clicked) {
         cls.push(classes.clicked)
     }
     
@@ -21,7 +21,11 @@ export const UserItem = (props) => {
             <span className={classes.UserItem__Text__Info__Career}>{props.accountType}</span>
             </div>
             
-            <NavLink to={"/dialogs/"+ props.id}><span>Написать сообщение</span></NavLink>
+            <Link to={{
+                    pathname:"/dialogs/"+ props.dialogId,
+                    state: {friendId: props.id}
+                    }
+                }><span>Написать сообщение</span></Link>
              </div>
              </div>
              

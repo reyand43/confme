@@ -14,6 +14,9 @@ import {
   SEND_MESSAGES_SUCCESS,
   SEND_MESSAGES_START,
   CLEAR_STATE,
+  ADD_MESSAGE,
+  ADD_DIALOG,
+  COUNT_ALL_DIALOGS,
 } from "./actionTypes";
 
 export function fetchDialogs(userId) {
@@ -23,23 +26,46 @@ export function fetchDialogs(userId) {
     dispatch(fetchDialogsStart());
     try {
       const dialogs = [];
-      const res = (await api.fetchDialogs(userId)).message;
+      const res = (await api.fetchDialogs(userId)).data;
       for (const d of res) {
         const friendId =
-          userId === d.firstUser_id ? d.secondUser_id : d.firstUser_id; 
-        const friend = (await api.fetchPersonal(friendId)).message;
-        const lastMessage = (await api.fetchMessage(d.lastMessage_id)).message;
+          userId === d.firstUser_id ? d.secondUser_id : d.firstUser_id;
+        const friend = (await api.fetchPersonal(friendId)).data;
+        const lastMessage = (await api.fetchMessage(d.lastMessage_id)).data;
         const dialog = {
           id: d.id,
           withName: friend.name,
           withSurname: friend.surname,
           lastMessage: lastMessage.text,
           timestamp: d.updatedAt,
+          friendId: friendId,
           sender_id: d.sender_id, //Id пользователя, который последним отправил сообщение
         };
         dialogs.push(dialog);
       }
       dispatch(fetchDialogsSuccess(dialogs));
+      api.socket.removeAllListeners("dialogSubscribe");
+      api.socket.on("dialogSubscribe", async(res) => {
+        const d = res.data;
+        console.log("DIALOG_MEsSAGED", userId, d.firstUser_id, d.secondUser_id);
+        const friendId =
+          userId === parseInt(d.firstUser_id) ? d.secondUser_id : d.firstUser_id;
+        const friend = (await api.fetchPersonal(friendId)).data;
+        const lastMessage = (await api.fetchMessage(d.lastMessage_id)).data;
+        const dialog = {
+          id: d.id,
+          withName: friend.name,
+          withSurname: friend.surname,
+          lastMessage: lastMessage.text,
+          timestamp: d.updatedAt,
+          friendId: friendId,
+          sender_id: d.sender_id, //Id пользователя, который последним отправил сообщение
+        };
+        dispatch({
+          type: ADD_DIALOG,
+          dialog: dialog
+        })
+      })
     } catch (e) {
       dispatch(fetchDialogsError(e));
     }
@@ -54,9 +80,9 @@ export function fetchMessages(userId, dialogId) {
     dispatch(fetchMessagesStart());
     try {
       const messages = []
-      const res = (await api.fetchMessages(dialogId)).message;
+      const res = (await api.fetchMessages(dialogId)).data;
       for(const message of res) {
-        const friend = (await api.fetchPersonal(message.sender_id)).message;
+        const friend = (await api.fetchPersonal(message.sender_id)).data;
         const m = {
           id: message.sender_id,
           text: message.text,
@@ -67,29 +93,50 @@ export function fetchMessages(userId, dialogId) {
         messages.push(m);
       }
       dispatch(fetchMessagesSuccess(messages));
+      api.socket.removeAllListeners("messageSubscribe");
+      api.socket.on("messageSubscribe", async(res) => {
+        const message = res.data;
+        const friend = (await api.fetchPersonal(message.sender_id)).data;
+        const m = {
+          id: parseInt(message.sender_id),
+          text: message.text,
+          dialogId: message.dialogId,
+          name: friend.name,
+          surname: friend.surname,
+          timestamp: message.createdAt
+        }
+        dispatch({
+          type: ADD_MESSAGE,
+          message: m
+        })
+      })
     } catch (e) {
       dispatch(fetchDialogsError(e));
     }
   };
 }
 
-export function selectDialog(dialogId) {
+export function selectDialog(dialogId, friend) {
   //выбор диалога для загрузки сообщений
+  console.log("SELECT_DiALOG", dialogId, friend);
   const userId = parseInt(localStorage.getItem("userId"));
   return async (dispatch) => {
     dispatch(setDialog(dialogId));
     if (dialogId !== null) {
-      try {
-        const res = (await api.fetchDialog(dialogId)).message;
-        const friendId = res.firstUser_id === userId ? res.secondUser_id : res.firstUser_id;
-        const dialogInfo = (await api.fetchPersonal(friendId)).message;
-        dispatch(fetchDialogInfo(dialogInfo));
-      } catch (error) {
-        console.log(error);
-      }
+        dispatch(fetchDialogInfo(friend));
     } else dispatch(fetchDialogInfo(null));
     dispatch(fetchMessages(userId, dialogId));
   };
+}
+
+export function fetchDialogsCount() {
+  return async(dispatch) => {
+    const count = (await api.countAllDialogs()).data;
+    dispatch({
+      type: COUNT_ALL_DIALOGS,
+      count
+    });
+  }
 }
 
 export function setDialog(dialogId) {
