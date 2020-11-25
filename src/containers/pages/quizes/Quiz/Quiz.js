@@ -6,6 +6,7 @@ import axios from './../../../../axios/axios'
 import { Loader } from "../../../../components/UI/Loader/Loader";
 import ActiveQuiz from '../../../../components/UI/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../../../components/UI/FinishedQuiz/FinishedQuiz'
+import { connect } from "react-redux";
 
 class Quiz extends Component {
   state = {
@@ -85,6 +86,10 @@ class Quiz extends Component {
     } catch (e) {
       console.log(e)
     }
+    /*this.setState({
+      quiz: this.props.survey,
+      loading: false
+    })*/
   }
 
   render() {
@@ -110,6 +115,22 @@ class Quiz extends Component {
                 answerNumber={this.state.activeQuestion + 1}
                 state={this.state.answerState}
               />
+              /*this.state.loading
+               ? <Loader />
+               : this.state.isFinished
+                ? <FinishedQuiz
+                  results={this.props.survey.results}
+                  quiz={this.props.survey.quiz}
+                  onRetry={this.retryHandler}
+                />
+                : <ActiveQuiz
+                  answers={this.props.survey.quiz[this.props.survey.activeQuestion].answers}
+                  question={this.props.survey.quiz[this.props.survey.activeQuestion].question}
+                  onAnswerClick={this.onAnswerClickHandler}
+                  quizLength={this.props.survey.quiz.length}
+                  answerNumber={this.props.survey.activeQuestion + 1}
+                  state={this.props.survey.answerState}
+                />*/
 
           }
         </div>
@@ -118,5 +139,11 @@ class Quiz extends Component {
   }
 }
 
+function mapStateToProps(state){
+  return{
+    survey: state.quiz.survey
+  }
+}
 
-export default Quiz
+
+export default connect(mapStateToProps)(Quiz)

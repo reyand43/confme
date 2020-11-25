@@ -12,6 +12,8 @@ import openUserCardReducer from './openUserCard'
 import agendaReducer from './agenda'
 import webinarReducer from './webinar'
 import sponsorsReducer from './sponsors'
+import surveysReducer from './surveys'
+import quizReducer from './quiz'
 
 export default combineReducers({
     auth: authReducer,
@@ -25,5 +27,7 @@ export default combineReducers({
     openUserCard: openUserCardReducer,
     agenda: agendaReducer,
     webinar: webinarReducer,
-    sponsors: sponsorsReducer
+    sponsors: sponsorsReducer,
+    surveys: surveysReducer,
+    quiz: quizReducer
 })

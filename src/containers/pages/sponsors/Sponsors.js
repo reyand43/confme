@@ -12,17 +12,18 @@ class Sponsors extends Component{
     this.props.fetchSponsors()
   }
 
-  
+
 
   renderSponsors = () => {
     return this.props.sponsors.map((sponsor) => {
       return (
         <NavLink key={sponsor.Id} to={"/sponsors/" + sponsor.Id}>
-              <SponsorCard
+            <SponsorCard
               logo = "Логотип"
               title = {sponsor.Name}
-              description = {sponsor.Description}/>
-              </NavLink>
+              description = {sponsor.Description}
+            />
+        </NavLink>
       );
 
     });
@@ -33,7 +34,7 @@ class Sponsors extends Component{
       <BGMain>
         <div className={classes.Sponsors}>
           <div className={classes.Sponsors__Title}>
-            Спонсоры  
+            Спонсоры
           </div>
           <div className={classes.Sponsors__Grid}>
             {this.renderSponsors()}
@@ -85,10 +86,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchSponsors: () => dispatch(fetchSponsors()),
-    
+
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sponsors);
-
-

@@ -7,20 +7,16 @@ import Presentations from "../Presentations/Presentations";
 
 
 
-class SponsorMain_Materials extends Component{
-    render(){
-        return (  
+export const SponsorMain_Materials =(props)=>{
+      return(
             <div className={classes.SponsorMain_Materials}>
                 <div className={classes.SponsorMain_Materials__Title}>
                     Материалы
                 </div>
                 <div className={classes.SponsorMain_Materials__TwoBlocks}>
-                    <Surveys/>
+                    <Surveys id={props.id}/>
                     <Presentations/>
                 </div>
             </div>
         )
-    }
 }
-
-export default SponsorMain_Materials

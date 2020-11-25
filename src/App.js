@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   render() {
-    let routes 
+    let routes
 
     if (this.props.isAuthenticated) {
       routes = (
@@ -54,11 +54,11 @@ class App extends Component {
         </Switch>
       );
     }
-    
+
 
     return (
       <BrowserRouter>
-      {!this.props.isAuthenticated && 
+      {!this.props.isAuthenticated &&
         <Switch>
           <Route path="/" exact component={Auth} />
           <Redirect to="/"/>

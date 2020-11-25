@@ -9,7 +9,7 @@ export function fetchSponsors() {  //загрузка спонсоров
           let sponsors = []
           Object.keys(snapshot.val()).forEach((key, index) => {
             sponsors.push(snapshot.val()[key]);
-           
+
           });
           dispatch(fetchSponsorsSuccess(sponsors));
         });
@@ -26,13 +26,13 @@ export function fetchSponsors() {  //загрузка спонсоров
       sponsors
     };
   }
-  
+
   export function fetchSponsorsStart() {
     return {
       type: FETCH_SPONSORS_START,
     };
   }
-  
+
   export function fetchSponsorsError(e) {
     return {
       type: FETCH_SPONSORS_ERROR,
@@ -52,7 +52,6 @@ export function fetchSponsors() {  //загрузка спонсоров
         dispatch(fetchSponsorByIdError(e));
       }
     };
-    
   }
 
   export function fetchSponsorByIdSuccess(sponsor) {
@@ -62,13 +61,13 @@ export function fetchSponsors() {  //загрузка спонсоров
       sponsor
     };
   }
-  
+
   export function fetchSponsorByIdStart() {
     return {
       type: FETCH_SPONSOR_BY_ID_START,
     };
   }
-  
+
   export function fetchSponsorByIdError(e) {
     return {
       type: FETCH_SPONSOR_BY_ID_ERROR,
