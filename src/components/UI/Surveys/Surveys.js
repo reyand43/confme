@@ -7,11 +7,6 @@ import { connect } from "react-redux";
 
 
 class Surveys extends Component{
-    componentDidMount() {
-      console.log('new props inside serveys', this.props.id);
-      //this.props.fetchSponsorById(this.props);
-    }
-
     render(){
         return (
             <div className={classes.Surveys}>
@@ -34,7 +29,7 @@ class Surveys extends Component{
                 </div> */}
                 <div className={classes.Surveys__List}>
                     <SurveyCard
-                        title = "xd"
+                        title = "Один важный опрос"
                         id={this.props.id}
                     />
                     <SurveyCard

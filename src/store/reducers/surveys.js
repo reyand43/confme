@@ -3,7 +3,7 @@ import { FETCH_SURVEYS_ERROR, FETCH_SURVEYS_START, FETCH_SURVEYS_SUCCESS} from "
 
 const initialState = {
  surveys: [],
- SurveysLoading: false,
+ surveysLoading: false,
  survey: [],
  surveyLoading: false
 };
@@ -15,7 +15,7 @@ export default function sponsorsReducer(state = initialState, action) {
       return {
         ...state,
         surveysLoading: false,
-        surveys: action.surveysLoading
+        surveys: action.surveys
       };
     case FETCH_SURVEYS_START:
       return {
@@ -28,9 +28,6 @@ export default function sponsorsReducer(state = initialState, action) {
         loading: false,
         error: action.error
       };
-
-
-
     default:
       return state;
   }

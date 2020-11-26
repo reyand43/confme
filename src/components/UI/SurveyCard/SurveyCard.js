@@ -18,7 +18,7 @@ export const SurveyCard = (props) => {
                         {props.title}
                     </div>
                     <div className={classes.SurveyCard__TextBlock__TakeTheSurvey}>
-                        <NavLink to={"/quiz/" + props.id /*+ this?props.id*/}><span>Пройти опрос</span></NavLink>
+                        <NavLink to={"/quiz/" + props.id}><span>Пройти опрос</span></NavLink>
                     </div>
                 </div>
             </div>

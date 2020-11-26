@@ -5,7 +5,7 @@ export function fetchSurveys(sponsorId) {  //загрузка спонсоров
     return async (dispatch) => {
       dispatch(fetchSurveysStart());
       try {
-        db.ref("sponsors/"+sponsorId+"/surveys").on("value", function (snapshot) {
+        db.ref("sponsors/"+sponsorId+"/surveys/0").on("value", function (snapshot) {
           let surveys = []
           Object.keys(snapshot.val()).forEach((key, index) => {
             surveys.push(snapshot.val()[key]);

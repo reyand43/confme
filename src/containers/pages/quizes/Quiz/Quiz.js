@@ -7,6 +7,7 @@ import { Loader } from "../../../../components/UI/Loader/Loader";
 import ActiveQuiz from '../../../../components/UI/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../../../components/UI/FinishedQuiz/FinishedQuiz'
 import { connect } from "react-redux";
+import { selectQuiz } from "../../../../store/actions/quiz"
 
 class Quiz extends Component {
   state = {
@@ -76,20 +77,22 @@ class Quiz extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
-      const quiz = response.data
-
-      this.setState({
-        quiz,
-        loading: false
-      })
+      if (this.props.match.params.id.length < 7) { //если это опрос спонсоров (там id - число 0-1000000), то лоадим из surveys
+        this.setState({
+          quiz: this.props.surveys,
+          loading: false
+        })
+      } else { //если это опрос, созданный вручную - загружаем из quizes
+        const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+        const quiz = response.data
+        this.setState({
+          quiz,
+          loading: false
+        })
+      }
     } catch (e) {
       console.log(e)
     }
-    /*this.setState({
-      quiz: this.props.survey,
-      loading: false
-    })*/
   }
 
   render() {
@@ -141,7 +144,7 @@ class Quiz extends Component {
 
 function mapStateToProps(state){
   return{
-    survey: state.quiz.survey
+    surveys: state.surveys.surveys
   }
 }
 

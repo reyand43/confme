@@ -9,7 +9,6 @@ export function fetchSponsors() {  //загрузка спонсоров
           let sponsors = []
           Object.keys(snapshot.val()).forEach((key, index) => {
             sponsors.push(snapshot.val()[key]);
-
           });
           dispatch(fetchSponsorsSuccess(sponsors));
         });
@@ -55,7 +54,6 @@ export function fetchSponsors() {  //загрузка спонсоров
   }
 
   export function fetchSponsorByIdSuccess(sponsor) {
-    console.log(sponsor)
     return {
       type: FETCH_SPONSOR_BY_ID_SUCCESS,
       sponsor
