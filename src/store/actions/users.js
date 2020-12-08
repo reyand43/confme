@@ -6,8 +6,8 @@ import {
   FETCH_USERS_ERROR,
   FETCH_USER_SUCCESS,
   FETCH_USER_START,
-  CLEAR_STATE,
-  SET_SEARCHED_USERS
+  SET_SEARCHED_USERS,
+  CLEAR_STATE_USER
 } from "./actionTypes";
 
 export function fetchUsers() {
@@ -76,10 +76,9 @@ export function fetchUsersError(e) {
     error: e,
   };
 }
-export function clearState(e) {
+export function clearState() {
   return {
-    type: CLEAR_STATE,
-    
+    type: CLEAR_STATE_USER,
   };
 }
 

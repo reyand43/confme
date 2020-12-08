@@ -3,7 +3,7 @@ import classes from './Input.module.scss'
 
 
 function isInvalid({valid, touched, shouldValidate}) {
-  return !valid && shouldValidate && touched 
+  return !valid && shouldValidate && touched
   }
 
 const Input = (props) => {
@@ -11,7 +11,7 @@ const Input = (props) => {
   const cls = [classes.Input, classes[props.width]];
   const htmlFor = `${inputType}-${Math.random()}`;
 
-  
+
 if(isInvalid(props)) {
   cls.push(classes.invalid)
 }
@@ -34,7 +34,7 @@ if(isInvalid(props)) {
           isInvalid(props) ? <span>{props.errorMessage || 'Введите верное значение'}</span> : null
       }
 
-      
+
     </div>
     )
 }

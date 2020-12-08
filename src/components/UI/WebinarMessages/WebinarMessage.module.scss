@@ -1,0 +1,50 @@
+@import '../vars.scss';
+
+.WebinarMessage{
+    display: flex;
+    margin-left: 10px;
+    align-items: flex-end;
+    margin-top: 15px;
+    height: fit-content;
+    width: 100%;
+    justify-content: flex-start;
+    cursor: pointer;
+    a{
+        text-decoration: none;
+    }
+    &__Time{
+        opacity: 0;
+        align-self: flex-end;
+        font-size: 10px;
+        margin-bottom: 3px;
+        margin-left: 4px;
+        color: $colorGreyFirst;
+    }
+    &:hover &__Time{
+        transition: 300ms;
+        opacity: 1;
+    }
+    &__Message{
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        &__Name{
+            
+            font-size: 14px;
+            color: $colorGreyFirst;
+            margin-bottom: 5px;
+            &:hover{
+                color: black;
+
+            }
+            
+        }
+        &__Text{
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            word-break: break-all;
+        }
+    }
+    
+}

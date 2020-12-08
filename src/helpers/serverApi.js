@@ -70,7 +70,7 @@ class serverApi {
       "join",
       { user_id: userId },
       (res) => {
-        console.log("SignIn subscribe on messages: ", res);
+        console.log("Subscribe on messages: ", res);
       }
     );
   }

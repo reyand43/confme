@@ -32,13 +32,16 @@
           display: flex;
           color: white;
           text-decoration: none;
-          width: 180px;
+          width: 100%;
           height: 100%;
           padding: 10px 20px;
           align-items: center;
-          display: inline-block;
-          border-left: 4px solid $colorAccent;
           
+          border-left: 6px solid $colorAccent;
+          box-sizing: border-box;
+          span{
+            white-space: nowrap;
+          }
           i{
             font-size: 18px;
             margin-right: 10px;
@@ -48,9 +51,20 @@
           
         }
         a.active{
-          border-left: 4px solid white;
+          border-left: 6px solid white !important;
+          background: #656caf;
+          
           font-weight: 600;
+          i{
+            font-size: 19px;
+          }
         }
+        
+        a:hover{
+          border-left: 6px solid  #656caf;
+          background: #656caf;
+        }
+        
         
       }
     }

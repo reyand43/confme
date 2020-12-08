@@ -72,7 +72,11 @@
             }
         }
     }
-    &__ButtonWatch {
+    a{
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        button{
         margin: 0 auto;
         background-color: $colorAccent;
         border-radius: 10px;
@@ -82,5 +86,6 @@
         border: none;
         cursor: pointer;
         outline: none;
-    }
+        }
+}
 }

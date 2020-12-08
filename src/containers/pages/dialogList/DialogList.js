@@ -17,6 +17,7 @@ import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import { fetchUsers } from "../../../store/actions/users";
 import api from "../../../helpers/serverApi";
+import SearchInput from "../../../components/UI/Input/SearchInput/SearchInput";
 
 class DialogList extends React.Component {
   state = {
@@ -110,20 +111,21 @@ class DialogList extends React.Component {
   render() {
     return (
       <>
+      
         <BGMain>
           <div className={classes.ChatBox}>
             <div className={classes.ChatBox__DialogList}>
               <div className={classes.ChatBox__DialogList__SearchBar}>
                 <i className="fa fa-search"></i>
-                <input placeholder="Поиск..." />
+                <input placeholder="Поиск..." onChange={this.dataSearch}/>
+                
                 <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
               </div>
               <div className={classes.ChatBox__DialogList__ScrollList}>
                 {this.props.dialogsLoading && <Loader />}
 
-                <ScrollBar>
-                  <ul>{this.renderDialogs()}</ul>
-                </ScrollBar>
+                <ScrollBar><ul>{this.renderDialogs()}</ul></ScrollBar>
+
               </div>
             </div>
 
@@ -149,6 +151,7 @@ class DialogList extends React.Component {
                 </div>
                 <div className={classes.ChatBox__MessageBox__Messages}>
                   {this.props.messages.length === 0 ? (
+                    this.props.messagesLoading ? <Loader/> :
                     <div
                       className={
                         classes.ChatBox__MessageBox__Messages__NoMessages
@@ -179,7 +182,12 @@ class DialogList extends React.Component {
                       value={this.state.content}
                       onChange={this.changeHandler}
                       type="text"
-                      ref={(input) => input && input.focus()}
+                      ref={input => input && input.focus()}
+                      onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                          this.sendHandler()
+                        }
+                      }} //после нажатия на enter, отправляется сообщение
                     />
                   </div>
                   <div
@@ -204,6 +212,7 @@ class DialogList extends React.Component {
               <UserCard
                 dialog={true}
                 user={this.props.users[this.friendId - 1]}
+                loading={this.props.userLoading}
               />
             )}
           </BGSide>
@@ -217,7 +226,6 @@ function mapStateToProps(state) {
   return {
     dialogsLoading: state.dialogList.dialogsLoading,
     dialogs: state.dialogList.dialogs,
-    user: state.users.user,
     users: state.users.users,
     messages: state.dialogList.messages,
     messagesLoading: state.dialogList.messagesLoading,
@@ -232,8 +240,8 @@ function mapDispatchToProps(dispatch) {
     fetchUsers: () => dispatch(fetchUsers()),
     fetchDialogs: (userId) => dispatch(fetchDialogs(userId)),
     fetchUserById: (friendId) => dispatch(fetchUserById(friendId)),
-    selectDialog: (dialogId, friend) =>
-      dispatch(selectDialog(dialogId, friend)),
+    //setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter)),
+    selectDialog: (dialogId) => dispatch(selectDialog(dialogId)),
     sendMessages: (
       userId,
       content,

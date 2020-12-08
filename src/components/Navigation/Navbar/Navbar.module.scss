@@ -26,6 +26,7 @@
       font-weight: 500;
     }
     &__LowerText {
+     
       font-size: small;
     }
   }
@@ -77,8 +78,8 @@
   }
 }
 
-.userInfoBlock p {
-  margin: 9px 5px 9px 5px;
+.userInfoBlock span {
+  margin: 9px 10px 9px 5px;
   white-space: pre;
   font-weight: 500;
 }
@@ -90,7 +91,7 @@
 }
 
 .userInfoBlock i {
-  padding: 15px 0px 15px 0px;
+  padding: 15px 0px 15px 10px;
   font-size: 12px;
 
   margin-right: 5px;

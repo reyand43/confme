@@ -4,7 +4,7 @@ import {
   SEND_MESSAGES_SUCCESS,
   FETCH_USERS_DATA_SUCCESS,
   FETCH_USERS_DATA_START,
-  CLEAR_STATE,
+  CLEAR_STATE_DIALOG,
 } from "./actionTypes";
 import { db } from "../../services/firebase";
 import axios from "../../axios/axios";
@@ -143,7 +143,7 @@ export function sendMessagesError(e) {
 
 export function clearState() {
   return {
-    type: CLEAR_STATE,
+    type: CLEAR_STATE_DIALOG,
     
   };
 }

@@ -1,0 +1,21 @@
+@import "./../../../../components/UI/vars.scss";
+
+.Quiz {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    flex-grow: 1;
+    width: 100%;
+    background: $colorAccentLight;
+    border-radius: 10px;
+}
+
+.Quiz h1 {
+    text-align: center;
+    color: $colorTextM;
+    margin-left: 10px;
+}
+
+.QuizWrapper {
+    width: 600px;
+}

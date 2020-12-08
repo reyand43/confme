@@ -3,8 +3,6 @@ import classes from "./Navbar.module.scss";
 import { connect } from "react-redux";
 import { UserPhoto } from "../../UI/UserPhoto/UserPhoto";
 import {
-  loadUserNameFromServer,
-  clearUserName,
   fetchUserData,
 } from "../../../store/actions/editProfile";
 import DropDown from "../../UI/DropDown/DropDown";
@@ -19,17 +17,17 @@ class Navbar extends React.Component {
     //-----------------------
     const items = [
       {
-        text: "Профиль",
+        text: "Редактировать профиль",
         onClick: () => {
           this.props.history.push("/editProfile");
         },
       },
-      {
-        text: "Трансляция",
-        onClick: () => {
-          this.props.history.push("/broadcast");
-        },
-      },
+      // {
+      //   text: "Трансляция",
+      //   onClick: () => {
+      //     this.props.history.push("/broadcast");
+      //   },
+      // },
       {
         text: "Выход",
         onClick: () => {
@@ -83,7 +81,7 @@ class Navbar extends React.Component {
         <div className={classes.Navbar__TimeAndProfile}>
           <div className={classes.Navbar__EventTime}>
             <div className={classes.Navbar__EventTime__UpperText}>
-              Время мероприятия:
+              Время мероприятия
             </div>
             <div className={classes.Navbar__EventTime__LowerText}>
               <Time utc={3} city="Москва" />

@@ -2,22 +2,43 @@ import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import classes from "./Sponsors.module.scss";
 import { connect } from "react-redux";
-import DateCard from "../../../components/Timetable/DateCard/DateCard";
-import { changeDate } from "../../../store/actions/timetable";
-import EventCard from "../../../components/Timetable/EventCard/EventCard";
 import SponsorCard from "../../../components/UI/SponsorCard/SponsorCard";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
+import { fetchSponsors} from "../../../store/actions/sponsors";
 
 class Sponsors extends Component{
+
+  componentDidMount(){
+    this.props.fetchSponsors()
+  }
+
+
+
+  renderSponsors = () => {
+    return this.props.sponsors.map((sponsor) => {
+      return (
+        <NavLink key={sponsor.Id} to={"/sponsors/" + sponsor.Id}>
+            <SponsorCard
+              logo = "Логотип"
+              title = {sponsor.Name}
+              description = {sponsor.Description}
+            />
+        </NavLink>
+      );
+
+    });
+  }
+
   render(){
     return(
       <BGMain>
         <div className={classes.Sponsors}>
           <div className={classes.Sponsors__Title}>
-            Спонсоры  
+            Спонсоры
           </div>
           <div className={classes.Sponsors__Grid}>
-            <NavLink to="/sponsorMain" activeClassName={classes.active}>
+            {this.renderSponsors()}
+            {/* <NavLink to="/sponsorMain" activeClassName={classes.active}>
               <SponsorCard
               logo = "Логотип"
               title = "Google"
@@ -46,7 +67,7 @@ class Sponsors extends Component{
               <SponsorCard
                 // logo = "Логотип"
                 title = "Ашан"
-                description = "Продуктовый гипермаркет"/>
+                description = "Продуктовый гипермаркет"/> */}
           </div>
         </div>
       </BGMain>
@@ -55,4 +76,18 @@ class Sponsors extends Component{
   }
 }
 
-export default Sponsors
+function mapStateToProps(state) {
+  return {
+    sponsors: state.sponsors.sponsors,
+    sponsorsLoading: state.sponsors.sponsorsLoading
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchSponsors: () => dispatch(fetchSponsors()),
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sponsors);

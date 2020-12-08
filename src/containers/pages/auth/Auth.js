@@ -5,8 +5,6 @@ import is from "is_js";
 import AuthInput from "../../../components/UI/AuthInput/AuthInput";
 import { Redirect } from "react-router-dom";
 import {signIn, signUp } from "../../../store/actions/auth";
-import { clearUserName } from "../../../store/actions/editProfile";
-
 class Auth extends Component {
   state = {
     signUp: false,
@@ -88,7 +86,8 @@ class Auth extends Component {
       this.state.formControls.email.value,
       this.state.formControls.password.value,
     );
-
+    this.props.isAuthenticated &&
+    this.props.history.push("/welcomePage")
   };
 
   registerHandler = () => {
@@ -98,6 +97,8 @@ class Auth extends Component {
       this.state.nameControls.name.value,
       this.state.nameControls.surname.value
     );
+    this.props.isAuthenticated &&
+    this.props.history.push("/editProfile")
   };
 
   submitHandler = (event) => {
@@ -242,7 +243,7 @@ class Auth extends Component {
                 <h1>Зарегистрироваться</h1>
                 <div className={classes.Auth__Card__Form__Center}>
                   <button>Sign up with Google</button>
-                </div> 
+                </div>
                 <div className={classes.or}>
                   <hr />
                   или
@@ -279,6 +280,11 @@ class Auth extends Component {
                 <form
                   onSubmit={this.submitHandler}
                   className={classes.AuthForm}
+                  onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      this.loginHandler()
+                    }
+                  }} //после нажатия на enter, выполняется вход
                 >
                   {this.renderInputs()}
                 </form>
@@ -294,7 +300,7 @@ class Auth extends Component {
                 {this.props.loginError ? <span className={classes.Auth__Card__Form__Error}>
                   Упс! Не удалось войти...
                 </span> : null}
-                
+
               </div>
             )}
 
@@ -321,7 +327,7 @@ function mapDispatchToProps(dispatch) {
     signUp: (email, password, name, surname) => {
       dispatch(signUp(email, password, name, surname));
     },
-   
+
   };
 }
 

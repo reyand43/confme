@@ -4,11 +4,7 @@ import { UserPhoto } from '../UserPhoto/UserPhoto'
 import { SponsorLogo } from "../SponsorLogo/SponsorLogo";
 import { NavLink } from "react-router-dom";
 
-
-
-
-class SurveyCard extends Component{
-    render(){
+export const SurveyCard = (props) => {
         return (
             <div className={classes.SurveyCard}>
                 {/* <div className={classes.SurvayCard__Logo}>
@@ -19,18 +15,12 @@ class SurveyCard extends Component{
                 </div>
                 <div className={classes.SurveyCard__TextBlock}>
                     <div className={classes.SurvayCard__TextBlock__Title}>
-                        {this.props.title}
+                        {props.title}
                     </div>
                     <div className={classes.SurveyCard__TextBlock__TakeTheSurvey}>
-                        <NavLink to={"/100" /*+props.id*/}><span>Пройти опрос</span></NavLink>
+                        <NavLink to={"/quiz/" + props.id}><span>Пройти опрос</span></NavLink>
                     </div>
-
                 </div>
-
-            
             </div>
         )
-    }
 }
-
-export default SurveyCard

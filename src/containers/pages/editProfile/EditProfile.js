@@ -92,7 +92,7 @@ class EditProfile extends React.Component {
             </div>
           </div>
         </BGMain>
-        <BGSide>
+        <BGSide padding={true}>
           <div className={classes.SideMenu}>
             <div className={classes.SideMenu__UserInfo}>
               <UserPhoto size="lg">

@@ -17,6 +17,7 @@ import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import api from "../../../helpers/serverApi";
 import { fetchDialogsCount } from "../../../store/actions/dialogList";
 import { fetchUserById } from "../../../store/actions/users";
+import {ComboBox} from '../../../components/UI/ComboBox/ComboBox';
 
 class Users extends React.Component {
   constructor(props) {
@@ -168,6 +169,11 @@ class Users extends React.Component {
     this.props.fetchDialogsCount();
   }
 
+  componentWillUnmount(){
+    this.props.closeUserCard()
+  }
+
+
   render() {
     return (
       <>
@@ -178,7 +184,9 @@ class Users extends React.Component {
               placeholder="Введите имя, компанию, сферу деятельности или интересы..."
             />
             <div className={classes.UserList__FindLabel}>
-              <span>Найдено 1763 человека</span>
+              
+              <span>Найдено {this.props.users.length} </span>
+              {this.props.users.length % 10 === ( 2 || 3 || 4) ? <span>человека</span> : <span>человек</span>}
             </div>
             <div className={classes.UserList__List}>
               {this.props.loading ? (
@@ -191,9 +199,9 @@ class Users extends React.Component {
             </div>
           </div>
         </BGMain>
-        <BGSide>
+        <BGSide padding={true}>
           <div className={classes.Aside}>
-            {this.props.dialogInfo != null ? (
+            {this.state.selectedUser ? (
               <div>
                 <div className={classes.Aside__CloseButton}>
                   <i
@@ -202,7 +210,7 @@ class Users extends React.Component {
                   ></i>
                 </div>
 
-                <UserCard user={this.props.dialogInfo} />
+                <UserCard user={this.props.users[this.state.selectedUser - 1]} />
               </div>
             ) : (
               <div className={classes.Settings}>
@@ -227,6 +235,8 @@ class Users extends React.Component {
                     <input />
                   </div>
                 </div>
+                ComboBox
+                <ComboBox/>
               </div>
             )}
           </div>
@@ -243,7 +253,6 @@ function mapStateToProps(state) {
     loading: state.users.loading,
     modalOpenState: state.modal.modalOpenState,
     user: state.openUserCard.user,
-    dialogInfo: state.dialogList.dialogInfo,
     dialogs: state.dialogList.dialogs,
     countAllDialogs: state.dialogList.countAllDialogs
   };

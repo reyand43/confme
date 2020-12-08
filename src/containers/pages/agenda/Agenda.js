@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./agenda.module.scss";
+import classes from "./Agenda.module.scss";
 import { connect } from "react-redux";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import WholeTimetable from "../../../components/ExactTimePanel/WholeTimetable";
@@ -7,6 +7,8 @@ import AgendaEvent from "../../../components/UI/AgendaEvent/AgendaEvent";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import { fetchAgendaEvents } from "../../../store/actions/agenda";
 import { Loader } from "../../../components/UI/Loader/Loader";
+
+//---
 
 let newDate = new Date();
 let date = newDate.getDate();
@@ -33,10 +35,11 @@ class Agenda extends React.Component {
 
   renderEvents() {
     console.log(this.props.agendaEvents);
+
     return this.props.agendaEvents.map((event, index) => {
       const d = new Date(event.startTime);
       const startTime = (d.getHours() - 8) * 60 + d.getMinutes();
-     
+      console.log(event, '|||',  Math.floor((event.endTime - event.startTime) / 1000 / 60));
       if (d.getDate() === newDate.getDate())
       
       return (
@@ -131,33 +134,32 @@ class Agenda extends React.Component {
   render() {
     let DateChanger = (
       <div className={classes.Agenda__DateChanger}>
-        
-           
+
+
               <i  onClick={this.getPrevDate} className="fa fa-chevron-left" aria-hidden="true" />
             <div className={classes.img}>
               <i className="fa fa-calendar" aria-hidden="true"></i>
             </div>
             <div className={classes.date}>{this.state.showingDate}</div>
-            
+
               <i onClick={this.getNextDate} className="fa fa-chevron-right" aria-hidden="true" />
-            
+
         </div>
-      
+
     );
     return (
-      
+
         <BGMain>
           <div className={classes.Agenda}>
           {DateChanger}
 
           <ScrollBar>
             {this.props.agendaEventsLoading ? <Loader /> : this.renderEvents()}
-
             <WholeTimetable />
           </ScrollBar>
           </div>
         </BGMain>
-      
+
     );
   }
 }

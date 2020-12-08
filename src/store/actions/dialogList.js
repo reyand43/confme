@@ -9,11 +9,10 @@ import {
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_SUCCESS,
   SELECT_DIALOG,
-  FETCH_DIALOG_INFO,
   SEND_MESSAGES_ERROR,
   SEND_MESSAGES_SUCCESS,
   SEND_MESSAGES_START,
-  CLEAR_STATE,
+  CLEAR_STATE_DIALOGS,
   ADD_MESSAGE,
   ADD_DIALOG,
   COUNT_ALL_DIALOGS,
@@ -213,12 +212,6 @@ export function sendMessages(
   };
 }
 
-function formatTime(timestamp) {
-  const d = new Date(timestamp);
-  const time = `${d.getHours()}:${d.getMinutes()}`;
-  return time;
-}
-
 export function sendMessagesSuccess(content) {
   return {
     type: SEND_MESSAGES_SUCCESS,
@@ -240,6 +233,6 @@ export function sendMessagesError(e) {
 
 export function clearState() {
   return {
-    type: CLEAR_STATE,
+    type: CLEAR_STATE_DIALOGS,
   };
 }
