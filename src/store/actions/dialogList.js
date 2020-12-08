@@ -47,7 +47,6 @@ export function fetchDialogs(userId) {
       api.socket.removeAllListeners("dialogSubscribe");
       api.socket.on("dialogSubscribe", async(res) => {
         const d = res.data;
-        console.log("DIALOG_MEsSAGED", userId, d.firstUser_id, d.secondUser_id);
         const friendId =
           userId === parseInt(d.firstUser_id) ? d.secondUser_id : d.firstUser_id;
         const friend = (await api.fetchPersonal(friendId)).data;
@@ -81,6 +80,7 @@ export function fetchMessages(userId, dialogId) {
     try {
       const messages = []
       const res = (await api.fetchMessages(dialogId)).data;
+
       for(const message of res) {
         const friend = (await api.fetchPersonal(message.sender_id)).data;
         const m = {
@@ -94,6 +94,7 @@ export function fetchMessages(userId, dialogId) {
       }
       dispatch(fetchMessagesSuccess(messages));
       api.socket.removeAllListeners("messageSubscribe");
+      console.log("SUBSCRIBE MESSAGES");
       api.socket.on("messageSubscribe", async(res) => {
         const message = res.data;
         const friend = (await api.fetchPersonal(message.sender_id)).data;
@@ -116,16 +117,14 @@ export function fetchMessages(userId, dialogId) {
   };
 }
 
-export function selectDialog(dialogId, friend) {
+export function selectDialog(dialogId) {
   //выбор диалога для загрузки сообщений
-  console.log("SELECT_DiALOG", dialogId, friend);
   const userId = parseInt(localStorage.getItem("userId"));
   return async (dispatch) => {
     dispatch(setDialog(dialogId));
-    if (dialogId !== null) {
-        dispatch(fetchDialogInfo(friend));
-    } else dispatch(fetchDialogInfo(null));
-    dispatch(fetchMessages(userId, dialogId));
+    if(dialogId) {
+     dispatch(fetchMessages(userId, dialogId));
+    }
   };
 }
 
@@ -143,13 +142,6 @@ export function setDialog(dialogId) {
   return {
     type: SELECT_DIALOG,
     dialogId,
-  };
-}
-
-export function fetchDialogInfo(dialogInfo) {
-  return {
-    type: FETCH_DIALOG_INFO,
-    dialogInfo,
   };
 }
 

@@ -36,7 +36,7 @@ export default function Messages(props){
     
   function formatTime(timestamp) {  //приводим время в нормальный вид
     const d = new Date(timestamp);
-    const time = `${d.getHours()}:${d.getMinutes()}`;
+    const time = `${d.getHours()}:${d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()}`;
     return time;
   }
 

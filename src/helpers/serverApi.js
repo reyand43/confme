@@ -54,13 +54,7 @@ class serverApi {
           const response = JSON.parse(res);
           if (response && response.status === "success") {
             this.token = response.data.accessToken;
-            this.socket.emit(
-              "join",
-              { user_id: response.data.id },
-              (res) => {
-                console.log("SignIn subscribe on messages: ", res);
-              }
-            );
+            this.joinDialogs(response.data.id);
             this.socket.on("message", (data) => {
               console.log("Took message", data);
             });
@@ -70,6 +64,16 @@ class serverApi {
       );
     });
   };
+
+  joinDialogs = (userId) => {
+    this.socket.emit(
+      "join",
+      { user_id: userId },
+      (res) => {
+        console.log("SignIn subscribe on messages: ", res);
+      }
+    );
+  }
 
   signOut = () => {
     return new Promise((resolve, reject) => {
@@ -111,7 +115,6 @@ class serverApi {
   fetchDialogs = (userId) => {
     return new Promise((resolve, reject) => {
       this.socket.emit("fetchDialogs", { user_id: userId }, (res) => {
-        console.log("Fetch dialogs: ", res);
         const response = JSON.parse(res);
         resolve(response);
       });
@@ -139,7 +142,6 @@ class serverApi {
   fetchMessages = (dialogId) => {
     return new Promise((resolve, reject) => {
       this.socket.emit("fetchMessages", { dialog_id: dialogId }, (res) => {
-        console.log("Fetch messages: ", res);
         const response = JSON.parse(res);
         resolve(response);
       });
@@ -159,7 +161,6 @@ class serverApi {
   fetchUsers = () => {
     return new Promise((resolve, reject) => {
       this.socket.emit("fetchUsers", {}, (res) => {
-        console.log("Fetch users: ", res);
         const response = JSON.parse(res);
         resolve(response);
       });

@@ -3,7 +3,6 @@ import classes from "./DialogList.module.scss";
 import { DialogListItem } from "../../../components/UI/DialogListItem/DialogListItem";
 import { connect } from "react-redux";
 import {
-  fetchDialogInfo,
   fetchDialogs,
   selectDialog,
   sendMessages,
@@ -17,7 +16,7 @@ import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import { fetchUsers } from "../../../store/actions/users";
-
+import api from "../../../helpers/serverApi";
 
 class DialogList extends React.Component {
   state = {
@@ -26,40 +25,43 @@ class DialogList extends React.Component {
   };
 
   friendId = null;
+  userId = parseInt(localStorage.getItem("userId"));
+  idFromPath = parseInt(document.location.pathname.slice(9));
 
-  componentDidMount() {
-    this.props.fetchUsers();
-    const idFromPath = document.location.pathname.slice(9);
-    //this.props.fetchDialogs(localStorage.getItem("userId")); //загружаем диалоги по нашему id
-    if (idFromPath.length > 0 && this.props.location.state) {
+  async componentDidMount() {
+    if (this.idFromPath.length > 0 && this.props.location.state) {
       //если ссылка содержит id то
       this.friendId = parseInt(this.props.location.state.friendId);
-      this.props.selectDialog( parseInt(idFromPath), this.props.users[this.friendId - 1]); 
+      this.props.selectDialog(this.idFromPath);
       //вызываем ф-ию selectDialog с айди из ссылки
-     // this.props.fetchUserById(this.props.dialogs[])
+    } else {
+      this.props.selectDialog(this.idFromPath);
     }
-    else {
-      this.props.selectDialog(null, null);
-    }
-    
+    api.joinDialogs(this.userId);
+  }
+
+  componentDidUpdate() {
+    this.idFromPath = parseInt(document.location.pathname.slice(9)); 
+    if(!this.idFromPath)
+      this.props.selectDialog(null);
   }
 
   renderDialogs() {
-    const uid = parseInt( localStorage.getItem("userId") );
-    
     if (this.props.dialogsLoading) {
       //если диалоги загружаются то функция ничего не возвращает
       return null;
     } else {
-
       return this.props.dialogs.map((dialog) => {
+        if(dialog.id === this.idFromPath) {
+          this.friendId = dialog.friendId;
+        }
         return (
           <NavLink
             key={dialog.id}
             to={"/dialogs/" + dialog.id}
             onClick={() => {
               this.friendId = dialog.friendId;
-              this.props.selectDialog(dialog.id, this.props.users[dialog.friendId - 1]);
+              this.props.selectDialog(dialog.id);
             }}
           >
             <li>
@@ -68,7 +70,7 @@ class DialogList extends React.Component {
                 name={this.props.users[dialog.friendId - 1].name}
                 surname={this.props.users[dialog.friendId - 1].surname}
                 text={
-                  dialog.sender_id === uid
+                  dialog.sender_id === this.userId
                     ? `Вы: ${dialog.lastMessage}`
                     : dialog.lastMessage
                 }
@@ -88,7 +90,8 @@ class DialogList extends React.Component {
     });
   };
 
-  sendHandler = () => { //отсыдаем сообщения
+  sendHandler = () => {
+    //отсыдаем сообщения
     this.props.sendMessages(
       localStorage.getItem("userId"), //мой id
       this.state.content, //текст сообщения
@@ -96,7 +99,7 @@ class DialogList extends React.Component {
       this.props.myName, //мое имя
       this.props.mySurname, //моя фамилия
       this.props.users[this.friendId - 1].name,
-      this.props.users[this.friendId - 1].surname ,//фамилия с кем чатимся
+      this.props.users[this.friendId - 1].surname, //фамилия с кем чатимся
       this.props.selectedDialog
     );
     this.setState({
@@ -117,9 +120,10 @@ class DialogList extends React.Component {
               </div>
               <div className={classes.ChatBox__DialogList__ScrollList}>
                 {this.props.dialogsLoading && <Loader />}
-                
-                <ScrollBar><ul>{this.renderDialogs()}</ul></ScrollBar>
-                
+
+                <ScrollBar>
+                  <ul>{this.renderDialogs()}</ul>
+                </ScrollBar>
               </div>
             </div>
 
@@ -136,8 +140,8 @@ class DialogList extends React.Component {
                         classes.ChatBox__MessageBox__TopBar__DialogName
                       }
                     >
-                      {this.props.users[this.friendId-1].name}{" "}
-                      {this.props.users[this.friendId-1].surname}
+                      {this.props.users[this.friendId - 1].name}{" "}
+                      {this.props.users[this.friendId - 1].surname}
                     </span>
                   )}
 
@@ -154,7 +158,7 @@ class DialogList extends React.Component {
                     </div>
                   ) : (
                     <ScrollBar>
-                    <Messages messages={this.props.messages} />
+                      <Messages messages={this.props.messages} />
                     </ScrollBar>
                   )}
                 </div>
@@ -166,14 +170,16 @@ class DialogList extends React.Component {
                   >
                     <i className="fa fa-paperclip" aria-hidden="true"></i>
                   </div>
-                  <div className={classes.ChatBox__MessageBox__BottomBar__Input}>
+                  <div
+                    className={classes.ChatBox__MessageBox__BottomBar__Input}
+                  >
                     <input
                       placeholder="Напишите сообщение"
                       name="content"
                       value={this.state.content}
                       onChange={this.changeHandler}
                       type="text"
-                      ref={input => input && input.focus()}
+                      ref={(input) => input && input.focus()}
                     />
                   </div>
                   <div
@@ -216,7 +222,6 @@ function mapStateToProps(state) {
     messages: state.dialogList.messages,
     messagesLoading: state.dialogList.messagesLoading,
     selectedDialog: state.dialogList.selectedDialog,
-    dialogInfo: state.dialogList.dialogInfo,
     myName: state.editProfile.userData.name,
     mySurname: state.editProfile.userData.surname,
   };
@@ -227,8 +232,8 @@ function mapDispatchToProps(dispatch) {
     fetchUsers: () => dispatch(fetchUsers()),
     fetchDialogs: (userId) => dispatch(fetchDialogs(userId)),
     fetchUserById: (friendId) => dispatch(fetchUserById(friendId)),
-    selectDialog: (dialogId, friend) => dispatch(selectDialog(dialogId, friend)),
-    fetchDialogInfo: (dialogInfo) => dispatch(fetchDialogInfo(dialogInfo)),
+    selectDialog: (dialogId, friend) =>
+      dispatch(selectDialog(dialogId, friend)),
     sendMessages: (
       userId,
       content,

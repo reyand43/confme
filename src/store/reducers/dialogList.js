@@ -24,7 +24,6 @@ const initialState = {
   messages: [],
   readError: null,
   selectedDialog: null,
-  dialogInfo: null,
   content: "",
   countAllDialogs: null
 };
@@ -70,11 +69,6 @@ export default function dialogListReducer(state = initialState, action) {
         ...state,
         selectedDialog: action.dialogId,
       };
-    case FETCH_DIALOG_INFO:
-      return {
-        ...state,
-        dialogInfo: action.dialogInfo,
-      };
     case SEND_MESSAGES_START:
       return {
         ...state,
@@ -100,7 +94,6 @@ export default function dialogListReducer(state = initialState, action) {
         messages: [],
         readError: null,
         selectedDialog: null,
-        dialogInfo: null,
         content: "",
       };
     case ADD_MESSAGE:
@@ -108,6 +101,7 @@ export default function dialogListReducer(state = initialState, action) {
       newDialogs.map(dialog => {
         if(dialog.id === action.message.dialogId) {
           dialog.lastMessage = action.message.text;
+          dialog.timestamp = action.message.timestamp;
         }
       })
       return {

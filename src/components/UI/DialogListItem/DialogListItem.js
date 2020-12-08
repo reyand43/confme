@@ -28,7 +28,7 @@ export const DialogListItem = (props) => {
           </div>
         </div>
         <div className={classes.DialogListItem__Content__MessageData}>
-         <div className={classes.DialogListItem__Content__MessageData__Time}>{props.time}</div>
+         <div className={classes.DialogListItem__Content__MessageData__Time}>{formatTime(props.time)}</div>
          {/* <div className={classes.DialogListItem__Content__MessageData__Unread}>
            <span>3</span>
          </div> */}
@@ -37,3 +37,9 @@ export const DialogListItem = (props) => {
     </div>
   );
 };
+
+function formatTime(timestamp) {  //приводим время в нормальный вид
+  const d = new Date(timestamp);
+  const time = `${d.getHours()}:${d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()}`;
+  return time;
+}
