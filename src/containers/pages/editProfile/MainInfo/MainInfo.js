@@ -70,10 +70,17 @@ class MainInfo extends React.Component {
     }
   }
 
-  requireControl(value, isRequired) {
-    if (isRequired === false) {
+  requireControl(value, isRequired, controlName) {
+    if (isRequired === false && value === "") { //если поле не важно и пусто, все в порядке
       return true;
-    } else {
+    } else if (isRequired === false && value !== "") { //если поле не важно, но заполнено
+      if(controlName.toString() === "Age" && value > 15) { //Возраст > 15
+        return true;
+      }
+      if(controlName.toString() === "Country" && value.length > 2) { //Название страны > 2 букв
+        return true;
+      }
+    } else if (isRequired === true) {
       let isValid = true;
       isValid = value.trim() !== "";
       return isValid;
@@ -85,7 +92,7 @@ class MainInfo extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
+    control.valid = this.requireControl(control.value, control.isRequired, event.target.name);
 
     formControls[event.target.name] = control;
     this.setState({

@@ -13,9 +13,7 @@
     
     &__MainText {
         // Выравнивание текста
-        position: absolute;
-        top: 50%;
-        transform: translate($sponsorLogoSizeLarge + 20px, -50%); // 20px - значение отступа у .SponsorMain_Top
+        display: flex;
         flex-direction: column;
         padding-left: 20px;
         &__Title {

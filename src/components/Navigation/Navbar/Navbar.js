@@ -19,21 +19,20 @@ class Navbar extends React.Component {
     //-----------------------
     const items = [
       {
-        text: "Профиль",
+        text: "Редактировать профиль",
         onClick: () => {
           this.props.history.push("/editProfile");
         },
       },
-      {
-        text: "Трансляция",
-        onClick: () => {
-          this.props.history.push("/broadcast");
-        },
-      },
+      // {
+      //   text: "Трансляция",
+      //   onClick: () => {
+      //     this.props.history.push("/broadcast");
+      //   },
+      // },
       {
         text: "Выход",
         onClick: () => {
-          this.props.hideDropDown();
           this.props.logout();
           this.props.clearState();
         },
@@ -52,9 +51,9 @@ class Navbar extends React.Component {
         <div className={classes.userInfo}>
           <DropDown items={items}>
             <div className={classes.userInfoBlock}>
-              <p>
+              <span>
                 {this.props.userData.Name} &nbsp; {this.props.userData.Surname}
-              </p>
+              </span>
               <UserPhoto />
               <i className="fa fa-chevron-down" aria-hidden="true"></i>
             </div>
@@ -84,7 +83,7 @@ class Navbar extends React.Component {
         <div className={classes.Navbar__TimeAndProfile}>
           <div className={classes.Navbar__EventTime}>
             <div className={classes.Navbar__EventTime__UpperText}>
-              Время мероприятия:
+              Время мероприятия
             </div>
             <div className={classes.Navbar__EventTime__LowerText}>
               <Time utc={3} city="Москва" />
@@ -100,7 +99,7 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     userData: state.editProfile.userData,
-    
+
     //visible: state.navbar.visibleDropDown,
     //profileClicked: state.navbar.profileClicked,
     isAuthenticated: !!state.auth.token,

@@ -31,12 +31,12 @@ export function fetchUsers() {
 
 export function fetchUserById(userId) {
   return async (dispatch) => {
-    console.log('fetch started')
+    
     dispatch(fetchUserStart());
     try {
       const response = await axios.get(`/users/${userId}/personalData.json`);
       const user = response.data;
-      console.log('actions', user)
+      
       dispatch(fetchUserSuccess(user));
     } catch (e) {
       dispatch(fetchUsersError(e));
@@ -83,7 +83,8 @@ export function fetchUsersError(e) {
     error: e,
   };
 }
-export function clearState(e) {
+export function clearState() {
+  console.log('clear')
   return {
     type: CLEAR_STATE,
     

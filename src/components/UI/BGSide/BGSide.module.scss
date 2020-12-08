@@ -1,17 +1,25 @@
-@import '../vars.scss';
+@import "../vars.scss";
 
-.BGSide{
-    background: $colorGreyThird;
-    border-radius: 10px;
-    
-    min-width: 250px;
+.BGSide {
+  background: $colorGreyThird;
+  border-radius: 10px;
+
+  min-width: 240px;
+  height: 100%;
+  margin-left: 20px;
+  box-sizing: border-box;
+  &__Content {
     height: 100%;
-    margin-left: 20px;
+    width: 100%;
 
-    &__Content{
-height: 100%;
-width: 100%;
-padding: 15px;
-box-sizing: border-box;
-    }
+    box-sizing: border-box;
+  }
+}
+
+.padding{
+    padding: 10px;
+}
+
+.wide{
+  min-width: 280px;
 }

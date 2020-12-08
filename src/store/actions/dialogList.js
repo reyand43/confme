@@ -27,6 +27,7 @@ export function fetchDialogs(userId) {  //загрузка диалогов
           Object.keys(snapshot.val()).forEach((key) => {
             dialogs.push(snapshot.val()[key]);
           });
+         dialogs.sort((a, b) => a.timestamp > b.timestamp ? -1 : 1);
         dispatch(fetchDialogsSuccess(dialogs));
 
       });
@@ -145,7 +146,7 @@ export function sendMessages(
     const postData = {
       userid: userId,
       lastMessage: text,
-      timestamp: formatTime(Date.now()),
+      timestamp: Date.now(),
       withName: withName,
       withSurname: withSurname,
       withId: withId,

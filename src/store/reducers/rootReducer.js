@@ -10,6 +10,10 @@ import dialogListReducer from './dialogList'
 import modalReducer from './modal'
 import openUserCardReducer from './openUserCard'
 import agendaReducer from './agenda'
+import webinarReducer from './webinar'
+import sponsorsReducer from './sponsors'
+import surveysReducer from './surveys'
+import quizReducer from './quiz'
 
 export default combineReducers({
     auth: authReducer,
@@ -21,5 +25,9 @@ export default combineReducers({
     dialogList: dialogListReducer,
     modal: modalReducer,
     openUserCard: openUserCardReducer,
-    agenda: agendaReducer
+    agenda: agendaReducer,
+    webinar: webinarReducer,
+    sponsors: sponsorsReducer,
+    surveys: surveysReducer,
+    quiz: quizReducer
 })

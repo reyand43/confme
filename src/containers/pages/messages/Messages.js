@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect, useRef }  from "react";
 import classes from "./Messages.module.scss";
 import MyMessage from "../../../components/UI/Messages/MyMessage/MyMessage";
 import FriendMessage from "../../../components/UI/Messages/FriendMessage/FriendMessage";
 
+export default function Messages(props) {
 
-export default function Messages(props){
-  let myRef = React.createRef()
+  const messagesEnd = useRef(null)
 
-  function renderMessages() { //ренедрим список сообщений
+  const scrollToBottom = () => {
+    messagesEnd.current.scrollIntoView({block: "end"})
+  }
+
+  function renderMessages() {
+    //ренедрим список сообщений
     return props.messages.map((chat) => {
       return chat.uid === localStorage.getItem("userId") ? (
         <li key={chat.timestamp}>
           <div className={classes.right}>
-            <MyMessage
-              
-              time={formatTime(chat.timestamp)}
-              text={chat.content}
-            />
+            <MyMessage time={formatTime(chat.timestamp)} text={chat.content} />
           </div>
         </li>
       ) : (
@@ -32,20 +33,27 @@ export default function Messages(props){
         </li>
       );
     });
-    
   }
 
+  useEffect(scrollToBottom, [props.messages]);
+
+
   
-  
-  function formatTime(timestamp) {  //приводим время в нормальный вид
+  function formatTime(timestamp) {
+    //приводим время в нормальный вид
     const d = new Date(timestamp);
     const time = `${d.getHours()}:${d.getMinutes()}`;
     return time;
   }
 
-  return(
+  return (
     <div className={classes.Messages}>
-      <ul>{renderMessages()}</ul>
+      <ul>
+        {renderMessages()}
+        <li
+          ref={messagesEnd}
+        ></li>
+      </ul>
     </div>
-  )
+  );
 }

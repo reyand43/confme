@@ -64,10 +64,31 @@ class Contacts extends React.Component {
     }
   }
 
-  requireControl(value, isRequired) {
-    if (isRequired === false) {
+  requireControl(value, isRequired, controlName) {
+    if (isRequired === false && value === "") { //если поле не важно и пусто, все в порядке
       return true;
-    } else {
+    } else if (isRequired === false && value !== "") { //если поле не важно, но заполнено
+      if(controlName.toString() === "Phone") { //Валидный номер телефона
+        let re = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
+        return re.test(value)
+      }
+      if(controlName.toString() === "Vk") { //Валидная ссылка ВКонтакте
+        let re = /(https{0,1}:\/\/)?(www\.)?(vk.com\/)(id\d|[a-zA-z][a-zA-Z0-9_.]{2,})/
+        return re.test(value)
+      }
+      if(controlName.toString() === "Fb") { //Валидная ссылка Facebook
+        let re = /^(?:https?:\/\/)?(?:www\.|m\.|mobile\.|touch\.|mbasic\.)?(?:facebook\.com|fb(?:\.me|\.com))\/(?!$)(?:(?:\w)*#!\/)?(?:pages\/)?(?:photo\.php\?fbid=)?(?:[\w\-]*\/)*?(?:\/)?(?:profile\.php\?id=)?([^\/?&\s]*)(?:\/|&|\?)?.*$/
+        return re.test(value)
+      }
+      if(controlName.toString() === "Li") { //Валидная ссылка Linkedin
+        let re = /http(s)?:\/\/([\w]+\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?/
+        return re.test(value)
+      }
+      if(controlName.toString() === "Inst") { //Валидная ссылка Instagram
+        let re = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_]+)/im
+        return re.test(value)
+      }
+    } else if (isRequired === true) {
       let isValid = true;
       isValid = value.trim() !== "";
       return isValid;
@@ -79,7 +100,7 @@ class Contacts extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
+    control.valid = this.requireControl(control.value, control.isRequired, event.target.name);
 
     formControls[event.target.name] = control;
     this.setState({

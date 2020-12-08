@@ -3,6 +3,7 @@ import classes from "./TimetableCard.module.scss";
 import {UserPhoto} from '../UserPhoto/UserPhoto';
 import { connect } from "react-redux";
 import {addToAgenda} from "../../../store/actions/timetable"
+import { NavLink } from "react-router-dom";
 
 class TimetableCard extends Component{
     constructor(props) {
@@ -61,9 +62,11 @@ class TimetableCard extends Component{
                 
 
             </div>
-            <button className={classes.TimetableCard__ButtonWatch}>
+            <NavLink to={"/webinar/"+ this.props.cardId}>
+            <button  className={classes.TimetableCard__ButtonWatch}>
                 Смотреть трансляцию
             </button>
+            </NavLink>
         </div>
     )
 }}
