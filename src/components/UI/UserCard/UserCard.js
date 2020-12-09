@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { closeUserCard } from "../../../store/actions/openUserCard";
 import { DownBox } from "../DownBox/DownBox";
 import { Loader } from "../Loader/Loader";
@@ -44,12 +44,13 @@ export function UserCard(props) {
                   </div>
                 ) : (
                   <>
-                    <NavLink
-                      onClick={closeUserCard}
-                      to={"/dialogs/" + props.user.id}
-                    >
-                      <button>Написать</button>
-                    </NavLink>
+                   <Link to={{
+                    pathname:"/dialogs/"+ props.dialogId,
+                    state: {friendId: props.user.id}
+                    }
+                  }>
+                  <button>Написать</button>
+                    </Link>
                     <button onClick={props.onClickContacts}>В контакты</button>
                   </>
                 )}

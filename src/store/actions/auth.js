@@ -45,7 +45,7 @@ export function logout() {
   return async(dispatch) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    const res = await api.socket.emit("signOut", {})
+    const res = await api.signOut();
     dispatch ({
       type: AUTH_LOGOUT,
     });

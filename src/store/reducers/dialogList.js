@@ -28,6 +28,7 @@ const initialState = {
 };
 
 export default function dialogListReducer(state = initialState, action) {
+  let newDialogs;
   switch (action.type) {
     case FETCH_DIALOGS_START:
       return {
@@ -64,9 +65,16 @@ export default function dialogListReducer(state = initialState, action) {
         readError: action.error,
       };
     case SELECT_DIALOG:
+      newDialogs = [...state.dialogs];
+      newDialogs.forEach(dialog => {
+        if(dialog.id === action.dialogId) {
+          dialog.unread = 0;
+        }
+      })
       return {
         ...state,
         selectedDialog: action.dialogId,
+        dialogs: newDialogs
       };
     case SEND_MESSAGES_START:
       return {
@@ -96,11 +104,14 @@ export default function dialogListReducer(state = initialState, action) {
         content: "",
       };
     case ADD_MESSAGE:
-      const newDialogs = [...state.dialogs]
-      newDialogs.map(dialog => {
+      newDialogs = [...state.dialogs]
+      newDialogs.forEach(dialog => {
         if(dialog.id === action.message.dialogId) {
           dialog.lastMessage = action.message.text;
           dialog.timestamp = action.message.timestamp;
+          dialog.sender_id = action.message.id;
+          if(action.message.id === action.user_id) dialog.unread = 0;
+          else dialog.unread++;
         }
       })
       return {

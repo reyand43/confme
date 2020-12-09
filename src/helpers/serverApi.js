@@ -66,24 +66,20 @@ class serverApi {
   };
 
   joinDialogs = (userId) => {
-    this.socket.emit(
-      "join",
-      { user_id: userId },
-      (res) => {
-        console.log("Subscribe on messages: ", res);
-      }
-    );
-  }
+    this.socket.emit("join", { user_id: userId }, (res) => {
+      console.log("Subscribe on messages: ", res);
+    });
+  };
 
   signOut = () => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("signOut", {data: ""}, (res) => {
+      this.socket.emit("signOut", {}, (res) => {
         console.log("signOut: ", res);
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
 
   // Params:
   //  data = { sender_id, reciever_id, text }
@@ -130,11 +126,15 @@ class serverApi {
           resolve(response);
         });
       } else {
-        this.socket.emit("fetchDialog", { user_id: userId, friend_id: friendId }, (res) => {
-          console.log("Fetch dialog: ", res);
-          const response = JSON.parse(res);
-          resolve(response);
-        });
+        this.socket.emit(
+          "fetchDialog",
+          { user_id: userId, friend_id: friendId },
+          (res) => {
+            console.log("Fetch dialog: ", res);
+            const response = JSON.parse(res);
+            resolve(response);
+          }
+        );
       }
     });
   };
@@ -199,12 +199,25 @@ class serverApi {
 
   countAllDialogs = () => {
     return new Promise((resolve, reject) => {
-      this.socket.emit("countDialogs", {}, res => {
+      this.socket.emit("countDialogs", {}, (res) => {
         const response = JSON.parse(res);
         resolve(response);
-      })
-    })
-  }
+      });
+    });
+  };
+
+  readDialog = (dialogId, userId) => {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(
+        "readDialog",
+        { dialog_id: dialogId, user_id: userId },
+        (res) => {
+          const response = JSON.parse(res);
+          resolve(response);
+        }
+      );
+    });
+  };
 }
 
 const api = new serverApi();

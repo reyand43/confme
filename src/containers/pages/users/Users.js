@@ -17,7 +17,7 @@ import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import api from "../../../helpers/serverApi";
 import { fetchDialogsCount } from "../../../store/actions/dialogList";
 import { fetchUserById } from "../../../store/actions/users";
-import {ComboBox} from '../../../components/UI/ComboBox/ComboBox';
+import { ComboBox } from "../../../components/UI/ComboBox/ComboBox";
 
 class Users extends React.Component {
   constructor(props) {
@@ -58,6 +58,7 @@ class Users extends React.Component {
         },
       },
     };
+    this.id = null;
   }
 
   renderRoleSearch() {
@@ -139,20 +140,19 @@ class Users extends React.Component {
 
   renderUsers() {
     return this.props.searchedUsers.map((user) => {
-      let id = null;
-      this.props.dialogs.map(dialog => {
-        if(dialog.friendId === user.id) {
-          id = dialog.id;
+      this.props.dialogs.map((dialog) => {
+        if (dialog.friendId === user.id) {
+          this.id = dialog.id;
         }
-      })
-      if(!id) {
-        id = this.props.countAllDialogs + 1;
+      });
+      if (!this.id) {
+        this.id = this.props.countAllDialogs + 1;
       }
       return (
         <li onClick={this.openSideCard.bind(this, user)} key={user.id}>
           <UserItem
-            dialogId={id}
-            id = {user.id}
+            dialogId={this.id}
+            id={user.id}
             name={user.name}
             surname={user.surname}
             accountType={user.role}
@@ -169,10 +169,9 @@ class Users extends React.Component {
     this.props.fetchDialogsCount();
   }
 
-  componentWillUnmount(){
-    this.props.closeUserCard()
+  componentWillUnmount() {
+    this.props.closeUserCard();
   }
-
 
   render() {
     return (
@@ -184,9 +183,12 @@ class Users extends React.Component {
               placeholder="Введите имя, компанию, сферу деятельности или интересы..."
             />
             <div className={classes.UserList__FindLabel}>
-              
               <span>Найдено {this.props.users.length} </span>
-              {this.props.users.length % 10 === ( 2 || 3 || 4) ? <span>человека</span> : <span>человек</span>}
+              {this.props.users.length % 10 === (2 || 3 || 4) ? (
+                <span>человека</span>
+              ) : (
+                <span>человек</span>
+              )}
             </div>
             <div className={classes.UserList__List}>
               {this.props.loading ? (
@@ -210,7 +212,10 @@ class Users extends React.Component {
                   ></i>
                 </div>
 
-                <UserCard user={this.props.users[this.state.selectedUser - 1]} />
+                <UserCard
+                  dialogId={this.id}
+                  user={this.props.users[this.state.selectedUser - 1]}
+                />
               </div>
             ) : (
               <div className={classes.Settings}>
@@ -236,7 +241,7 @@ class Users extends React.Component {
                   </div>
                 </div>
                 ComboBox
-                <ComboBox/>
+                <ComboBox />
               </div>
             )}
           </div>
@@ -254,7 +259,7 @@ function mapStateToProps(state) {
     modalOpenState: state.modal.modalOpenState,
     user: state.openUserCard.user,
     dialogs: state.dialogList.dialogs,
-    countAllDialogs: state.dialogList.countAllDialogs
+    countAllDialogs: state.dialogList.countAllDialogs,
   };
 }
 

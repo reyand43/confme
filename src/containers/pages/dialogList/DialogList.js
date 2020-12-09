@@ -29,21 +29,24 @@ class DialogList extends React.Component {
   userId = parseInt(localStorage.getItem("userId"));
   idFromPath = parseInt(document.location.pathname.slice(9));
 
-  async componentDidMount() {
-    if (this.idFromPath.length > 0 && this.props.location.state) {
+  componentDidMount() {
+    if (this.idFromPath && this.props.location.state) {
       //если ссылка содержит id то
       this.friendId = parseInt(this.props.location.state.friendId);
       this.props.selectDialog(this.idFromPath);
       //вызываем ф-ию selectDialog с айди из ссылки
-    } else {
+    } else if(this.idFromPath){
       this.props.selectDialog(this.idFromPath);
+    }
+    else {
+      this.props.selectDialog(null);
     }
     api.joinDialogs(this.userId);
   }
 
   componentDidUpdate() {
     this.idFromPath = parseInt(document.location.pathname.slice(9)); 
-    if(!this.idFromPath)
+    if(!this.idFromPath && this.props.selectedDialog)
       this.props.selectDialog(null);
   }
 
@@ -65,6 +68,7 @@ class DialogList extends React.Component {
               this.props.selectDialog(dialog.id);
             }}
           >
+            { console.log("Hey123", dialog.sender_id, this.userId)}
             <li>
               <DialogListItem
                 id={dialog.id}
@@ -77,6 +81,7 @@ class DialogList extends React.Component {
                 }
                 time={dialog.timestamp}
                 selected={this.props.selectedDialog}
+                unread = {dialog.unread}
               />
             </li>
           </NavLink>
@@ -94,14 +99,9 @@ class DialogList extends React.Component {
   sendHandler = () => {
     //отсыдаем сообщения
     this.props.sendMessages(
-      localStorage.getItem("userId"), //мой id
+      this.userId, //мой id
       this.state.content, //текст сообщения
       this.friendId, //С кем чатимся
-      this.props.myName, //мое имя
-      this.props.mySurname, //моя фамилия
-      this.props.users[this.friendId - 1].name,
-      this.props.users[this.friendId - 1].surname, //фамилия с кем чатимся
-      this.props.selectedDialog
     );
     this.setState({
       content: "", //после отправки обнуляем то что в стейте сообщения
@@ -109,6 +109,7 @@ class DialogList extends React.Component {
   };
 
   render() {
+ 
     return (
       <>
       
@@ -246,22 +247,12 @@ function mapDispatchToProps(dispatch) {
       userId,
       content,
       friendId,
-      name,
-      surname,
-      withName,
-      withSurname,
-      withId
     ) =>
       dispatch(
         sendMessages(
           userId,
           content,
           friendId,
-          name,
-          surname,
-          withName,
-          withSurname,
-          withId
         )
       ),
   };

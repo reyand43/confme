@@ -1,6 +1,5 @@
-import axios from "../../axios/axios";
 import api from "../../helpers/serverApi";
-import { db } from "../../services/firebase";
+
 import {
   FETCH_DIALOGS_SUCCESS,
   FETCH_DIALOGS_START,
@@ -39,6 +38,7 @@ export function fetchDialogs(userId) {
           timestamp: d.updatedAt,
           friendId: friendId,
           sender_id: d.sender_id, //Id пользователя, который последним отправил сообщение
+          unread: d.sender_id === userId ? 0 : d.unread
         };
         dialogs.push(dialog);
       }
@@ -58,6 +58,7 @@ export function fetchDialogs(userId) {
           timestamp: d.updatedAt,
           friendId: friendId,
           sender_id: d.sender_id, //Id пользователя, который последним отправил сообщение
+          unread: d.sender_id === userId ? 0 : d.unread
         };
         dispatch({
           type: ADD_DIALOG,
@@ -71,6 +72,7 @@ export function fetchDialogs(userId) {
 }
 
 export function fetchMessages(userId, dialogId) {
+
   //загрузка сообщений
   userId = parseInt(userId)
 
@@ -79,21 +81,30 @@ export function fetchMessages(userId, dialogId) {
     try {
       const messages = []
       const res = (await api.fetchMessages(dialogId)).data;
-
+      let friendId;
+      let friend;
+      if(res[0]) {
+        friendId = res[0].sender_id === userId ? res[0].reciever_id : res[0].sender_id;
+        friend = (await api.fetchPersonal(friendId)).data;
+      }
+      else {
+        friend = {
+          name: '',
+          surname: ''
+        }
+      }
       for(const message of res) {
-        const friend = (await api.fetchPersonal(message.sender_id)).data;
         const m = {
           id: message.sender_id,
           text: message.text,
           name: friend.name,
           surname: friend.surname,
-          timestamp: message.createdAt
+          timestamp: message.createdAt,
         }
         messages.push(m);
       }
       dispatch(fetchMessagesSuccess(messages));
       api.socket.removeAllListeners("messageSubscribe");
-      console.log("SUBSCRIBE MESSAGES");
       api.socket.on("messageSubscribe", async(res) => {
         const message = res.data;
         const friend = (await api.fetchPersonal(message.sender_id)).data;
@@ -107,7 +118,8 @@ export function fetchMessages(userId, dialogId) {
         }
         dispatch({
           type: ADD_MESSAGE,
-          message: m
+          message: m,
+          user_id: userId
         })
       })
     } catch (e) {
@@ -123,6 +135,8 @@ export function selectDialog(dialogId) {
     dispatch(setDialog(dialogId));
     if(dialogId) {
      dispatch(fetchMessages(userId, dialogId));
+     const res = await api.readDialog(dialogId, userId);
+     console.log(res);
     }
   };
 }
@@ -188,11 +202,6 @@ export function sendMessages(
   userId,
   text,
   friendId,
-  name,
-  surname,
-  withName,
-  withSurname,
-  withId
 ) {
   return async (dispatch) => {
     dispatch(sendMessagesStart());

@@ -29,9 +29,10 @@ export const DialogListItem = (props) => {
         </div>
         <div className={classes.DialogListItem__Content__MessageData}>
          <div className={classes.DialogListItem__Content__MessageData__Time}>{formatTime(props.time)}</div>
-         {/* <div className={classes.DialogListItem__Content__MessageData__Unread}>
-           <span>3</span>
-         </div> */}
+         {props.unread > 0 ? <div className={classes.DialogListItem__Content__MessageData__Unread}>
+            <span>{props.unread}</span>
+         </div> : null}
+
         </div>
       </div>
     </div>
