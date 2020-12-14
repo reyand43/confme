@@ -54,7 +54,9 @@ export function sendUserData(Info){
     dispatch(sendUserDataStart())
     const userId = localStorage.getItem("userId");
     try {
-      await axios.patch(`/users/${userId}/personalData.json`, Info);
+      await db.ref(`/users/${userId}/personalData`).push({
+        Info
+      });
       dispatch(sendUserDataSuccess())
     } catch (error) {
       console.log(error)

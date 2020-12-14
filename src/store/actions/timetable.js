@@ -1,4 +1,3 @@
-import axios from "../../axios/axios";
 import { db } from "../../services/firebase";
 import {
   FETCH_TIMETABLE_ERROR,
@@ -76,10 +75,13 @@ export function addToAgenda(event) {
     const userId = localStorage.getItem("userId");
     dispatch(addToAgendaStart());
     try {
-      axios.patch(
-        "users/" + userId + "/personalEvents/" + event.id + ".json",
+      db.ref("users/" + userId + "/personalEvents/" + event.id).update({
         event
-      );
+      });
+      // axios.patch(
+      //   "users/" + userId + "/personalEvents/" + event.id + ".json",
+      //   event
+      // );
       dispatch(addToAgendaSuccess());
     } catch (error) {
       dispatch(addToAgendaError(error));
@@ -88,7 +90,6 @@ export function addToAgenda(event) {
 }
 
 export function removeFromAgenda(eventId) {
-  console.log(eventId);
   return (dispatch) => {
     const userId = localStorage.getItem("userId");
     dispatch(removeFromAgendaStart());
@@ -102,21 +103,18 @@ export function removeFromAgenda(eventId) {
 }
 
 export function removeFromAgendaSuccess() {
-  console.log("success");
   return {
     type: REMOVE_FROM_AGENDA_SUCCESS,
   };
 }
 
 export function removeFromAgendaStart() {
-  console.log("start");
   return {
     type: REMOVE_FROM_AGENDA_START,
   };
 }
 
 export function removeFromAgendaError(error) {
-  console.log("e");
   return {
     type: REMOVE_FROM_AGENDA_ERROR,
     error: error,
@@ -151,7 +149,7 @@ export function fetchUserTimetable() {
           let userTimetable = []; //массив дней в расписании
           if (snapshot.val() !== null) {
             Object.keys(snapshot.val()).forEach((key, index) => {
-              userTimetable.push(snapshot.val()[key].id);
+              userTimetable.push(snapshot.val()[key].event.id);
             });
             dispatch(fetchUserTimetableSuccess(userTimetable));
           }

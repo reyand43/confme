@@ -15,7 +15,7 @@ export function fetchAgendaEvents(userId) {
           let agendaEvents = [];
           if (snapshot.val()) {
             Object.keys(snapshot.val()).forEach((key) => {
-              agendaEvents.push(snapshot.val()[key]);
+              agendaEvents.push(snapshot.val()[key].event);
             });
             dispatch(fetchAgendaEventsSuccess(agendaEvents));
           }

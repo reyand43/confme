@@ -1,4 +1,5 @@
 import axios from "../../axios/axios";
+import { db } from "../../services/firebase";
 import {
   FETCH_USERS_START,
   FETCH_USERS_SUCCESS,
@@ -13,13 +14,14 @@ export function fetchUsers() {
   return async (dispatch) => {
     dispatch(fetchUsersStart());
     try {
-      const response = await axios.get("/users.json");
-      const users = [];
-      Object.keys(response.data).forEach((key, index) => {
-        users.push(response.data[key].personalData);
-        users[index].id = key;
-      });
-      dispatch(fetchUsersSuccess(users));
+      db.ref("users/").on("value", (snapshot) => {
+        let users = [];
+          Object.keys(snapshot.val()).forEach((key, index) => {
+            users.push(snapshot.val()[key].personalData);
+            users[index].id = key;
+          });
+          dispatch(fetchUsersSuccess(users));
+        });
     } catch (e) {
       dispatch(fetchUsersError(e));
     }
@@ -30,10 +32,10 @@ export function fetchUserById(userId) {
   return async (dispatch) => {
     dispatch(fetchUserStart());
     try {
-      const response = await axios.get(`/users/${userId}/personalData.json`);
-      const user = response.data;
-
-      dispatch(fetchUserSuccess(user));
+      db.ref(`/users/${userId}/personalData`).on("value", (snapshot) => {
+        let user = snapshot.val();
+        dispatch(fetchUserSuccess(user));
+      });
     } catch (e) {
       dispatch(fetchUsersError(e));
     }

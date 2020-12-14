@@ -1,4 +1,3 @@
-import axios from "../../axios/axios";
 import { db } from "../../services/firebase";
 import {
   FETCH_DIALOGS_SUCCESS,
@@ -167,12 +166,16 @@ export function sendMessages(
         name,
         surname,
       });
-      await axios.patch(`/chatList/${userId}/${friendId}.json`, postData);
+      await db.ref(`/chatList/${userId}/${friendId}/`).push({
+        postData
+      });
       postData.withName = name;
       postData.withSurname = surname;
       postData.withId = userId;
-      await axios.patch(`/chatList/${friendId}/${userId}.json`, postData);
-
+      await db.ref(`/chatList/${friendId}/${userId}/`).push({
+        postData
+      });
+      
       let content = "";
       dispatch(sendMessagesSuccess(content));
     } catch (error) {

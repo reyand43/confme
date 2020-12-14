@@ -1,7 +1,7 @@
 .FinishedQuiz {
     padding: 20px;
-    color: #fff;
-    border: 2px solid #fff;
+    
+    border: 2px solid black;
     border-radius: 5px;
     box-sizing: border-box;
     margin: 0 10px;
@@ -22,5 +22,5 @@
 }
 
 .error {
-    color: rgba(240, 87, 108, .7);
+    color: red;
 }

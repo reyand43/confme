@@ -12,6 +12,7 @@ import {
 import { Loader } from "../../../../components/UI/Loader/Loader";
 import axios from "./../../../../axios/axios";
 import QuizCreator from "./../QuizCreator/QuizCreator";
+import { db } from "../../../../services/firebase";
 
 export default class QuizList extends Component {
   state = {
@@ -31,20 +32,20 @@ export default class QuizList extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get("/quizes.json");
-      const quizes = [];
-      Object.keys(response.data).forEach((key, index) => {
-        console.log('ur quiz key is',key)
-        quizes.push({
-          id: key,
-          name: `Опрос №${index + 1}`,
+      db.ref(`/quizes`).on("value", (snapshot) => {
+        const quizes = [];
+        Object.keys(snapshot.val()).forEach((key, index) => {
+          quizes.push({
+            id: key,
+            name: `Опрос №${index + 1}`,
+          });
         });
-      });
-
-      this.setState({
-        quizes,
-        loading: false,
-      });
+        this.setState({
+          quizes,
+          loading: false,
+        });
+      });  
+      
     } catch (e) {
       console.log(e);
     }

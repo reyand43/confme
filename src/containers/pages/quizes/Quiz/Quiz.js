@@ -8,6 +8,7 @@ import ActiveQuiz from '../../../../components/UI/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../../../components/UI/FinishedQuiz/FinishedQuiz'
 import { connect } from "react-redux";
 import { selectQuiz } from "../../../../store/actions/quiz"
+import { db } from '../../../../services/firebase';
 
 class Quiz extends Component {
   state = {
@@ -83,12 +84,17 @@ class Quiz extends Component {
       //     loading: false
       //   })
       // } else { //если это опрос, созданный вручную - загружаем из quizes
-        const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
-        const quiz = response.data
+      
+      db.ref(`/quizes/${this.props.match.params.id}`).on("value", (snapshot) => {
+        let quiz = snapshot.val();
         this.setState({
           quiz,
           loading: false
         })
+      });
+        // const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+        // const quiz = response.data
+        
       //}
     } catch (e) {
       console.log(e)

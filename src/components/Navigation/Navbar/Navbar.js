@@ -42,7 +42,6 @@ class Navbar extends React.Component {
     return (
       <div
         className={classes.userBlock}
-        style={this.props.isAuthenticated ? null : { display: "none" }}
       >
         {/* <div className={classes.bellBlock}>
           <span>3</span>

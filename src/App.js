@@ -31,8 +31,7 @@ class App extends Component {
 
   render() {
     let routes
-
-    if (this.props.isAuthenticated) {
+    if (!!localStorage.getItem('token')===true) {
       routes = (
         <Switch>
 
@@ -60,16 +59,16 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-      {!this.props.isAuthenticated &&
+      {!!localStorage.getItem('token')===false &&
         <Switch>
           <Route path="/" exact component={Auth} />
           <Redirect to="/"/>
         </Switch>}
-        {this.props.isAuthenticated &&
+        {!!localStorage.getItem('token')===true &&
             <Split>
-            <Navbar isAuthenticated={this.props.isAuthenticated} />
+            <Navbar isAuthenticated={!!localStorage.getItem('token')} />
             <Layout
-              sidebar={<Sidebar isAuthenticated={this.props.isAuthenticated} />}
+              sidebar={<Sidebar isAuthenticated={!!localStorage.getItem('token')} />}
             >
               {routes}
             </Layout>
