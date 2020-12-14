@@ -65,15 +65,7 @@ class Contacts extends React.Component {
     }
   }
 
-  requireControl(value, isRequired) {
-    if (isRequired === false) {
-      return true;
-    } else {
-      let isValid = true;
-      isValid = value.trim() !== "";
-      return isValid;
-    }
-  }
+  
 
   onChangeHandler = (event) => {
     let formControls = { ...this.state.formControls };

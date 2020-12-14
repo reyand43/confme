@@ -3,7 +3,6 @@ import classes from "./Interests.module.scss";
 import { connect } from "react-redux";
 import { sendUserData } from "../../../../store/actions/editProfile";
 import EditCard from "../../../../components/UI/EditCard/EditCard";
-import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
 import { Loader } from "../../../../components/UI/Loader/Loader";
 import { ComboBox } from "../../../../components/UI/ComboBox/ComboBox";
 import { fetchTags } from "../../../../store/actions/tags";
@@ -71,7 +70,7 @@ class Interests extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
+    control.valid = this.requireControl(control.value, control.isRequired, event.target.name);
 
     formControls[event.target.name] = control;
     this.setState({

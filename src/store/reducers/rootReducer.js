@@ -13,6 +13,8 @@ import agendaReducer from './agenda'
 import webinarReducer from './webinar'
 import sponsorsReducer from './sponsors'
 import tagsReducer from './tags'
+import surveysReducer from './surveys'
+import quizReducer from './quiz'
 
 export default combineReducers({
     auth: authReducer,
@@ -27,5 +29,7 @@ export default combineReducers({
     agenda: agendaReducer,
     webinar: webinarReducer,
     sponsors: sponsorsReducer,
-    tags: tagsReducer
+    tags: tagsReducer,
+    surveys: surveysReducer,
+    quiz: quizReducer
 })

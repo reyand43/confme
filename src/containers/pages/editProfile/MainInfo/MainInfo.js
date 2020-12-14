@@ -71,10 +71,17 @@ class MainInfo extends React.Component {
     }
   }
 
-  requireControl(value, isRequired) {
-    if (isRequired === false) {
+  requireControl(value, isRequired, controlName) {
+    if (isRequired === false && value === "") { //если поле не важно и пусто, все в порядке
       return true;
-    } else {
+    } else if (isRequired === false && value !== "") { //если поле не важно, но заполнено
+      if(controlName.toString() === "Age" && value > 15) { //Возраст > 15
+        return true;
+      }
+      if(controlName.toString() === "Country" && value.length > 2) { //Название страны > 2 букв
+        return true;
+      }
+    } else if (isRequired === true) {
       let isValid = true;
       isValid = value.trim() !== "";
       return isValid;

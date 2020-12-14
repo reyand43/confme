@@ -34,6 +34,7 @@ export default class QuizList extends Component {
       const response = await axios.get("/quizes.json");
       const quizes = [];
       Object.keys(response.data).forEach((key, index) => {
+        console.log('ur quiz key is',key)
         quizes.push({
           id: key,
           name: `Опрос №${index + 1}`,

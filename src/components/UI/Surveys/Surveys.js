@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Surveys.module.scss";
-import { UserPhoto } from '../UserPhoto/UserPhoto'
-import { SponsorLogo } from "../SponsorLogo/SponsorLogo";
-import SurveyCard from "../SurveyCard/SurveyCard";
-
+import { SurveyCard } from "../SurveyCard/SurveyCard";
+import { connect } from "react-redux";
 
 
 class Surveys extends Component{
@@ -29,17 +27,18 @@ class Surveys extends Component{
                 </div> */}
                 <div className={classes.Surveys__List}>
                     <SurveyCard
-                        title = "Очень важный опрос"
+                        title = "Один важный опрос"
+                        id={this.props.id}
                     />
                     <SurveyCard
                         title = "Еще более важный опрос"
-                    />                   
+                    />
                     <SurveyCard
                         title = "Интересный опрос"
-                    />                   
+                    />
                     {/* <SurveyCard
                         title = "Скучный опрос"
-                    />                   
+                    />
                     <SurveyCard
                         title = "Просто опрос"
                     />                   */}
@@ -49,4 +48,16 @@ class Surveys extends Component{
     }
 }
 
-export default Surveys
+function mapStateToProps(state) {
+  return {
+    /*sponsor: state.sponsors.sponsor,
+    sponsorLoading: state.sponsors.sponsorLoading,*/
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    //fetchSponsorById: (sponsorId) => dispatch(fetchSponsorById(sponsorId)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Surveys);

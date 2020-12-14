@@ -6,6 +6,8 @@ import axios from './../../../../axios/axios'
 import { Loader } from "../../../../components/UI/Loader/Loader";
 import ActiveQuiz from '../../../../components/UI/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../../../components/UI/FinishedQuiz/FinishedQuiz'
+import { connect } from "react-redux";
+import { selectQuiz } from "../../../../store/actions/quiz"
 
 class Quiz extends Component {
   state = {
@@ -75,13 +77,19 @@ class Quiz extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
-      const quiz = response.data
-
-      this.setState({
-        quiz,
-        loading: false
-      })
+      // if (this.props.match.params.id.length < 7) { //если это опрос спонсоров (там id - число 0-1000000), то лоадим из surveys
+      //   this.setState({
+      //     quiz: this.props.surveys,
+      //     loading: false
+      //   })
+      // } else { //если это опрос, созданный вручную - загружаем из quizes
+        const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+        const quiz = response.data
+        this.setState({
+          quiz,
+          loading: false
+        })
+      //}
     } catch (e) {
       console.log(e)
     }
@@ -110,6 +118,22 @@ class Quiz extends Component {
                 answerNumber={this.state.activeQuestion + 1}
                 state={this.state.answerState}
               />
+              /*this.state.loading
+               ? <Loader />
+               : this.state.isFinished
+                ? <FinishedQuiz
+                  results={this.props.survey.results}
+                  quiz={this.props.survey.quiz}
+                  onRetry={this.retryHandler}
+                />
+                : <ActiveQuiz
+                  answers={this.props.survey.quiz[this.props.survey.activeQuestion].answers}
+                  question={this.props.survey.quiz[this.props.survey.activeQuestion].question}
+                  onAnswerClick={this.onAnswerClickHandler}
+                  quizLength={this.props.survey.quiz.length}
+                  answerNumber={this.props.survey.activeQuestion + 1}
+                  state={this.props.survey.answerState}
+                />*/
 
           }
         </div>
@@ -118,5 +142,11 @@ class Quiz extends Component {
   }
 }
 
+function mapStateToProps(state){
+  return{
+    surveys: state.surveys.surveys
+  }
+}
 
-export default Quiz
+
+export default connect(mapStateToProps)(Quiz)
