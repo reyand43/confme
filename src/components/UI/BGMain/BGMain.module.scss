@@ -3,8 +3,9 @@
 .BGMain {
   background: $colorAccentLight;
   border-radius: 10px;
-  width: 100%;
+  width: calc(100% - 250px);
   height: 100%;
+  
 
   &__Content {
     padding: 15px;

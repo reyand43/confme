@@ -1,70 +1,68 @@
-@import '../../../components/UI/vars.scss';
+@import "../../../components/UI/vars.scss";
 
 .Timetable {
+  width: 100%;
+  height: 100%;
+  &__DayButtons {
+    display: flex;
+    margin-bottom: 15px;
+
+    &__Selected {
+      background: $colorAccent !important;
+      @include olText;
+    }
+
+    button {
+      width: 130px;
+      height: 45px;
+      border-radius: 10px;
+      background: $colorGreyThird;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+      margin-right: 23px;
+      
+
+    }
+
+    &__Title {
+      font-weight: 600;
+    }
+    &__Day{
+        font-size: 13px;
+
+    }
+  }
+  &__Streams {
     width: 100%;
-    height: 100%;
-    &__DayButtons {
-        display: flex;
-        margin-bottom: 15px;
+    display: flex;
+    height: calc(100% - 60px);
 
-       
-        &__Selected{   
-            background: $colorAccent !important;
-            color: white;
+    &__Background {
+      background: $colorAccentLight;
+      border-radius: 10px;
+      height: 100%;
+      min-width: calc(50% - 10px);
+      max-width: 100%;
 
-        }
+      height: 100%;
+      box-sizing: border-box;
+      margin-right: 20px;
+      padding: 15px;
 
-
-        button {
-            width: 130px;
-            height: 45px;
-            border-radius: 10px;
-            background: $colorGreyThird;
-            border: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            outline: none;
-            cursor: pointer;
-            margin-right: 23px;
-        }
-         
-        &__Title{
-            font-weight: 600;
-        }
-        
+      &__Title {
+        @include dxxlText;
+        margin-bottom: 10px;
+      }
+      &__Events {
+        height: calc(100% - 45px);
+        overflow-y: auto;
+      }
     }
-    &__Streams{
-        width: 100%;
-        display: flex;
-        height: calc(100% - 60px);
-        
-        
-        
-        &__Background{
-            background: $colorAccentLight;
-            border-radius: 10px;
-            height: 100%;
-            min-width: calc(50% - 10px);
-            max-width: 100%;
-
-            height: 100%; 
-            box-sizing: border-box;
-            margin-right: 20px;
-            padding: 15px;
-            
-            &__Title{
-                font-size: 24px;
-                font-weight: 700;
-                margin-bottom: 25px;
-            }
-            &__Events{
-                height: calc(100% - 45px);
-                overflow-y: auto;
-            }
-        }
-    }
-    }
-
+  }
+}

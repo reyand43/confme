@@ -17,4 +17,12 @@
      padding: 1px 5px 0;
   }
  }
+ &__ExactTimeline{
+    position: absolute;
+    background: red;
+    height: 1px;
+    width: 100%;
+    z-index: 1000;
+    opacity: 35%;
+ }
 }

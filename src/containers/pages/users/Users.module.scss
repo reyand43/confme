@@ -63,26 +63,25 @@
   }
   &__Tags{
     margin-bottom: 24px;
-    span{
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 15px;
-      display: block;
+    &__Title{
+      padding-bottom: 10px;
     }
     &__Select{
       input{
-        display: block;
-    box-sizing: border-box;
-    border: none;
-    padding: 7px 7px 4px 7px;
-    width: 100%;
-    outline: none;
-    background: #FFFFFF;
-    border-radius: 5px;
-    display: flex;
-    font-size: 16px;
+        margin-top: 10px;
+    //     display: block;
+    // box-sizing: border-box;
+    // border: none;
+    // padding: 7px 7px 4px 7px;
+    // width: 100%;
+    // outline: none;
+    // background: #FFFFFF;
+    // border-radius: 5px;
+    // display: flex;
+    // font-size: 16px;
 
       }
+       
       
     }
   }

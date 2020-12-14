@@ -1,21 +1,28 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
-@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
+@import "https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css";
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-    -webkit-font-smoothing: antialiased;
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-
 }
 
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.optionContainer li:hover,
+.optionContainer .highlight {
+  background: #4952A6 !important;
+  color: #fff;
+}
+

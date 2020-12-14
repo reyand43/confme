@@ -5,6 +5,7 @@ import { sendUserData } from "../../../../store/actions/editProfile";
 import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
 import EditCard from "../../../../components/UI/EditCard/EditCard";
 import { Loader } from "../../../../components/UI/Loader/Loader";
+import { linkValidator, numberValidator, phoneValidator, textValidator } from "../../../../helpers/validators";
 
 class Contacts extends React.Component {
   state = {
@@ -79,8 +80,12 @@ class Contacts extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
-
+    if (event.target.name==="Phone"){
+      control.valid = phoneValidator(control.value, control.isRequired)
+    }
+    else {
+      control.valid = linkValidator(control.value, control.isRequired)
+    }
     formControls[event.target.name] = control;
     this.setState({
       formControls,
@@ -142,11 +147,15 @@ class Contacts extends React.Component {
               name="Phone"
               placeholder="+7 (___) ___-__-__"
               label="Телефон:"
+              valid={this.state.formControls.Phone.valid}
+              shouldValidate={this.state.formControls.Phone.isRequired}
+              errorMessage={"Введите корректный номер телефона"}
             />
             <HorizontalInput
               value={this.state.formControls.Vk.value}
               onChange={this.onChangeHandler}
               touched={this.state.formControls.Vk.touched}
+              valid={this.state.formControls.Vk.valid}
               name="Vk"
               label="Вконтакте:"
               placeholder="Вставьте ссылку на страницу"
@@ -156,6 +165,7 @@ class Contacts extends React.Component {
               value={this.state.formControls.Fb.value}
               onChange={this.onChangeHandler}
               touched={this.state.formControls.Fb.touched}
+              valid={this.state.formControls.Fb.valid}
               name="Fb"
               label="Facebook:"
               placeholder="Вставьте ссылку на страницу"
@@ -165,6 +175,7 @@ class Contacts extends React.Component {
               value={this.state.formControls.Li.value}
               onChange={this.onChangeHandler}
               touched={this.state.formControls.Li.touched}
+              valid={this.state.formControls.Li.valid}
               name="Li"
               label="LinkedIn:"
               placeholder="Вставьте ссылку на страницу"
@@ -174,6 +185,7 @@ class Contacts extends React.Component {
               value={this.state.formControls.Inst.value}
               onChange={this.onChangeHandler}
               touched={this.state.formControls.Inst.touched}
+              valid={this.state.formControls.Inst.valid}
               label="Instagram:"
               name="Inst"
               placeholder="Вставьте ссылку на страницу"

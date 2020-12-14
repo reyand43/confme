@@ -45,14 +45,14 @@ export function DownBox(props) {
           )}
         </div>
       )}
-      {open && props.title === "Интересы" && (
+      {/* {open && props.title === "Интересы" && (
         <div className={classes.DownBox__Content}>
           {props.look && <span>Я ищу:&nbsp;{props.look}</span>}
           {props.suggest && <span>Я предлагаю:&nbsp;{props.suggest}</span>}
           {props.hobby && <span>Интересы:&nbsp;{props.hobby}</span>}
           
         </div>
-      )}
+      )} */}
     </div>
   );
 }

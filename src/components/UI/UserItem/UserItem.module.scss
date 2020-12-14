@@ -1,54 +1,46 @@
-@import '../vars.scss';
+@import "../vars.scss";
 
 .UserItem {
-    background: white;
-    border-radius: 10px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  padding: 5px 14px;
+  box-sizing: border-box;
+  
+  align-items: center;
+  border: 2px solid white;
+
+  &__Text {
+    margin-left: 12px;
+    height: 75px;
     display: flex;
-    padding: 12px 14px;
-    box-sizing: border-box;
-    height: 100px;
-    align-items: center;
-    border: 2px solid white;
+    flex-direction: column;
+    justify-content: space-between;
 
+    &__Info {
+      display: flex;
+      flex-direction: column;
 
-    &__Text {
-        margin-left: 12px;
-        height: 75px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+      &__Name {
+        @include dxlText;
+      }
 
-        &__Info {
-            display: flex;
-            flex-direction: column;
-
-            &__Name {
-                font-weight: 700;
-                font-size: 16px;
-            }
-
-            &__Career {
-                
-                font-weight: 400;
-                font-size: 14px;
-                color: $colorGreyFirst;
-            }
-        }
-        a{
-            text-decoration: none;
-            span{
-                font-size: 14px;
-                color: $colorAccent;
-                font-weight: 600;
-                &:hover{
-                    text-decoration: underline;
-                }
-            }
-        }
-
+      &__Career {
+        @include lsText
+      }
     }
+    a {
+      text-decoration: none;
+      span {
+        @include alText;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
-.clicked{
-    border: 2px solid $colorAccent;
+.clicked {
+  border: 2px solid $colorAccent;
 }

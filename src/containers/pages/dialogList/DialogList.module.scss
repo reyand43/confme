@@ -24,10 +24,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 15px 10px;
+      margin: 0 15px 15px;
 
       i {
         color: $colorGreyFirst;
+        
       }
 
       input {
@@ -41,12 +42,11 @@
         background: #ffffff;
         border-radius: 5px;
         display: flex;
-        font-size: 16px;
+        @include dsText;
 
         &::placeholder {
-          font-size: 16px;
-          color: $colorGreyFirst;
           margin-top: 5px;
+          @include lsText;
         }
       }
     }
@@ -58,6 +58,7 @@
         list-style: none;
         padding: 0;
         margin-bottom: 0;
+        margin-top: 0;
         a {
           text-decoration: none;
         }
@@ -65,7 +66,7 @@
     }
   }
   &__ChooseDialog {
-    width: calc(100% - 300px);
+    width: calc(100% - 200px);
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -91,12 +92,13 @@
       top: 0;
 
       &__DialogName {
-        font-weight: 600;
+        @include dxlText;
       }
       i {
         color: #404040;
         cursor: pointer;
         padding: 5px;
+        display: none;
         &:hover {
           color: $colorAccent;
         }
@@ -131,7 +133,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
+        font-size: 22px;
         cursor: pointer;
         color: $colorGreyFirst;
         &:hover {
@@ -152,8 +154,8 @@
           width: 100%;
           border: none;
           outline: none;
-          height: 20px;
-          font-size: 16px;
+          height: 18px;
+          @include dsText;
         }
       }
     }

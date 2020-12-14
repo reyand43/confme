@@ -7,6 +7,7 @@ import {
 import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
 import EditCard from "../../../../components/UI/EditCard/EditCard";
 import { Loader } from "../../../../components/UI/Loader/Loader";
+import { linkValidator, textValidator } from "../../../../helpers/validators";
 
 class Career extends React.Component {
   state = {
@@ -70,7 +71,12 @@ class Career extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
+    if (event.target.name==="CompanyName"){
+      control.valid = textValidator(control.value, control.isRequired)
+    }
+    else {
+      control.valid = linkValidator(control.value, control.isRequired)
+    }
 
     formControls[event.target.name] = control;
     this.setState({
@@ -133,6 +139,8 @@ class Career extends React.Component {
               name="WorkPlace"
               placeholder="Введите название компании"
               label="Место работы:"
+              valid={this.state.formControls.WorkPlace.valid}
+
             />
             <HorizontalInput
               value={this.state.formControls.CompanyName.value}
@@ -142,6 +150,8 @@ class Career extends React.Component {
               name="CompanyName"
               onChange={this.onChangeHandler}
               placeholder="Вставьте ссылку на сайт вашей компании"
+              valid={this.state.formControls.CompanyName.valid}
+
             />
 
             <HorizontalInput
@@ -152,6 +162,9 @@ class Career extends React.Component {
               onChange={this.onChangeHandler}
               placeholder="Введите название вашей должности"
               label="Должность:"
+              valid={this.state.formControls.Position.valid}
+
+              
             />
           </div>
           <div className={classes.Inputs__Button}>

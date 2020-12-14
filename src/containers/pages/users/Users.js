@@ -15,6 +15,8 @@ import { RoleSearchListItem } from "../../../components/UI/RoleSearchListItem/Ro
 import { Loader } from "../../../components/UI/Loader/Loader";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
 import {ComboBox} from '../../../components/UI/ComboBox/ComboBox'
+import {fetchTags} from '../../../store/actions/tags'
+
 class Users extends React.Component {
   constructor(props) {
     super(props);
@@ -104,12 +106,11 @@ class Users extends React.Component {
     const roleSearch2 = { ...searchControls2.roleSearch };
 
     let selected = []
-    for (var name in roleSearch){
+    for (name in roleSearch){
       if (roleSearch2[name].selected === true){
         selected.push(roleSearch2[name].name)
       }
     }
-    console.log('selected', selected)
     const filter = this.props.users.filter((user) => {
       if (selected.includes("Все")){
         return (this.props.users);
@@ -119,6 +120,28 @@ class Users extends React.Component {
       }
     });
     
+    this.props.setSearchedUsers(filter)
+  };
+
+  lookHandler = (array) => {
+    const filter = this.props.users.filter((user) => {
+      if (!!user.Look){
+      return (user.Look.includes(array));}
+      ///Здесь нужно починить неправильный массив!!!!
+      //В базе данных разные id
+      
+    });
+    
+    this.props.setSearchedUsers(filter)
+  };
+
+  suggestHandler = (array) => {
+    const filter = this.props.users.filter((user) => {
+      if (!!user.Look){
+      return (user.Suggest.includes(array));}
+      ///Здесь нужно починить неправильный массив!!!!
+      //В базе данных разные id
+    });
     this.props.setSearchedUsers(filter)
   };
 
@@ -152,6 +175,7 @@ class Users extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers();
+    this.props.fetchTags()
   }
 
   componentWillUnmount(){
@@ -203,25 +227,24 @@ class Users extends React.Component {
                   <ul>{this.renderRoleSearch()}</ul>
                 </div>
                 <div className={classes.Settings__Tags}>
-                  <span>Я ищу</span>
+                  <span className={classes.Settings__Tags__Title}>Я ищу</span>
                   <div className={classes.Settings__Tags__Select}>
-                    <input />
+                    <ComboBox id={"look"} tags={this.props.tags} onChange={this.lookHandler}/>
                   </div>
                 </div>
                 <div className={classes.Settings__Tags}>
-                  <span>Я предлагаю</span>
+                  <span className={classes.Settings__Tags__Title}>Я предлагаю</span>
                   <div className={classes.Settings__Tags__Select}>
-                    <input />
+                  <ComboBox  id={"suggest"} tags={this.props.tags} onChange={this.suggestHandler}/>
                   </div>
                 </div>
-                <div className={classes.Settings__Tags}>
+                {/* <div className={classes.Settings__Tags}>
                   <span>Регион</span>
                   <div className={classes.Settings__Tags__Select}>
-                    <input />
+                  <ComboBox/>
                   </div>
-                </div>
-                ComboBox
-                <ComboBox/>
+                </div> */}
+                
               </div>
             )}
           </div>
@@ -238,6 +261,7 @@ function mapStateToProps(state) {
     loading: state.users.loading,
     modalOpenState: state.modal.modalOpenState,
     user: state.openUserCard.user,
+    tags: state.tags.tags
   };
 }
 
@@ -246,7 +270,8 @@ function mapDispatchToProps(dispatch) {
     openUserCard: (user) => dispatch(openUserCard(user)),
     closeUserCard: () => dispatch(closeUserCard()),
     fetchUsers: () => dispatch(fetchUsers()),
-    setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter))
+    setSearchedUsers: (filter) => dispatch(setSearchedUsers(filter)),
+    fetchTags: ()=>dispatch(fetchTags())
   };
 }
 

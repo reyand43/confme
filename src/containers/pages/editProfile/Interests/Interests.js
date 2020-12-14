@@ -1,13 +1,12 @@
 import React from "react";
 import classes from "./Interests.module.scss";
 import { connect } from "react-redux";
-import {
-  
-  sendUserData
-} from "../../../../store/actions/editProfile";
+import { sendUserData } from "../../../../store/actions/editProfile";
 import EditCard from "../../../../components/UI/EditCard/EditCard";
 import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
-import {Loader} from "../../../../components/UI/Loader/Loader"
+import { Loader } from "../../../../components/UI/Loader/Loader";
+import { ComboBox } from "../../../../components/UI/ComboBox/ComboBox";
+import { fetchTags } from "../../../../store/actions/tags";
 
 class Interests extends React.Component {
   state = {
@@ -32,9 +31,11 @@ class Interests extends React.Component {
         touched: false,
         valid: true,
       },
-      
     },
   };
+  componentDidMount() {
+    this.props.fetchTags();
+  }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     if (prevProps.userData.length === 0) {
@@ -73,6 +74,35 @@ class Interests extends React.Component {
     control.valid = this.requireControl(control.value, control.isRequired);
 
     formControls[event.target.name] = control;
+    this.setState({
+      formControls,
+      formChanged: true,
+    });
+    console.log("STATE", this.state);
+  };
+
+  lookHandler = (array) => {
+    let formControls = { ...this.state.formControls };
+    let control = { ...formControls["Look"] };
+    control.value = array;
+    control.touched = true;
+    control.valid = this.requireControl(control.value, control.isRequired);
+
+    formControls["Look"] = control;
+    this.setState({
+      formControls,
+      formChanged: true,
+    });
+  };
+
+  suggestHandler = (array) => {
+    let formControls = { ...this.state.formControls };
+    let control = { ...formControls["Suggest"] };
+    control.value = array;
+    control.touched = true;
+    control.valid = this.requireControl(control.value, control.isRequired);
+
+    formControls["Suggest"] = control;
     this.setState({
       formControls,
       formChanged: true,
@@ -126,31 +156,33 @@ class Interests extends React.Component {
             </div>
           )}
           <div className={classes.Inputs}>
-            <HorizontalInput
-              name="Look"
-              value={this.state.formControls.Look.value}
-              onChange={this.onChangeHandler}
-              placeholder="Введите тег"
-              label="Я ищу:"
-              touched={this.state.formControls.Look.touched}
-            />
-            <HorizontalInput
-              value={this.state.formControls.Suggest.value}
-              onChange={this.onChangeHandler}
-              touched={this.state.formControls.Suggest.touched}
-              label="Я предлагаю:"
-              name="Suggest"
-              onChange={this.onChangeHandler}
-              placeholder="Введите тег"
-            />
-
+            <div className={classes.Inputs__Tags}>
+              <label>Я ищу:</label>
+              <ComboBox
+                id="Look"
+                tags={this.props.tags}
+                border="1px solid #c4c4c4"
+                width="300px"
+                onChange={this.lookHandler}
+              />
+            </div>
+            <div className={classes.Inputs__Tags}>
+              <label>Я предлагаю:</label>
+              <ComboBox
+                id="Suggest"
+                tags={this.props.tags}
+                border="1px solid #c4c4c4"
+                width="300px"
+                onChange={this.suggestHandler}
+              />
+            </div>
             <div className={classes.Inputs__Textarea}>
               <label>Мои интересы:</label>
               <textarea
                 name="Hobby"
                 onChange={this.onChangeHandler}
                 placeholder="Напишите пару слов о себе и своих интересах"
-                touched={this.state.formControls.Hobby.touched}
+                // touched={this.state.formControls.Hobby.touched}
               >
                 {this.state.formControls.Hobby.value}
               </textarea>
@@ -161,11 +193,9 @@ class Interests extends React.Component {
           </div>
         </EditCard>
       </>
-      
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -174,12 +204,14 @@ function mapStateToProps(state) {
     sendUserDataLoading: state.editProfile.sendUserDataLoading,
     sendUserDataError: state.editProfile.sendUserDataError,
     userDataSent: state.editProfile.userDataSent,
+    tags: state.tags.tags,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     sendUserData: (Info) => dispatch(sendUserData(Info)),
+    fetchTags: () => dispatch(fetchTags()),
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Interests);

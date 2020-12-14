@@ -1,28 +1,40 @@
 import axios from "../../axios/axios";
 import { db } from "../../services/firebase";
-import {FETCH_TIMETABLE_ERROR, FETCH_TIMETABLE_START, FETCH_TIMETABLE_SUCCESS, ADD_TO_AGENDA_START, ADD_TO_AGENDA_ERROR, ADD_TO_AGENDA_SUCCESS } from "./actionTypes";
+import {
+  FETCH_TIMETABLE_ERROR,
+  FETCH_TIMETABLE_START,
+  FETCH_TIMETABLE_SUCCESS,
+  ADD_TO_AGENDA_START,
+  ADD_TO_AGENDA_ERROR,
+  ADD_TO_AGENDA_SUCCESS,
+  FETCH_USER_TIMETABLE,
+  REMOVE_FROM_AGENDA_START,
+  REMOVE_FROM_AGENDA_ERROR,
+  REMOVE_FROM_AGENDA_SUCCESS,
+} from "./actionTypes";
 
-export function fetchTimetable() {  //загрузка диалогов
+export function fetchTimetable() {
+  //загрузка диалогов
   return async (dispatch) => {
     dispatch(fetchTimetableStart());
+
     try {
       db.ref("timetable").on("value", function (snapshot) {
-        let days = []
+        let days = []; //массив дней в расписании
         let timetable = [];
         let streams = [];
         Object.keys(snapshot.val()).forEach((key, index) => {
           timetable.push(snapshot.val()[key]);
-          timetable[index].id = key
+          timetable[index].id = key;
         });
         timetable.map((event) => {
-        let date = formatDate(event.startTime)
-         !days.includes(date) &&
-         days.push(date)
-        !streams.includes(event.stream)&&
-        streams.push(event.stream)
-        })
-        days.sort()
-        console.log('DAYS', days)
+          let date = formatDate(event.startTime);
+          !days.includes(date) && //если день события еще не упоминался в массиве дней то добавляем
+            days.push(date);
+          !streams.includes(event.stream) && streams.push(event.stream);
+        });
+        days.sort();
+        dispatch(fetchUserTimetable());
         dispatch(fetchTimetableSuccess(timetable, days, streams));
       });
     } catch (e) {
@@ -33,17 +45,16 @@ export function fetchTimetable() {  //загрузка диалогов
 
 export function formatDate(timestamp) {
   const d = new Date(timestamp);
-  const date = `${d.getDate()}.${d.getMonth()}.${d.getFullYear()}`;
+  const date = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`; //МЕСЯЦА ИДУТ ОТ 0 до 11!!!
   return date;
 }
-
 
 export function fetchTimetableSuccess(timetable, days, streams) {
   return {
     type: FETCH_TIMETABLE_SUCCESS,
     timetable,
     days,
-    streams
+    streams,
   };
 }
 
@@ -60,20 +71,56 @@ export function fetchTimetableError(e) {
   };
 }
 
-export function addToAgenda(event){
-  return (dispatch=>{
-    const userId = localStorage.getItem('userId')
-    dispatch(addToAgendaStart())
-    try{
-      axios.post("users/" + userId + "/personalEvents.json", event);
-      console.log('success')
-      dispatch(addToAgendaSuccess())
+export function addToAgenda(event) {
+  return (dispatch) => {
+    const userId = localStorage.getItem("userId");
+    dispatch(addToAgendaStart());
+    try {
+      axios.patch(
+        "users/" + userId + "/personalEvents/" + event.id + ".json",
+        event
+      );
+      dispatch(addToAgendaSuccess());
+    } catch (error) {
+      dispatch(addToAgendaError(error));
     }
-    catch(error){
-      console.log('error')
-      dispatch(addToAgendaError(error))
+  };
+}
+
+export function removeFromAgenda(eventId) {
+  console.log(eventId);
+  return (dispatch) => {
+    const userId = localStorage.getItem("userId");
+    dispatch(removeFromAgendaStart());
+    try {
+      db.ref("users/" + userId + "/personalEvents/" + eventId).remove();
+      dispatch(removeFromAgendaSuccess());
+    } catch (error) {
+      dispatch(removeFromAgendaError(error));
     }
-  })
+  };
+}
+
+export function removeFromAgendaSuccess() {
+  console.log("success");
+  return {
+    type: REMOVE_FROM_AGENDA_SUCCESS,
+  };
+}
+
+export function removeFromAgendaStart() {
+  console.log("start");
+  return {
+    type: REMOVE_FROM_AGENDA_START,
+  };
+}
+
+export function removeFromAgendaError(error) {
+  console.log("e");
+  return {
+    type: REMOVE_FROM_AGENDA_ERROR,
+    error: error,
+  };
 }
 
 export function addToAgendaSuccess() {
@@ -92,5 +139,32 @@ export function addToAgendaError(error) {
   return {
     type: ADD_TO_AGENDA_ERROR,
     error: error,
+  };
+}
+
+export function fetchUserTimetable() {
+  return async (dispatch) => {
+    try {
+      db.ref("users/" + localStorage.getItem("userId") + "/personalEvents").on(
+        "value",
+        function (snapshot) {
+          let userTimetable = []; //массив дней в расписании
+          if (snapshot.val() !== null) {
+            Object.keys(snapshot.val()).forEach((key, index) => {
+              userTimetable.push(snapshot.val()[key].id);
+            });
+            dispatch(fetchUserTimetableSuccess(userTimetable));
+          }
+          dispatch(fetchUserTimetableSuccess(userTimetable))
+        }
+      );
+    } catch (e) {}
+  };
+}
+
+function fetchUserTimetableSuccess(userTimetable) {
+  return {
+    type: FETCH_USER_TIMETABLE,
+    userEvents: userTimetable,
   };
 }

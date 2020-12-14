@@ -182,11 +182,11 @@ export function sendMessages(
   };
 }
 
-function formatTime(timestamp) {
-  const d = new Date(timestamp);
-  const time = `${d.getHours()}:${d.getMinutes()}`;
-  return time;
-}
+// function formatTime(timestamp) {
+//   const d = new Date(timestamp);
+//   const time = `${d.getHours()}:${d.getMinutes()}`;
+//   return time;
+// }
 
 export function sendMessagesSuccess(content) {
   return {

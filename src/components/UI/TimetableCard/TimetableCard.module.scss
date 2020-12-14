@@ -1,91 +1,109 @@
-@import '../vars.scss';
+@import "../vars.scss";
 
 .TimetableCard {
-    width: 100%;
-    border-radius: 20px;
-    background-color: white;
-    padding: 12px 20px;
-    margin-bottom: 20px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: white;
+  padding: 12px 20px;
+  margin-bottom: 20px;
 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
+  margin-bottom: 15px;
+  &__Top {
     display: flex;
-    flex-direction: column;
-    box-sizing: border-box; //чтобы брал паддинг от ширины, а не доп
-    margin-bottom: 15px;
-    &__Top {
-        display: flex;
-        align-items: center; // центрирование по вертикали
-        justify-content: space-between; // центрирование по расстоянию между элементами
-        margin-bottom: 0.7%;
+    align-items: center; // центрирование по вертикали
+    justify-content: space-between; // центрирование по расстоянию между элементами
+    margin-bottom: 0px;
 
-        span {
-            font-size: 17px;
-            font-weight: 500; // жирность
-        }
-        button {
-            display: inline;
-            background-color: $colorAccentLight;
-            border-radius: 10px;
-            color: black;
-            font-size: 14px;
-            padding: 7px 13px;
-            border: none;
-            cursor: pointer;
-            outline: none;
-        }
-        i{
-            font-size: 15px;
-            margin-left: 6px;
-        }
+    span {
+      @include dsText; // жирность
     }
-    &__Title {
-        font-size: 18px;
-        font-weight: 700;
-        margin-top: 10px;
-    }
-    &__Text {
-        font-size: 14px;
-        margin-top: 10px;
-    }
-    &__Speakers {
-        font-size: 14px;
-        font-weight: 600;
-        margin-top: 15px;
-        ul{
-            list-style: none;
-            padding: 0;
-            li{
-                display: flex;
-                margin-bottom: 10px;
+    button {
+      display: inline;
 
-            }
-        }
-        &__Info{
-            display: flex;
-            margin-left: 10px;
-            justify-content: space-around;
-            flex-direction: column;
-            &__Name{
-                font-weight: 500;
-            }
-            &__Career{
-                font-weight: 400;
-            }
-        }
+      border-radius: 10px;
+
+      padding: 4px 13px;
+      cursor: pointer;
+      outline: none;
+      border: 3px solid $colorAccentLight;
+
+      &:hover {
+        border: 3px solid $colorAccent;
+      }
     }
-    a{
-        text-decoration: none;
+
+    &__ActiveButton {
+      background-color: $colorAccent;
+      border: 3px solid $colorAccent !important;
+      @include osText;
+      transition: 200ms all;
+    }
+    &__DisableButton {
+      background-color: $colorAccentLight;
+      @include dsText;
+      transition: 200ms all;
+    }
+    i {
+      font-size: 15px;
+      margin-left: 6px;
+    }
+  }
+  &__Title {
+    @include dxlText;
+    margin-top: 10px;
+  }
+  &__Text {
+    @include dsText;
+    margin-top: 10px;
+  }
+  &__Speakers {
+    @include dlText;
+    margin-top: 15px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
         display: flex;
-        justify-content: center;
-        button{
-        margin: 0 auto;
-        background-color: $colorAccent;
-        border-radius: 10px;
-        color: white;
-        font-size: 14px;
-        padding: 7px 30px;
-        border: none;
-        cursor: pointer;
-        outline: none;
-        }
-}
+        margin-bottom: 10px;
+      }
+    }
+    &__Info {
+      display: flex;
+      margin-left: 10px;
+      justify-content: space-around;
+      flex-direction: column;
+      &__Name {
+        font-weight: 500;
+      }
+      &__Career {
+        font-weight: 400;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    button {
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+
+      padding: 4px 30px;
+      border: 3px solid $colorAccent;
+      cursor: pointer;
+      outline: none;
+      transition: 200ms all;
+
+      @include dlText;
+      &:hover {
+        background: $colorAccent;
+        @include olText;
+        transition: 200ms all;
+      }
+    }
+  }
 }

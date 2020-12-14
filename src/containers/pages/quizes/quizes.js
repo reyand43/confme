@@ -1,12 +1,11 @@
 import React from "react";
 import classes from "./quizes.module.scss";
 import { connect } from "react-redux";
-import QuizList from './QuizList/QuizList'
-import QuizCreator from './QuizCreator/QuizCreator'
+import QuizList from "./QuizList/QuizList";
+import QuizCreator from "./QuizCreator/QuizCreator";
 import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Loader } from "../../../components/UI/Loader/Loader";
-
 
 class Quizes extends React.Component {
   state = {
@@ -14,14 +13,14 @@ class Quizes extends React.Component {
       list: {
         title: "Список опросов",
         active: true,
-        card: <QuizList/>,
+        card: <QuizList />,
       },
       creator: {
         title: "Создать опрос",
         active: false,
-        card: <QuizCreator/>,
-      }
-    }
+        card: <QuizCreator />,
+      },
+    },
   };
 
   selectSectionMenu(sectionName) {
@@ -56,36 +55,35 @@ class Quizes extends React.Component {
   }
 
   renderCard() {
-    return Object.keys(this.state.choosedSection).map((sectionName) => {
-
+    return Object.keys(this.state.choosedSection).map((sectionName, index) => {
       const section = this.state.choosedSection[sectionName];
 
-      if (section.active === true) return <>{section.card}</>;
+      if (section.active === true) return <div key={index}>{section.card}</div>;
     });
   }
 
   render() {
     return (
       <>
-      {this.props.userDataLoading ? <Loader/> :
-        <>
-          <BGMain>
-            <div className={classes.Quizes}>
-              <div className={classes.Quizes__title}>
-                  {this.renderCard()}
+        {this.props.userDataLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <BGMain>
+              <div className={classes.Quizes}>
+                <div className={classes.Quizes__title}>{this.renderCard()}</div>
               </div>
-            </div>
-          </BGMain>
-          <BGSide>
-            <div className={classes.SideMenu}>
-              <div className={classes.SideMenu__Menu}>
-                <ul>{this.renderSectionMenu()}</ul>
+            </BGMain>
+            <BGSide>
+              <div className={classes.SideMenu}>
+                <div className={classes.SideMenu__Menu}>
+                  <ul>{this.renderSectionMenu()}</ul>
+                </div>
               </div>
-            </div>
-          </BGSide>
-        </>
-      }
-     </>
+            </BGSide>
+          </>
+        )}
+      </>
     );
   }
 }
@@ -99,10 +97,7 @@ function mapStateToProps(state) {
 
     userDataLoading: state.editProfile.userDataLoading,
     userDataError: state.editProfile.userDataError,
-
   };
 }
-
-
 
 export default connect(mapStateToProps)(Quizes);

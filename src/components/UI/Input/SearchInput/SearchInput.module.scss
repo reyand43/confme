@@ -20,12 +20,12 @@
     background: #FFFFFF;
     border-radius: 5px;
     display: flex;
-    font-size: 16px;
+    @include dsText;
     margin: 0 7px;
 
+
     &::placeholder {
-      font-size: 16px;
-      color: $colorGreyFirst;
+      @include lsText;
       margin-top: 5px;
       
     }

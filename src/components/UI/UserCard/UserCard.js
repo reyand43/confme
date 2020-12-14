@@ -81,14 +81,14 @@ export function UserCard(props) {
              text2 = {props.user.Position}
              link = {props.user.CompanyName}/>} */}
 
-              {props.user.WorkPlace && (
+              {/* {props.user.WorkPlace && (
                 <DownBox
                   title="Интересы"
                   look={props.user.Look}
                   suggest={props.user.Suggest}
                   hobby={props.user.Hobby}
                 />
-              )}
+              )} */}
             </>
           )}
           {props.children}

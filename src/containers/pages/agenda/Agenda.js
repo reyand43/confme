@@ -26,39 +26,44 @@ class Agenda extends React.Component {
     };
     this.getNextDate = this.getNextDate.bind(this);
     this.getPrevDate = this.getPrevDate.bind(this);
+    this.timelineRef = React.createRef();
   }
 
   componentDidMount() {
     let userId = localStorage.getItem("userId");
     this.props.fetchAgendaEvents(userId);
+    this.scrollToBottom();
   }
 
-  renderEvents() {
-    console.log(this.props.agendaEvents);
+  scrollToBottom = () => {
+    if(!!document.getElementById("line"))
+    this.timelineRef.scrollIntoView({ block: "start", behavior: "auto" });
+  };
 
+  renderEvents() {
     return this.props.agendaEvents.map((event, index) => {
       const d = new Date(event.startTime);
       const startTime = (d.getHours() - 8) * 60 + d.getMinutes();
-      console.log(event, '|||',  Math.floor((event.endTime - event.startTime) / 1000 / 60));
+
       if (d.getDate() === newDate.getDate())
-      
-      return (
-        <AgendaEvent
-          key={index}
-          timeStart={this.formatTime(event.startTime)}
-          timeEnd={this.formatTime(event.endTime)}
-          theme={event.title}
-          height={Math.floor((event.endTime - event.startTime) / 1000 / 60)}
-          top={startTime}
-          duration={"2 часа"}
-        />
-      );
+        return (
+          <AgendaEvent
+            key={index}
+            timeStart={this.formatTime(event.startTime)}
+            timeEnd={this.formatTime(event.endTime)}
+            theme={event.title}
+            height={Math.floor((event.endTime - event.startTime) / 1000 / 60)}
+            top={startTime + 15}
+            eventId={event.id}
+          />
+        );
     });
   }
 
   formatTime(timestamp) {
     const d = new Date(timestamp);
-    const time = `${d.getHours()}:${d.getMinutes()}`;
+    const time =
+      ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
     return time;
   }
 
@@ -134,32 +139,50 @@ class Agenda extends React.Component {
   render() {
     let DateChanger = (
       <div className={classes.Agenda__DateChanger}>
-
-
-              <i  onClick={this.getPrevDate} className="fa fa-chevron-left" aria-hidden="true" />
-            <div className={classes.img}>
-              <i className="fa fa-calendar" aria-hidden="true"></i>
-            </div>
-            <div className={classes.date}>{this.state.showingDate}</div>
-
-              <i onClick={this.getNextDate} className="fa fa-chevron-right" aria-hidden="true" />
-
+        <i
+          onClick={this.getPrevDate}
+          className="fa fa-chevron-left"
+          aria-hidden="true"
+        />
+        <div className={classes.img}>
+          <i className="fa fa-calendar" aria-hidden="true"></i>
         </div>
+        <div className={classes.date}>{this.state.showingDate}</div>
 
+        <i
+          onClick={this.getNextDate}
+          className="fa fa-chevron-right"
+          aria-hidden="true"
+        />
+      </div>
     );
+    var now = new Date();
+    const offset = (now.getHours() - 8) * 60 + now.getMinutes() - 9;
+    let opacity
+    if (now.getDate() === newDate.getDate()){
+      opacity=100
+    }
+    else opacity=0
     return (
-
-        <BGMain>
-          <div className={classes.Agenda}>
+      <BGMain>
+        <div className={classes.Agenda}>
           {DateChanger}
 
-          <ScrollBar>
+          <WholeTimetable>
+            {now.getDate() === newDate.getDate() && (
+              <hr
+              id="line"
+                ref={(timeline) => {
+                  this.timelineRef = timeline;
+                }}
+                className={classes.Agenda__ExactTimeline}
+                style={{ top: `${offset}px`, opacity: {opacity}}}
+              />
+            )}
             {this.props.agendaEventsLoading ? <Loader /> : this.renderEvents()}
-            <WholeTimetable />
-          </ScrollBar>
-          </div>
-        </BGMain>
-
+          </WholeTimetable>
+        </div>
+      </BGMain>
     );
   }
 }

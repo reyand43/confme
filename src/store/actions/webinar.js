@@ -3,6 +3,9 @@ import {
   FETCH_WEBINAR_MESSAGES_ERROR,
   FETCH_WEBINAR_MESSAGES_START,
   FETCH_WEBINAR_MESSAGES_SUCCESS,
+  FETCH_WEBINAR_INFO_ERROR,
+  FETCH_WEBINAR_INFO_START,
+  FETCH_WEBINAR_INFO_SUCCESS,
   SEND_WEBINAR_MESSAGE_ERROR,
   SEND_WEBINAR_MESSAGE_START,
   SEND_WEBINAR_MESSAGE_SUCCESS,
@@ -20,7 +23,6 @@ export function fetchWebinarMessages(webinarId) {
           snapshot.forEach((snap) => {
             messages.push(snap.val());
           });
-          console.log('messages', messages)
           dispatch(fetchWebinarMessagesSuccess(messages));
         }
       );
@@ -31,7 +33,6 @@ export function fetchWebinarMessages(webinarId) {
 }
 
 export function fetchWebinarMessagesSuccess(messages) {
-  console.log("success fetching", messages);
   return {
     type: FETCH_WEBINAR_MESSAGES_SUCCESS,
     messages,
@@ -54,20 +55,17 @@ export function fetchWebinarMessagesError(e) {
 export function sendWebinarMessage(userId, content, name, surname, webinarId) {
   //загрузка сообщений
   return async (dispatch) => {
-    
     dispatch(sendWebinarMessageStart());
     try {
-       
       await db.ref("timetable/" + webinarId + "/messages/").push({
         UserId: userId,
-      Content: content,
-      Timestamp: Date.now(),
-      Name: name,
-      Surname: surname,
+        Content: content,
+        Timestamp: Date.now(),
+        Name: name,
+        Surname: surname,
       });
       dispatch(sendWebinarMessageSuccess());
     } catch (e) {
-      console.log(e);
       dispatch(sendWebinarMessageError(e));
     }
   };
@@ -88,6 +86,41 @@ export function sendWebinarMessageStart() {
 export function sendWebinarMessageError(e) {
   return {
     type: SEND_WEBINAR_MESSAGE_ERROR,
+    error: e,
+  };
+}
+
+export function fetchWebinarInfo(webinarId) {
+  //загрузка сообщений
+  return async (dispatch) => {
+    dispatch(fetchWebinarInfoStart());
+    try {
+      db.ref("timetable/" + webinarId).on("value", (snapshot) => {
+        const webinarInfo = snapshot.val();
+        dispatch(fetchWebinarInfoSuccess(webinarInfo));
+      });
+    } catch (e) {
+      dispatch(fetchWebinarInfoError(e));
+    }
+  };
+}
+
+export function fetchWebinarInfoSuccess(webinarInfo) {
+  return {
+    type: FETCH_WEBINAR_INFO_SUCCESS,
+    webinarInfo,
+  };
+}
+
+export function fetchWebinarInfoStart() {
+  return {
+    type: FETCH_WEBINAR_INFO_START,
+  };
+}
+
+export function fetchWebinarInfoError(e) {
+  return {
+    type: FETCH_WEBINAR_INFO_ERROR,
     error: e,
   };
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import classes from './MyMessage.module.scss'
+import PropTypes from 'prop-types'
 
 
 const MyMessage = (props) => {
@@ -25,5 +26,7 @@ const MyMessage = (props) => {
     
     )
 }
+
+
 
 export default MyMessage

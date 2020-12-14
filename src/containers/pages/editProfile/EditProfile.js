@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./EditProfile.module.scss";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 
 import { UserPhoto } from "../../../components/UI/UserPhoto/UserPhoto";
 import MainInfo from "./MainInfo/MainInfo";
@@ -11,14 +11,13 @@ import { BGMain } from "../../../components/UI/BGMain/BGMain";
 import { BGSide } from "../../../components/UI/BGSide/BGSide";
 import { Loader } from "../../../components/UI/Loader/Loader";
 
-
-class EditProfile extends React.Component {
+export class EditProfile extends React.Component {
   state = {
     choosedSection: {
       main: {
         title: "Основное",
         active: true,
-        card: <MainInfo/>,
+        card: <MainInfo />,
       },
       contacts: {
         title: "Контакты",
@@ -70,49 +69,51 @@ class EditProfile extends React.Component {
   }
 
   renderCard() {
-    return Object.keys(this.state.choosedSection).map((sectionName) => {
-      
+    return Object.keys(this.state.choosedSection).map((sectionName, index) => {
       const section = this.state.choosedSection[sectionName];
-      
-      if (section.active === true) return <>{section.card}</>;
+
+      if (section.active === true) return <div key={index}>{section.card}</div>;
     });
   }
 
   render() {
     return (
       <>
-      {this.props.userDataLoading ? <Loader/> :  <>
-        <BGMain>
-          <div className={classes.EditProfile}>
-            <div className={classes.EditProfile__Card}>
-              <div className={classes.EditProfile__Card__Title}>
-                {this.renderCard()}
-              </div>
-            </div>
-          </div>
-        </BGMain>
-        <BGSide padding={true}>
-          <div className={classes.SideMenu}>
-            <div className={classes.SideMenu__UserInfo}>
-              <UserPhoto size="lg">
-                <div className={classes.SideMenu__UserInfo__ShadePhoto}>
-                  <i className="fa fa-camera" aria-hidden="true"></i>
+        {this.props.userDataLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <BGMain>
+              <div className={classes.EditProfile}>
+                <div className={classes.EditProfile__Card}>
+                  <div className={classes.EditProfile__Card__Title}>
+                    {this.renderCard()}
+                  </div>
                 </div>
-              </UserPhoto>
-
-              <div className={classes.SideMenu__UserInfo__Name}>
-                <span>{this.props.userData.Name}</span>
-                <span>{this.props.userData.Surname}</span>
               </div>
-            </div>
-            <div className={classes.SideMenu__Menu}>
-              <ul>{this.renderSectionMenu()}</ul>
-            </div>
-          </div>
-        </BGSide>
+            </BGMain>
+            <BGSide padding={true}>
+              <div className={classes.SideMenu}>
+                <div className={classes.SideMenu__UserInfo}>
+                  <UserPhoto size="lg">
+                    <div className={classes.SideMenu__UserInfo__ShadePhoto}>
+                      <i className="fa fa-camera" aria-hidden="true"></i>
+                    </div>
+                  </UserPhoto>
+
+                  <div className={classes.SideMenu__UserInfo__Name}>
+                    <span>{this.props.userData.Name}</span>
+                    <span>{this.props.userData.Surname}</span>
+                  </div>
+                </div>
+                <div className={classes.SideMenu__Menu}>
+                  <ul>{this.renderSectionMenu()}</ul>
+                </div>
+              </div>
+            </BGSide>
+          </>
+        )}
       </>
-}
-     </>
     );
   }
 }
@@ -121,15 +122,12 @@ function mapStateToProps(state) {
   return {
     name: state.editProfile.name,
     surname: state.editProfile.surname,
-   
+
     userData: state.editProfile.userData,
 
     userDataLoading: state.editProfile.userDataLoading,
     userDataError: state.editProfile.userDataError,
-    
   };
 }
-
-
 
 export default connect(mapStateToProps)(EditProfile);

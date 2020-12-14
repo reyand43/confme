@@ -55,6 +55,7 @@ class Navbar extends React.Component {
                 {this.props.userData.Name} &nbsp; {this.props.userData.Surname}
               </span>
               <UserPhoto />
+              
               <i className="fa fa-chevron-down" aria-hidden="true"></i>
             </div>
           </DropDown>

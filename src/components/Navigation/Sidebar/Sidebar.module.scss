@@ -39,7 +39,9 @@
           
           border-left: 6px solid $colorAccent;
           box-sizing: border-box;
+          @include olText;
           span{
+            
             white-space: nowrap;
           }
           i{

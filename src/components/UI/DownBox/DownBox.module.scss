@@ -15,13 +15,14 @@
   &__Title {
     display: flex;
     justify-content: space-between;
-    font-weight: 600;
+    @include dlText;
   }
   &__Content{
     display: flex;
     flex-direction: column;
     margin: 10px 0;
     p{
+      @include dsText;
       margin: 4px 0;
     }
   }

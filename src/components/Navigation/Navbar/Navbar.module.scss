@@ -1,10 +1,11 @@
 @import "./../../UI/vars.scss";
 
 .Navbar {
-  height: 65px;
+  height: 55px;
   width: 100%;
   z-index: 100;
   display: flex;
+  @include dsText;
   &__Logo {
     width: 280px;
     display: flex;
@@ -23,7 +24,7 @@
     flex-direction: column;
     &__UpperText {
       font-size: medium;
-      font-weight: 500;
+      @include dlText;
     }
     &__LowerText {
      
@@ -36,7 +37,7 @@
   display: flex;
   align-items: center;
   i {
-    font-size: 15px;
+    //@include dsText;
     cursor: pointer;
   }
 }
@@ -56,6 +57,7 @@
     text-align: center;
     right: 0;
     top: 0;
+
   }
 }
 
@@ -64,14 +66,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 65px;
+  height: 55px;
 }
 
 .userInfoBlock {
   display: flex;
   align-items: center;
   
-  font-size: 16px;
+  @include dlText;
   flex-grow: 1;
   &:hover {
     border-radius: 10px;
@@ -81,7 +83,7 @@
 .userInfoBlock span {
   margin: 9px 10px 9px 5px;
   white-space: pre;
-  font-weight: 500;
+  //@include dlText;
 }
 
 .userInfo a {
@@ -93,6 +95,5 @@
 .userInfoBlock i {
   padding: 15px 0px 15px 10px;
   font-size: 12px;
-
   margin-right: 5px;
 }

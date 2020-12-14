@@ -20,11 +20,13 @@ import SponsorMain from "./containers/pages/sponsorMain/SponsorMain";
 import Webinar from "./containers/pages/webinar/Webinar"
 import Quizes from "./containers/pages/quizes/quizes"
 import Quiz from './containers/pages/quizes/Quiz/Quiz'
-
+import PropTypes from 'prop-types'
+import { string } from "is_js";
 
 class App extends Component {
   componentDidMount() {
     this.props.autoLogin();
+    
   }
 
   render() {
@@ -94,5 +96,7 @@ function mapDispatchToProps(dispatch) {
 
   };
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

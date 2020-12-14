@@ -16,11 +16,11 @@
         &__MessageInfo{
             display: flex;
             flex-direction: column;
-            font-size: 14px;
             margin-left: 6px;
             justify-content: space-between;
             padding: 3px 0;
             width: 150px;
+            @include dsText;
             
             &__Name{
                 width: 150px;

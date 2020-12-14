@@ -16,7 +16,6 @@ import { Loader } from "../../../components/UI/Loader/Loader";
 import { UserCard } from "../../../components/UI/UserCard/UserCard";
 import Messages from "../messages/Messages";
 import { ScrollBar } from "../../../components/UI/ScrollBar/ScrollBar";
-import SearchInput from "../../../components/UI/Input/SearchInput/SearchInput";
 
 class DialogList extends React.Component {
   state = {
@@ -79,7 +78,7 @@ class DialogList extends React.Component {
 
  formatTime(timestamp) {
     const d = new Date(timestamp);
-    const time = `${d.getHours()}:${d.getMinutes()}`;
+    const time = ("0" + d.getUTCHours()).slice(-2) + ":" + ("0" + d.getUTCMinutes()).slice(-2);
     return time;
   }
 

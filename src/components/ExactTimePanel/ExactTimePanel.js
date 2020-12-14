@@ -4,7 +4,7 @@ import classes from './ExactTimePanel.module.scss';
 const Panel = (props) => {
 
     return(
-        <div className = {classes.Panel} style={{paddingBottom: props.panelBottom}}>
+        <div className = {classes.Panel} style={{paddingTop: props.padding}}>
           <div className={classes.Panel__Row}>
             <div className={classes.Panel__ColumnTime}  >
               <div className={classes.Panel__ColumnTime__Time} style={{borderRadius: props.timeBorder}}>

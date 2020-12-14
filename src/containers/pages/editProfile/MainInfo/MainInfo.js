@@ -6,6 +6,7 @@ import { sendUserData } from "../../../../store/actions/editProfile";
 import EditCard from "../../../../components/UI/EditCard/EditCard";
 import HorizontalInput from "../../../../components/UI/Input/HorizontalInput/HorizontalInput";
 import { Loader } from "../../../../components/UI/Loader/Loader";
+import { numberValidator, textValidator} from "../../../../helpers/validators";
 
 class MainInfo extends React.Component {
   state = {
@@ -85,8 +86,13 @@ class MainInfo extends React.Component {
     let control = { ...formControls[event.target.name] };
     control.value = event.target.value;
     control.touched = true;
-    control.valid = this.requireControl(control.value, control.isRequired);
-
+    //control.valid = this.requireControl(control.value, control.isRequired);
+    if (event.target.name==="Age"){
+      control.valid = numberValidator(control.value, control.isRequired)
+    }
+    else {
+      control.valid = textValidator(control.value, control.isRequired)
+    }
     formControls[event.target.name] = control;
     this.setState({
       formControls,
@@ -171,6 +177,10 @@ class MainInfo extends React.Component {
                 placeholder={"Ваш возраст"}
                 value={this.state.formControls.Age.value}
                 label="Возраст:"
+                valid={this.state.formControls.Age.valid}
+                shouldValidate={this.state.formControls.Age.isRequired}
+                errorMessage={"Введите корректный возраст"}
+                touched={this.state.formControls.Age.touched}
               />
               <div style={{ width: "22px" }} />
               <div className={classes.Inputs__Select}>
@@ -194,6 +204,9 @@ class MainInfo extends React.Component {
               onChange={this.onChangeHandler}
               placeholder="Введите страну"
               value={this.state.formControls.Country.value}
+              valid={this.state.formControls.Country.valid}
+              touched={this.state.formControls.Country.touched}
+              shouldValidate={this.state.formControls.Country.isRequired}
             />
             <HorizontalInput
               label="Город:"
@@ -201,6 +214,10 @@ class MainInfo extends React.Component {
               onChange={this.onChangeHandler}
               placeholder="Введите город"
               value={this.state.formControls.City.value}
+              valid={this.state.formControls.City.valid}
+              touched={this.state.formControls.City.touched}
+              shouldValidate={this.state.formControls.City.isRequired}
+              noSpan
             />
           </div>
           <div className={classes.Inputs__Button}>
